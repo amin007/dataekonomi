@@ -57,11 +57,9 @@ foreach ($this->pengguna as $namaMedan => $data ):
 		<div class="col-lg-4" align="right">
 			<span class="label label-default"><?php echo $namaMedan ?>:</span>
 		</div>
-		<div class="col-lg-5">
-			<?php echo $paparAmaran ?>
-			<select class="form-control mini" name="pilih[<?=$u?>]" <?php echo $amaranID ?> >
-			<?php echo $senaraiLevel; ?>
-			</select>
+		<div class="col-lg-5"><?php echo $paparAmaran . "\n" ?>
+			<select class="form-control mini" name="pengguna[<?php echo $namaMedan ?>]"  <?php echo $amaranID ?> >
+			<?php echo $senaraiLevel; ?></select>
 		</div>
 	<?php echo $amaran2 ?>	
 	</div>
@@ -71,8 +69,7 @@ foreach ($this->pengguna as $namaMedan => $data ):
 		<div class="col-lg-4" align="right">
 			<span class="label label-default"><?php echo $namaMedan ?>:</span>
 		</div>
-		<div class="col-lg-5">
-			<?php echo $paparAmaran ?>
+		<div class="col-lg-5"><?php echo $paparAmaran . "\n" ?>
 			<input type="text" name="pengguna[<?php echo $namaMedan ?>]" 
 			class="form-control mini" <?php echo $amaranID ?> >
 		</div>
@@ -84,10 +81,9 @@ foreach ($this->pengguna as $namaMedan => $data ):
 		<div class="col-lg-4" align="right">
 			<span class="label label-default"><?php echo $namaMedan ?>:</span>
 		</div>
-		<div class="col-lg-7">
-			<?php echo $paparAmaran ?>
+		<div class="col-lg-7"><?php echo $paparAmaran . "\n" ?>
 			<input type="text" name="pengguna[<?php echo $namaMedan ?>]" 
-			class="form-control mini" <?php echo $amaranID ?> >
+			value="<?php echo $data ?>" class="form-control mini" <?php echo $amaranID ?> >
 		</div>
 	<?php echo $amaran2 ?>	
 	</div>
@@ -97,8 +93,7 @@ foreach ($this->pengguna as $namaMedan => $data ):
 		<div class="col-lg-4" align="right">
 			<span class="label label-default"><?php echo $namaMedan ?>:</span>
 		</div>
-		<div class="col-lg-5">
-			<?php echo $paparAmaran ?>
+		<div class="col-lg-5"><?php echo $paparAmaran . "\n" ?>
 			<input type="text" name="pengguna[<?php echo $namaMedan ?>]" 
 			value="<?php echo $data ?>"	class="form-control mini" <?php echo $amaranID ?> >
 		</div>
@@ -107,7 +102,15 @@ foreach ($this->pengguna as $namaMedan => $data ):
 <?php 
 	endif;
 endforeach; ?>
-
+<div class="row show-grid">
+	<div class="col-lg-4" align="right">
+		<span class="label label-default">Hantar:</span>
+	</div>
+	<div class="col-lg-6">
+		<input type="submit" name="carian" class="btn btn-primary" value="Tambah">
+		<input type="reset"  name="kosong" class="btn" value="kosong">
+	</div>
+</div>
 </form>
 
 <!-- ################################################################################## -->

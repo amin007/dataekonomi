@@ -36,7 +36,7 @@ else
 	<div class="col-lg-6">
 <!-- ################################################################################## -->	
 		<h2>Ubah</h2>
-		<form method="post" action="<?php echo URL ?>pengguna/tambahSimpan">
+		<form method="post" action="<?php echo URL ?>pengguna/ubahSimpan">
 <?php 
 // senarai medan	
 	$medan = array('namaPegawai','kataLaluan','level',

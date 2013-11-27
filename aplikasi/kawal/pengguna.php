@@ -15,26 +15,35 @@ class Pengguna extends Kawal
 		$this->papar->baca('pengguna/index');
 	}
 	
-	public function create() 
+	public function tambahSimpan() 
 	{
 		$data = array();
 		$data['login'] = $_POST['login'];
 		$data['password'] = $_POST['password'];
 		$data['role'] = $_POST['role'];
 		
-		// @TODO: Do your error checking!
-		
-		$this->tanya->create($data);
+		$semua = array('nama_pegawai');
+		foreach ($_POST as $myTable => $value)
+		{	
+			if ( in_array($myTable,$semua) )
+			{	//echo "myTable : $myTable <br>";
+				foreach ($value as $kekunci => $papar)
+					$data[$myTable][$kekunci] = bersih($papar);
+			}
+		}
+
+		// @TODO: Do your error checking!		
+		$this->tanya->tambahSimpan($data);
 		header('location: ' . URL . 'pengguna');
 	}
 	
-	public function edit($id) 
+	public function ubah($id) 
 	{
 		$this->papar->user = $this->tanya->userSingleList($id);
 		$this->papar->baca('pengguna/edit');
 	}
 	
-	public function editSave($id)
+	public function ubahSimpan($id)
 	{
 		$data = array();
 		$data['id'] = $id;

@@ -24,6 +24,9 @@ class Pengguna_Tanya extends Tanya
             [Unit] => 
             [Tetap] => 0
             [CatatNota] => 
+			$medan = array('namaPegawai','kataLaluan','level',
+			'No_Staf','Nama_Penuh','email','nohp',
+			'Jawatan','Kod','Unit','Tetap','CatatNota');
 		*/
 		return $this->db->selectAll('SELECT no,namaPegawai,Nama_Penuh,level FROM ' . $this->_myTable);
 	}

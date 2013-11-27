@@ -15,15 +15,13 @@ $hariini = 1; //rand(0, count($theme)-1);
 $pilih = $theme[$hariini];
 
 ?><!-- Le styles -->
-<link href="<?php echo $css_url ?>theme/bootstrap<?php echo $pilih ?>.css" rel="stylesheet">
-
-<?php
+	<link href="<?php echo $css_url ?>theme/bootstrap<?php echo $pilih ?>.css" rel="stylesheet"><?php
 if (isset($this->css)) 
 {
 	foreach ($this->css as $css)
 	{
-		echo "\n"; // '<link rel="stylesheet" type="text/css" href="' . . $css . '">';
-?>		<link rel="stylesheet" href="<?php echo $css_url . $css ?>"><?php
+		echo "\n\t"; // '<link rel="stylesheet" type="text/css" href="' . . $css . '">';
+?><link rel="stylesheet" href="<?php echo $css_url . $css ?>"><?php
 	}
 }
 echo "\n";

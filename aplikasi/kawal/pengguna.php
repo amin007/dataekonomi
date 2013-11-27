@@ -62,9 +62,13 @@ class Pengguna extends Kawal
 		}
 		
 		// @TODO: Do your error checking!
-		
 		$this->tanya->ubahSimpan($data);
 		header('location: ' . URL . 'pengguna');
+	}
+	
+	public function buang()
+	{
+		$this->papar->baca('pengguna/buang');	
 	}
 	
 	public function delete($id)

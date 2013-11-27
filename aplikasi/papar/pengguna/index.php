@@ -30,12 +30,11 @@ else
 }
 ?>
 <div class="container">
-<h1>Pengguna</h1>
 
 <div class="row">
-	<div class="col-lg-6">
+	<div class="col-lg-4">
 <!-- ################################################################################## -->	
-		<h2>Daftar</h2>
+		<h2>Daftar Pengguna</h2>
 		<form method="post" action="<?php echo URL ?>pengguna/tambahSimpan">
 <?php 
 // senarai medan	
@@ -44,7 +43,7 @@ else
 	'Jawatan','Kod','Unit','Tetap','CatatNota');
 // set level
 	$level = array('level');
-	$data = array('admin','fe','pegawai','hq');
+	$data = array('fe','pegawai','hq','admin');
 	$senaraiLevel = null;
 	foreach ($data as $key => $value):
 		$senaraiLevel .= '<option>' . $value . '</option>';
@@ -57,11 +56,21 @@ foreach ($medan as $kunci => $namaMedan):
 		<div class="col-lg-4" align="right">
 			<span class="label label-default"><?php echo $namaMedan ?>:</span>
 		</div>
-		<div class="col-lg-5">
-			<?php echo $paparAmaran ?>
-			<select class="form-control mini" name="pilih[<?=$u?>]" <?php echo $amaranID ?> >
-			<?php echo $senaraiLevel; ?>
-			</select>
+		<div class="col-lg-5"><?php echo $paparAmaran . "\n" ?>
+			<select class="form-control mini" name="pengguna[level]" <?php echo $amaranID ?> >
+			<?php echo $senaraiLevel; ?></select>
+		</div>
+	<?php echo $amaran2 ?>	
+	</div>
+<?php elseif(in_array($namaMedan,array('Nama_Penuh','email'))):?>
+	<div class="row show-grid">
+	<?php echo $amaran ?>
+		<div class="col-lg-4" align="right">
+			<span class="label label-default"><?php echo $namaMedan ?>:</span>
+		</div>
+		<div class="col-lg-7"><?php echo $paparAmaran . "\n" ?>
+			<input type="text" name="pengguna[<?php echo $namaMedan ?>]" 
+			class="form-control mini" <?php echo $amaranID ?> >
 		</div>
 	<?php echo $amaran2 ?>	
 	</div>
@@ -71,21 +80,28 @@ foreach ($medan as $kunci => $namaMedan):
 		<div class="col-lg-4" align="right">
 			<span class="label label-default"><?php echo $namaMedan ?>:</span>
 		</div>
-		<div class="col-lg-5">
-			<?php echo $paparAmaran ?>
-			<input type="text" name="cari[1]" class="form-control mini" <?php echo $amaranID ?> >
+		<div class="col-lg-5"><?php echo $paparAmaran . "\n" ?>
+			<input type="text" name="pengguna[<?php echo $namaMedan ?>]" class="form-control mini" <?php echo $amaranID ?> >
 		</div>
 	<?php echo $amaran2 ?>	
 	</div>
 <?php 
 	endif;
 endforeach; ?>
-
+<div class="row show-grid">
+	<div class="col-lg-4" align="right">
+		<span class="label label-default">Hantar:</span>
+	</div>
+	<div class="col-lg-6">
+		<input type="submit" name="carian" class="btn btn-primary" value="Tambah">
+		<input type="reset"  name="kosong" class="btn" value="kosong">
+	</div>
+</div>
 </form>
 
 <!-- ################################################################################## -->
 	</div>
-	<div class="col-lg-6">
+	<div class="col-lg-8">
 <!-- ################################################################################## -->
 <?php 
 //echo '' . print_r($this->senarai) . ''; 
@@ -94,7 +110,7 @@ foreach ($this->senarai as $myTable => $row)
 	if ( count($row)==0 ) { echo ''; }
 	else
 	{?>	
-	<h2>Papar <span class="badge"><?php echo count($row)?></span> baris</h2>
+	<h2>Papar Pengguna <span class="badge"><?php echo count($row)?></span> baris</h2>
 	<!-- Jadual <?php echo $myTable ?> ########################################### -->	
 	<table  border="1" class="excel" id="example">
 	<?php
@@ -136,17 +152,32 @@ foreach ($this->senarai as $myTable => $row)
 			{
 				$id= $data;
 				$p = array(
-				'ubah' => URL . 'pengguna/ubah/' . $id,
-				'buang' => URL . 'pengguna/buang/' . $id,
+				'ubah' => array(
+					'href' => URL . 'pengguna/ubah/' . $id,
+					'class' => 'btn btn-info btn-mini',
+					'id' => ' data-toggle="modal" rel="tooltip" title="Ubah"',
+					),
+				'buang' => array(
+					'href' => URL . 'pengguna/buang/' . $id,
+					'class' => 'btn btn-danger msgbox-confirm',
+					'id' => ' onclick="if(!confirm('
+						. "'Pasti mahu buang data ini?'"
+						. '))return false" title="Buang"',
+					)
 				);
-
-				?><td><?php foreach ( $p AS $papar2=>$data2 ) :
-				?><a target="_blank" href="<?php echo $data2 
-				?>" class="btn btn-info btn-mini"><?php echo $papar2 ?></a><?php
-				endforeach; ?></td><?php
+				
+				// bentuk link
+				$link = null;
+				foreach ( $p AS $p2 => $d2 ) :
+					$link .= '<a target="_blank" href="' . $p[$p2]['href']
+						  . '" class="' . $p[$p2]['class'] . '" '
+						  . $p[$p2]['id'] . '>' . $p2 . '</a>' . "\n\t";
+				endforeach; 
+				
+				// papar link
+				?><td><?php echo $link ?></td><?php
+				
 			}
-			else
-				{}
 			?><td><?php echo $data ?></td>
 	<?php
 		} 
@@ -165,13 +196,23 @@ foreach ($this->senarai as $myTable => $row)
 <!-- ################################################################################## -->
 	</div>
 </div>
-
-
-
-<hr />
-<?php
- ?>
-<!-- <pre></pre> -->
-
-
 </div><!--container-->
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Buang Data</h4>
+      </div>
+      <div class="modal-body">
+      Mahu Buang?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>
+        <button type="button" class="btn btn-primary">Ya</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

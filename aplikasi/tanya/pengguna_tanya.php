@@ -10,7 +10,22 @@ class Pengguna_Tanya extends Tanya
 
 	public function senaraiPengguna()
 	{
-		return $this->db->select('SELECT * FROM ' . $this->_myTable);
+		/*	nama medan dalam $this->_myTable = nama_pegawai
+			[no] => 1
+            [namaPegawai] => admin
+            [kataLaluan] => ****
+            [level] => admin
+            [No_Staf] => 
+            [Nama_Penuh] => Admin
+            [email] => 
+            [nohp] => 
+            [Jawatan] => 
+            [Kod] => 
+            [Unit] => 
+            [Tetap] => 0
+            [CatatNota] => 
+		*/
+		return $this->db->selectAll('SELECT no,namaPegawai,Nama_Penuh,level FROM ' . $this->_myTable);
 	}
 	
 	public function userSingleList($id)

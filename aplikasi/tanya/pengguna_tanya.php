@@ -5,16 +5,17 @@ class Pengguna_Tanya extends Tanya
 	public function __construct()
 	{
 		parent::__construct();
+		$this->_myTable = 'nama_pegawai';
 	}
 
 	public function senaraiPengguna()
 	{
-		return $this->db->select('SELECT id, login, role FROM users');
+		return $this->db->select('SELECT * FROM ' . $this->_myTable);
 	}
 	
 	public function userSingleList($id)
 	{
-		return $this->db->select('SELECT id, login, role FROM users WHERE id = :id', array(':id' => $id));
+		return $this->db->select('SELECT no, login, role FROM users WHERE id = :id', array(':id' => $id));
 	}
 	
 	public function create($data)

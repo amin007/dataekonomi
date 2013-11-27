@@ -12,18 +12,9 @@ class Pengguna_Tanya extends Tanya
 	{
 		/*	nama medan dalam $this->_myTable = nama_pegawai
 			[no] => 1
-            [namaPegawai] => admin
-            [kataLaluan] => ****
-            [level] => admin
-            [No_Staf] => 
-            [Nama_Penuh] => Admin
-            [email] => 
-            [nohp] => 
-            [Jawatan] => 
-            [Kod] => 
-            [Unit] => 
-            [Tetap] => 0
-            [CatatNota] => 
+            [namaPegawai] => admin | [kataLaluan] => **** | [level] => admin
+            [No_Staf] => | [Nama_Penuh] => Admin | [email] => | [nohp] => 
+            [Jawatan] => | [Kod] => | [Unit] => | [Tetap] => 0 | [CatatNota] => 
 			$medan = array('namaPegawai','kataLaluan','level',
 			'No_Staf','Nama_Penuh','email','nohp',
 			'Jawatan','Kod','Unit','Tetap','CatatNota');
@@ -31,9 +22,14 @@ class Pengguna_Tanya extends Tanya
 		return $this->db->selectAll('SELECT no,namaPegawai,Nama_Penuh,level FROM ' . $this->_myTable);
 	}
 	
-	public function userSingleList($id)
+	public function seorangPengguna($cari,$id)
 	{
-		return $this->db->select('SELECT no, login, role FROM users WHERE id = :id', array(':id' => $id));
+		$medan = 'no,namaPegawai,kataLaluan,level,'
+			   . 'No_Staf,Nama_Penuh,email,nohp,'
+			   . 'Jawatan,Kod,Unit,Tetap,CatatNota';
+		return $this->db->select('SELECT ' . $medan 
+			. ' FROM ' . $this->_myTable 
+			. ' WHERE ' . $cari . ' = "' . $id . '"');
 	}
 	
 	public function create($data)

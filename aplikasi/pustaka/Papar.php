@@ -31,18 +31,20 @@ class Papar
 		//echo '<br>1.Anda berada di class Papar::' . $nama . '()<br>';
 		
 		$namafail = explode('/', $nama);
-        $failPapar = GetMatchingFiles(GetContents(PAPAR),$namafail[1] . '.php');
+        $failPapar = GetMatchingFiles(
+			GetContents(PAPAR . '/' . $namafail[0]),
+			$namafail[1] . '.php');
 		$paparFail = $failPapar[0];
-		
+		/*
         echo '<hr size=2>PAPAR=' . PAPAR . '<br>';
-        //echo 'namafail='; print_r($namafail) . '<br>';
-        //echo '$failPapar='; print_r($failPapar) . '<br>';
-        echo '$paparFail->' . $paparFail . '<br>';
-
-
+        echo '$namafail=<pre>'; print_r($namafail) . '</pre><br>';
+        echo '$failPapar=<pre>'; print_r($failPapar) . '</pre><br>';
+		echo '$paparFail->' . $paparFail . '<br>';
+		//*/
+		
 		$cariNama = array ('index/index', 'index/login',
 		'index/login_automatik','index/daftar','index/muar');
-			
+
 		if ($noInclude == true) 
 		{
 			require $paparFail;

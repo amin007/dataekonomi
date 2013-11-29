@@ -31,7 +31,7 @@ class Mulakan
         $failKawal = GetMatchingFiles(GetContents(KAWAL),$url[0] . '.php');
 		$fail = $failKawal[0];
         //echo '<hr>KAWAL=' . KAWAL . '<br>';
-        echo '<hr>$failKawal->' . $fail . '<br>';
+        //echo '<hr>$failKawal->' . $fail . '<br>';
          
         /*
          * 4. semak sama ada dalam folder KAWAL $fail benar2 wujud

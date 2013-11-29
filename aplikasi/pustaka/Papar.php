@@ -29,28 +29,39 @@ class Papar
 	public function baca($nama, $noInclude = false)
 	{
 		//echo '<br>1.Anda berada di class Papar::' . $nama . '()<br>';
+		
+		$namafail = explode('/', $nama);
+        $failPapar = GetMatchingFiles(GetContents(PAPAR),$namafail[1] . '.php');
+		$paparFail = $failPapar[0];
+		
+        echo '<hr size=2>PAPAR=' . PAPAR . '<br>';
+        //echo 'namafail='; print_r($namafail) . '<br>';
+        //echo '$failPapar='; print_r($failPapar) . '<br>';
+        echo '$paparFail->' . $paparFail . '<br>';
+
 
 		$cariNama = array ('index/index', 'index/login',
 		'index/login_automatik','index/daftar','index/muar');
 			
 		if ($noInclude == true) 
 		{
-			require PAPAR . $nama . '.php';	
+			require $paparFail;
 		}
 		else 
 		{
 			if( in_array($nama,$cariNama) )
-				require PAPAR . $nama . '.php';	
+				require $paparFail;	
 			elseif ( $nama == 'semak')
-				require PAPAR . $nama . '.php';	
+				require $paparFail;	
 			else
 			{				
-				require PAPAR . 'diatas.php';
-				require PAPAR . 'menu_atas.php';
-				require PAPAR . $nama . '.php';
-				require PAPAR . 'dibawah.php';	
+				require PAPAR . '/diatas.php';
+				require PAPAR . '/menu_atas.php';
+				require $paparFail;
+				require PAPAR . '/dibawah.php';	
 			}
 		}
+//*/		
 	}
 
 }

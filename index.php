@@ -25,7 +25,7 @@ function __autoload($class)
 	//echo '$class=' .$class . '<hr>';
 	$cariFail = GetMatchingFiles(GetContents('aplikasi'),$class . '.php');
 	//echo '<pre>$cariFail='; print_r($cariFail) . '</pre>';
-	echo $cariFail[0] . '<br>';
+	//echo '$failPustaka->' . $cariFail[0] . '<br>';
 	require $cariFail[0];
 }
 

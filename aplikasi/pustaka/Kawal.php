@@ -15,11 +15,11 @@ class Kawal
         $failTanya = GetMatchingFiles(GetContents(TANYA),$nama . '_tanya.php');
 		$path = $failTanya[0];
 		//$path = TANYA . $nama . '_tanya.php';
-		echo '<br> class Kawal :: $nama : ' . $nama . '|';
-		echo 'TANYA->' . TANYA . '|';
+		//echo '<br> class Kawal :: $nama : ' . $nama . '|';
+		//echo 'TANYA->' . TANYA . '|';
 		//echo 'senarai fail -><pre>'; print_r(GetContents(TANYA)) . '</pre>|';
 		//echo '$failTanya->'; print_r($failTanya) . '|';
-		echo '$path->' . $path . '<br>';
+		//echo '$path->' . $path . '<br>';
 		//$tanyaNAMA = ucfirst($nama) . '_Tanya';
 		//echo '<br>$tanyaNAMA->' . $tanyaNAMA . '<br>';
 		

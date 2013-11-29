@@ -23,7 +23,10 @@ require 'tatarajah.php';
 function __autoload($class)
 {
 	//echo '$class=' .$class . '<hr>';
-    require PUSTAKA . $class . '.php';
+	$cariFail = GetMatchingFiles(GetContents('aplikasi'),$class . '.php');
+	//echo '<pre>$cariFail='; print_r($cariFail) . '</pre>';
+	echo $cariFail[0] . '<br>';
+	require $cariFail[0];
 }
 
 // 5. istihar class Mulakan

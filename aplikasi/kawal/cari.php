@@ -117,7 +117,9 @@ class Cari extends Kawal
 			$mesej = 'tak isi atau-dan pada carian';
 			$lokasi = ($namajadual=='johor') ? 'lokaliti/' : 'semua/';
 		}
-		elseif ( empty($semak) || empty($semak2) ) 
+		elseif ( (empty($semak) 
+			|| ( empty($semak2) && $namajadual=='johor') ) 
+			) 
 		{
 			$mesej = 'tak isi pada carian';
 			$lokasi = ($namajadual=='johor') ? 'lokaliti/' : 'semua/';

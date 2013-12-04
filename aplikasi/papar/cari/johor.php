@@ -1,4 +1,4 @@
-<pre class="alert alert-dismissable alert-info">
+<div class="alert alert-dismissable alert-info">
 <h1>Senarai Localiti Johor</h1>Anda mencari<?php 
 //echo '<br>$this->carian:'; print_r($this->carian);
 //echo '<br>$this->cariNama:'; print_r($this->cariNama);
@@ -8,7 +8,7 @@ foreach ($this->carian as $kunci => $nilai)
 	$cari .= ( count($nilai)==0 ) ?
 	$nilai : $nilai . ' | </font>';
 }
-echo "$cari\rJadual\r";
+echo "$cari\r<br>Jadual<br>";
 //echo "\r" . '$this->cariNama:'; print_r($this->cariNama);
 foreach ($this->cariNama as $key => $value)
 {
@@ -16,7 +16,7 @@ foreach ($this->cariNama as $key => $value)
 	: $key . ' Ada <span class="badge">' . count($value) . '</span><br>';
 }
 ?>
-</pre>
+</div>
 
 <?php
 //$papar = 'bawah';

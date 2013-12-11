@@ -120,8 +120,9 @@ foreach ($this->cariNama as $myTable => $row)
 	<div class="tab-pane" id="<?php echo $myTable ?>">
 	<p>Anda berada di <?php echo $myTable ?>.</p>
 <!-- Jadual <?php echo $myTable ?> ########################################### -->	
-<table  border="1" class="excel" id="example">
+<table class="table table-bordered table-hover">
 <?php
+// <table border="1" class="excel" id="example">
 // mula bina jadual
 $printed_headers = false; 
 #-----------------------------------------------------------------
@@ -152,22 +153,11 @@ for ($kira=0; $kira < count($row); $kira++)
 	} 
 #-----------------------------------------------------------------		 
 	//print the data row 
-	?><tbody><tr>
+	?><tbody><tr<?php echo ($kira % 2==0) ? ' class="success"' : ' class="warning"' ?>>
 <td><?php echo $kira+1 ?></td>	
 <?php
 	foreach ( $row[$kira] as $key=>$data ) 
 	{		
-		if ($key=='sidap')
-		{
-			$sidap= $data;
-			$ssm = substr($data,0,12); 
-		}
-		elseif ($key=='nama')
-		{
-			$syarikat = $data;
-		}
-		else
-			{}
 		?><td><?php echo $data ?></td>
 <?php
 	} 

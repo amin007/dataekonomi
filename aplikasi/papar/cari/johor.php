@@ -127,41 +127,29 @@ foreach ($this->cariNama as $myTable => $row)
 $printed_headers = false; 
 #-----------------------------------------------------------------
 for ($kira=0; $kira < count($row); $kira++)
-{
-	//print the headers once: 	
+{	//print the headers once: 	
 	if ( !$printed_headers ) 
-	{
-		?><thead><tr>
+	{	?><thead><tr>
 <th>#</th>
-<?php
-		foreach ( array_keys($row[$kira]) as $tajuk ) 
-		{ 
-			// anda mempunyai kunci integer serta kunci rentetan
+<?php	foreach ( array_keys($row[$kira]) as $tajuk ) 
+		{ 	// anda mempunyai kunci integer serta kunci rentetan
 			// kerana cara PHP mengendalikan tatasusunan.
 			if ( !is_int($tajuk) ) 
 			{ 
-				$paparTajuk = ($tajuk=='nama') ?
+				?><th><?php echo (($tajuk=='nama') ?
 				$tajuk . ' (jadual:' . $myTable . ')'
-				: $tajuk; 
-				?><th><?php echo $paparTajuk ?></th>
+				: $tajuk) ?></th>
 <?php		} 
-		}
-
-?></tr></thead>
-<?php
-		$printed_headers = true; 
+		}?></tr></thead>
+<?php	$printed_headers = true; 
 	} 
 #-----------------------------------------------------------------		 
 	//print the data row 
 	?><tbody><tr<?php echo ($kira % 2==0) ? ' class="success"' : ' class="warning"' ?>>
 <td><?php echo $kira+1 ?></td>	
-<?php
-	foreach ( $row[$kira] as $key=>$data ) 
-	{		
-		?><td><?php echo $data ?></td>
-<?php
-	} 
-	?></tr></tbody>
+<?php foreach ( $row[$kira] as $key=>$data ) :
+	?><td><?php echo $data ?></td>
+<?php endforeach; ?></tr></tbody>
 <?php
 }
 #-----------------------------------------------------------------

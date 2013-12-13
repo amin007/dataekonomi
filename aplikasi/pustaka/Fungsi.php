@@ -1182,7 +1182,6 @@ function GetMatchingFiles($files, $search)
 	}
 	
 	return $matches;
-	//return $matches;
 }
 
 // Returns all Files contained in given dir, including subdirs

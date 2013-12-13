@@ -12,11 +12,10 @@ class Cari extends Kawal
 	public function index() 
 	{	
 		//echo '<br>public function index() class Cari extends Kawal ';
-		$this->papar->medan = $this->tanya->paparMedan('a_negeri');
+		$this->papar->medan = null;
 		// Set pemboleubah utama
 		//$this->papar->pegawai = senarai_kakitangan();
-		$this->papar->Tajuk_Muka_Surat='SEMAK LOKALITI';
-		$this->papar->gambar=gambar_latarbelakang('../../');
+		$this->papar->url = dpt_url();
 
 		// pergi papar kandungan
 		$this->papar->baca('cari/index');

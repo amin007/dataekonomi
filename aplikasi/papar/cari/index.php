@@ -1,4 +1,9 @@
 <?php
+if ($this->medan == null) :	?><div class="alert alert-danger fade in">
+Nota:<br>
+Sesat daa ini.
+</div><?php
+else:
 # semak url
 //echo '$this->url:'; print_r($this->url);
 $url = $this->url;
@@ -169,3 +174,5 @@ for ( $u = 2 ; $u <= $ulang ; $u++ )
 </div>
 </form>
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<?php
+endif;

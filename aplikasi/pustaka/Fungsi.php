@@ -935,7 +935,7 @@ function papar_jadual($row, $myTable, $pilih)
 		<table border="1" class="excel" id="example">
 		<tbody><?php foreach ( $row[$kira] as $key=>$data ):?>
 		<tr>
-		<td><span class="label"><?php echo $key ?></span></td>
+		<td><?php echo $key ?></td>
 		<td><?php echo $data ?></td>
 		</tr>
 		<?php endforeach; ?></tbody>

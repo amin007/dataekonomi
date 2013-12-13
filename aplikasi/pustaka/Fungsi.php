@@ -967,7 +967,7 @@ function papar_jadual($row, $myTable, $pilih)
 		{
 			//print the headers once: 	
 			if ( !$printed_headers ) 
-			{##=============================================================
+			{##============================================================
 			$output .= "\r\t<thead><tr>\r\t<th>#</th>";
 			foreach ( array_keys($row[$kira]) as $tajuk ) :
 				$output .= "\r\t" . '<th>' . $tajuk . '</th>';

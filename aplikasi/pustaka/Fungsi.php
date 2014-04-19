@@ -49,22 +49,23 @@ function dpt_ip()
 
 function dpt_senarai($namajadual)
 {
+	$e = 'pom_dataekonomi.';
 	if ($namajadual=='msiclama')
-		$jadual = array('msic08','msic2008',
-		'msic_v1','msic_bandingan',
-		'msic','msic_nota_kaki');
+		$jadual = array($e.'msic08',$e.'msic2008',
+		$e.'msic_v1',$e.'msic_bandingan',
+		$e.'msic',$e.'msic_nota_kaki');
 	elseif ($namajadual=='msicbaru')
-		$jadual = array('msic2008','msic2008_asas',
-		'msic_v1','msic_bandingan',
-		'msic2000','msic2000_notakaki');
+		$jadual = array($e.'msic2008',$e.'msic2008_asas',
+		$e.'msic_v1',$e.'msic_bandingan',
+		$e.'msic2000',$e.'msic2000_notakaki');
 	elseif ($namajadual=='produk')
-		$jadual = array('kodproduk_aup',
-		'kodproduk_mei2011',
-		'kod2010_input',
-		'kod2010_output',
-		'mcpa2008_tr2010',
-		'mcpa2009_tr2013',
-		'mcpa2009_input',
+		$jadual = array($e.'kodproduk_aup',
+		$e.'kodproduk_mei2011',
+		$e.'kod2010_input',
+		$e.'kod2010_output',
+		$e.'mcpa2008_tr2010',
+		$e.'mcpa2009_tr2013',
+		$e.'mcpa2009_input',
 		/*'kodproduk_unitkuantiti'*/);
 	elseif ($namajadual=='syarikat')
 	{
@@ -86,20 +87,20 @@ function dpt_senarai($namajadual)
 	}
 	elseif ($namajadual=='prosesan')
 	{
-        $jadual = array('tblprofpert',
-        'tblprofpert_2009',
-        'tblprofpert_2010');
+        $jadual = array($e.'tblprofpert',
+        $e.'tblprofpert_2009',
+        $e.'tblprofpert_2010');
 	}
 	elseif ($namajadual=='data_prosesan')
-        $jadual = array('tblemp',
-		'tblframe',
-		'tblmisc',
-		'tblorder',
-		'tblprodsale',
-		'tblprofpert',
-		'tblstock');
+        $jadual = array($e.'tblemp',
+		$e.'tblframe',
+		$e.'tblmisc',
+		$e.'tblorder',
+		$e.'tblprodsale',
+		$e.'tblprofpert',
+		$e.'tblstock');
 	elseif ($namajadual=='johor')
-		$jadual = array('johor');
+		$jadual = array('pom_lokaliti.johor');
 	
 	return $jadual;
 }

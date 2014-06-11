@@ -97,7 +97,7 @@ class Cari extends Kawal
 		 */
 		 
 		$had = '0, ' . $bil; // setkan $had untuk sql
-		$kira = pecah_post($_POST); # echo '<pre>$kira->'; print_r($kira); echo '</pre>';
+		$kira = pecah_post($_POST); #echo '<pre>$kira->'; print_r($kira); echo '</pre>';
 		// setkan pembolehubah dulu
 		$namajadual = isset($_POST['namajadual']) ? $_POST['namajadual'] : null;
 		$susun = isset($_POST['susun']) ? $_POST['susun'] : 1;

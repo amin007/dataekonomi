@@ -24,6 +24,7 @@ $nav = 'data-toggle="dropdown" class="dropdown-toggle active"';
 		<li><a href="<?php echo URL ?>cari/prosesan/data_mm_prosesan">BTS</a></li>
 		</ul>
 	</li>
+	<li><a href="<?php echo 'http://' . $_SERVER['SERVER_NAME'] ?>/private_html">E-Survey POM</a></li>
 	<?php else: ?>
 	<li class="dropdown"><a href="<?php echo URL ?>index">Index</a></li>
 	<?php endif; ?>

@@ -62,6 +62,8 @@ $filter = '<span class="glyphicon glyphicon-filter"></span>';
 		<li><a href="<?php echo URL ?>cari/prosesan/bts">BTS</a></li>
 		</ul>
 	</li>
+	<li><a href="<?php echo 'http://' . $_SERVER['SERVER_NAME'] ?>/private_html">
+		<span class="glyphicon glyphicon-stats"></span>E-Survey POM</a></li>
 	<?php else: ?>
 	<li class="dropdown"><a href="<?php echo URL ?>index">Index</a></li>
 	<?php endif; ?>

@@ -12,6 +12,7 @@ class Cprosesan extends Kawal
 		$this->papar->kelas = 'cprosesan/'; 
 		$this->_pptAsetPenuh = array(303,305,306,308,312,316,331);
 		$this->_pptBrgAm = array(328,334,335);
+		$this->_pptBrgAm2 = array(890);
 	}
 	
 	public function index() 
@@ -68,8 +69,8 @@ class Cprosesan extends Kawal
 		{
 			$this->papar->carian='[id:0]';
 		}
-
-			/*echo '<pre>';			
+			/*
+			echo '<pre>';			
 			//echo '<hr>$this->papar->keterangan='; print_r($this->papar->keterangan);
 			echo '<hr>$this->papar->kesID='; print_r($this->papar->kesID);
 			echo '<hr>$this->papar->kod_produk='; print_r($this->papar->kod_produk); // khas untuk survey 205
@@ -278,6 +279,13 @@ class Cprosesan extends Kawal
 			$this->papar->kod_produk = array();
 			$this->semak_aset($senaraiAset = array('s'.$sv.'_q04_2010'),
 					null, $paparID);
+			// bentuk soalan staf lelaki dan perempuan
+			$jadualStaf = 's'.$sv.'_q06_2010';
+			$this->papar->kod_produk['pekerjaan'] = 
+				Data::dataPekerjaBrgAm($this->papar->kesID[$jadualStaf]);
+			//echo '<hr>'.$jadualStaf.'<pre>semak data $this->papar->kod_produk[pekerjaan]:'; 
+			//print_r($this->papar->kod_produk['pekerjaan']) . '</pre>';
+					
 		}
 	
 	}
@@ -431,7 +439,6 @@ class Cprosesan extends Kawal
 			Data::dataPekerja($jadualStaf,$jenisPekerjaan,$prosesID);
 			
 	}
-	
 	
 	private function tukarjadual($sv)
 	{

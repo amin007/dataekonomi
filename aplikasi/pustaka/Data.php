@@ -733,7 +733,7 @@ class Data
 		$kategori[] = 'Wanita - Pengurusan-3.1 / 6.5.A';
 		$kategori[] = 'Lelaki - Juruteknik-3.2 / 6.5.B';
 		$kategori[] = 'Wanita - Juruteknik-3.2 / 6.5.B';
-		$kategori[]= 'Lelaki - Kerani-3.3 / 6.5.C';
+		$kategori[] = 'Lelaki - Kerani-3.3 / 6.5.C';
 		$kategori[] = 'Wanita - Kerani-3.3 / 6.5.C';
 		$kategori[] = 'Lelaki - pekerja am';
 		$kategori[] = 'Wanita - pekerja am';
@@ -753,6 +753,8 @@ class Data
 				);
 		endfor;
 
+		//echo '<pre>$prosesID:'; print_r($prosesID) . '</pre>';
+		//echo '<pre>$staf:'; print_r($staf) . '</pre>';
 		return $staf;
 	
 	}

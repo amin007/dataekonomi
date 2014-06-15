@@ -10,7 +10,7 @@ class Cprosesan extends Kawal
 		// lokasi fail PAPAR untuk survey
 		$this->papar->dataAm = 'cprosesan/'; 
 		$this->papar->kelas = 'cprosesan/'; 
-		$this->_pptAsetPenuh = array(303,305,306,308,312,316,331);
+		$this->_pptAsetPenuh = array(301,303,305,306,308,312,316,331);
 		$this->_pptBrgAm = array(328,334,335);
 		$this->_pptBrgAm2 = array(890);
 	}
@@ -281,8 +281,9 @@ class Cprosesan extends Kawal
 					null, $paparID);
 			// bentuk soalan staf lelaki dan perempuan
 			$jadualStaf = 's'.$sv.'_q06_2010';
-			$this->papar->kod_produk['pekerjaan'] = 
-				Data::dataPekerjaBrgAm($this->papar->kesID[$jadualStaf]);
+			if( isset($this->papar->kesID[$jadualStaf]) )
+				$this->papar->kod_produk['pekerjaan'] = 
+					Data::dataPekerjaBrgAm($this->papar->kesID[$jadualStaf]);
 			//echo '<hr>'.$jadualStaf.'<pre>semak data $this->papar->kod_produk[pekerjaan]:'; 
 			//print_r($this->papar->kod_produk['pekerjaan']) . '</pre>';
 					

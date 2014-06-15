@@ -49,7 +49,7 @@ function dpt_ip()
 
 function dpt_senarai($namajadual)
 {
-	$e = 'pom_dataekonomi.';
+	//$e = 'pom_dataekonomi.';
 	if ($namajadual=='msiclama')
 		$jadual = array($e.'msic08',$e.'msic2008',
 		$e.'msic_v1',$e.'msic_bandingan',
@@ -100,7 +100,7 @@ function dpt_senarai($namajadual)
 		$e.'tblprofpert',
 		$e.'tblstock');
 	elseif ($namajadual=='johor')
-		$jadual = array('pom_lokaliti.johor');
+		$jadual = array('johor');
 	
 	return $jadual;
 }

@@ -49,7 +49,7 @@ function dpt_ip()
 
 function dpt_senarai($namajadual)
 {
-	//$e = 'pom_dataekonomi.';
+	$e = null; //'pom_dataekonomi.';
 	if ($namajadual=='msiclama')
 		$jadual = array($e.'msic08',$e.'msic2008',
 		$e.'msic_v1',$e.'msic_bandingan',

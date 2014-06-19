@@ -31,11 +31,16 @@
 	<a target="_blank" href="http://www.ssm-einfo.my">SSM-EINFO</a> |
 	<a target="_blank" href="http://www.estats.gov.my/e-Survey/login.php">MM E-Survey</a> |
 	<a target="_blank" href="https://newss.stats.gov.my">NEWSS</a> |
-	<a target="_blank" href="http://10.251.44.103:8003/newss/login.seam?p=direct">NEWSS2</a> |
+	<a target="_blank" href="https://newss.stats.gov.my/newss2">NEWSS2</a> |
 	<a target="_blank" href="http://msic.stats.gov.my">MSIC</a> |
-	<a target="_blank" href="http://exchserver.stats.gov.my/exchange">Email Stats</a> |
-	<!-- <a target="_blank" href="http://jp.stats.gov.my">JP@STATS</a> -->
-	<a target="_blank" href="https://mail.stats.gov.my">JP@STATS</a></h5>
+	<a target="_blank" href="https://qss.stats.gov.my/qssv2/index.php">E-QSS</a> |
+	<a target="_blank" href="https://ejob.stats.gov.my/index.php">E-JOB</a> |
+	<?php
+/*	<a target="_blank" href="http://exchserver.stats.gov.my/exchange">Email Stats</a> |
+	<a target="_blank" href="http://jp.stats.gov.my">JP@STATS</a>
+*/	?>
+	<a target="_blank" href="https://mail.stats.gov.my">Email</a>
+	</h5>
 	</p>
 </div></div>
 

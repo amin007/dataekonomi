@@ -39,17 +39,7 @@ class Cprosesan extends Kawal
 		$this->papar->paparID = null;
 		$this->papar->thn_mula = $cari['thn_mula'];
 		$this->papar->thn_akhir = $cari['thn_akhir'];
-		
-		/* semak
-		RENAME TABLE `pom_dataekonomi`.`334_tbldatareview_2010` TO `pom_dataekonomi`.`s334_tbldatareview_2010`;
-		RENAME TABLE `pom_dataekonomi`.`334_tbldatareviewtemp_2010` TO `pom_dataekonomi`.`s334_tbldatareviewtemp_2010`;
-		RENAME TABLE `pom_dataekonomi`.`334_tbldatareviewtemp2_2010` TO `pom_dataekonomi`.`s334_tbldatareviewtemp2_2010`;
-		RENAME TABLE `pom_dataekonomi`.`334_tbldatareviewtemp3_2010` TO `pom_dataekonomi`.`s334_tbldatareviewtemp3_2010`;
-		echo '<hr><pre>senarai medan=' . $medan 
-			. '<br>$cari='; print_r($cari)
-			. '<br>$myJadual='; print_r($myJadual) 
-			. '</pre>';*/
-		
+			
 		if (!empty($cari['id']) && !empty($sv)) 
 		{	
 			// mula cari $cari dalam $this->senarai_jadual(($sv)

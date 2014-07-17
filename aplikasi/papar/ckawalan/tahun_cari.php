@@ -78,6 +78,7 @@ function pautan($paparID, $jadual)
 		//'surveyAm <-2009' => '../cprosesan/ubah/' . $ssm . '/2004/2009',
 		//'surveyAm 2010->' => '../cprosesan/ubah/' . $id . '/2010/2012',
 		'205 <-2009' => '../cprosesan/ubah/205/' . $ssm . '/2004/2009',
+		'CDT 2009->' => '../cprosesan/ubah/cdt/' . $ssm . '/2004/2013',
 		//'survey205 2004-2006' => '../cprosesan/ubah/205/' . $ssm . '/2004/2006',
 		//'survey205 2007-2009' => '../cprosesan/ubah/205/' . $ssm . '/2007/2009',
 		'205 2010-2012' => '../cprosesan/ubah/205/' . $id . '/2010/2012',

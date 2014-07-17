@@ -775,12 +775,21 @@ class Data
 		$soal['0011'] = 'Soalan 1.5: Tarikh mula operasi akaun';
 		$soal['0012'] = 'Soalan 1.6: Tarikh akhir operasi akaun';
 		$soal['0013'] = 'Soalan 1.7: Melabur luar negara ? 1-Ya | 2-Tidak';
-		
+				
 		$senarai = null;
 		foreach ($soal as $kiraan => $soalan):
-			$paparData = ($kiraan=='0008') ? 
-				(isset($C['F0008']) ? $C['F0008'] : null)
-				: (isset($A['F'.$kiraan]) ? $A['F'.$kiraan] : null);
+			# ubah data dalam medan
+			if (in_array($kiraan, array('0011','0012')) ) 
+			{
+				$data = preg_replace('/(\d{1,2})(\d{2})(\d{4})$/', 
+					'$3-$2-$1', $A['F'.$kiraan]).PHP_EOL;
+				$paparData = date('d M Y',strtotime($data));
+			}
+			elseif($kiraan=='0008')
+				$paparData = (isset($C['F0008']) ? $C['F0008'] : null);
+			else
+				$paparData = (isset($A['F'.$kiraan]) ? $A['F'.$kiraan] : null);
+			# masuk dalam array
 			$senarai[] = array(
 				'nama_medan' => ($soal[$kiraan]), 
 				'kod' => 'F' . $kiraan,

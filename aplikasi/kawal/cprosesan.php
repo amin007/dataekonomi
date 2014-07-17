@@ -28,11 +28,11 @@ class Cprosesan extends Kawal
 		$medan = '*'; // senarai nama medan
 		$cari = array (
 			'sv' => $sv, // senarai survey
-			'medan' => 'estab', // cari dalam medan apa
+			'medan' => ($sv!='cdt' ? 'estab' : 'sidap'), // cari dalam medan apa
 			'id' => (isset($id) ? $id : null) , // benda yang dicari
 			'thn_mula' => $mula, // tahun mula
 			'thn_akhir' => $akhir // tahun akhir
-			);
+			);//echo '<pre>$cari::'; print_r($cari) . '</pre>';
 		$this->papar->sv = $sv;
 		$this->papar->carian = (!empty($cari['id'])) ? $cari['medan'] : '[id:0]';
 		$this->papar->kesID = array();
@@ -43,7 +43,9 @@ class Cprosesan extends Kawal
 		if (!empty($cari['id']) && !empty($sv)) 
 		{	
 			// mula cari $cari dalam $this->senarai_jadual(($sv)
-			foreach ($this->senarai_jadual($sv) as 
+			//echo '<pre>$this->senarai_jadual('.$cari['sv'].')::'; print_r($this->senarai_jadual($sv)) . '</pre>';
+			
+			foreach ($this->senarai_jadual($cari['sv']) as 
 				$key => $myTable)
 			{// mula ulang table
 				$nilai[$myTable] = $this->tanya->cariEstab($myTable, $medan, $cari);
@@ -54,6 +56,7 @@ class Cprosesan extends Kawal
 			$this->semakYangAda($sv, $nilai, $cari);
 			// cari kod io
 			$this->paparIO($sv, $this->papar->kesID, $cari);
+			
 		}
 		else
 		{
@@ -95,6 +98,13 @@ class Cprosesan extends Kawal
 	{
 		// senaraikan tatasusunan jadual prosesan
 		if ($sv == null) $myJadual = array();
+		elseif ($sv=='cdt')
+		{
+			$myJadual[] = 'data_cdt2009';
+			$myJadual[] = 'data_cdt2009_a';
+			$myJadual[] = 'data_cdt2009_c';
+			$myJadual[] = 'data_cdt2009_b';
+		}
 		elseif ($sv == '205')
 		{	
 			$myJadual = array ( // prosesan sebelum 2010
@@ -111,13 +121,6 @@ class Cprosesan extends Kawal
 			'q17','q18','q20');
 			foreach ($jadual as $key => $data)
 				$myJadual[] = 's' . $sv . '_' . $data . '_2010';
-		}
-		elseif ($sv=='cdt')
-		{
-			$myJadual[] = 'data_cdt2009';
-			$myJadual[] = 'data_cdt2009_a';
-			$myJadual[] = 'data_cdt2009_b';
-			$myJadual[] = 'data_cdt2009_c';
 		}
 		elseif (in_array($sv,$this->_pptAsetPenuh))
 		{	// prosesan 2010
@@ -257,6 +260,18 @@ class Cprosesan extends Kawal
 			{	//echo '<pre>$aset='; print_r($aset) . '</pre>';
 				$this->semak_aset($asetIndustri, $aset, $paparID);
 			}
+		}
+		elseif ($sv=='cdt')
+		{
+			$this->papar->kod_produk = array();
+			$this->cdt_pecah_soalan(
+				'data_cdt2009', 'data_cdt2009_a', 
+				'data_cdt2009_b', 'data_cdt2009_c', 
+				$this->papar->kesID);
+			// cari keterangan medan
+			$this->cari_keterangan_medan($sv, $this->papar->kesID); 
+			// buaang jadual 'data_cdt2009_b'
+			unset($this->papar->kesID['data_cdt2009_b']);
 		}
 		elseif (in_array($sv,$this->_pptAsetPenuh))
 		{
@@ -438,6 +453,20 @@ class Cprosesan extends Kawal
 			
 	}
 	
+	private function cdt_pecah_soalan($Am,$A,$B,$C,$paparID)
+	{
+		$this->papar->kod_produk['asas'] = Data::cdtSoalAsas($paparID[$A][0],$paparID[$C][0]);
+		$this->papar->kod_produk['struktur'] = Data::cdtStruktur($paparID[$B][0]);
+		$this->papar->kod_produk['msic'] = Data::cdtMSIC($paparID[$B][0]);
+		$this->papar->kod_produk['aset'] = Data::cdtAset($paparID[$B][0]);
+		$this->papar->kod_produk['staf'] = Data::cdtStaf($paparID[$B][0]);
+		$this->papar->kod_produk['hasil'] = Data::cdtHasil($paparID[$B][0]);
+		$this->papar->kod_produk['belanja'] = Data::cdtBelanja($paparID[$B][0]);
+		$this->papar->kod_produk['stok'] = Data::cdtStok($paparID[$B][0]);
+		$this->papar->kod_produk['tambahan'] = Data::cdtTambahan($paparID[$B][0]);
+	}
+	
+
 	private function tukarjadual($sv)
 	{
 		echo '<pre>'; $sv=800;

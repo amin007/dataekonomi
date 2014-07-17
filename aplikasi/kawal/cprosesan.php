@@ -112,6 +112,13 @@ class Cprosesan extends Kawal
 			foreach ($jadual as $key => $data)
 				$myJadual[] = 's' . $sv . '_' . $data . '_2010';
 		}
+		elseif ($sv=='cdt')
+		{
+			$myJadual[] = 'data_cdt2009';
+			$myJadual[] = 'data_cdt2009_a';
+			$myJadual[] = 'data_cdt2009_b';
+			$myJadual[] = 'data_cdt2009_c';
+		}
 		elseif (in_array($sv,$this->_pptAsetPenuh))
 		{	// prosesan 2010
 			$jadual = array('q01','q02','q03','q04','q05a','q05b','q06',

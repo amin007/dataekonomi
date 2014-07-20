@@ -105,6 +105,13 @@ class Cprosesan extends Kawal
 			$myJadual[] = 'data_cdt2009_c';
 			$myJadual[] = 'data_cdt2009_b';
 		}
+		elseif ($sv=='icdt')
+		{
+			$jadual = array('asas','struktur','msic','aset','staf',
+			'hasil','belanja','stok','cawangan');
+			foreach ($jadual as $key => $data)
+				$myJadual[] = 'data_' . $sv . '2012_' . $data . '';
+		}
 		elseif ($sv == '205')
 		{	
 			$myJadual = array ( // prosesan sebelum 2010
@@ -270,8 +277,15 @@ class Cprosesan extends Kawal
 				$this->papar->kesID);
 			// cari keterangan medan
 			$this->cari_keterangan_medan($sv, $this->papar->kesID); 
-			// buaang jadual 'data_cdt2009_b'
+			// buang jadual 'data_cdt2009_b'
 			unset($this->papar->kesID['data_cdt2009_b']);
+		}
+		elseif ($sv=='icdt')
+		{
+			$this->papar->kod_produk = array();
+			$this->icdt_pecah_soalan($this->papar->kesID);
+			// cari keterangan medan
+			$this->cari_keterangan_medan($sv, $this->papar->kesID); 
 		}
 		elseif (in_array($sv,$this->_pptAsetPenuh))
 		{
@@ -466,6 +480,28 @@ class Cprosesan extends Kawal
 		$this->papar->kod_produk['tambahan'] = Data::cdtTambahan($paparID[$B][0]);
 	}
 	
+	private function icdt_pecah_soalan($paparID)
+	{
+	
+			foreach ($this->senarai_jadual($cari['sv']) as 
+				$key => $myTable)
+			{// mula ulang table
+				$Jadual = huruf('Besar_Depan', $myTable);
+				$this->papar->kod_produk[$myTable] = 
+					Data::cdt$Jadual($paparID[$myTable][0])
+			}// tamat ulang table
+/*	
+		$this->papar->kod_produk['asas'] = Data::icdtAsas($paparID[$A][0],$paparID[$C][0]);
+		$this->papar->kod_produk['struktur'] = Data::cdtStruktur($paparID[$B][0]);
+		$this->papar->kod_produk['msic'] = Data::cdtMSIC($paparID[$B][0]);
+		$this->papar->kod_produk['aset'] = Data::cdtAset($paparID[$B][0]);
+		$this->papar->kod_produk['staf'] = Data::cdtStaf($paparID[$B][0]);
+		$this->papar->kod_produk['hasil'] = Data::cdtHasil($paparID[$B][0]);
+		$this->papar->kod_produk['belanja'] = Data::cdtBelanja($paparID[$B][0]);
+		$this->papar->kod_produk['stok'] = Data::cdtStok($paparID[$B][0]);
+		$this->papar->kod_produk['tambahan'] = Data::cdtTambahan($paparID[$B][0]);
+*/		
+	}
 
 	private function tukarjadual($sv)
 	{

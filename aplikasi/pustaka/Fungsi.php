@@ -1041,6 +1041,7 @@ function huruf($jenis , $papar)
 	$_POST=strtoupper($_POST['mdt_rangka']['respon']);
 	$_POST=strtolower($_POST['mdt_rangka']['fe']);
 	$_POST=mb_convert_case($_POST, MB_CASE_TITLE);
+	ucfirst
 	*/
 	
 	switch ($jenis) 
@@ -1050,6 +1051,9 @@ function huruf($jenis , $papar)
 		break;
 	case "kecil":
 		$papar = strtolower($papar);
+		break;
+	case "Besar":
+		$papar = ucfirst($papar);
 		break;
 	case "Besar_Depan":
 		$papar = mb_convert_case($papar, MB_CASE_TITLE);

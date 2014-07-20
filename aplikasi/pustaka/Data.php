@@ -1107,5 +1107,351 @@ class Data
 		return $senarai;
 	}
 /////////////////////////////////////////////////////////////////////////////////////////////////////
+## Data icdt 2012
 
+	public static function icdtAsas($A)
+	{
+		$soal['0001'] = 'Negeri';
+		$soal['0002'] = 'Daerah';
+		$soal['0003'] = 'DB';
+		$soal['0004'] = 'Strata';
+		$soal['0005'] = 'Soalan 1.1: Nombor SSM';
+		$soal['0006'] = 'Soalan 1.2: Jenis pertubuhan ? <br>1-Bebas <br> 2-HQ <br> 3-Cawangan/Pjbt Operasi) ';
+		$soal['0007'] = 'Soalan 1.4: Tahun mula perniagaan bila';
+		$soal['0008'] = 'Soalan 1.5: Tarikh mula operasi akaun';
+		$soal['0009'] = 'Soalan 1.6: Tarikh akhir operasi akaun';
+		$soal['0010'] = 'Soalan 1.7: Melabur luar negara ? 1-Ya | 2-Tidak';
+		$soal['2001'] = 'Soalan 2.1: Taraf sah ?'
+			. '1-Hak milik perseorangan<br>'
+			. '2-Perkongsian<br>'
+			. '3-Syarikat Sdn Bhd<br>'
+			. '4-Syarikat Awam Bhd<br>'
+			. '5-Syarikat koperasi<br>'
+			. '6-Perbadanan awam<br>'
+			. '7-NGO | 8-Lain2';
+		$soal['2002'] = 'Soalan 2.2: Milikan wanita ?';
+		
+				
+		$senarai = null;
+		foreach ($soal as $kiraan => $soalan):
+			# ubah data dalam medan
+			if (in_array($kiraan, array('0008','0009')) ) 
+			{
+				$data = preg_replace('/(\d{1,2})(\d{2})(\d{4})$/', 
+					'$3-$2-$1', $A['F'.$kiraan]).PHP_EOL;
+				$paparData = date('d M Y',strtotime($data));
+			}
+			else
+				$paparData = (isset($A['F'.$kiraan]) ? $A['F'.$kiraan] : null);
+			# masuk dalam array
+			$senarai[] = array(
+				'nama_medan' => ($soal[$kiraan]), 
+				'kod' => 'F' . $kiraan,
+				'data' => (isset($paparData) ? $paparData : null),
+				);
+		endforeach;
+
+		//echo '<pre>$C:'; print_r($C) . '</pre>';
+		//echo '<pre>$staf:'; print_r($senarai) . '</pre>';
+		return $senarai;
+	}
+
+	public static function icdtStruktur($paparID)
+	{
+		$soal['3001'] = 'Soalan 3(Modal Berbayar):';
+		$soal['3002'] = 'Soalan 3(Rizab)';
+		$soal['3003'] = 'Struktur Hak Milik(Residen M`sia): Melayu';
+		$soal['3004'] = 'Struktur Hak Milik(Residen M`sia): Cina';
+		$soal['3005'] = 'Struktur Hak Milik(Residen M`sia): India';
+		$soal['3006'] = 'Struktur Hak Milik(Residen M`sia): Lain2';
+		$soal['3007'] = 'Struktur Hak Milik(Residen M`sia): Institusi: Bumiputra';
+		$soal['3008'] = 'Struktur Hak Milik(Residen M`sia): Institusi: Lain2';
+		$soal['3009'] = 'Struktur Hak Milik(Agensi Kerajaan Persekutuan,Negeri,Tempatan)';
+		$soal['3010'] = 'Struktur Hak Milik(Bukan Residen M`sia)';
+		
+		$senarai = null;
+		foreach ($soal as $kiraan => $soalan):
+			$senarai[] = array(
+				'nama_medan' => ($soal[$kiraan]), 
+				'kod' => 'F' . $kiraan,
+				'data' => (isset($paparID['F'.$kiraan]) ? $paparID['F'.$kiraan] : null)
+				);
+		endforeach;
+
+		//echo '<pre>$prosesID:'; print_r($prosesID) . '</pre>';
+		//echo '<pre>$staf:'; print_r($senarai) . '</pre>';
+		return $senarai;
+	
+	}
+
+	public static function icdtMSIC($paparID)
+	{
+		$soal['subsektor'] = 'Aktiviti Utama Pertubuhan ? 1-Borong | 2-Runcit | 3-Kenderaaan Bermotor ';
+		$soal['msic2008'] = 'msic 2008';
+		
+		$senarai = null;
+		foreach ($soal as $kiraan => $soalan):
+			$namaMedan = $kiraan; //'F'.$kiraan;
+			$senarai[] = array(
+				'nama_medan' => ($soal[$kiraan]), 
+				'kod' => 'F' . $kiraan,
+				'data' => (isset($paparID[$namaMedan]) ? $paparID[$namaMedan] : null)
+				);
+		endforeach;
+
+		//echo '<pre>$prosesID:'; print_r($prosesID) . '</pre>';
+		//echo '<pre>$staf:'; print_r($senarai) . '</pre>';
+		return $senarai;
+	
+	}
+
+	public static function icdtAset($cari)
+	{
+		// jenis harta
+		$jenisHarta = array('01'=>'Tanah',
+			'02'=>'Tmpt kediaman',
+			'03'=>'Bukan Tmpt Kediaman',
+			'04'=>'Binaan lain',
+			'05'=>'Kenderaan lain',
+			'06'=>'Perkakasan komputer',
+			'07'=>'Perisian komputer',
+			'08'=>'Jentera dan kelengkapan',
+			'09'=>'Perabut dan pemasangan',
+			'10'=>'Paten', '11'=>'Muhibbah', 
+			'12'=>'Lain2 harta', '13'=>'Jumlah', 
+			'14'=>'Kerja dlm pelaksanaan');
+
+		$nilaiBuku= array(60=>'Awal', // 'Nilai buku pada awal tahun'
+			61=>'Baru', //'Pembelian baru termasuk import',
+			62=>'Terpakai', //'Pembelian aset terpakai',
+			63=>'Pembaikan dan pengubahsuaian', //'Membuat/membina sendiri',
+			64=>'DIY', //'Membuat/membina sendiri',
+			65=>'Jual/tamat', // 'Aset dijual/ditamat'
+			66=>'+/- jual', // 'Untung/Rugi drpd jualan harta'
+			67=>'Susut nilai', // 'Nilai buku pada akhir tahun'
+			68=>'Akhir', // 'Nilai buku pada akhir tahun'
+			);
+		
+		// semak data
+		//echo '<pre>Borang::binaAset($cari)='; print_r($cari) . '</pre><hr>';
+		
+		// mula cari 
+		$kira = 0;
+		foreach ($jenisHarta as $key => $jenis)
+		{
+			//echo '<br>$key=' . $key;
+			$aset[$kira]['nama'] = $jenis;
+			$aset[$kira]['kod'] = $key;
+			foreach ($nilaiBuku as $key2 => $modal)
+			{
+				$lajur = kira3($key2, 2);
+				$baris = 'F' . $lajur . $key;
+				if ($lajur=='08')
+				{/*
+					$jumlahAset = 
+						( $jum[$kira]['F01'.$key] 
+						+ $jum[$kira]['F02'.$key]
+						+ $jum[$kira]['F03'.$key] 
+						+ $jum[$kira]['F04'.$key]
+						- $jum[$kira]['F05'.$key] 
+						+ ( $jum[$kira]['F06'.$key] 
+						) - $jum[$kira]['F07'.$key] );
+
+					$akhir = (isset($cari[$baris]) ?
+						$cari[$baris] : '_');
+					*/	
+					$aset[$kira]["$key2"] = 
+						($akhir != $jumlahAset) ? $jumlahAset : $akhir;
+				}
+				else
+				{
+					$data = isset($cari[$baris]) ? $cari[$baris] : '_';
+					$aset[$kira]["$key2"] =  !empty($data) ? $data : '-';
+					$jum[$kira][$baris] = !empty($data) ? $data : '-';
+				}
+			}
+			$kira++;
+		}
+		
+		//echo '<pre>$jum='; print_r($jum) . '</pre><hr>';
+		//echo '<pre>Borang::cdtAset($aset)='; print_r($aset) . '</pre><hr>';
+		return $aset;	 
+	}
+	
+	public static function icdtStaf($prosesID)
+	{
+
+		$kategori[] = 'Lelaki - Pemilik(ROB)-1 / 6.3';
+		$kategori[] = 'Wanita - Pemilik(ROB)-1 / 6.3';
+		$kategori[] = 'Lelaki - Pekerja keluarga(ROB)-2 / 6.4';
+		$kategori[] = 'Wanita - Pekerja keluarga(ROB)-2 / 6.4';
+		$kategori[] = '<b>Lelaki - Jum pekerja bergaji -5.3.6 / 6.5</b>';
+		$kategori[] = '<b>Wanita - Jum pekerja bergaji -5.3.6 / 6.5</b>';
+		$kategori[] = 'Lelaki - Pengurusan-3.1 / 6.5.A';
+		$kategori[] = 'Wanita - Pengurusan-3.1 / 6.5.A';
+		$kategori[] = 'Lelaki - Juruteknik-3.2 / 6.5.B';
+		$kategori[] = 'Wanita - Juruteknik-3.2 / 6.5.B';
+		$kategori[] = 'Lelaki - Kerani-3.3 / 6.5.C';
+		$kategori[] = 'Wanita - Kerani-3.3 / 6.5.C';
+		$kategori[] = 'Lelaki - pekerja am';
+		$kategori[] = 'Wanita - pekerja am';
+		$kategori[] = 'Lelaki - Pekerja sambilan-4 / 6.6';
+		$kategori[] = 'Wanita - Pekerja sambilan-4 / 6.6';
+		$kategori[] = 'Lelaki - Jumlah pekerja-5 / 6.7';
+		$kategori[] = 'Wanita - Jumlah pekerja-5 / 6.7';
+
+		for ($kira = 1; $kira <= 18; $kira++):
+			$kiraan = kira3($kira,2);
+			$staf[] = array(
+				'kategori' => ($kategori[$kira-1]), 
+				'malaysia' => (isset($prosesID['F80'.$kiraan]) ? $prosesID['F80'.$kiraan] : null),
+				'pati' => (isset($prosesID['F81'.$kiraan]) ? $prosesID['F81'.$kiraan] : null),
+				'jum' => (isset($prosesID['F82'.$kiraan]) ? $prosesID['F82'.$kiraan] : null),
+				'gaji' => (isset($prosesID['F83'.$kiraan]) ? $prosesID['F83'.$kiraan] : null)
+				);
+		endfor;
+
+		//echo '<pre>$prosesID:'; print_r($prosesID) . '</pre>';
+		//echo '<pre>$staf:'; print_r($staf) . '</pre>';
+		return $staf;
+	
+	}
+	
+	public static function icdtHasil($prosesID)
+	{
+
+		$kategori[] = 'Jualan barang-barang';
+		$kategori[] = 'Jualan kenderaan bermotor';
+		$kategori[] = 'Komisen dan yuran yang diterima';
+		$kategori[] = 'Pendapatan dari perkhidmatan pembaikan, pemasangan dan penyelenggaraan';
+		$kategori[] = 'Pendapatan dari jualan alat ganti dan aksesori';
+		$kategori[] = 'Yuran francais / royalti diterima';
+		$kategori[] = 'Pendapatan Sewa Tanah';
+		$kategori[] = 'Pendapatan Sewa Lain2';
+		$kategori[] = 'Pendapatan operasi lain(Perkhidmatan pengurusan, bayaran perkhidmatan yg diterima)';
+		$kategori[] = 'Pendapatan bukan operasi';
+		$kategori[] = 'Jumlah Besar';
+
+		for ($kira = 1; $kira <= 11; $kira++):
+			$kiraan = kira3($kira,2);
+			$namaMedan = 'F11' . $kiraan;
+			$hasil[] = array(
+				'nama_medan' => ($kategori[$kira-1]), 
+				'kod' => $namaMedan,
+				'data' => (isset($prosesID[$namaMedan]) ? $prosesID[$namaMedan] : null)
+				);
+		endfor;
+
+		//echo '<pre>$prosesID:'; print_r($prosesID) . '</pre>';
+		//echo '<pre>$staf:'; print_r($hasil) . '</pre>';
+		return $hasil;
+	
+	}
+
+	public static function icdtBelanja($prosesID)
+	{
+		$kategori[] = 'Kos barangan yang dijual';
+		$kategori[] = 'Pembelian bahan & bekalan';
+		$kategori[] = 'Kos pembaikan dan penyelenggaraan';
+		$kategori[] = 'Yuran francais / royalti dibayar';
+		$kategori[] = 'Air yang digunakan';
+		$kategori[] = 'Tenaga elektrik yang dibeli';
+		$kategori[] = 'Bahan pembakar, pelincir dan gas';
+		$kategori[] = 'Bayaran tel';
+		$kategori[] = 'Pembelian perkhidmatan pengangkutan';
+		$kategori[] = 'Pengiklanan dan promosi';
+		$kategori[] = 'Kos percetakan';
+		$kategori[] = 'Bayaran sewa tanah';
+		$kategori[] = 'Bayaran Sewa Lain2';
+		$kategori[] = 'Perbelanjaan operasi lain';
+		$kategori[] = 'Cukai langsung (cth. cukai syarikat, cukai kemajuan)';
+		$kategori[] = 'Cukai tidak langsung : Cukai jualan, cukai perkhidmatan, taksiran (ke atas tanah & bangunan), '
+			. 'cukai tanah dan cukai tidak langsung lain';
+		$kategori[] = 'Bayaran faedah';
+		$kategori[] = 'Susut nilai';
+		$kategori[] = 'Perbelanjaan bukan operasi';
+		$kategori[] = 'Gaji dan upah yang dibayar';
+		$kategori[] = 'caruman (cth kwsp,perkeso)';
+		$kategori[] = 'kos latihan kepada staf';
+		$kategori[] = 'bayaran staf lain2';
+		$kategori[] = 'Jumlah Besar';
+
+		for ($kira = 1; $kira <= 24; $kira++):
+			$kiraan = kira3($kira,2);
+			$namaMedan = 'F12' . $kiraan;
+			$belanja[] = array(
+				'nama_medan' => ($kategori[$kira-1]), 
+				'kod' => $namaMedan,
+				'data' => (isset($prosesID[$namaMedan]) ? $prosesID[$namaMedan] : null)
+				);
+		endfor;
+
+		return $belanja;
+	}
+
+	public static function icdtStok($prosesID)
+	{
+		$kategori[] = 'Stok perdagangan';
+		$kategori[] = 'Lain2 stok';
+		$kategori[] = 'Jumlah Besar';
+		$senarai = null;
+		$senarai[] = array(
+			'nama_medan' => ($kategori[0]), 
+			'awal' => (isset($prosesID['F1001']) ? $prosesID['F1001'] : null),
+			'akhir' => (isset($prosesID['F1002']) ? $prosesID['F1002'] : null)
+			);
+		$senarai[] = array(
+			'nama_medan' => ($kategori[1]), 
+			'awal' => (isset($prosesID['F1003']) ? $prosesID['F1003'] : null),
+			'akhir' => (isset($prosesID['F1004']) ? $prosesID['F1004'] : null)
+			);
+		$senarai[] = array(
+			'nama_medan' => ($kategori[2]), 
+			'awal' => (isset($prosesID['F1005']) ? $prosesID['F1005'] : null),
+			'akhir' => (isset($prosesID['F1006']) ? $prosesID['F1006'] : null)
+			);
+
+
+		//echo '<pre>$prosesID:'; print_r($prosesID) . '</pre>';
+		//echo '<pre>$staf:'; print_r($senarai) . '</pre>';
+		return $senarai;
+	}
+	
+	public static function icdtCawangan($prosesID)
+	{
+		$kategori[] = 'Johor';
+		$kategori[] = 'Kedah';
+		$kategori[] = 'Kelantan';
+		$kategori[] = 'Melaka';
+		$kategori[] = 'Negeri Sembilan';
+		$kategori[] = 'Pahang';
+		$kategori[] = 'Pulau Pinang';
+		$kategori[] = 'Perak';
+		$kategori[] = 'Perlis';
+		$kategori[] = 'Selangor';
+		$kategori[] = 'Terengganu';
+		$kategori[] = 'Sabah';
+		$kategori[] = 'Sarawak';
+		$kategori[] = 'W.P. Kuala Lumpur';
+		$kategori[] = 'W.P. Labuan';
+		$kategori[] = 'W.P. Putrajaya';
+		$kategori[] = 'Jumlah Besar';
+		$kategori[] = 'Entah';
+		$kategori[] = 'Entah2';
+		
+		$senarai = null;
+		for ($kira = 1; $kira <= 19; $kira++):
+			$kiraan = kira3($kira,2);
+			$senarai[] = array(
+				'kategori' => ($kategori[$kira-1]), 
+				'jumlah jualan' => (isset($prosesID['F16'.$kiraan]) ? $prosesID['F16'.$kiraan] : null),
+				'cawangan' => (isset($prosesID['F17'.$kiraan]) ? $prosesID['F17'.$kiraan] : null),
+				'entah' => (isset($prosesID['F15'.$kiraan]) ? $prosesID['F15'.$kiraan] : null),
+				);
+		endfor;
+
+		//echo '<pre>$prosesID:'; print_r($prosesID) . '</pre>';
+		return $senarai;
+	}
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 } // tamat class Data

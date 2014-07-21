@@ -469,40 +469,31 @@ class Cprosesan extends Kawal
 	
 	private function cdt_pecah_soalan($Am,$A,$B,$C,$paparID)
 	{
-		if(isset($paparID[$A][0]) )
-		{
-			$this->papar->kod_produk['asas'] = Data::cdtSoalAsas($paparID[$A][0],$paparID[$C][0]);
-			$this->papar->kod_produk['struktur'] = Data::cdtStruktur($paparID[$B][0]);
-			$this->papar->kod_produk['msic'] = Data::cdtMSIC($paparID[$B][0]);
-			$this->papar->kod_produk['aset'] = Data::cdtAset($paparID[$B][0]);
-			$this->papar->kod_produk['staf'] = Data::cdtStaf($paparID[$B][0]);
-			$this->papar->kod_produk['hasil'] = Data::cdtHasil($paparID[$B][0]);
-			$this->papar->kod_produk['belanja'] = Data::cdtBelanja($paparID[$B][0]);
-			$this->papar->kod_produk['stok'] = Data::cdtStok($paparID[$B][0]);
-			$this->papar->kod_produk['tambahan'] = Data::cdtTambahan($paparID[$B][0]);
-		}
+		if(isset($paparID[$A][0]) ):
+			foreach( array('asas','struktur','msic','aset','staf','hasil','belanja','stok','tambahan') 
+			as $key => $myTable)
+			{// mula ulang tatasusunan
+				$jadual = substr($myTable, 0, 14);
+				$Jadual2 = 'cdt' . huruf('Besar', $jadual);
+				$this->papar->kod_produk[$jadual] = (in_array($jadual,array('asas'))) ?
+					Data::$Jadual2($paparID[$A][0],$paparID[$C][0])
+					: Data::$Jadual2($paparID[$B][0]);
+			}// tamat ulang tatasusunan
+		endif
 	}
 	
 	private function icdt_pecah_soalan($paparID)
 	{
-	
-			foreach ($this->senarai_jadual('icdt') as $key => $myTable)
-			{// mula ulang table
+		if(isset($paparID['data_icdt2012_asas'][0]) ):
+			foreach($this->senarai_jadual('icdt') as $key => $myTable)
+			{// mula ulang tatasusunan
 				$jadual = substr($myTable, 14, 14);
 				$Jadual2 = 'icdt' . huruf('Besar', $jadual);
-				if(in_array($jadual,array('asas','struktur','aset','staf','stok','cawangan'))) //echo $jadual . '|' . $Jadual2;
+				if(in_array($jadual,array('asas','struktur','aset','staf','stok','cawangan'))) 
 					$this->papar->kod_produk[$jadual] = 
 						Data::$Jadual2($paparID[$myTable][0]);
-			}// tamat ulang table
-/*	
-		$this->papar->kod_produk['asas'] = Data::icdtAsas($paparID[$A][0],$paparID[$C][0]);
-		$this->papar->kod_produk['struktur'] = Data::cdtStruktur($paparID[$B][0]);
-		$this->papar->kod_produk['msic'] = Data::cdtMSIC($paparID[$B][0]);
-		$this->papar->kod_produk['hasil'] = Data::cdtHasil($paparID[$B][0]);
-		$this->papar->kod_produk['belanja'] = Data::cdtBelanja($paparID[$B][0]);
-		$this->papar->kod_produk['stok'] = Data::cdtStok($paparID[$B][0]);
-		$this->papar->kod_produk['cawangan'] = Data::cdtTambahan($paparID[$B][0]);
-*/		
+			}// tamat ulang tatasusunan
+		endif;
 	}
 
 	private function tukarjadual($sv)

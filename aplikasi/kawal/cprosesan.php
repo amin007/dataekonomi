@@ -286,6 +286,11 @@ class Cprosesan extends Kawal
 			$this->icdt_pecah_soalan($this->papar->kesID);
 			// cari keterangan medan
 			$this->cari_keterangan_medan($sv, $this->papar->kesID); 
+			// buang jadual 'data_icdt2012_aset/ data_icdt2012_staf/data_icdt2012_stok'
+			foreach (array('asas','struktur',/*'msic',*/'aset','staf',/*'hasil','belanja',*/'stok') as $buanglah)
+				unset($this->papar->kesID['data_icdt2012_' . $buanglah]); 
+
+
 		}
 		elseif (in_array($sv,$this->_pptAsetPenuh))
 		{
@@ -479,7 +484,7 @@ class Cprosesan extends Kawal
 					Data::$Jadual2($paparID[$A][0],$paparID[$C][0])
 					: Data::$Jadual2($paparID[$B][0]);
 			}// tamat ulang tatasusunan
-		endif
+		endif;
 	}
 	
 	private function icdt_pecah_soalan($paparID)

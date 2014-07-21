@@ -760,7 +760,7 @@ class Data
 	
 	}
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-	public static function cdtSoalAsas($A,$C)
+	public static function cdtAsas($A,$C)
 	{
 		$soal['0001'] = 'Negeri';
 		$soal['0002'] = 'Daerah';

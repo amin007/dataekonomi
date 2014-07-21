@@ -73,12 +73,13 @@ foreach ($this->kesID as $myTable => $row)
 <table><tr>
 <?php 
 $mula = 1;
+$lajur = 3;
 foreach ($this->kod_produk as $myTable => $row)
 {
 	if ( count($row)==0 ) echo '';
 	else
 	{
-		if ($mula++%1==0)
+		if ($mula++%$lajur==0)
 		{ // mula kalau baki 0
 			?><td valign="top" align="left">
 <span class="badge badge-success"><?php echo $myTable ?></span><?php

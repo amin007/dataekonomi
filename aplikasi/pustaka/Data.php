@@ -1114,7 +1114,7 @@ class Data
 		$soal['0001'] = 'Negeri';
 		$soal['0002'] = 'Daerah';
 		$soal['0003'] = 'DB';
-		$soal['0004'] = 'Strata';
+		$soal['0004'] = 'No BP';
 		$soal['0005'] = 'Soalan 1.1: Nombor SSM';
 		$soal['0006'] = 'Soalan 1.2: Jenis pertubuhan ? <br>1-Bebas <br> 2-HQ <br> 3-Cawangan/Pjbt Operasi) ';
 		$soal['0007'] = 'Soalan 1.4: Tahun mula perniagaan bila';
@@ -1209,7 +1209,7 @@ class Data
 	{
 		// jenis harta
 		$jenisHarta = array('01'=>'Tanah',
-			'02'=>'Tmpt kediaman',
+			'02'=>'Tmpt Kediaman',
 			'03'=>'Bukan Tmpt Kediaman',
 			'04'=>'Binaan lain',
 			'05'=>'Kenderaan lain',
@@ -1218,49 +1218,54 @@ class Data
 			'08'=>'Jentera dan kelengkapan',
 			'09'=>'Perabut dan pemasangan',
 			'10'=>'Paten', '11'=>'Muhibbah', 
-			'12'=>'Lain2 harta', '13'=>'Jumlah', 
-			'14'=>'Kerja dlm pelaksanaan');
+			'12'=>'Lain2 harta','13'=>'Jumlah');
 
 		$nilaiBuku= array(60=>'Awal', // 'Nilai buku pada awal tahun'
 			61=>'Baru', //'Pembelian baru termasuk import',
 			62=>'Terpakai', //'Pembelian aset terpakai',
-			63=>'Pembaikan dan pengubahsuaian', //'Membuat/membina sendiri',
+			63=>'Pembaikan dan pengubahsuaian', //'Ubahsuai',
 			64=>'DIY', //'Membuat/membina sendiri',
 			65=>'Jual/tamat', // 'Aset dijual/ditamat'
 			66=>'+/- jual', // 'Untung/Rugi drpd jualan harta'
-			67=>'Susut nilai', // 'Nilai buku pada akhir tahun'
-			68=>'Akhir', // 'Nilai buku pada akhir tahun'
-			);
+			67=>'Susut nilai', // 'Susut nilai'
+			68=>'Akhir');// 'Nilai buku pada akhir tahun'
 		
-		// semak data
-		//echo '<pre>Borang::binaAset($cari)='; print_r($cari) . '</pre><hr>';
-		
-		// mula cari 
+		$dlmBina = array('F1480'=>'Tmpt Kediaman','F1580'=>'Bukan Tmpt Kediaman',
+			'F1680'=>'Binaan lain','F1780'=>'Jentera dan kelengkapan','F1880'=>'Lain2 harta','F1980'=>'Jumlah');
+			foreach ($dlmBina as $kunci => $tghBina)
+			{
+				$binaan[$tghBina] = isset($cari[$kunci]) ? $cari[$kunci] : '_';
+			}
+		$kerjaDlmBinaan = array('Tmpt Kediaman','Bukan Tmpt Kediaman',
+				'Binaan lain','Jentera dan kelengkapan','Lain2 harta','Jumlah');
+		# semak data  //echo '<pre>Borang::binaAset($cari)='; print_r($cari) . '</pre><hr>';
+		# mula cari 
 		$kira = 0;
 		foreach ($jenisHarta as $key => $jenis)
-		{
-			//echo '<br>$key=' . $key;
+		{	
+			if(in_array($jenis,$kerjaDlmBinaan))
+				$aset[$kira]['Kerja Dlm Binaan'] = $binaan[$jenis];
+			else $aset[$kira]['Kerja Dlm Binaan'] = null;
+			
 			$aset[$kira]['nama'] = $jenis;
 			$aset[$kira]['kod'] = $key;
 			foreach ($nilaiBuku as $key2 => $modal)
 			{
 				$lajur = kira3($key2, 2);
 				$baris = 'F' . $lajur . $key;
-				if ($lajur=='08')
-				{/*
+				if ($lajur=='68')
+				{
 					$jumlahAset = 
-						( $jum[$kira]['F01'.$key] 
-						+ $jum[$kira]['F02'.$key]
-						+ $jum[$kira]['F03'.$key] 
-						+ $jum[$kira]['F04'.$key]
-						- $jum[$kira]['F05'.$key] 
-						+ ( $jum[$kira]['F06'.$key] 
-						) - $jum[$kira]['F07'.$key] );
-
-					$akhir = (isset($cari[$baris]) ?
-						$cari[$baris] : '_');
-					*/	
-					$aset[$kira]["$key2"] = 
+						( $jum[$kira]['F60'.$key] // Awal
+						+ $jum[$kira]['F61'.$key] // Baru
+						+ $jum[$kira]['F62'.$key] // Terpakai
+						+ $jum[$kira]['F63'.$key] // Ubahsuai
+						+ $jum[$kira]['F64'.$key] // DIV
+						- $jum[$kira]['F65'.$key] // jual/tamat
+						+ ( $jum[$kira]['F66'.$key] // +/- jual
+						) - $jum[$kira]['F67'.$key] ); // Susut nilai
+					$akhir = (isset($cari[$baris]) ? $cari[$baris] : '_');
+					$aset[$kira]["$key2-$modal"] = 
 						($akhir != $jumlahAset) ? $jumlahAset : $akhir;
 				}
 				else
@@ -1273,14 +1278,12 @@ class Data
 			$kira++;
 		}
 		
-		//echo '<pre>$jum='; print_r($jum) . '</pre><hr>';
 		//echo '<pre>Borang::cdtAset($aset)='; print_r($aset) . '</pre><hr>';
 		return $aset;	 
 	}
 	
 	public static function icdtStaf($prosesID)
 	{
-
 		$kategori[] = 'Lelaki - Pemilik(ROB)-1 / 6.3';
 		$kategori[] = 'Wanita - Pemilik(ROB)-1 / 6.3';
 		$kategori[] = 'Lelaki - Pekerja keluarga(ROB)-2 / 6.4';
@@ -1398,16 +1401,16 @@ class Data
 		$senarai[] = array(
 			'nama_medan' => ($kategori[0]), 
 			'awal' => (isset($prosesID['F1001']) ? $prosesID['F1001'] : null),
-			'akhir' => (isset($prosesID['F1002']) ? $prosesID['F1002'] : null)
-			);
-		$senarai[] = array(
-			'nama_medan' => ($kategori[1]), 
-			'awal' => (isset($prosesID['F1003']) ? $prosesID['F1003'] : null),
 			'akhir' => (isset($prosesID['F1004']) ? $prosesID['F1004'] : null)
 			);
 		$senarai[] = array(
+			'nama_medan' => ($kategori[1]), 
+			'awal' => (isset($prosesID['F1002']) ? $prosesID['F1002'] : null),
+			'akhir' => (isset($prosesID['F1005']) ? $prosesID['F1005'] : null)
+			);
+		$senarai[] = array(
 			'nama_medan' => ($kategori[2]), 
-			'awal' => (isset($prosesID['F1005']) ? $prosesID['F1005'] : null),
+			'awal' => (isset($prosesID['F1003']) ? $prosesID['F1003'] : null),
 			'akhir' => (isset($prosesID['F1006']) ? $prosesID['F1006'] : null)
 			);
 
@@ -1444,9 +1447,9 @@ class Data
 			$kiraan = kira3($kira,2);
 			$senarai[] = array(
 				'kategori' => ($kategori[$kira-1]), 
-				'jumlah jualan' => (isset($prosesID['F16'.$kiraan]) ? $prosesID['F16'.$kiraan] : null),
-				'cawangan' => (isset($prosesID['F17'.$kiraan]) ? $prosesID['F17'.$kiraan] : null),
-				'entah' => (isset($prosesID['F15'.$kiraan]) ? $prosesID['F15'.$kiraan] : null),
+				'jumlah jualan' => (isset($prosesID['F15'.$kiraan]) ? $prosesID['F15'.$kiraan] : null),
+				'cawangan' => (isset($prosesID['F16'.$kiraan]) ? $prosesID['F16'.$kiraan] : null),
+				'entah' => (isset($prosesID['F17'.$kiraan]) ? $prosesID['F17'.$kiraan] : null),
 				);
 		endfor;
 

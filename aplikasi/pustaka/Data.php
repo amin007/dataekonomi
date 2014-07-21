@@ -870,13 +870,12 @@ class Data
 		return $senarai;
 	
 	}
-
 	
 	public static function cdtAset($cari)
 	{
 		// jenis harta
 		$jenisHarta = array('01'=>'Tanah',
-			'02'=>'Tmpt kediaman',
+			'02'=>'Tmpt Kediaman',
 			'03'=>'Bukan Tmpt Kediaman',
 			'04'=>'Binaan lain',
 			'05'=>'Kenderaan lain',
@@ -884,8 +883,7 @@ class Data
 			'07'=>'Perisian komputer',
 			'08'=>'Jentera dan kelengkapan',
 			'09'=>'Perabut dan pemasangan',
-			'10'=>'Lain2 harta', '11'=>'Jumlah harta', 
-			'12'=>'Kerja dlm pelaksanaan');
+			'10'=>'Lain2 harta', '11'=>'Jumlah harta');
 
 		$nilaiBuku= array(80=>'Awal', // 'Nilai buku pada awal tahun'
 			81=>'Baru', //'Pembelian baru termasuk import',
@@ -895,14 +893,23 @@ class Data
 			85=>'+/- jual', // 'Untung/Rugi drpd jualan harta'
 			86=>'Akhir', // 'Nilai buku pada akhir tahun'
 			);
-		
-		// semak data
-		//echo '<pre>Borang::binaAset($cari)='; print_r($cari) . '</pre><hr>';
-		
-		// mula cari 
-		$kira = 0;
+		$dlmBina = array('F8012'=>'Tmpt Kediaman','F8112'=>'Bukan Tmpt Kediaman',
+			'F8212'=>'Binaan lain','F8313'=>'Jentera dan kelengkapan','F8412'=>'Lain2 harta');
+			foreach ($dlmBina as $kunci => $tghBina)
+			{
+				$binaan[$tghBina] = isset($cari[$kunci]) ? $cari[$kunci] : '_';
+			}
+		$kerjaDlmBinaan = array('Tmpt Kediaman','Bukan Tmpt Kediaman',
+				'Binaan lain','Jentera dan kelengkapan','Lain2 harta','Jumlah');	
+		# semak data //echo '<pre>Borang::binaAset($cari)='; print_r($cari) . '</pre><hr>';
+		# mula cari 
+		$kira = 0; 
 		foreach ($jenisHarta as $key => $jenis)
 		{
+			if(in_array($jenis,$kerjaDlmBinaan))
+				$aset[$kira]['Kerja Dlm Pelaksanaan'] = $binaan[$jenis];
+			else $aset[$kira]['Kerja Dlm Pelaksanaan'] = null;
+		
 			//echo '<br>$key=' . $key;
 			$aset[$kira]['nama'] = $jenis;
 			$aset[$kira]['kod'] = $key;
@@ -930,7 +937,7 @@ class Data
 				else
 				{
 					$data = isset($cari[$baris]) ? $cari[$baris] : '_';
-					$aset[$kira]["$key2"] =  !empty($data) ? $data : '-';
+					$aset[$kira]["$key2-$modal"] =  !empty($data) ? $data : '-';
 					$jum[$kira][$baris] = !empty($data) ? $data : '-';
 				}
 			}
@@ -944,7 +951,6 @@ class Data
 	
 	public static function cdtStaf($prosesID)
 	{
-
 		$kategori[] = 'Lelaki - Pemilik(ROB)-1 / 6.3';
 		$kategori[] = 'Wanita - Pemilik(ROB)-1 / 6.3';
 		$kategori[] = 'Lelaki - Pekerja keluarga(ROB)-2 / 6.4';
@@ -983,7 +989,6 @@ class Data
 	
 	public static function cdtHasil($prosesID)
 	{
-
 		$kategori[] = 'Jualan barang-barang';
 		$kategori[] = 'Jualan kenderaan bermotor';
 		$kategori[] = 'Komisen dan yuran yang diterima';
@@ -1130,9 +1135,8 @@ class Data
 			. '6-Perbadanan awam<br>'
 			. '7-NGO | 8-Lain2';
 		$soal['2002'] = 'Soalan 2.2: Milikan wanita ?';
-		
-				
 		$senarai = null;
+		
 		foreach ($soal as $kiraan => $soalan):
 			# ubah data dalam medan
 			if (in_array($kiraan, array('0008','0009')) ) 
@@ -1151,7 +1155,6 @@ class Data
 				);
 		endforeach;
 
-		//echo '<pre>$C:'; print_r($C) . '</pre>';
 		//echo '<pre>$staf:'; print_r($senarai) . '</pre>';
 		return $senarai;
 	}
@@ -1178,8 +1181,7 @@ class Data
 				);
 		endforeach;
 
-		//echo '<pre>$prosesID:'; print_r($prosesID) . '</pre>';
-		//echo '<pre>$staf:'; print_r($senarai) . '</pre>';
+		//echo '<pre>$senarai:'; print_r($senarai) . '</pre>';
 		return $senarai;
 	
 	}
@@ -1199,8 +1201,7 @@ class Data
 				);
 		endforeach;
 
-		//echo '<pre>$prosesID:'; print_r($prosesID) . '</pre>';
-		//echo '<pre>$staf:'; print_r($senarai) . '</pre>';
+		//echo '<pre>$senarai:'; print_r($senarai) . '</pre>';
 		return $senarai;
 	
 	}
@@ -1244,8 +1245,8 @@ class Data
 		foreach ($jenisHarta as $key => $jenis)
 		{	
 			if(in_array($jenis,$kerjaDlmBinaan))
-				$aset[$kira]['Kerja Dlm Binaan'] = $binaan[$jenis];
-			else $aset[$kira]['Kerja Dlm Binaan'] = null;
+				$aset[$kira]['Kerja Dlm Pelaksanaan'] = $binaan[$jenis];
+			else $aset[$kira]['Kerja Dlm Pelaksanaan'] = null;
 			
 			$aset[$kira]['nama'] = $jenis;
 			$aset[$kira]['kod'] = $key;
@@ -1271,7 +1272,7 @@ class Data
 				else
 				{
 					$data = isset($cari[$baris]) ? $cari[$baris] : '_';
-					$aset[$kira]["$key2"] =  !empty($data) ? $data : '-';
+					$aset[$kira]["$key2-$modal"] =  !empty($data) ? $data : '-';
 					$jum[$kira][$baris] = !empty($data) ? $data : '-';
 				}
 			}

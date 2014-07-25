@@ -125,13 +125,12 @@ class Mulakan
 				$kawal->index();
 				break;
 			}
-
-			
+		
     }
     
     function sesat()
     {
-        require KAWAL . 'sesat.php';
+        require KAWAL . '/sesat.php';
         $kawal = new Sesat();
         $kawal->index();
         return false;
@@ -139,7 +138,7 @@ class Mulakan
 	
 	function parameter()
     {
-        require KAWAL . 'sesat.php';
+        require KAWAL . '/sesat.php';
         $kawal = new Sesat();
         $kawal->parameter();
         return false;

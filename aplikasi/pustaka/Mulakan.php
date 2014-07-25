@@ -70,18 +70,15 @@ class Mulakan
      
     private function cari_pengawal($kawal, $url)
     {
-        $panjang = count($url);
-		//echo '$panjang=' . $panjang . '<br>';
+        $panjang = count($url); //echo '$panjang=' . $panjang . '<br>';
  
-        // Make sure the method we are calling exists
         // Pastikan kaedah yang kita panggil wujud
         if ($panjang > 1)
         {
 			if (!method_exists($kawal, $url[1])) {$this->parameter();}
 		}
-			// Determine what to load
-			// Tentukan apa yang dimuatkan
 			
+			// Tentukan apa yang dimuatkan		
 			switch ($panjang)
 			{
 				case 8:

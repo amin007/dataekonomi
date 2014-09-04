@@ -494,7 +494,7 @@ class Cprosesan extends Kawal
 			{// mula ulang tatasusunan
 				$jadual = substr($myTable, 14, 14);
 				$Jadual2 = 'icdt' . huruf('Besar', $jadual);
-				if(in_array($jadual,array('asas','struktur','aset','staf','stok','cawangan'))) 
+				if(in_array($jadual,array('asas','struktur','aset','staf','hasil','belanja','stok','cawangan'))) 
 					$this->papar->kod_produk[$jadual] = 
 						Data::$Jadual2($paparID[$myTable][0]);
 			}// tamat ulang tatasusunan

@@ -1375,20 +1375,31 @@ class Data
 		$kategori[] = 'Susut nilai';
 		$kategori[] = 'Perbelanjaan bukan operasi';
 		$kategori[] = 'Gaji dan upah yang dibayar';
-		$kategori[] = 'caruman (cth kwsp,perkeso)';
-		$kategori[] = 'kos latihan kepada staf';
-		$kategori[] = 'bayaran staf lain2';
-		$kategori[] = 'Jumlah Besar';
 
-		for ($kira = 1; $kira <= 24; $kira++):
+		for ($kira = 1; $kira <= 20; $kira++):
 			$kiraan = kira3($kira,2);
-			$namaMedan = 'F12' . $kiraan;
+			$kodMedan = 'F12' . $kiraan;
 			$belanja[] = array(
 				'nama_medan' => ($kategori[$kira-1]), 
-				'kod' => $namaMedan,
-				'data' => (isset($prosesID[$namaMedan]) ? $prosesID[$namaMedan] : null)
+				'kod' => $kodMedan,
+				'data' => (isset($prosesID[$kodMedan]) ? $prosesID[$kodMedan] : null)
 				);
 		endfor;
+		# kena buat asing
+		$kategori2['F1225'] = 'caruman (cth kwsp,perkeso)';
+		$kategori2['F1222'] = 'kos latihan kepada staf';
+		$kategori2['F1229'] = 'Bayaran pengarah tidak bekerja';
+		$kategori2['F1232'] = 'bayaran staf lain2';
+		$kategori2['F1233'] = 'Jumlah Besar';
+		
+		//echo '<pre>'; print_r($kategori2) . '</pre>';
+		foreach ($kategori2 as $kodMedan2 => $keterangan):
+			$belanja[] = array(
+				'nama_medan' => $keterangan, 
+				'kod' => $kodMedan2,
+				'data' => (isset($prosesID[$kodMedan2]) ? $prosesID[$kodMedan2] : null)
+				);
+		endforeach;
 
 		return $belanja;
 	}

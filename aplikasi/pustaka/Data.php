@@ -1018,8 +1018,8 @@ class Data
 
 	public static function cdtBelanja($prosesID)
 	{
-		$kategori[] = 'Kos barangan yang dijual';
 		$kategori[] = 'Pembelian bahan & bekalan';
+		$kategori[] = 'Kos barangan yang dijual';
 		$kategori[] = 'Kos pembaikan dan penyelenggaraan';
 		$kategori[] = 'Yuran francais / royalti dibayar';
 		$kategori[] = 'Air yang digunakan';
@@ -1354,27 +1354,28 @@ class Data
 
 	public static function icdtBelanja($prosesID)
 	{
-		$kategori[] = 'Kos barangan yang dijual';
-		$kategori[] = 'Pembelian bahan & bekalan';
-		$kategori[] = 'Kos pembaikan dan penyelenggaraan';
-		$kategori[] = 'Yuran francais / royalti dibayar';
-		$kategori[] = 'Air yang digunakan';
-		$kategori[] = 'Tenaga elektrik yang dibeli';
-		$kategori[] = 'Bahan pembakar, pelincir dan gas';
-		$kategori[] = 'Bayaran tel';
-		$kategori[] = 'Pembelian perkhidmatan pengangkutan';
-		$kategori[] = 'Pengiklanan dan promosi';
-		$kategori[] = 'Kos percetakan';
-		$kategori[] = 'Bayaran sewa tanah';
-		$kategori[] = 'Bayaran Sewa Lain2';
-		$kategori[] = 'Perbelanjaan operasi lain';
-		$kategori[] = 'Cukai langsung (cth. cukai syarikat, cukai kemajuan)';
+		$kategori[] = 'Pembelian bahan & bekalan'; // 1
+		$kategori[] = 'Kos barangan yang dijual'; // 2
+		$kategori[] = 'Kos pembaikan dan penyelenggaraan'; //3
+		$kategori[] = 'Yuran francais / royalti dibayar'; // 4
+		$kategori[] = 'Air yang digunakan'; // 5
+		$kategori[] = 'Tenaga elektrik yang dibeli'; // 6
+		$kategori[] = 'Bahan pembakar, pelincir dan gas'; // 7
+		$kategori[] = 'Bayaran tel'; // 8
+		$kategori[] = 'Pembelian perkhidmatan pengangkutan'; // 9
+		$kategori[] = 'Pengiklanan dan promosi'; // 10
+		$kategori[] = 'Kos percetakan'; // 11
+		$kategori[] = 'Bayaran sewa tanah'; // 12
+		$kategori[] = 'Bayaran Sewa Lain2'; // 13
+		$kategori[] = 'Perbelanjaan operasi lain'; // 14
+		//$kategori[] = 'Perbelanjaan berkaitan ICT'; // 15	
+		$kategori[] = 'Cukai langsung (cth. cukai syarikat, cukai kemajuan)'; // 16
 		$kategori[] = 'Cukai tidak langsung : Cukai jualan, cukai perkhidmatan, taksiran (ke atas tanah & bangunan), '
-			. 'cukai tanah dan cukai tidak langsung lain';
-		$kategori[] = 'Bayaran faedah';
-		$kategori[] = 'Susut nilai';
-		$kategori[] = 'Perbelanjaan bukan operasi';
-		$kategori[] = 'Gaji dan upah yang dibayar';
+			. 'cukai tanah dan cukai tidak langsung lain'; // 17
+		$kategori[] = 'Bayaran faedah'; // 18
+		$kategori[] = 'Susut nilai'; // 19
+		$kategori[] = 'Perbelanjaan bukan operasi'; // 20
+		$kategori[] = 'Gaji dan upah yang dibayar'; // 21
 
 		for ($kira = 1; $kira <= 20; $kira++):
 			$kiraan = kira3($kira,2);
@@ -1386,11 +1387,11 @@ class Data
 				);
 		endfor;
 		# kena buat asing
-		$kategori2['F1225'] = 'caruman (cth kwsp,perkeso)';
-		$kategori2['F1222'] = 'kos latihan kepada staf';
-		$kategori2['F1229'] = 'Bayaran pengarah tidak bekerja';
-		$kategori2['F1232'] = 'bayaran staf lain2';
-		$kategori2['F1233'] = 'Jumlah Besar';
+		$kategori2['F1225'] = 'caruman (cth kwsp,perkeso)'; // 22
+		$kategori2['F1222'] = 'kos pakaian percuma kepada staf'; // 23
+		$kategori2['F1229'] = 'Bayaran pengarah tidak bekerja'; // 24
+		$kategori2['F1232'] = 'bayaran staf lain2'; // 25
+		$kategori2['F1233'] = 'Jumlah Besar'; // 26
 		
 		//echo '<pre>'; print_r($kategori2) . '</pre>';
 		foreach ($kategori2 as $kodMedan2 => $keterangan):

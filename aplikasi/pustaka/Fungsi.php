@@ -993,7 +993,26 @@ function papar_jadual($row, $myTable, $pilih)
 	} // tamat if ($jadual == 4
 }
 // tamat untuk kod php+html 
-
+// sql limit
+function pencamSqlLimit($bilSemua, $item, $ms)
+{
+    // Tentukan bilangan jumlah dalam DB:
+    $jum['bil_semua'] = $bilSemua;
+    // ambil halaman semasa, jika tiada, cipta satu! 
+    $jum['page'] = ( !isset($ms) ) ? 1 : $ms; // mukasurat
+    // berapa item dalam satu halaman
+    $jum['max'] = ( !isset($item) ) ? 30 : $item; // item
+    // Tentukan had query berasaskan nombor halaman semasa.
+    $dari = (($jum['page'] * $jum['max']) - $jum['max']); 
+    $jum['dari'] = ( !isset($dari) ) ? 0 : $dari; // dari
+    // Tentukan bilangan halaman. 
+    $jum['muka_surat'] = ceil($jum['bil_semua'] / $jum['max']);
+    // nak tentukan berapa bil jumlah dlm satu muka surat
+    $jum['bil'] = $jum['dari']+1; 
+    
+    return $jum;
+}
+// format perpuluhan
 function kiraPerpuluhan($kiraan, $perpuluhan = 1)
 {
 	// pecahan kepada ratus

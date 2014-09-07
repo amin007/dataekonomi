@@ -71,11 +71,11 @@ Senarai Kes Untuk Kawalan
 		<div class="col-lg-1">
 		<input type="submit" class="btn btn-default" value="Cari">
 		</div>
-		<div class="col-lg-5">
-		<input type="sv" class="form-control" placeholder="MSIC 2000" name="msic2000">
+		<div class="col-lg-3">
+		<input type="text" class="form-control" placeholder="MSIC 2000" name="msic2000">
 		</div>
-		<div class="col-lg-5">
-		<input type="sv" class="form-control" placeholder="MSIC 2008" name="msic2008">
+		<div class="col-lg-3">
+		<input type="text" class="form-control" placeholder="MSIC 2008" name="msic2008">
 		</div>
 	</div>
 </form>

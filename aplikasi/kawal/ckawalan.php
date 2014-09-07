@@ -46,7 +46,65 @@ class Ckawalan extends Kawal
 		header($lokasi);
 		
 	}
-	
+
+	public function msic() 
+	{
+		//echo '<br>Anda berada di class Ckawalan::msic() extends Kawal <br>';
+		//echo '<pre>$_POST:'; print_r($_POST) . '</pre>';
+		/* $_POST:Array [] => 50201 | [msic2008] => 45201  */
+		
+		$myTable  = 'data_cdt2009_b';
+		$myTable2 = 'data_icdt2012_msic';
+		//echo '<pre>$myJadual:' . print_r($myJadual) . '</pre>';
+		$this->papar->cariNama = array();
+
+		// cari id berasaskan newss/ssm/sidap/nama/operator
+		$id['msic2000'] = isset($_POST['msic2000']) ? $_POST['msic2000'] : null;
+		$id['msic2008'] = isset($_POST['msic2008']) ? $_POST['msic2008'] : null;
+		//echo '<pre>$id:' . print_r($id) . '</pre>';
+
+		if (!empty($id['msic2000'])) 
+		{
+			# set pembolehubah mysql asas
+			$jum = pencamSqlLimit($bilSemua = 500, $item = 100, $ms = 1);
+			$kumpul = array('kumpul'=>'', 'susun'=>'');
+			$susun[] = array_merge($jum, $kumpul );
+		
+			# cari data sql
+			$msic2000 = $id['msic2000'];			
+			$cari[] = array('fix'=>'z2','atau'=>'WHERE','medan'=>'F5002','apa'=>$msic2000 . '%','akhir'=>NULL);
+			$cari[] = array('fix'=>'z2','atau'=>'OR',   'medan'=>'F6002','apa'=>$msic2000 . '%','akhir'=>NULL);
+			$cari[] = array('fix'=>'z2','atau'=>'OR',   'medan'=>'F7002','apa'=>$msic2000 . '%','akhir'=>NULL);
+
+			# dapatkan data mysql
+				$this->papar->cariNama[$myTable] = 
+				$this->tanya->cariSemuaData($myTable,'batch,sidap,F5002,F6002,F7002',$cari, $susun);
+
+			# cari data sql
+			$msic2008 = $id['msic2008'];			
+			$cari2[] = array('fix'=>'z2','atau'=>'WHERE','medan'=>'msic2008','apa'=>$msic2008 . '%','akhir'=>NULL);
+
+			# dapatkan data mysql
+				$this->papar->cariNama[$myTable2] = 
+				$this->tanya->cariSemuaData($myTable2,'*',$cari2, $susun);
+
+		}
+		else
+		{
+			$this->papar->carian='[id:0]';// set pembolehubah untuk LIHAT => $this->carian
+			$this->papar->apa = null; // set pembolehubah untuk LIHAT => $this->apa
+		}
+		
+		// papar array dalam cariNama
+		#echo '<pre>$this->papar->carian:' . $this->papar->carian . '<br>';
+		#echo '<pre>$this->papar->apa:' . $this->papar->apa . '<br>';
+		//echo '<pre>$this->papar->cariNama:'; print_r($this->papar->cariNama) . '</pre>';
+		
+		// paparkan ke fail 
+		$this->papar->baca('ckawalan/' . $this->_t . 'cari', 0);
+//**/		
+	}
+
 	function cari() 
 	{
 		#echo '<br>Anda berada di class Imej extends Kawal:cari()<br>';

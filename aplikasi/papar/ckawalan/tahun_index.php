@@ -63,6 +63,21 @@ Senarai Kes Untuk Kawalan
 		</div>
 	</div>
 </form>
+<br>
+<form class="form-horizontal" role="form" method="post" action="ckawalan/msic">
+<h2>Cari MSIC Utk CDT & ICDT sahaja</h2>
+	<div class="form-group">
+		<label class="col-lg-1 control-label">MSIC</label>
+		<div class="col-lg-10">
+		<input type="sv" class="form-control" placeholder="MSIC" name="msic">
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-lg-offset-1 col-lg-10">
+		<input type="submit" class="btn btn-default" value="Cari">
+		</div>
+	</div>
+</form>
 
 </div><!--container-->
 <?php

@@ -51,7 +51,7 @@ class Ckawalan extends Kawal
 	{
 		//echo '<br>Anda berada di class Ckawalan::msic() extends Kawal <br>';
 		//echo '<pre>$_POST:'; print_r($_POST) . '</pre>';
-		/* $_POST:Array [] => 50201 | [msic2008] => 45201  */
+		/* $_POST:Array [msic2000] => 50201 | [msic2008] => 45201  */
 		
 		$myTable  = 'data_cdt2009_b';
 		$myTable2 = 'data_icdt2012_msic';
@@ -59,6 +59,7 @@ class Ckawalan extends Kawal
 		$this->papar->cariNama = array();
 
 		// cari id berasaskan newss/ssm/sidap/nama/operator
+		$fe = isset($_POST['fe']) ? $_POST['fe'] : null;
 		$id['msic2000'] = isset($_POST['msic2000']) ? $_POST['msic2000'] : null;
 		$id['msic2008'] = isset($_POST['msic2008']) ? $_POST['msic2008'] : null;
 		//echo '<pre>$id:' . print_r($id) . '</pre>';
@@ -72,32 +73,39 @@ class Ckawalan extends Kawal
 		
 			# cari data sql
 			$msic2000 = $id['msic2000'];			
-			$cari[] = array('fix'=>'z2','atau'=>'WHERE','medan'=>'c.sidap','apa'=>'b.sidap','akhir'=>NULL);
+			$cari[] = array('fix'=>'z1','atau'=>'WHERE','medan'=>'c.sidap','apa'=>'b.sidap','akhir'=>NULL);
+			//$cari[] = array('fix'=>'z1','atau'=>'AND','medan'=>'b.newss','apa'=>'a.sidap','akhir'=>NULL);			
+			//$cari[] = array('fix'=>'z2','atau'=>'AND','medan'=>'a.batchawal','apa'=>"'$fe'",'akhir'=>NULL);
 			$cari[] = array('fix'=>'z2','atau'=>'AND (','medan'=>'F5002','apa'=>"'$msic2000%'",'akhir'=>NULL);
 			$cari[] = array('fix'=>'z2','atau'=>'OR',   'medan'=>'F6002','apa'=>"'$msic2000%'",'akhir'=>NULL);
 			$cari[] = array('fix'=>'z2','atau'=>'OR',   'medan'=>'F7002','apa'=>"'$msic2000%'",'akhir'=>')');
 
 			# dapatkan data mysql
 				$this->papar->cariNama[$myTable] = 
-				$this->tanya->cariSemuaData("$myTable c, alamat_newss_2013 b ",
+				$this->tanya->cariSemuaData("$myTable c, alamat_newss_2013 b",
 					'c.batch,c.sidap,F5002,F6002,F7002,'
-					. 'concat_ws(" ",nama,operator) as nama,'
-					. 'concat_ws(" ",alamat1a,alamat2a,poskod,alamat3a) alamat'
+					. 'concat_ws(" ",b.nama,b.operator) as nama,'
+					. 'concat_ws(" ",b.alamat1a,b.alamat2a,b.poskod,b.alamat3a) alamat'
 					,$cari, $susun);
 
 			# cari data sql
 			$msic2008 = $id['msic2008'];			
-			$cari2[] = array('fix'=>'z2','atau'=>'WHERE','medan'=>'c.estab','apa'=>'b.newss','akhir'=>NULL);
+			$cari2[] = array('fix'=>'z1','atau'=>'WHERE','medan'=>'c.estab','apa'=>'b.newss','akhir'=>NULL);
+			//$cari2[] = array('fix'=>'z1','atau'=>'AND','medan'=>'b.newss','apa'=>'a.newss','akhir'=>NULL);
+			//$cari2[] = array('fix'=>'z2','atau'=>'AND','medan'=>'a.batchawal','apa'=>"'$fe'",'akhir'=>NULL);			
 			$cari2[] = array('fix'=>'z2','atau'=>'AND','medan'=>'c.msic2008','apa'=>"'$msic2008%'",'akhir'=>NULL);
 
 			# dapatkan data mysql
 				$this->papar->cariNama[$myTable2] = 
-				$this->tanya->cariSemuaData("$myTable2  c, alamat_newss_2013 b ",
+				$this->tanya->cariSemuaData("$myTable2  c, alamat_newss_2013 b",
 					'c.estab,c.subsektor,c.msic2008,'
-					. 'concat_ws(" ",nama,operator) as nama,'
-					. 'concat_ws(" ",alamat1a,alamat2a,poskod,alamat3a) alamat'
+					. 'concat_ws(" ",b.nama,b.operator) as nama,'
+					. 'concat_ws(" ",b.alamat1a,b.alamat2a,b.poskod,b.alamat3a) alamat'
 					,$cari2, $susun);
 
+			# papar cariam
+			$this->papar->carian='msic2008:' . $msic2008;// set pembolehubah untuk LIHAT => $this->carian
+			$this->papar->apa = 'msic2000:' . $msic2000; // set pembolehubah untuk LIHAT => $this->apa
 		}
 		else
 		{
@@ -111,7 +119,7 @@ class Ckawalan extends Kawal
 		//echo '<pre>$this->papar->cariNama:'; print_r($this->papar->cariNama) . '</pre>';
 		
 		// paparkan ke fail 
-		$this->papar->baca('ckawalan/' . $this->_t . 'cari', 0);
+		$this->papar->baca('ckawalan/' . $this->_t . 'cari');
 /*
 SELECT c.estab,c.subsektor,c.msic2008,concat_ws(" ",nama,operator) as nama,
 concat_ws(" ",alamat1a,alamat2a,poskod,alamat3a) alamat

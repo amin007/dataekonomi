@@ -112,7 +112,7 @@ class Ckawalan_Tanya extends Tanya
 			 . $this->dibawah($susun);
 		
 		//echo '<pre>susun:'; print_r($susun) . '</pre><br>';
-		echo htmlentities($sql) . '<br>';
+		//echo htmlentities($sql) . '<br>';
 		$result = $this->db->selectAll($sql);
 		//echo json_encode($result);
 		

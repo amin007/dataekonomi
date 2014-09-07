@@ -59,7 +59,7 @@ class Ckawalan extends Kawal
 		$this->papar->cariNama = array();
 
 		// cari id berasaskan newss/ssm/sidap/nama/operator
-		$fe = isset($_POST['fe']) ? $_POST['fe'] : null;
+		//$fe = isset($_POST['fe']) ? $_POST['fe'] : null;
 		$id['msic2000'] = isset($_POST['msic2000']) ? $_POST['msic2000'] : null;
 		$id['msic2008'] = isset($_POST['msic2008']) ? $_POST['msic2008'] : null;
 		//echo '<pre>$id:' . print_r($id) . '</pre>';
@@ -67,7 +67,7 @@ class Ckawalan extends Kawal
 		if (!empty($id['msic2000'])) 
 		{
 			# set pembolehubah mysql asas
-			$jum = pencamSqlLimit($bilSemua = 500, $item = 100, $ms = 1);
+			$jum = pencamSqlLimit($bilSemua = 500, $item = 500, $ms = 1);
 			$kumpul = array('kumpul'=>'', 'susun'=>'');
 			$susun[] = array_merge($jum, $kumpul );
 		

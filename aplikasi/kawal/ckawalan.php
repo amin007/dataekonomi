@@ -45,7 +45,8 @@ class Ckawalan extends Kawal
 		//echo $lokasi;
 		header($lokasi);
 		
-	}	
+	}
+	
 	function cari() 
 	{
 		#echo '<br>Anda berada di class Imej extends Kawal:cari()<br>';

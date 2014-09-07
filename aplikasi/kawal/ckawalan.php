@@ -72,21 +72,31 @@ class Ckawalan extends Kawal
 		
 			# cari data sql
 			$msic2000 = $id['msic2000'];			
-			$cari[] = array('fix'=>'z2','atau'=>'WHERE','medan'=>'F5002','apa'=>$msic2000 . '%','akhir'=>NULL);
-			$cari[] = array('fix'=>'z2','atau'=>'OR',   'medan'=>'F6002','apa'=>$msic2000 . '%','akhir'=>NULL);
-			$cari[] = array('fix'=>'z2','atau'=>'OR',   'medan'=>'F7002','apa'=>$msic2000 . '%','akhir'=>NULL);
+			$cari[] = array('fix'=>'z2','atau'=>'WHERE','medan'=>'c.sidap','apa'=>'b.sidap','akhir'=>NULL);
+			$cari[] = array('fix'=>'z2','atau'=>'AND (','medan'=>'F5002','apa'=>"'$msic2000%'",'akhir'=>NULL);
+			$cari[] = array('fix'=>'z2','atau'=>'OR',   'medan'=>'F6002','apa'=>"'$msic2000%'",'akhir'=>NULL);
+			$cari[] = array('fix'=>'z2','atau'=>'OR',   'medan'=>'F7002','apa'=>"'$msic2000%'",'akhir'=>')');
 
 			# dapatkan data mysql
 				$this->papar->cariNama[$myTable] = 
-				$this->tanya->cariSemuaData($myTable,'batch,sidap,F5002,F6002,F7002',$cari, $susun);
+				$this->tanya->cariSemuaData("$myTable c, alamat_newss_2013 b ",
+					'c.batch,c.sidap,F5002,F6002,F7002,'
+					. 'concat_ws(" ",nama,operator) as nama,'
+					. 'concat_ws(" ",alamat1a,alamat2a,poskod,alamat3a) alamat'
+					,$cari, $susun);
 
 			# cari data sql
 			$msic2008 = $id['msic2008'];			
-			$cari2[] = array('fix'=>'z2','atau'=>'WHERE','medan'=>'msic2008','apa'=>$msic2008 . '%','akhir'=>NULL);
+			$cari2[] = array('fix'=>'z2','atau'=>'WHERE','medan'=>'c.estab','apa'=>'b.newss','akhir'=>NULL);
+			$cari2[] = array('fix'=>'z2','atau'=>'AND','medan'=>'c.msic2008','apa'=>"'$msic2008%'",'akhir'=>NULL);
 
 			# dapatkan data mysql
 				$this->papar->cariNama[$myTable2] = 
-				$this->tanya->cariSemuaData($myTable2,'*',$cari2, $susun);
+				$this->tanya->cariSemuaData("$myTable2  c, alamat_newss_2013 b ",
+					'c.estab,c.subsektor,c.msic2008,'
+					. 'concat_ws(" ",nama,operator) as nama,'
+					. 'concat_ws(" ",alamat1a,alamat2a,poskod,alamat3a) alamat'
+					,$cari2, $susun);
 
 		}
 		else
@@ -102,7 +112,18 @@ class Ckawalan extends Kawal
 		
 		// paparkan ke fail 
 		$this->papar->baca('ckawalan/' . $this->_t . 'cari', 0);
-//**/		
+/*
+SELECT c.estab,c.subsektor,c.msic2008,concat_ws(" ",nama,operator) as nama,
+concat_ws(" ",alamat1a,alamat2a,poskod,alamat3a) alamat
+FROM data_icdt2012_msic c, alamat_newss_2013 b
+WHERE c.estab = b.newss
+AND c.msic2008 like '45201%'
+
+SELECT c.batch,c.sidap,F5002,F6002,F7002,concat_ws(" ",nama,operator) as nama,
+concat_ws(" ",alamat1a,alamat2a,poskod,alamat3a) alamat FROM data_cdt2009_b c, alamat_newss_2013 b 
+WHERE c.sidap like b.sidap 
+AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
+//*/
 	}
 
 	function cari() 

@@ -68,13 +68,14 @@ Senarai Kes Untuk Kawalan
 <h2>Cari MSIC Utk CDT & ICDT sahaja</h2>
 	<div class="form-group">
 		<label class="col-lg-1 control-label">MSIC</label>
-		<div class="col-lg-10">
-		<input type="sv" class="form-control" placeholder="MSIC" name="msic">
-		</div>
-	</div>
-	<div class="form-group">
-		<div class="col-lg-offset-1 col-lg-10">
+		<div class="col-lg-1">
 		<input type="submit" class="btn btn-default" value="Cari">
+		</div>
+		<div class="col-lg-5">
+		<input type="sv" class="form-control" placeholder="MSIC 2000" name="msic2000">
+		</div>
+		<div class="col-lg-5">
+		<input type="sv" class="form-control" placeholder="MSIC 2008" name="msic2008">
 		</div>
 	</div>
 </form>

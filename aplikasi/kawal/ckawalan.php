@@ -83,7 +83,7 @@ class Ckawalan extends Kawal
 			# dapatkan data mysql
 				$this->papar->cariNama[$myTable] = 
 				$this->tanya->cariSemuaData("$myTable c, alamat_newss_2013 b",
-					'c.batch,c.sidap,F5002,F6002,F7002,'
+					'c.batch,c.sidap sidap,F5002,F6002,F7002,'
 					. 'concat_ws(" ",b.nama,b.operator) as nama,'
 					. 'concat_ws(" ",b.alamat1a,b.alamat2a,b.poskod,b.alamat3a) alamat'
 					,$cari, $susun);
@@ -98,7 +98,7 @@ class Ckawalan extends Kawal
 			# dapatkan data mysql
 				$this->papar->cariNama[$myTable2] = 
 				$this->tanya->cariSemuaData("$myTable2  c, alamat_newss_2013 b",
-					'c.estab,c.subsektor,c.msic2008,'
+					'c.estab newss,c.subsektor,c.msic2008,'
 					. 'concat_ws(" ",b.nama,b.operator) as nama,'
 					. 'concat_ws(" ",b.alamat1a,b.alamat2a,b.poskod,b.alamat3a) alamat'
 					,$cari2, $susun);

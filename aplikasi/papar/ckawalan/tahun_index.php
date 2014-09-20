@@ -46,21 +46,19 @@ Senarai Kes Untuk Kawalan
 <form class="form-horizontal" role="form" method="post" action="ckawalan/proses">
 <h2>Untuk BE 2011 TAHUN RUJUKAN 2010</h2>
 	<div class="form-group">
-		<label class="col-lg-1 control-label">SV</label>
-		<div class="col-lg-10">
-		<input type="sv" class="form-control" placeholder="SV" name="sv">
-		</div>
-	</div>
-	<div class="form-group">
-		<label class="col-lg-1 control-label">Newss</label>
-		<div class="col-lg-10">
-		<input type="text" class="form-control" placeholder="NEWSS" name="newss">
-		</div>
-	</div>
-	<div class="form-group">
-		<div class="col-lg-offset-1 col-lg-10">
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+		<div class="col-lg-1">
 		<input type="submit" class="btn btn-default" value="Cari">
 		</div>
+		<label class="col-lg-1 control-label">SV</label>
+		<div class="col-lg-1">
+		<input type="text" class="form-control" placeholder="SV/KP" name="sv">
+		</div>
+		<label class="col-lg-1 control-label">NEWSS</label>
+		<div class="col-lg-4">
+		<input type="text" class="form-control" placeholder="NEWSS" name="newss">
+		</div>
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 	</div>
 </form>
 <br>

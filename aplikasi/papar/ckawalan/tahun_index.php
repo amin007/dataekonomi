@@ -47,9 +47,6 @@ Senarai Kes Untuk Kawalan
 <h2>Untuk BE 2011 TAHUN RUJUKAN 2010</h2>
 	<div class="form-group">
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
-		<div class="col-lg-1">
-		<input type="submit" class="btn btn-default" value="Cari">
-		</div>
 		<label class="col-lg-1 control-label">SV</label>
 		<div class="col-lg-1">
 		<input type="text" class="form-control" placeholder="SV/KP" name="sv">
@@ -57,6 +54,9 @@ Senarai Kes Untuk Kawalan
 		<label class="col-lg-1 control-label">NEWSS</label>
 		<div class="col-lg-4">
 		<input type="text" class="form-control" placeholder="NEWSS" name="newss">
+		</div>
+		<div class="col-lg-1">
+		<input type="submit" class="btn btn-default" value="Cari">
 		</div>
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 	</div>

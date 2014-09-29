@@ -60,9 +60,10 @@ $(document).ready(function()
 	background-color: #000000; color:#ffffff">FE</a>
 <?php 
 unset($pegawai);	
-$pegawai=array('adam','amin007','amran','ali','ariff','azim','norita',
-'fendi','khairi','musa','mustaffa','shukor','suhaida',
-'viara','zaharah','hanim');
+$pegawai=array('amin007','ariff','azim','fendi','irwan',
+'khairi','musa','mustaffa','norita','suhaida',
+//'viara','zaharah','hanim'
+);
 
 foreach ($pegawai as $key => $nama)
 {	
@@ -72,7 +73,7 @@ foreach ($pegawai as $key => $nama)
 	. ucwords($nama) . '" href="' . $urlMasuk . $nama . '">' 
 	. "\n\t" . '<img src="' . STAF . $gambar . '.jpg"></a>';
 	
-	$isi.=($key!=0 && $key%5==0)? "<br>\n":"\n";
+	$isi.=($key!=0 && $key%10==0)? "<br>\n":"\n";
 }
 	echo $isi;
 ?>	
@@ -98,7 +99,7 @@ echo $isi;
 	background-color: #000000; color:#ffffff">KUP</a><?php 
 unset($kup);
 $isi=null;
-$kup=array('murad','sujana');
+$kup=array('murad','sujana','adam','shukor');
 foreach ($kup as $key => $nama)
 {	
 	$isi.="\n\t" . '<a class="zoom" title="Assalamualaikum ' .

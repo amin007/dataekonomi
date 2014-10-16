@@ -96,7 +96,7 @@ class Sesat extends Kawal
 		$this->papar->carian = 'semua';
         
         # pergi papar kandungan
-        $this->papar->baca('sesat/index', 0);
+        $this->papar->baca('sesat/jadual', 0);
     }
 
 ################################################################################################

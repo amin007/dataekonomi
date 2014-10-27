@@ -32,13 +32,16 @@ $soalAm = array(
 	's'.$this->sv.'_q05_2010',
 	's'.$this->sv.'_q05a_2010',
 	's'.$this->sv.'_q05b_2010',
-	's'.$this->sv.'_q06_2010',
+	's'.$this->sv.'_q10_2010',
+	's'.$this->sv.'_q11_2010',
+	's'.$this->sv.'_qsd_2010',
+/*	's'.$this->sv.'_q06_2010',
 	's'.$this->sv.'_q07_2010',
 	's'.$this->sv.'_qsa_2010',
 	's'.$this->sv.'_qsb_2010',
-	's'.$this->sv.'_qsc_2010',
+	's'.$this->sv.'_qsc_2010',*/
 	's'.$this->sv.'_qsd_2010',
-	's'.$this->sv.'_qse_2010',
+/*	's'.$this->sv.'_qse_2010',*/
 	's'.$this->sv.'_qsf_2010',
 	's'.$this->sv.'_tblDataReview_2010',
 	's'.$this->sv.'_tblDataReviewTemp_2010',
@@ -73,7 +76,7 @@ foreach ($this->kesID as $myTable => $row)
 <table><tr>
 <?php 
 $mula = 1;
-$lajur = 3;
+$lajur = 1;
 foreach ($this->kod_produk as $myTable => $row)
 {
 	if ( count($row)==0 ) echo '';

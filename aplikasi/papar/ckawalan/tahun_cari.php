@@ -80,6 +80,7 @@ function pautan($paparID, $jadual)
 		'205 <-2009' => '../cprosesan/ubah/205/' . $ssm . '/2004/2009',
 		'CDT 2009->' => '../cprosesan/ubah/cdt/' . $ssm . '/2004/2013',
 		'ICDT 2012->' => '../cprosesan/ubah/icdt/' . $id . '/2004/2013',
+		'101 2010-2012' => '../cprosesan/ubah/101/' . $id . '/2004/2013',
 		'205 2010-2012' => '../cprosesan/ubah/205/' . $id . '/2010/2012',
 		'206 2010-2012' => '../cprosesan/ubah/206/' . $id . '/2010/2012',
 		'305 2010-2012' => '../cprosesan/ubah/305/' . $id . '/2010/2012',

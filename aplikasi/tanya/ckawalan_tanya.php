@@ -119,6 +119,18 @@ class Ckawalan_Tanya extends Tanya
 		return $result;
 	}
 	
+	public function cariSql($myTable, $medan, $carian, $susun)
+	{
+		$sql = 'SELECT ' . $medan . ' FROM ' . $myTable 
+			 . $this->dimana($carian)
+			 . $this->dibawah($susun);
+		
+		echo htmlentities($sql) . '<br>';
+		//$result = $this->db->selectAll($sql);
+		
+		return $result;
+	}
+
 	public function cariKes($myTable, $cari)
 	{
 		$medan = ($myTable=='sse10_kawal' || $myTable=='alamat_newss_2013') ? 

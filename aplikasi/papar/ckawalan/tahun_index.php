@@ -77,9 +77,60 @@ Senarai Kes Untuk Kawalan
 		</div>
 	</div>
 </form>
+<br>
+<form class="form-horizontal" role="form" method="post" action="ckawalan/msicbe2010">
+<h2>Cari MSIC Utk BE2010 sahaja</h2>
+	<div class="form-group">
+		<label class="col-lg-1 control-label">MSIC</label>
+		<div class="col-lg-1">
+		<input type="submit" class="btn btn-default" value="Cari">
+		</div>
+		<div class="col-lg-3">
+		<?php pautan() ?>
+		</div>
+		<div class="col-lg-3">
+		<input type="text" class="form-control" placeholder="MSIC 2000" name="msic2000">
+		</div>
+		<div class="col-lg-3">
+		<input type="text" class="form-control" placeholder="MSIC 2008" name="msic2008">
+		</div>
+	</div>
+</form>
 
 </div><!--container-->
 <?php
+function pautan($paparID = null, $jadual = null)
+{
+	$proses = array (
+		//'surveyAm <-2009' => '../cprosesan/ubah/' . $ssm . '/2004/2009',
+		//'surveyAm 2010->' => '../cprosesan/ubah/' . $id . '/2010/2012',
+		'CDT 2009->' => 'cdt',
+		'ICDT 2012->' => 'icdt',
+		'101 2010-2012' => '101',
+		'205 2010-2012' => '205',
+		'206 2010-2012' => '206',
+		'305 2010-2012' => '305',
+		'306 2010-2012' => '306',
+		'308 2010-2012' => '308',
+		'309 2010-2012' => '309',
+		'311 2010-2012' => '311',
+		'312 2010-2012' => '312',
+		'316 2010-2012' => '316',
+		'328 2010-2012' => '328',
+		'331 2010-2012' => '331',
+		'334 2010-2012' => '334',
+		'335 2010-2012' => '335',
+		'800 2010-2012' => '800',
+		'850 2010-2012' => '850',
+		);
+
+	?><select class="form-control" name="kp"><?php 	
+		foreach ( $proses AS $key2=>$data2 ):?>
+		<option value="<?php echo $data2 ?>">survey <?php echo $key2 ?></option><?php
+		endforeach;
+	?></select><?php
+}
+?><?php
 /* 
 <select id="jenis_data" name="jenis_data">
 <option>Kawalan</option><option>Prosesan</option>

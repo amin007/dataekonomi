@@ -137,25 +137,23 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 	public function msicbe2010() 
 	{
 		//echo '<br>Anda berada di class Ckawalan::msic() extends Kawal <br>';
-		echo '<pre>$_POST:'; print_r($_POST) . '</pre>';
+		//echo '<pre>$_POST:'; print_r($_POST) . '</pre>';
 		/* $_POST:Array [msic2000] => 50201 | [msic2008] => 45201  */
 		
-		$myTable = 'q01_2010';
-		$myTable2  = array(// s101_tbldatareview_2010
-			'101','206','305','306','308',
+		$myTable2  = array(
+			'101','205','206','305','306','308',
 			'309','311','312','316','328',
 			'331','334','335','800','850');
 
 		//echo '<pre>$myJadual:' . print_r($myJadual) . '</pre>';
 		$this->papar->cariNama = array();
 
-		// cari id berasaskan newss/ssm/sidap/nama/operator
-		//$fe = isset($_POST['fe']) ? $_POST['fe'] : null;
-		$id['msic2000'] = isset($_POST['msic2000']) ? $_POST['msic2000'] : null;
-		$id['msic2008'] = isset($_POST['msic2008']) ? $_POST['msic2008'] : null;
+		# cari id berasaskan newss/ssm/sidap/nama/operator
+		$bandar = isset($_POST['bandar']) ? $_POST['bandar'] : null;
+		$msic2008 = isset($_POST['msic2008']) ? $_POST['msic2008'] : null;
 		//echo '<pre>$id:' . print_r($id) . '</pre>';
 
-		if (!empty($id['msic2008'])) 
+		if (!empty($msic2008)) 
 		{
 			# set pembolehubah mysql asas
 			$jum = pencamSqlLimit($bilSemua = 500, $item = 500, $ms = 1);
@@ -163,50 +161,37 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 			$susun[] = array_merge($jum, $kumpul );
 		
 			# cari data sql
-			$msic2008 = $id['msic2008'];			
 			$cari2[] = array('fix'=>'z1','atau'=>'WHERE','medan'=>'c.estab','apa'=>'b.newss','akhir'=>NULL);
-			//$cari2[] = array('fix'=>'z1','atau'=>'AND','medan'=>'b.newss','apa'=>'a.newss','akhir'=>NULL);
-			//$cari2[] = array('fix'=>'z2','atau'=>'AND','medan'=>'a.batchawal','apa'=>"'$fe'",'akhir'=>NULL);			
-			$cari2[] = array('fix'=>'z2','atau'=>'AND','medan'=>'c.msic2008','apa'=>"'$msic2008%'",'akhir'=>NULL);
-
-			# dapatkan data mysql
-				$this->papar->cariNama[$myTable] = 
-				$this->tanya->cariSql("$myTable c, alamat_newss_2013 b",
-				//$this->tanya->cariSemuaData("$myTable2  c, alamat_newss_2013 b",
-					'c.estab newss,c.subsektor,c.msic2008,'
-					. 'concat_ws(" ",b.nama,b.operator) as nama,'
-					. 'concat_ws(" ",b.alamat1a,b.alamat2a,b.poskod,b.alamat3a) alamat'
-					,$cari2, $susun);
-
+			$cari2[] = array('fix'=>'z2','atau'=>'AND','medan'=>'c.f0014','apa'=>"'$msic2008%'",'akhir'=>NULL);
+			$cari2[] = array('fix'=>'z2','atau'=>'AND','medan'=>'b.alamat3a','apa'=>"'$bandar%'",'akhir'=>NULL);
+			
+			foreach  ($myTable2 as $key=>$jadual):
+				$paparJadual = ($jadual=='205') ? 'q01_2010' : 's' . $jadual . '_q01_2010';
+				$this->papar->cariNama[$jadual] = 
+				//$this->tanya->cariSql("$paparJadual c, alamat_newss_2013 b",
+				$this->tanya->cariSemuaData("$paparJadual c, alamat_newss_2013 b",
+					'c.estab newss,sidap,c.F0014,c.F0015,concat_ws(" ",b.nama,b.operator) as nama,'
+					. 'concat_ws(" ",b.alamat1a,b.alamat2a,b.poskod,b.alamat3a) alamat' . "\r"
+					,$cari2, $susun);//*/
+			endforeach;
+			
 			# papar cariam
-			$this->papar->carian='msic2008:' . $msic2008;// set pembolehubah untuk LIHAT => $this->carian
-			$this->papar->apa = 'msic2000:' . $msic2000; // set pembolehubah untuk LIHAT => $this->apa
+			$this->papar->carian='msic2008:' . $msic2008; # set pembolehubah untuk LIHAT => $this->carian
+			$this->papar->apa = 'bandar:' . $bandar; # set pembolehubah untuk LIHAT => $this->apa
 		}
 		else
 		{
-			$this->papar->carian='[id:0]';// set pembolehubah untuk LIHAT => $this->carian
-			$this->papar->apa = null; // set pembolehubah untuk LIHAT => $this->apa
+			$this->papar->carian='[id:0]'; # set pembolehubah untuk LIHAT => $this->carian
+			$this->papar->apa = null; # set pembolehubah untuk LIHAT => $this->apa
 		}
 		
-		// papar array dalam cariNama
+		# papar array dalam cariNama
 		#echo '<pre>$this->papar->carian:' . $this->papar->carian . '<br>';
 		#echo '<pre>$this->papar->apa:' . $this->papar->apa . '<br>';
-		echo '<pre>$this->papar->cariNama:'; print_r($this->papar->cariNama) . '</pre>';
+		//echo '<pre>$this->papar->cariNama:'; print_r($this->papar->cariNama) . '</pre>';
 		
-		// paparkan ke fail 
-		//$this->papar->baca('ckawalan/' . $this->_t . 'cari');
-/*
-SELECT c.estab,c.subsektor,c.msic2008,concat_ws(" ",nama,operator) as nama,
-concat_ws(" ",alamat1a,alamat2a,poskod,alamat3a) alamat
-FROM data_icdt2012_msic c, alamat_newss_2013 b
-WHERE c.estab = b.newss
-AND c.msic2008 like '45201%'
-
-SELECT c.batch,c.sidap,F5002,F6002,F7002,concat_ws(" ",nama,operator) as nama,
-concat_ws(" ",alamat1a,alamat2a,poskod,alamat3a) alamat FROM data_cdt2009_b c, alamat_newss_2013 b 
-WHERE c.sidap like b.sidap 
-AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
-//*/
+		# paparkan ke fail 
+		$this->papar->baca('ckawalan/' . $this->_t . 'cari');
 	}
 
 	function cari() 

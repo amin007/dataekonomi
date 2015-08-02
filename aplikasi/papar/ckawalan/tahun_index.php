@@ -61,7 +61,7 @@ Senarai Kes Untuk Kawalan
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 	</div>
 </form>
-<br>
+<!-- >
 <form class="form-horizontal" role="form" method="post" action="ckawalan/msic">
 <h2>Cari MSIC Utk CDT & ICDT sahaja</h2>
 	<div class="form-group">
@@ -77,7 +77,7 @@ Senarai Kes Untuk Kawalan
 		</div>
 	</div>
 </form>
-<br>
+< -->
 <form class="form-horizontal" role="form" method="post" action="ckawalan/msicbe2010">
 <h2>Cari MSIC Utk BE2010 sahaja</h2>
 	<div class="form-group">
@@ -89,10 +89,10 @@ Senarai Kes Untuk Kawalan
 		<?php pautan() ?>
 		</div>
 		<div class="col-lg-3">
-		<input type="text" class="form-control" placeholder="MSIC 2000" name="msic2000">
+		<input type="text" class="form-control" placeholder="MSIC 2008" name="msic2008">
 		</div>
 		<div class="col-lg-3">
-		<input type="text" class="form-control" placeholder="MSIC 2008" name="msic2008">
+		<input type="text" class="form-control" placeholder="Bandar" name="bandar">
 		</div>
 	</div>
 </form>
@@ -104,8 +104,8 @@ function pautan($paparID = null, $jadual = null)
 	$proses = array (
 		//'surveyAm <-2009' => '../cprosesan/ubah/' . $ssm . '/2004/2009',
 		//'surveyAm 2010->' => '../cprosesan/ubah/' . $id . '/2010/2012',
-		'CDT 2009->' => 'cdt',
-		'ICDT 2012->' => 'icdt',
+		//'CDT 2009->' => 'cdt',
+		//'ICDT 2012->' => 'icdt',
 		'101 2010-2012' => '101',
 		'205 2010-2012' => '205',
 		'206 2010-2012' => '206',
@@ -123,11 +123,12 @@ function pautan($paparID = null, $jadual = null)
 		'800 2010-2012' => '800',
 		'850 2010-2012' => '850',
 		);
-
+	
+	echo "\t\t";
 	?><select class="form-control" name="kp"><?php 	
 		foreach ( $proses AS $key2=>$data2 ):?>
 		<option value="<?php echo $data2 ?>">survey <?php echo $key2 ?></option><?php
-		endforeach;
+		endforeach; echo "\t\t";
 	?></select><?php
 }
 ?><?php

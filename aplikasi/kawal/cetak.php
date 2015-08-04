@@ -20,11 +20,11 @@ class Cetak extends Kawal
 		$this->papar->baca($this->papar->dataAm . 'index');
 	}
 
-	// ubah & cetak
+	# ubah & cetak
 	function ubah($sv=null, $id = null, $mula = null, $akhir = null, $cetak = null)
 	{	//echo '<br>Anda berada di class Cprosesan extends Kawal:ubah($cari,$mula,$akhir,$cetak)<br>';
 		
-		// setkan semua pembolehubah
+		# setkan semua pembolehubah
 		$medan = '*'; // senarai nama medan
 		$cari = array (
 			'sv' => $sv, // senarai survey
@@ -42,7 +42,7 @@ class Cetak extends Kawal
 			
 		if (!empty($cari['id']) && !empty($sv)) 
 		{	
-			// mula cari $cari dalam $this->senarai_jadual(($sv)
+			# mula cari $cari dalam $this->senarai_jadual(($sv)
 			//echo '<pre>$this->senarai_jadual('.$cari['sv'].')::'; print_r($this->senarai_jadual($sv)) . '</pre>';
 			
 			foreach ($this->senarai_jadual($cari['sv']) as 
@@ -51,10 +51,11 @@ class Cetak extends Kawal
 				$nilai[$myTable] = $this->tanya->cariEstab($myTable, $medan, $cari);
 			}// tamat ulang table
 			
-			// paparkan data kesID yang ada nilai sahaja
+			# paparkan data kesID yang ada nilai sahaja
 			//echo '<pre>$nilai='; print_r($nilai);
 			$this->semakYangAda($sv, $nilai, $cari);
-			// cari kod io
+			$this->cantumSoalan($sv, $this->papar->kesID, $cari);
+			# cari kod io
 			$this->paparIO($sv, $this->papar->kesID, $cari);
 			
 		}
@@ -237,7 +238,11 @@ class Cetak extends Kawal
 		foreach ($paparID as $jadual => $key):
 			foreach ($key as $key2 => $data):
 				foreach ($data as $medan => $nilai2):
+					//if ($sv=='205'): $soalan = substr($jadual, 0, 3);
 					if ($paparID[$jadual][$key2][$medan]!='0'):
+						$soal = ($sv=='205')? substr($jadual, 0, 3) : substr($jadual, 5, 3);
+						$soal2 = ($sv=='205')? substr($jadual, 0, 30) : substr($jadual, 5, 30);
+						$this->papar->kesID[$jadual][$key2][$soal] = $soal2;
 						$this->papar->kesID[$jadual][$key2][$medan] = $nilai2;				
 						//echo (in_array($jadual, $asetIndustri)) ? $jadual . ' ada<br>' : '';
 						if (in_array($jadual, $asetIndustri)) $aset = $jadual;
@@ -520,4 +525,26 @@ class Cetak extends Kawal
 		. "\r" . 'RENAME TABLE `pom_dataekonomi`.`'.$sv.'_tbldatareviewtemp3_2010` TO `pom_dataekonomi`.`s'.$sv.'_tbldatareviewtemp3_2010`;';
 
 	}
+
+	private function cantumSoalan($sv, $paparID, $cari) 
+	{
+		// q02 & q03 & q06 & q07
+		$q02 = 's'.$sv.'_q02_2010'; $q03 = 's'.$sv.'_q03_2010'; 
+		$q06 = 's'.$sv.'_q06_2010'; $q07 = 's'.$sv.'_q07_2010'; 
+		$data1 = array_merge($paparID[$q02][0],$paparID[$q03][0],
+			$paparID[$q06][0],$paparID[$q07][0]);
+		$this->papar->kesID[$q02][0] = $data1;
+		// soalan tambahan
+		$a = 's'.$sv.'_qsa_2010'; $b = 's'.$sv.'_qsb_2010'; $c = 's'.$sv.'_qsc_2010';
+		$d = 's'.$sv.'_qsd_2010'; $e = 's'.$sv.'_qse_2010'; $f = 's'.$sv.'_qsf_2010';
+		$data3 = array_merge($paparID[$a][0],$paparID[$b][0],$paparID[$c][0],
+			$paparID[$d][0],$paparID[$e][0],$paparID[$f][0]);
+		$this->papar->kesID[$a][0] = $data3;
+
+		unset($this->papar->kesID[$q03],$this->papar->kesID[$q06],$this->papar->kesID[$q07],
+		$this->papar->kesID[$b],$this->papar->kesID[$c],$this->papar->kesID[$d],
+		$this->papar->kesID[$e],$this->papar->kesID[$f]);
+		//echo '<pre>'; print_r($data) . '</pre>';
+	}
+#
 }

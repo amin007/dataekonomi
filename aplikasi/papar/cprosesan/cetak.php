@@ -11,6 +11,7 @@ else
 	$tajuk = 'Prosesan' . $this->sv . ' : Dari tahun ' . $tahun;
 	$mencari = URL . $this->kelas . 'ubahCetak/';
 	$senaraiMedan = array('thn','Estab','F0002','F0014','F0015');
+	//echo '<pre>$this->kesID :'; print_r($this->kesID ) . '</pre>';
 	//echo '$cetak:' . $cetak . '|$mencari:' . $mencari;
 ?>
 
@@ -34,10 +35,10 @@ $soalAm = array(
 	's'.$this->sv.'_q05b_2010',
 	's'.$this->sv.'_q10_2010',
 	's'.$this->sv.'_q11_2010',
-	's'.$this->sv.'_qsd_2010',
+/*	's'.$this->sv.'_qsd_2010',
 	's'.$this->sv.'_q06_2010',
 	's'.$this->sv.'_q07_2010',
-	's'.$this->sv.'_qsa_2010',
+	's'.$this->sv.'_qsa_2010',*/
 	's'.$this->sv.'_qsb_2010',
 	's'.$this->sv.'_qsc_2010',
 	's'.$this->sv.'_qsd_2010',

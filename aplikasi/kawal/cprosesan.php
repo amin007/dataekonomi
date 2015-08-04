@@ -10,7 +10,7 @@ class Cprosesan extends Kawal
 		// lokasi fail PAPAR untuk survey
 		$this->papar->dataAm = 'cprosesan/'; 
 		$this->papar->kelas = 'cprosesan/'; 
-		$this->_pptAsetPenuh = array(101,301,303,305,306,308,309,312,316,331);
+		$this->_pptAsetPenuh = array(101,301,303,305,306,307,308,309,312,316,331);
 		$this->_pptBrgAm = array(328,334,335);
 		$this->_pptBrgAm2 = array(890);
 	}

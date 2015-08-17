@@ -7,6 +7,8 @@ function analisis($perangkaan, $jadual, $key, $data)
 	$hasil_kini = $perangkaan['hasil']['kini'];
 	$belanja_dulu = $perangkaan['belanja']['dulu'];
 	$belanja_kini = $perangkaan['belanja']['kini'];
+	$susut_dulu = $perangkaan['susut']['dulu'];
+	$susut_kini = $perangkaan['susut']['kini'];
 	
 	if (in_array($key, array('F3501','F3502','F3503','F3509','F1539',) ) )
 	{
@@ -19,6 +21,7 @@ function analisis($perangkaan, $jadual, $key, $data)
 		$value = number_format($nilai_dulu,4,'.',',') . '%';
 		$anggar = ($data / $hasil_dulu) * $hasil_kini;
 		$anggaran = number_format($anggar,0,'.',',');
+		$hasilProduk = ($key=='F2001') ? $anggaran : 0;
 	}
 	elseif ($jadual == 's206_q08_2010' && $sv='206')
 	{// hasil
@@ -26,12 +29,13 @@ function analisis($perangkaan, $jadual, $key, $data)
 		$value = number_format($nilai_dulu,4,'.',',') . '%';
 		$anggar = ($data / $hasil_dulu) * $hasil_kini;
 		$anggaran = number_format($anggar,0,'.',',');
+		$kosBahan = ($key=='F2101') ? $anggaran : 0;
 	}
 	elseif ($jadual == $sv . '_q09_2010' && $sv='205')
 	{// belanja
 		$nilai_dulu = ($belanja_dulu==0) ? 0 :(($data / $belanja_dulu) * 100 );
 		$value = number_format($nilai_dulu,4,'.',',') . '%';
-		$anggar = ($data / $belanja_dulu) * $belanja_kini;
+		$anggar = ($key=='F2130' && $susut_kini!=0) ? $susut_kini : ($data / $belanja_dulu) * $belanja_kini;
 		$anggaran = number_format($anggar,0,'.',',');
 	}
 	elseif ($jadual == 's206_q09_2010' && $sv='206')
@@ -62,8 +66,12 @@ function analisis($perangkaan, $jadual, $key, $data)
 	}
 
 	// istihar pembolehubah 
-	$input = $value . '</td><td align="right">' . $anggaran;
-	return '<td align="right">' . $input . '</td>' . "\r";
+	return $data = array('nilai'=>$value,'anggar'=>$anggaran,
+	'produk'=>(isset($hasilProduk) ? $hasilProduk : 0),
+	'bahan'=>(isset($kosBahan) ? $kosBahan : 0)
+	);
+	//$input = $value . '</td><td align="right">' . $anggaran;
+	//return '<td align="right">' . $value . '</td><td align="right">' . $anggaran . '</td>' . "\r";
 }
 
 if ($this->carian=='[id:0]')
@@ -80,10 +88,12 @@ else
 	$perangkaan['sv']['kini'] = $this->kesID['semasa'][0]['sv'];
 	$perangkaan['hasil']['dulu'] = $this->kesID['semasa'][0]['hasil_dulu'];
 	$perangkaan['belanja']['dulu'] = $this->kesID['semasa'][0]['belanja_dulu'];
+	$perangkaan['susut']['dulu'] = $this->kesID['semasa'][0]['susut_dulu'];
 	$perangkaan['aset']['dulu'] = $this->kesID['semasa'][0]['aset_dulu'];
 	$perangkaan['asetsewa']['dulu'] = $this->kesID['semasa'][0]['asetsewa_dulu'];
 	$perangkaan['hasil']['kini'] = $this->kesID['semasa'][0]['hasil_kini'];
 	$perangkaan['belanja']['kini'] = $this->kesID['semasa'][0]['belanja_kini'];
+	$perangkaan['susut']['kini'] = $this->kesID['semasa'][0]['susut_kini'];
 	$perangkaan['aset']['kini'] = $this->kesID['semasa'][0]['aset_kini'];
 	$perangkaan['asetsewa']['kini'] = $this->kesID['semasa'][0]['asetsewa_kini'];
 	//echo '<pre>$perangkaan->'; print_r($perangkaan) . '</pre>';
@@ -170,21 +180,33 @@ foreach ($this->kesID as $myTable => $row)
 			$data : semakJenis($sv, $key, $data) ?></td>
 		<?php 
 			if ($myTable==$sv . '_q08_2010'): 
+				$p = analisis($perangkaan, $myTable, $key, $data); # array('nilai'=>$value,'anggar'=>$anggaran,'produk'=>$hasilProduk,'bahan'=>$kosBahan);
 				echo '<td>' . kira($perangkaan['hasil']['dulu']) . '</td>'
 					. '<td>' . kira($perangkaan['hasil']['kini']) . '</td>'
-					. analisis($perangkaan, $myTable, $key, $data);
+					. '<td align="right">' . $p['nilai'] . '</td>'
+					. '<td align="right">' . $p['anggar'] . '</td>'
+					. '';
 			elseif ($myTable==$sv .'_q09_2010'): 
+				$p = analisis($perangkaan, $myTable, $key, $data); 
 				echo '<td>' . kira($perangkaan['belanja']['dulu']) . '</td>'
 					. '<td>' . kira($perangkaan['belanja']['kini']) . '</td>'
-					. analisis($perangkaan, $myTable, $key, $data);
+					. '<td align="right">' . $p['nilai'] . '</td>'
+					. '<td align="right">' . $p['anggar'] . '</td>'
+					. '';
 			elseif ($myTable=='s' . $sv . '_q02_2010' && $sv!='206'): 
+				$p = analisis($perangkaan, $myTable, $key, $data); 
 				echo '<td>' . kira($perangkaan['hasil']['dulu']) . '</td>'
 					. '<td>' . kira($perangkaan['hasil']['kini']) . '</td>'
-					. analisis($perangkaan, $myTable, $key, $data);
+					. '<td align="right">' . $p['nilai'] . '</td>'
+					. '<td align="right">' . $p['anggar'] . '</td>'
+					. '';
 			elseif ($myTable=='s' . $sv .'_q03_2010' && $sv!='206'): 
+				$p = analisis($perangkaan, $myTable, $key, $data); 
 				echo '<td>' . kira($perangkaan['belanja']['dulu']) . '</td>'
 					. '<td>' . kira($perangkaan['belanja']['kini']) . '</td>'
-					. analisis($perangkaan, $myTable, $key, $data);
+					. '<td align="right">' . $p['nilai'] . '</td>'
+					. '<td align="right">' . $p['anggar'] . '</td>'
+					. '';
 			else: echo '<td colspan=4>-</td>';
 			endif;
 		//echo analisis($perangkaan, $myTable, $key, $data) ?>

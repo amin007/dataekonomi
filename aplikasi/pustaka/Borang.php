@@ -321,6 +321,84 @@ class Borang
 			 
 	}
 /////////////////////////////////////////////////////////////////////////////////////////////////////	
+	public static function inputAset($cari)
+	{
+		// jenis harta
+		$jenisHarta = array(71=>'Tanah',
+			72=>'Tmpt kediaman',
+			73=>'Bukan Tmpt Kediaman',
+			74=>'Binaan lain',
+			75=>'Pembangunan tanah',
+			76=>'Kereta penumpang',
+			77=>'Kereta perdagangan',
+			78=>'Kenderaan lain',
+			79=>'Perkakasan komputer',
+			80=>'Perisian komputer',
+			81=>'Jentera dan kelengkapan',
+			82=>'Perabut dan pemasangan',
+			70=>'Paten', 84=>'Muhibah',
+			86=>'Lain2 harta', 99=>'Jumlah harta', 
+			85=>'Kerja dlm pelaksanaan');
+
+		$nilaiBuku= array(1=>'Awal', // 'Nilai buku pada awal tahun'
+			2=>'Baru', //'Pembelian baru termasuk import',
+			3=>'Terpakai', //'Pembelian aset terpakai',
+			4=>'DIY', //'Membuat/membina sendiri',
+			5=>'Jual/tamat', // 'Aset dijual/ditamat'
+			6=>'+/- jual', // 'Untung/Rugi drpd jualan harta'
+			7=>'Susut nilai',
+			8=>'Akhir', // 'Nilai buku pada akhir tahun'
+			9=>'Sewa');
+		
+		// semak data
+		//echo '<pre>Borang::binaAset($cari)='; print_r($cari) . '</pre><hr>';
+		
+		// mula cari 
+		$kira = 0;
+		foreach ($jenisHarta as $key => $jenis)
+		{
+			//echo '<br>$key=' . $key;
+			$aset[$kira]['nama'] = $jenis;
+			$aset[$kira]['kod'] = $key;
+			foreach ($nilaiBuku as $key2 => $modal)
+			{
+				$lajur = kira3($key2, 2);
+				$baris = 'F' . $lajur . $key;
+				if ($lajur=='08')
+				{
+					$jumlahAset = 
+						( $jum[$kira]['F01'.$key] 
+						+ $jum[$kira]['F02'.$key]
+						+ $jum[$kira]['F03'.$key] 
+						+ $jum[$kira]['F04'.$key]
+						- $jum[$kira]['F05'.$key] 
+						+ ( $jum[$kira]['F06'.$key] 
+						) - $jum[$kira]['F07'.$key] );
+
+					$akhir = (isset($cari[$baris]) ?
+						$cari[$baris] : '_');
+						
+					$aset[$kira][$baris] = 
+						($akhir != $jumlahAset) ? $jumlahAset : $akhir;
+				}
+				else
+				{
+					$data = isset($cari[$baris]) ? $cari[$baris] : '';
+
+					$aset[$kira][$baris] =  !empty($data) ? $data : '0';
+					$jum[$kira][$baris] = !empty($data) ? $data : '0';
+				}
+			}
+			$kira++;
+		}
+		
+		//echo '<pre>$jum='; print_r($jum) . '</pre><hr>';
+		//echo '<pre>Borang::binaAset($aset)='; print_r($aset) . '</pre><hr>';
+		return $aset;
+	 
+	
+	}
+/////////////////////////////////////////////////////////////////////////////////////////////////////	
 	public static function binaAset($cari)
 	{
 		// jenis harta
@@ -492,6 +570,8 @@ class Borang
 		// set pembolehubah awal
 		$jumAset_dulu = $jum['aset_dulu'];
 		$jumAset_kini = $jum['aset_kini'];
+		$susut_dulu = $jum['susut_dulu'];
+		$susut_kini = $jum['susut_kini'];
 		$sewa_dulu = $jum['asetsewa_dulu'];
 		$sewa_kini = $jum['asetsewa_kini'];
 
@@ -511,8 +591,8 @@ class Borang
 			{
 				$lajur = kira3($key2, 2);
 				$baris = 'F' . $lajur . $key;
-				$dulu = ($modal=='Sewa') ? $sewa_dulu : $jumAset_dulu;
-				$kini = ($modal=='Sewa') ? $sewa_kini : $jumAset_kini;
+				$dulu = ($modal=='Sewa') ? $sewa_dulu : $susut_dulu;//$jumAset_dulu;
+				$kini = ($modal=='Sewa') ? $sewa_kini : $susut_kini;//$jumAset_kini;
 
 				if ($lajur=='07')
 				{

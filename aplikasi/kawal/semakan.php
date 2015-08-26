@@ -355,7 +355,7 @@ class Semakan extends Kawal
 			echo '</pre>';//*/
 			
 			# pergi ke fail analisis di PAPAR
-			$this->papar->paparNilai = ( bersih($_POST['paparNilai']) == 'Tidak' ?	'-' : '+';
+			$this->papar->paparNilai = bersih($_POST['paparNilai']) == 'Tidak' ? '-' : '+';
 			$this->papar->baca('semakan/analisis', 0);//*/
 		
 		}

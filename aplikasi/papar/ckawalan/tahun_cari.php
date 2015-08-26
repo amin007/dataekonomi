@@ -1,4 +1,3 @@
-
 <h1><span style="background-color:black;color:white">Senarai Kes Kawalan Operasi</span></h1>
 <?php 
 //echo '<pre>$this->cariNama:'; print_r($this->cariNama) . '</pre>';
@@ -84,6 +83,7 @@ function pautan($paparID, $jadual)
 		'101 2010-2012' => '../cprosesan/ubah/101/' . $id . '/2004/2013',
 		'205 2010-2012' => '../cprosesan/ubah/205/' . $id . '/2010/2012',
 		'206 2010-2012' => '../cprosesan/ubah/206/' . $id . '/2010/2012',
+		'301 2010-2012' => '../cprosesan/ubah/301/' . $id . '/2010/2012',
 		'305 2010-2012' => '../cprosesan/ubah/305/' . $id . '/2010/2012',
 		'306 2010-2012' => '../cprosesan/ubah/306/' . $id . '/2010/2012',
 		'307 2010-2012' => '../cprosesan/ubah/307/' . $id . '/2010/2012',

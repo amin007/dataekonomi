@@ -228,15 +228,15 @@ foreach ($this->prosesID as $myTable => $row)
 </div>  <!-- /tab-content line:168-->
 </div> <!-- /tabbable tabs-top line:154-->
 
-<hr>
-<span class="badge">Jadual Kod <?php $cari = 'kod_produk';
-//echo '<pre>$this->kod_produk=' . print_r($this->kod_produk, 1) . '</pre>'; ?></span>
+<?php 
+//echo '<pre>$this->kod_produk=' . print_r($this->kod_produk, 1) . '</pre>';
+$cari = 'kod_produk'; if (isset($this->kod_produk)) : ?>
+<hr><span class="badge">Jadual Kod</span>
 <div class="tabbable tabs-top">
 	<ul class="nav nav-tabs">
 	<li class="active"><a href="#<?php echo $cari ?>" data-toggle="tab">
 	<span class="label label-success">Cari ...</span></a></li>
 <?php 
-
 foreach ($this->kod_produk as $jadual => $baris)
 {
 	if ( count($baris)==0 ) echo '';
@@ -303,7 +303,7 @@ for ($kira=0; $kira < count($row); $kira++)
 ?>
 </div>
 </div> <!-- /tab-content -->
-
+<?php endif; ?>
 
 <!-- kawasan button dan nilai2 ditambah kemudian -->
 <hr><div align="center">

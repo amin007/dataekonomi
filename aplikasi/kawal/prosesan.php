@@ -38,14 +38,14 @@ class Prosesan extends Kawal
 		$medan = '*'; # senarai nama medan
 		$sv='prosesmm_'; # jenis survey
 
-		// mula papar carian dalam $bulanan
+		# mula papar carian dalam $bulanan
 		foreach ($bulanan as $key => $myTable)
-		{// mula ulang table
+		{# mula ulang table
 			$this->papar->cariApa[$myTable] = 
-			$this->tanya->senaraiKes($sv, $myTable, $medan);
-		}// tamat ulang table
+				$this->tanya->senaraiKes($sv, $myTable, $medan);
+		}# tamat ulang table
 		
-		// papar
+		# papar
 		$this->papar->baca('prosesan/index');
 	}
 
@@ -213,6 +213,5 @@ class Prosesan extends Kawal
 		$this->papar->baca('prosesan/edit');
 		
 	}
-
-
+#
 }

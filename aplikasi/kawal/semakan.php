@@ -321,10 +321,10 @@ class Semakan extends Kawal
 				}
 			}
 					
-			// cari keterangan medan
+			# cari keterangan medan
 			$this->cari_keterangan_medan($sv, $this->papar->kesID); 
 			
-			// cari perbandingan aset dulu dan kini //echo "\$jadualHarta = $jadualHarta <br>"; 
+			# cari perbandingan aset dulu dan kini //echo "\$jadualHarta = $jadualHarta <br>"; 
 			$this->papar->kod_produk['harta'] = ($jadualHarta=='harta') ?
 			Borang::analisaAset($cariHarta, 
 			array(
@@ -334,14 +334,13 @@ class Semakan extends Kawal
 				'susut_kini' => $this->papar->kesID['semasa'][0]['susut_kini'],
 				'asetsewa_dulu' => $this->papar->kesID['semasa'][0]['asetsewa_dulu'],
 				'asetsewa_kini' => $this->papar->kesID['semasa'][0]['asetsewa_kini'],
-			)) : // 
-			Borang::analisaAset($cariHarta, 
+			)) : Borang::analisaAset($cariHarta, 
 			array(
 				'aset_dulu' => $this->papar->kesID['semasa'][0]['aset_dulu'],
 				'aset_kini' => $this->papar->kesID['semasa'][0]['aset_kini'],
 			));
 			//*/
-			// untuk pastikan tiada orang hack
+			# untuk pastikan tiada orang hack
 			$this->papar->paparID = $this->papar->kesID['semasa'][0]['newss'];
 			$this->papar->carian = 'newss';
 						
@@ -355,10 +354,8 @@ class Semakan extends Kawal
 			//echo '<hr>$this->papar->keterangan->', print_r($this->papar->keterangan, 1);
 			echo '</pre>';//*/
 			
-			// pergi ke fail analisis di PAPAR
-			$this->papar->paparNilai = ( 
-				bersih($_POST['paparNilai']) == 'Tidak'
-				) ?	'-' : '+';
+			# pergi ke fail analisis di PAPAR
+			$this->papar->paparNilai = ( bersih($_POST['paparNilai']) == 'Tidak' ?	'-' : '+';
 			$this->papar->baca('semakan/analisis', 0);//*/
 		
 		}

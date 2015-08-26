@@ -107,7 +107,7 @@ class Semakan extends Kawal
 			elseif(in_array($sv,$this->_pptAsetPenuh))
 			{
 				$this->papar->kod_produk = array();
-				$kp = 's'.$sv.'_q';
+				$kp = 's' . $sv . '_q';
 				# bentuk soalan staf lelaki dan perempuan
 				$jadualStaf = array($kp.'05a_2010',$kp.'05b_2010');
 				$this->semak_staf($jadualStaf, $this->papar->prosesID, $sv);
@@ -327,6 +327,7 @@ class Semakan extends Kawal
 		{
 			$kiraan = array($sv . '_q08_2010',$sv . '_q09_2010',
 				//'s' . $sv . '_q02_2010', 's' . $sv . '_q03_2010',
+				's' . $sv . '_q08_2010', 's' . $sv . '_q09_2010',
 				'semasa');
 			$senaraiHarta = array('jadualHarta');
 			
@@ -370,7 +371,7 @@ class Semakan extends Kawal
 						
 			/*echo '<pre>';
 			echo '<hr>$_POST->'; print_r($_POST);
-			//echo '<hr>$cariHarta->'; print_r($cariHarta);
+			echo '<hr>$cariHarta->'; print_r($cariHarta);
 			echo '<hr>$this->papar->kesID->'; print_r($this->papar->kesID);
 			//echo '<hr>$this->papar->kod_produk->'; print_r($this->papar->kod_produk);
 			//echo '<hr>$this->papar->paparID=' . $this->papar->paparID;

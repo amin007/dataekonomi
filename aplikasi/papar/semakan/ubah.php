@@ -3,6 +3,7 @@
 function analisis($perangkaan, $jadual, $key, $data)
 {
 	// (in_array($jadual, array('q08_2010','q09_2010') ) )
+	$asetPenuh = array(101,205,206,301,303,305,306,307,308,309,312,314,316,331);
 	$sv = $perangkaan['sv'];
 	$hasil = $perangkaan['hasil'];
 	$belanja = $perangkaan['belanja'];
@@ -38,6 +39,20 @@ function analisis($perangkaan, $jadual, $key, $data)
 		elseif ($jadual == $sv.'_q08_2010')
 			$nilai = ($hasil==0) ? 0 : (($data / $hasil) * 100 );
 		elseif ($jadual == $sv.'_q09_2010')
+			$nilai = ($belanja==0) ? 0 : (($data / $belanja) * 100 );
+		$value = number_format($nilai,4,'.',',') . '%';
+		$name = 'name="' . $jadual . '[' . $key . ']"'
+			  . ' id="' . $key . '"';
+	}
+	elseif (in_array($sv,$asetPenuh)) 
+	{
+		if ($jadual == 's'.$sv.'_q04_2010' && $noKey == 'F09') 
+			$nilai = ($sewa==0) ? 0 : (($data / $sewa) * 100);
+		elseif ($jadual == 's'.$sv.'_q04_2010' && $noKey != 'F09') 
+			$nilai = ($aset==0) ? 0 : (($data / $aset) * 100);
+		elseif ($jadual == 's'.$sv.'_q08_2010')
+			$nilai = ($hasil==0) ? 0 : (($data / $hasil) * 100 );
+		elseif ($jadual == 's'.$sv.'_q09_2010')
 			$nilai = ($belanja==0) ? 0 : (($data / $belanja) * 100 );
 		$value = number_format($nilai,4,'.',',') . '%';
 		$name = 'name="' . $jadual . '[' . $key . ']"'
@@ -210,8 +225,8 @@ foreach ($this->prosesID as $myTable => $row)
 			$data : semakJenis($this->sv, $key, $data) ?></td>
 		<?php $jadualAnalisa = array('q04_2010','q08_2010','q09_2010',
 			's'.$this->sv.'_q02_2010','s'.$this->sv.'_q03_2010',
-			'206_q08_2010','206_q09_2010',
-			's'.$this->sv.'_q04_2010');
+			'206_q08_2010','206_q09_2010','s'.$this->sv.'_q04_2010',
+			's'.$this->sv.'_q08_2010','s'.$this->sv.'_q09_2010',);
 			echo (in_array($myTable, $jadualAnalisa ) ) ?
 			analisis($this->perangkaan, $myTable, $key, $data)
 			: inputText('proses', $key, $data) ?>

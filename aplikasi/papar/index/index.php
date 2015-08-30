@@ -52,7 +52,7 @@
 	<a class="btn btn-success" href="index/muar">
 	<span class="glyphicon glyphicon-arrow-right"></span>Daftar Masuk</a>
 	<a class="btn btn-success" href="../private_html">
-	<i class="glyphicon glyphicon-arrow-right"></i>E-Survey POM</a></p>
+	<i class="glyphicon glyphicon-arrow-right"></i>M-Eco</a></p>
 	</div>
 	<div class="col-lg-4">
 	<h2>Johor Bahru</h2>

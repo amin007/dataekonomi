@@ -6,6 +6,7 @@ class Semakan extends Kawal
 	public function __construct() 
 	{
 		parent::__construct();
+		parent::__construct();
         Kebenaran::kawalKeluar();
 		// lokasi fail PAPAR untuk survey
 			$this->papar->js = array('jquery-calx-1.1.8.js');
@@ -783,9 +784,11 @@ class Semakan extends Kawal
 		{// mula ulang table
 			if ($myTable=='q14_2010')
 			{
-				$sql = Borang::binaKodOutput('kod2010_output', $myTable, $cari);
+				$sql = Borang::borangOutput('kod2010_output', $myTable, $cari);
 				$this->papar->kod_produk[$myTable] = 
 				$this->tanya->cariProdukBaru($myTable, $sql);
+				$this->papar->kod_produk['borang_output'] =
+					Data::produkOutput($this->papar->kod_produk[$myTable]);
 				/* ubahsuai tatasusunan $info
 				$info = $this->tanya->cariProdukLama($myTable, $medan, $cari);
 				$this->papar->kod_produk['kodOutput'] = Data::kodOutput($info);
@@ -793,9 +796,11 @@ class Semakan extends Kawal
 			}
 			elseif ($myTable=='q15_2010')
 			{
-				$sql = Borang::binaKodInput('kod2010_input', $myTable, $cari);
+				$sql = Borang::borangInput('kod2010_input', $myTable, $cari);
 				$this->papar->kod_produk[$myTable] = 
 				$this->tanya->cariProdukBaru($myTable, $sql);
+				$this->papar->kod_produk['borang_input'] =
+					Data::produkInput($this->papar->kod_produk[$myTable]);
 				/* ubahsuai tatasusunan $info
 				$info = $this->tanya->cariProdukLama($myTable, $medan, $cari);
 				$this->papar->kod_produk['kodInput'] = Data::kodInput($info);

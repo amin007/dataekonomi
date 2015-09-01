@@ -374,8 +374,7 @@ class Data
 	}
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static function daftarAset($cari)
-	{
-		// jenis harta
+	{	// jenis harta
 		$jenisHarta = array(71=>'Tanah',
 			72=>'Tmpt kediaman',
 			73=>'Bukan Tmpt Kediaman',
@@ -452,6 +451,7 @@ class Data
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static function produkOutput($info)
 	{
+		//echo '<pre>Data::produkOutput($info)='; print_r($info) . '</pre><hr>';
 		if (isset($info)) 
 		{
 			$data = $info[0]; //echo '<hr><pre>$data='; print_r($data) . '</pre>';
@@ -464,16 +464,11 @@ class Data
 			// mula cari 
 			$b = 0;
 			for ($kira = 0;$kira < 18; $kira++):
-				$no = kira3($kira+1, 2);
-				//if ($data[$kod] != 0):
-					//$baris[$b]['thn'] = $data['thn'];
-					//$baris[$b]['Batch'] = $data['Batch'];
-					//$baris[$b]['Estab'] = $data['Estab'];
 					foreach ($lajur as $key => $nama):
-						$m = 'F' . $key . $no;
+						$m = 'F' . $key;
 						$papar = (!isset($data[$m]) ) ? '' : $data[$m];
 						// untuk kod Commodity
-						$kod = 'F30'.($no); 
+						$kod = 'F30'; 
 						$kodCommodity = (!isset($data[$kod]) ) ? '' : $data[$kod];
 						//if (in_array($key,$rm)) $baris[$b][$f . '(RM)'] = $papar;
 						if ($key==30)

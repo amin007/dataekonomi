@@ -321,6 +321,114 @@ class Borang
 			 
 	}
 /////////////////////////////////////////////////////////////////////////////////////////////////////	
+# borang Output
+	public static function borangOutput($kodProduk, $myTable, $cari)
+	{
+		// set pembolehubah
+		$cariMedan = ( !isset($cari['medan']) ) ? '' : $cari['medan'];
+		$cariID = ( !isset($cari['id']) ) ? '' : $cari['id'];
+		$thnMula = ( !isset($cari['thn_mula']) ) ? '' : $cari['thn_mula'];
+		$thnAkhir = ( !isset($cari['thn_akhir']) ) ? '' : $cari['thn_akhir'];
+		$SELECT = 'SELECT thn/*,Batch,Estab*/';
+		$WHERE = " FROM `$myTable` "
+			. "WHERE $cariMedan like '$cariID%' "
+			. "AND thn BETWEEN $thnMula and $thnAkhir";
+
+		// mula cari $kira:$cariID dalam kod_produk['q14_2010']
+		for ($kira = 1;$kira < 19; $kira++)
+		{
+			$baris = kira3($kira, 2);
+			$medan[] = '(' . $SELECT
+				. ',F22' . $baris . ' as F22,F23' . $baris . ' as F23'
+				. ',F24' . $baris . ' as F24,F25' . $baris . ' as `F25`'
+				. ',F26' . $baris . ' as `F26`,F27' . $baris . ' as `F27`'
+				. ',F28' . $baris . ' as F28,F29' . $baris . ' as F29'
+				. ',concat_ws("<br>",F30' . $baris . ',SUBSTRING(F30' . $baris . ',-10)) as F30' 
+				. ',( SELECT concat_ws("-",keterangan,kod_produk) '
+				//. ', (SELECT CONCAT("<abbr title=\"", keterangan, "\">", kod_produk, "</abbr>") '
+				. 'FROM ' . $kodProduk . ' b WHERE b.kod_produk='
+				. 'SUBSTRING(F30' . $baris . ',-10) LIMIT 1) as nama_produk'	
+				. $WHERE . ')';
+		}// tamat ulang $kira:$cariID dalam kod_produk['q14_2010']
+
+		// item FXX41 (25/26/27/30) dalam jadual q14_2010
+			$medan[] = '(' . $SELECT
+				. ',"" as F22,"" as F23'
+				. ',"Nilai Produk Lain2" as F24'
+				. ',F2541 as `F25`'
+				. ',F2641 as `F26`'
+				. ',F2741 as `F27`'
+				. ',"" as F28,"" as F29'
+				. ',F3041 as F30'
+				. ',"" as produk'
+				. $WHERE . ')';
+
+		// item FXX42 (25/26/27) dalam jadual q14_2010
+			$medan[] = '(' . $SELECT
+				. ',"" as F22,"" as F23'
+				. ',"Jumlah" as F24'
+				. ',F2542 as `F25`'
+				. ',F2642 as `F26`'
+				. ',F2742 as `F27`'
+				. ',"" as F28,"" as F29'
+				. ',"" as F30,"" as produk'
+				. $WHERE . ')';
+
+		// papar sql
+		$query = implode("\rUNION\r",$medan);
+		//echo '<hr><pre>$sql output='; print_r($query) . '</pre><hr>';
+		return $query;
+
+	}
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+	public static function borangInput($kodProduk, $myTable, $cari)
+	{
+		// set pembolehubah
+		$cariMedan = ( !isset($cari['medan']) ) ? '' : $cari['medan'];
+		$cariID = ( !isset($cari['id']) ) ? '' : $cari['id'];
+		$thnMula = ( !isset($cari['thn_mula']) ) ? '' : $cari['thn_mula'];
+		$thnAkhir = ( !isset($cari['thn_akhir']) ) ? '' : $cari['thn_akhir'];
+		$SELECT = 'SELECT thn,Batch/*,Estab*/';
+		$WHERE = " FROM `$myTable` "
+			. "WHERE $cariMedan like '$cariID%' "
+			. "AND thn BETWEEN $thnMula and $thnAkhir";
+			 
+		// mula cari $kira:$cariID dalam kod_produk['q15_2010']
+		for ($kira = 51;$kira < 68; $kira++)
+		{	$baris = kira3($kira, 2);
+			$medan[] = '(' . $SELECT
+				. ',F22' . $baris . ' as F22,F23' . $baris . ' as `F23`'
+				. ',F24' . $baris . ' as F24'
+				. ',LPAD(F25' . $baris . ', 11, "0") as Commodity'
+				//. ',concat_ws("<br>",LPAD(F25' . $baris . ', 11, "0")'
+				//. ',SUBSTRING(F25' . $baris . ',-10)) as Commodity' 
+				. ',( SELECT concat_ws("-",keterangan,kod_produk) '
+				//. ', (SELECT CONCAT("<abbr title=\"", keterangan, "\">", kod_produk, "</abbr>") '
+				. 'FROM ' . $kodProduk . ' b WHERE b.kod_produk = '
+				. 'SUBSTRING(F25' . $baris . ',-10) LIMIT 1) as nama_produk'	
+				. $WHERE . ')';
+		}// tamat ulang $kira:$cariID dalam kod_produk['q15_2010']
+
+		// item F2281 dalam jadual q15_2010
+		$medan[] = '(' . $SELECT
+			. ',"Nilai Bahan Mentah Lain2" as F22,'
+			. 'F2381 as `F23`,"" as F24'
+			. ',F2581 as Commodity,"" as nama_produk'
+			. $WHERE . ')';
+		
+		// item F2282 dalam jadual q15_2010
+		$medan[] = '(' . $SELECT
+			. ',"Jumlah" as F22,F2382 as `F23`,"" as F24'
+			. ',"" as Commodity,"" as nama_produk'
+			. $WHERE . ')';
+		
+		// papar sql
+		$query = implode("\rUNION\r",$medan);
+		//echo '<hr><pre>$sql input='; print_r($query) . '</pre>';
+		return $query;
+			 
+	}
+/////////////////////////////////////////////////////////////////////////////////////////////////////	
 	public static function inputAset($cari)
 	{
 		// jenis harta

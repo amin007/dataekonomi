@@ -452,171 +452,64 @@ class Data
 	public static function produkOutput($info)
 	{
 		//echo '<pre>Data::produkOutput($info)='; print_r($info) . '</pre><hr>';
+		
 		if (isset($info)) 
 		{
-			$data = $info[0]; //echo '<hr><pre>$data='; print_r($data) . '</pre>';
-			/*[thn] => 2010 | [Batch] => J0193 |  [Estab] => 000000321060*/
+			#[thn] => 2010 | [Batch] => J0193 |  [Estab] => 000000321060
 			$lajur = array(22=>'Bhn mentah luar',23=>'Bhn mentah sendiri',
-				24=>'Kuatiti jualan',25=>'Nilai Jualan',
+				24=>'Kuantiti jualan',25=>'Nilai Jualan',
 				26=>'Stok Awal',27=>'Stok Akhir',28=>'% export',
 				29=>'Kod unit',30=>'Kod produk');
 			$rm = array(25,26,27);
-			// mula cari 
-			$b = 0;
-			for ($kira = 0;$kira < 18; $kira++):
-					foreach ($lajur as $key => $nama):
-						$m = 'F' . $key;
-						$papar = (!isset($data[$m]) ) ? '' : $data[$m];
-						// untuk kod Commodity
-						$kod = 'F30'; 
-						$kodCommodity = (!isset($data[$kod]) ) ? '' : $data[$kod];
-						//if (in_array($key,$rm)) $baris[$b][$f . '(RM)'] = $papar;
-						if ($key==30)
-							$baris[$b]['Commodity'] = $kodCommodity;
-						else
-							$baris[$b][$m] = $papar;
-					endforeach;
-					// pecahan untuk nama produk
-					//$baris[$b]['nama_produk'] = substr($data['F30' . $no],-10);
-					$b++;
-				//endif;
-			endfor;
-				// item FXX41 (25/26/27/30) dalam jadual q14_2010
-				$b2 = $b;
-				$lajur2 = array(25,26,27,30);
-				//$baris[$b2]['thn'] = $data['thn'];
-				//$baris[$b2]['Batch'] = $data['Batch'];
-				//$baris[$b2]['Estab'] = $data['Estab'];
-				foreach ($lajur as $key => $nama):
-					$m = 'F' . $key . '41';
-					$papar = (!isset($data[$m]) ) ? '' : $data[$m];
-					$f = 'F' . $key;
-					// untuk kod Commodity
-						$kod = 'F3041'; 
-						$kodCommodity = (!isset($data[$kod]) ) ? '' : $data[$kod];
-					if ($key == 24) 
-						$baris[$b2][$f] = 'Nilai Produk Lain2';
-					elseif ($key==30)
-						$baris[$b]['Commodity'] = $kodCommodity;
-					//elseif (in_array($key,$rm))
-					//	$baris[$b2][$f . '(RM)'] = $papar;
-					elseif (in_array($key,$lajur2))
-						$baris[$b2][$m] =  $papar;
-					else $baris[$b2][$f] = null;
+			# mula cari 
+			foreach ($info as $key => $info2):
+				foreach ($info2 as $kodLajur => $data):
+					$baris[$key][$kodLajur] = $data;
 				endforeach;
-				//$baris[$b]['nama_produk'] = $data['F3041'];
-				// item FXX42 (25/26/27) dalam jadual q14_2010
-				$b2 = $b+1;
-				$lajur3 = array(25,26,27);
-				//$baris[$b2]['thn'] = $data['thn'];
-				//$baris[$b2]['Batch'] = $data['Batch'];
-				//$baris[$b2]['Estab'] = $data['Estab'];
-				foreach ($lajur as $key => $nama):
-					$m = 'F' . $key . '42';
-					$papar = (!isset($data[$m]) ) ? '' : $data[$m];
-					$f = 'F' . $key;					
-					if ($key == 24) 
-						$baris[$b2][$f] = 'Jumlah';
-					elseif ($key==30)
-						$baris[$b]['Commodity'] = null;
-					elseif (in_array($key,$lajur3))
-						$baris[$b2][$m] = $papar;
-					else $baris[$b2][$f] = null;
-				endforeach;
+			endforeach;
+			foreach ($baris as $kunci => $data2):
+				//foreach ($data2 as $kunci2 => $data3):
+					if ($baris[$kunci]['F25'] == 0):
+						//echo " baris[$kunci]['F25']= " . $baris[$kunci]['F25'] . " <br>";
+						unset($info[$kunci]);
+						unset($baris[$kunci]);
+					endif;
+				//endforeach;
+			endforeach;
 
-			//echo '<pre>Borang::kodOutput($baris)='; print_r($baris) . '</pre><hr>';
+			//echo '<pre>Data::produkOutput($baris)='; print_r($baris) . '</pre><hr>';
 			return $baris;
 		}
 		else
-			return $baris = null;
+			return $baris = array($key=>array());
+		//*/
 	}
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static function produkInput($info)
 	{
 		if (isset($info)) 
 		{
-			$data = $info[0]; //echo '<hr><pre>$data='; print_r($data) . '</pre>';
 			/*[thn] => 2010 | [Batch] => J0193 |  [Estab] => 000000321060*/
 			$lajur = array(22=>'Kuantiti',23=>'Kos bhn mentah',
 				24=>'Kod unit',25=>'Commodity');
 			$rm = array(23);
 			// mula cari $kira:$cariID dalam kod_produk['q15_2010']
-			$b = 0;
-			for ($kira = 51;$kira < 68; $kira++):
-				$no = kira3($kira, 2);
-				//if ($data[$kod] != 0):
-					//$baris[$b]['thn'] = $data['thn'];
-					//$baris[$b]['Batch'] = $data['Batch'];
-					//$baris[$b]['Estab'] = $data['Estab'];
-					foreach ($lajur as $key => $nama):
-						$m = 'F' . $key . $no;					
-						$f = ($key==25) ? 'Commodity' : $m;
-						$papar = (!isset($data[$m]) ) ? '' : $data[$m];
-					// untuk kod Commodity
-						$kod = 'F25'.($no); 
-						$kodCommodity = (!isset($data[$kod]) ) ? '' : $data[$kod];
-						
-						if ($key==25)
-							$baris[$b][$f] = $kodCommodity;
-						elseif (in_array($key,$rm))
-							$baris[$b][$f . '(RM)'] = $papar;				
-						else
-							$baris[$b][$f] = $papar;
-					endforeach;
-					// cari nama produk
-					//$baris[$b]['nama_produk'] = substr($data['F25' . $no],-10);
-					$b++;			
-				//endif;
-			endfor;// tamat ulang $kira:$cariID dalam kod_produk['q15_2010']
-
-			// item F2381, F2581 dalam jadual q15_2010
-				$b2 = $b;
-				$lajur2 = array(23,25); // F2381, F2581
-				//$baris[$b2]['thn'] = $data['thn'];
-				//$baris[$b2]['Batch'] = $data['Batch'];
-				//$baris[$b2]['Estab'] = $data['Estab'];
-				foreach ($lajur as $key => $nama):
-					$m = 'F' . $key . '81';
-					$papar = (!isset($data[$m]) ) ? '' : $data[$m];
-					$f = 'F' . $key;
-					// untuk kodCommodity
-						$kod = 'F3081'; 
-						$kodCommodity = (!isset($data[$kod]) ) ? '' : $data[$kod];					
-					if ($key == 22) 
-						$baris[$b2][$f] = 'Nilai Bahan Mentah Lain2';
-					elseif ($key == 23)
-						$baris[$b2][$m] = $papar;
-					elseif ($key == 24)
-						$baris[$b2][$f] = null;
-					elseif ($key == 25)
-					{	
-						$baris[$b2]['Commodity'] = $kodCommodity;
-					}
-					//elseif (in_array($key,$rm))
-					//	$baris[$b2][$f . '(RM)'] = $data[$m];
+			foreach ($info as $key => $info2):
+				foreach ($info2 as $kodLajur => $data):
+					$baris[$key][$kodLajur] = $data;
 				endforeach;
-				//$baris[$b2]['nama_produk'] = $data['F2581'];
-			// item F2382 dalam jadual q15_2010
-				$b2 = $b+1;
-				$lajur3 = array(23); // F2382
-				//$baris[$b2]['thn'] = $data['thn'];
-				//$baris[$b2]['Batch'] = $data['Batch'];
-				//$baris[$b2]['Estab'] = $data['Estab'];
-				foreach ($lajur as $key => $nama):
-					$m = 'F' . $key . '82-jum';
-					//$jumBesar = 'F2382-jum';
-					$papar = (!isset($data[$m]) ) ? '' : $data[$m];
-					$f = 'F' . $key;
-					if ($key == 22) 
-						$baris[$b2][$f] = 'Jumlah';
-					elseif ($key == 23)			
-						$baris[$b2][$m] = $papar;
-					//elseif (in_array($key,$rm))
-					//	$baris[$b2][$f . '(RM)'] = $data[$m];
-					//else $baris[$b2][$f] = null;
-				endforeach;
+			endforeach;
+			foreach ($baris as $kunci => $data2):
+				//foreach ($data2 as $kunci2 => $data3):
+					if ($baris[$kunci]['F23'] == 0):
+						//echo " baris[$kunci]['F23']= " . $baris[$kunci]['F23'] . " <br>";
+						unset($info[$kunci]);
+						unset($baris[$kunci]);
+					endif;
+				//endforeach;
+			endforeach;
 
-			//echo '<pre>Borang::kodOutput($baris)='; print_r($baris) . '</pre><hr>';
+			//echo '<pre>Data::produkInput($baris)='; print_r($baris) . '</pre><hr>';
 			return $baris;
 		}
 		else

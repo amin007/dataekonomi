@@ -340,8 +340,10 @@ class Borang
 			$baris = kira3($kira, 2);
 			$medan[] = '(' . $SELECT
 				. 'F22' . $baris . ' as F22,F23' . $baris . ' as F23'
-				. ',F24' . $baris . ' as F24,F25' . $baris . ' as `F25`'
-				. ',F26' . $baris . ' as `F26`,F27' . $baris . ' as `F27`'
+				. ',F24' . $baris . ' as F24'
+				. ',concat_ws("-",F25' . $baris . ',F2542) as `F25`'
+				. ',concat_ws("-",F26' . $baris . ',F2642) as `F26`'
+				. ',concat_ws("-",F27' . $baris . ',F2742) as `F27`'
 				. ',F28' . $baris . ' as `%export F28`,F29' . $baris . ' as `kodUnit`'
 				. ',concat_ws("-",F30' . $baris . ',SUBSTRING(F30' . $baris . ',-10)) as `kodProduk`' 
 				. ',( SELECT concat_ws("-",keterangan,kod_produk) '
@@ -355,15 +357,15 @@ class Borang
 			$medan[] = '(' . $SELECT
 				. '"" as F22,"" as F23'
 				. ',"Nilai Produk Lain2" as F24'
-				. ',F2541 as `F25`'
-				. ',F2641 as `F26`'
-				. ',F2741 as `F27`'
+				. ',concat_ws("-",F2541,F2542) as `F25`'
+				. ',concat_ws("-",F2641,F2642) as `F26`'
+				. ',concat_ws("-",F2741,F2742) as `F27`'
 				. ',"" as `%export F28`,"" as `kodUnit`'
 				. ',F3041 as `kodProduk`'
 				. ',"" as produk'
 				. $WHERE . ')';
 
-		// item FXX42 (25/26/27) dalam jadual q14_2010
+		/* item FXX42 (25/26/27) dalam jadual q14_2010
 			$medan[] = '(' . $SELECT
 				. '"" as F22,"" as F23'
 				. ',"Jumlah" as F24'
@@ -397,7 +399,8 @@ class Borang
 		for ($kira = 51;$kira < 68; $kira++)
 		{	$baris = kira3($kira, 2);
 			$medan[] = '(' . $SELECT
-				. 'F22' . $baris . ' as F22,F23' . $baris . ' as `F23`'
+				. 'F22' . $baris . ' as F22'
+				. ',concat_ws("-",F23' . $baris . ',F2382) as `F23`'
 				. ',F24' . $baris . ' as `kodUnit`'
 				//. ',LPAD(F25' . $baris . ', 11, "0") as Commodity'
 				. ',concat_ws("-",LPAD(F25' . $baris . ', 11, "0")'
@@ -412,16 +415,16 @@ class Borang
 		// item F2281 dalam jadual q15_2010
 		$medan[] = '(' . $SELECT
 			. '"Nilai Bahan Mentah Lain2" as F22,'
-			. 'F2381 as `F23`,"" as `kodUnit`'
+			. 'concat_ws("-",F2381,F2382) as `F23`,"" as `kodUnit`'
 			. ',F2581 as kodProduk,"" as nama_produk'
 			. $WHERE . ')';
 		
-		// item F2282 dalam jadual q15_2010
+		/* item F2282 dalam jadual q15_2010
 		$medan[] = '(' . $SELECT
-			. '"Jumlah" as F22,F2382 as `F23`,"" as `kodUnit`'
+			. '"Jumlah" as F22,F2382 as `F23`,"" as Jum,"" as `kodUnit`'
 			. ',"" as kodProduk,"" as nama_produk'
 			. $WHERE . ')';
-		
+		//*/
 		// papar sql
 		$query = implode("\rUNION\r",$medan);
 		//echo '<hr><pre>$sql input='; print_r($query) . '</pre>';
@@ -438,6 +441,8 @@ class Borang
 			74=>'Binaan lain',
 			75=>'Pembangunan tanah',
 			76=>'Kereta penumpang',
+			88=>'Bas',
+			89=>'Ambulan',
 			77=>'Kereta perdagangan',
 			78=>'Kenderaan lain',
 			79=>'Perkakasan komputer',

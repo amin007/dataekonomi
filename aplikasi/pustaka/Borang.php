@@ -516,6 +516,7 @@ class Borang
 			74=>'Binaan lain',
 			75=>'Pembangunan tanah',
 			76=>'Kereta penumpang',
+			88=>'Bas',
 			77=>'Kereta perdagangan',
 			78=>'Kenderaan lain',
 			79=>'Perkakasan komputer',

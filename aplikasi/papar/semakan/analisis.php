@@ -11,10 +11,23 @@ function analisis($perangkaan, $jadual, $key, $data)
 	$susut_dulu = $perangkaan['susut']['dulu'];
 	$susut_kini = $perangkaan['susut']['kini'];
 	
-	if (in_array($key, array('F3501','F3502','F3503','F3509','F1539',) ) )
+	if (in_array($key, array('F3501','F3502','F3503','F3509','F1539') ) )
 	{
 		$value = $data;
 		$anggaran = null;
+	}
+	if (in_array($key, array('F2001','F2101') ) )
+	{
+		$nilai_dulu = ($hasil_dulu==0) ? 0 :(($data / $hasil_dulu) * 100);
+		$value = number_format($nilai_dulu,4,'.',',') . '%';
+		$anggar = ($data / $hasil_dulu) * $hasil_kini;
+		$anggaran = number_format($anggar,0,'.',',');
+		$hasilProduk = ($key=='F2001') ? $anggaran : 0;
+		$nilai_dulu = ($belanja_dulu==0) ? 0 :(($data / $belanja_dulu) * 100 );
+		$value = number_format($nilai_dulu,4,'.',',') . '%';
+		$anggar = ($key=='F2130' && $susut_kini!=0) ? $susut_kini : ($data / $belanja_dulu) * $belanja_kini;
+		$anggaran = number_format($anggar,0,'.',',');
+		$kosBahan = ($key=='F2101') ? $anggaran : 0;
 	}
 	elseif ($jadual == $sv . '_q08_2010' && $sv='205')
 	{// hasil
@@ -22,7 +35,7 @@ function analisis($perangkaan, $jadual, $key, $data)
 		$value = number_format($nilai_dulu,4,'.',',') . '%';
 		$anggar = ($data / $hasil_dulu) * $hasil_kini;
 		$anggaran = number_format($anggar,0,'.',',');
-		$hasilProduk = ($key=='F2001') ? $anggaran : 0;
+		
 	}
 	elseif ($jadual == 's206_q08_2010' && $sv='206')
 	{// hasil
@@ -30,7 +43,6 @@ function analisis($perangkaan, $jadual, $key, $data)
 		$value = number_format($nilai_dulu,4,'.',',') . '%';
 		$anggar = ($data / $hasil_dulu) * $hasil_kini;
 		$anggaran = number_format($anggar,0,'.',',');
-		$kosBahan = ($key=='F2101') ? $anggaran : 0;
 	}
 	elseif ($jadual == $sv . '_q09_2010' && $sv='205')
 	{// belanja
@@ -38,6 +50,7 @@ function analisis($perangkaan, $jadual, $key, $data)
 		$value = number_format($nilai_dulu,4,'.',',') . '%';
 		$anggar = ($key=='F2130' && $susut_kini!=0) ? $susut_kini : ($data / $belanja_dulu) * $belanja_kini;
 		$anggaran = number_format($anggar,0,'.',',');
+		
 	}
 	elseif ($jadual == 's206_q09_2010' && $sv='206')
 	{// belanja
@@ -195,17 +208,12 @@ foreach ($this->kesID as $myTable => $row)
 		<td align="right"><?php echo (in_array($key, $senaraiMedan)) ? 
 			$data : semakJenis($sv, $key, $data) ?></td>
 		<?php 
-			if ($myTable==$sv . '_q08_2010' || $myTable=='s' . $sv . '_q08_2010'): 
-				$p = analisis($perangkaan, $myTable, $key, $data); # array('nilai'=>$value,'anggar'=>$anggaran,'produk'=>$hasilProduk,'bahan'=>$kosBahan);
+			if ($myTable==$sv . '_q08_2010' || $myTable=='s' . $sv . '_q08_2010'
+				|| $myTable==$sv .'_q09_2010' || $myTable=='s' . $sv . '_q09_2010'): 
+				$p = analisis($perangkaan, $myTable, $key, $data); 
+				# array('nilai'=>$value,'anggar'=>$anggaran,'produk'=>$hasilProduk,'bahan'=>$kosBahan);
 				echo '<td>' . kira($perangkaan['hasil']['dulu']) . '</td>'
 					. '<td>' . kira($perangkaan['hasil']['kini']) . '</td>'
-					. '<td align="right">' . $p['nilai'] . '</td>'
-					. '<td align="right">' . $p['anggar'] . '</td>'
-					. '';
-			elseif ($myTable==$sv .'_q09_2010' || $myTable=='s' . $sv . '_q09_2010'): 
-				$p = analisis($perangkaan, $myTable, $key, $data); 
-				echo '<td>' . kira($perangkaan['belanja']['dulu']) . '</td>'
-					. '<td>' . kira($perangkaan['belanja']['kini']) . '</td>'
 					. '<td align="right">' . $p['nilai'] . '</td>'
 					. '<td align="right">' . $p['anggar'] . '</td>'
 					. '';
@@ -238,8 +246,10 @@ foreach ($this->kesID as $myTable => $row)
 <?php
 	} // if ( count($row)==0 )
 }
-
-?>
+?><pre>$p-><?php
+#$p = analisis($perangkaan, $myTable, $key, $data); # array('nilai'=>$value,'anggar'=>$anggaran,'produk'=>$hasilProduk,'bahan'=>$kosBahan);
+echo ''; print_r($p) . '';
+?></pre>
 <!-- Analisis data this->kod_produk -->
 <?php 
 foreach ($this->kod_produk as $myTable => $row)

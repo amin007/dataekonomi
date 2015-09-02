@@ -873,53 +873,6 @@ class Semakan extends Kawal
 
 	private function semak_staf($jadualStaf, $prosesID)
 	{// khas untuk soalan staf
-	/*
-		$lelaki = '05a';
-		$stafLelaki = array(1=>'Pemilik(ROB)-1',
-			2=>'Pekerja keluarga(ROB)-2',
-			3=>'Pengurusan-3.1',
-			4=>'Juruteknik-3.2',
-			5=>'Kerani-3.3',
-			6=>'Pekerja Asas-3.4',
-			7=>'-3.5',
-			8=>'-3.6',
-			//9=>'',
-			11=>'Pekerja sambilan-4',
-			19=>'Jumlah pekerja-5',
-			);
-
-		$stafPerempuan = array(21=>'Pemilik(ROB)-1',
-			22=>'Pekerja keluarga(ROB)-2',
-			23=>'Pengurusan-3.1',
-			24=>'Juruteknik-3.2',
-			25=>'Kerani-3.3',
-			26=>'Pekerja Asas-3.4',
-			27=>'-3.5',
-			28=>'-3.6',
-			//9=>'',
-			31=>'Pekerja sambilan-4',
-			39=>'Jumlah pekerja-5',
-			);
-
-		foreach ($jadualStaf as $key => $myTable):
-			if (isset($prosesID[$myTable][0])):
-				$cari = $prosesID[$myTable][0];
-				if(strpos($myTable,$lelaki) !== false)
-				{
-					//echo "<br>Jumpa $lelaki dalam $myTable<br>";
-					//echo '$prosesID['.$myTable.'][0]'; print_r($prosesID[$myTable][0]);
-					@$this->papar->kod_produk['lelaki'] = 
-						Borang::binaStaf($myTable,$stafLelaki,$cari);
-				}
-				else
-				{
-					//echo "<br>Tak jumpa $lelaki dalam $myTable<br>";
-					//echo '$prosesID['.$myTable.'][0]'; print_r($prosesID[$myTable][0]);				
-					@$this->papar->kod_produk['wanita'] = 
-						Borang::binaStaf($myTable,$stafPerempuan,$cari);
-				}
-			endif;
-		endforeach;*/
 			$jenisPekerjaan = array(0=>'Pemilik(ROB)-1',1=>'Pekerja keluarga(ROB)-2',
 			2=>'Pengurusan-3.1',3=>'Juruteknik-3.2',4=>'Kerani-3.3',5=>'Pekerja Asas-3.4',
 			6=>'Pekerja Mahir-3.5.1',7=>'Pekerja XMahir-3.5.2',

@@ -345,6 +345,13 @@ class Semakan extends Kawal
 					foreach ($value as $kekunci => $papar)
 						$cariHarta[$kekunci] = bersih($papar);
 				}
+				elseif ( $myTable == 'output' || $myTable == 'input')
+				{
+					foreach ($value as $kekunci => $papar)
+						foreach ($papar as $namaMedan => $papar2)
+							$this->papar->borang[$myTable][$kekunci][$namaMedan] = bersih($papar2);
+					//*/
+				}
 			}
 					
 			# cari keterangan medan
@@ -372,8 +379,9 @@ class Semakan extends Kawal
 						
 			/*echo '<pre>';
 			echo '<hr>$_POST->'; print_r($_POST);
-			echo '<hr>$cariHarta->'; print_r($cariHarta);
-			echo '<hr>$this->papar->kesID->'; print_r($this->papar->kesID);
+			//echo '<hr>$cariHarta->'; print_r($cariHarta);
+			echo '<hr>$this->papar->borang->'; print_r($$this->papar->borang);
+			//echo '<hr>$this->papar->kesID->'; print_r($this->papar->kesID);
 			//echo '<hr>$this->papar->kod_produk->'; print_r($this->papar->kod_produk);
 			//echo '<hr>$this->papar->paparID=' . $this->papar->paparID;
 			//echo '<hr>$this->papar->carian: ' . $this->papar->carian;
@@ -787,7 +795,7 @@ class Semakan extends Kawal
 				$sql = Borang::borangOutput('kod2010_output', $myTable, $cari);
 				$this->papar->kod_produk[$myTable] = 
 				$this->tanya->cariProdukBaru($myTable, $sql);
-				$this->papar->kod_produk['borang_output'] =
+				$this->papar->kod_produk['output'] =
 					Data::produkOutput($this->papar->kod_produk[$myTable]);
 				/* ubahsuai tatasusunan $info
 				$info = $this->tanya->cariProdukLama($myTable, $medan, $cari);
@@ -799,7 +807,7 @@ class Semakan extends Kawal
 				$sql = Borang::borangInput('kod2010_input', $myTable, $cari);
 				$this->papar->kod_produk[$myTable] = 
 				$this->tanya->cariProdukBaru($myTable, $sql);
-				$this->papar->kod_produk['borang_input'] =
+				$this->papar->kod_produk['input'] =
 					Data::produkInput($this->papar->kod_produk[$myTable]);
 				/* ubahsuai tatasusunan $info
 				$info = $this->tanya->cariProdukLama($myTable, $medan, $cari);

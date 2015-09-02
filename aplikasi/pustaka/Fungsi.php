@@ -510,6 +510,17 @@ function inputText2($kira, $jum, $io, $jadual, $key, $data)
 			   . '<input type="text" ' . $name . ' value="' 
 			   . $data . '" class="input-mini"></div>';
 	}
+	elseif ( $jadual == 'output' || $jadual == 'input')
+	{
+		$baris = $key;
+		$name = 'name="' . $jadual . '[' . $kira . '][' . $baris . ']"'
+			  . ' id="' . $baris . '"';		
+		$data = ($data=='-' || $data=='_' || $data=='0' ) ? null : $data;
+		$input = '<div class="input-prepend">'
+			   //. '<span class="add-on">' . $baris . '</span>' 
+			   . '<input type="text" ' . $name . ' value="' 
+			   . $data . '" class="input-mini"></div>';
+	}
 	else
 	{
 		$baris = $key;

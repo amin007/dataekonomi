@@ -474,8 +474,8 @@ function inputText2($kira, $jum, $io, $jadual, $key, $data)
 			$lajur = kira3($kira+51, 2);
 			$baris = ($akhir==1) ? 'F2581' : 'F25' . $lajur;
 		}
-		
-		$name = 'name="' . $jadual . '[' . $baris . ']"'
+		$baris = 'namaProduk';
+		$name = 'name="' . $jadual . '[' . $kira . '][' . $baris . ']"'
 			  . ' id="' . $baris . '"';		
 		$data = ($data=='-' || $data=='_' || $data=='0' ) ? null : $data;
 		$input = '<div class="input-prepend">'

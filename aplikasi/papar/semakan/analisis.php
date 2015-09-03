@@ -98,8 +98,8 @@ else
 	$ID = $this->paparID; 
 	$senaraiMedan = array('sv','newss','nama');
 	$sv = $this->kesID['semasa'][0]['sv'];
-	/*$perangkaan['nama'] = $this->kesID['semasa'][0]['nama'];
-	$perangkaan['newss'] = $this->kesID['semasa'][0]['newss'];*/
+	$perangkaan['nama']['dulu'] = $this->kesID['semasa'][0]['nama'];
+	$perangkaan['newss']['dulu'] = $this->kesID['semasa'][0]['newss'];
 	$perangkaan['sv']['dulu'] = $this->kesID['semasa'][0]['sv'];
 	$perangkaan['sv']['kini'] = $this->kesID['semasa'][0]['sv'];
 	$perangkaan['hasil']['dulu'] = $this->kesID['semasa'][0]['hasil_dulu'];
@@ -123,9 +123,12 @@ else
 	foreach ( $perangkaan AS $key=>$data ) :
 		//echo '<tr><td align="right">' .$key. '='.$data.'</td></tr>';
 		echo '<tr><td align="right">' . $key . '</td>' 
-		 . '<td align="right">' . kira($data['dulu']) . '</td>'
-		 . '<td align="right">' . kira($data['kini']) . '</td>'
-		 . '</tr>';
+		 . ((in_array($key, array('nama','newss') )) ? 
+			( '<td align="right" colspan="2">' . $data['dulu'] . '</td>')
+			: # untuk nombor sahaja
+			( '<td align="right">' . kira($data['dulu']) . '</td>'
+			 . '<td align="right">' . kira($data['kini']) . '</td>')
+			) . '</tr>';
 	endforeach;
 ?>
 </table>
@@ -380,13 +383,12 @@ $p = dataProdukKodbahan($perangkaan, $this->kesID);
 					}
 
 				echo '<tbody><tr>' . "\r" . '<td>' . ($kiraBil+1) . '</td>' . "\r";
-				$jumNilai = 0;
-				$p2 = analisisProdukKodBahan($this->borang, $p, $jadual, $row, $kiraBil, $jumNilai);
-				$jumNIlai += $p2['jumNilai'];
+				$p2 = analisisProdukKodBahan($this->borang, $p, $jadual, $row, $kiraBil, $jumNilai=0);
+				$jumNilai += $p2['jumNilai'];
 				echo '</tr></tbody>';
 				//*/
 			}
-			echo '<tbody><tr>' . "\r" . '<td colspan=10>Jumlah ' . $jumNilai . '</td></tr></tbody>';
+			//echo '<tbody><tr>' . "\r" . '<td colspan=10>Jumlah ' . $jumNilai . '</td></tr></tbody>';
 			echo '</table></div>';
 			
 

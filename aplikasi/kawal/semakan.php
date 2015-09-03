@@ -358,7 +358,7 @@ class Semakan extends Kawal
 			$this->cari_keterangan_medan($sv, $this->papar->kesID); 
 			
 			# cari perbandingan aset dulu dan kini //echo "\$jadualHarta = $jadualHarta <br>"; 
-			$this->papar->kod_produk['harta'] = ($jadualHarta=='harta') ?
+			$this->papar->kod_aset['harta'] = ($jadualHarta=='harta') ?
 			Borang::analisaAset($cariHarta, 
 			array(
 				'aset_dulu' => $this->papar->kesID['semasa'][0]['aset_dulu'],

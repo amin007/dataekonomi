@@ -158,39 +158,31 @@ foreach ($this->kesID as $myTable => $row)
 	// mula bina jadual
 	#-----------------------------------------------------------------
 	for ($kira=0; $kira < count($row); $kira++)
-	{	//print the data row ?>
+	{	#print the data row ?>
 		<td valign="top">
 		<table border="1" class="excel" id="example">
 		<?php
-		// mula bina jadual
-		$printed_headers = false; 
-		//$tajukMedan = array('keterangan','kod','hasil');
-		if ($myTable==$sv . '_q08_2010' || $myTable=='s' . $sv . '_q08_2010'): 
+		$printed_headers = false; # mula bina jadual
+		$senaraiJadual = array($sv . '_q08_2010','s' . $sv . '_q08_2010'
+			$sv .'_q09_2010', 's' . $sv . '_q09_2010');
+		$senaraiJadual2 = array('s' . $sv . '_q02_2010','s' . $sv .'_q03_2010');
+		
+		if (in_array($myTable, $senaraiJadual )):
 			$tajukMedan = array('keterangan','kod','data',
 				'jum_dulu','jum_kini','% dulu','anggaran'
 			);
-		elseif ($myTable==$sv .'_q09_2010' || $myTable=='s' . $sv . '_q09_2010'): 
-			$tajukMedan = array('keterangan','kod','data',
-				'jum_dulu','jum_kini','% dulu','anggaran'
-			);
-		elseif ($myTable=='s' . $sv . '_q02_2010' && $sv != '206'): 
-			$tajukMedan = array('keterangan','kod','data',
-				'jum_dulu','jum_kini','% dulu','anggaran'
-			);
-		elseif ($myTable=='s' . $sv .'_q03_2010' && $sv != '206'): 
+		elseif (in_array($myTable, $senaraiJadual2 ) && $sv != '206'):
 			$tajukMedan = array('keterangan','kod','data',
 				'jum_dulu','jum_kini','% dulu','anggaran'
 			);
 		else: 
 			$tajukMedan = array('keterangan','kod','data');
 		endif;
-
 		#-----------------------------------------------------------------
 			if ( !$printed_headers ) : ?><tr>
 		<?php	foreach ( $tajukMedan AS $tajuk ) : 
 				?><th><?php echo $tajuk ?></th>
-		<?php	endforeach;
-		?></tr><?php 
+		<?php	endforeach;	?></tr><?php 
 				$printed_headers = true; 
 			endif;
 		#-----------------------------------------------------------------	
@@ -201,8 +193,7 @@ foreach ($this->kesID as $myTable => $row)
 			$paparanData = ($data==null || $data == 0) ? '-' : null;
 		
 		if ($this->paparNilai == '-' && $data == 0): echo '';
-		else:
-		?><tr>
+		else:?><tr>
 		<td><?php echo $keterangan ?></td>
 		<td><?php echo $key . $paparanData ?></td>
 		<td align="right"><?php echo (in_array($key, $senaraiMedan)) ? 

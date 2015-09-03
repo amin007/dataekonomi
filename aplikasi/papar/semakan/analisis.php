@@ -271,76 +271,140 @@ function tajukMedan2($kira,$row)
 			if ( !is_int($tajuk) ) 
 			$papar .= "<th>$tajuk</th>";
 		endforeach;
-	$papar .= "</tr></thead>";
+	$papar .= "\r</tr></thead>";
+	return $papar;
 }
 
-function analisisProdukKodbahan($p, $borang)
+function analisisProdukKodBahan($borang, $p, $jadual, $row, $kiraBil, $jumNilai)
 {
 	//echo "\$produk " . $p['produk'] . ",\$kosBahan " . $p['kosBahan'] . "<br>";
 	//echo '<pre>'; print_r($borang); echo '</pre>';
 	/*[output][0][F22]
-			$key F22 $data
-			$key F23 $data
 			$key F24 $data 168
 			$key F25 $data 37572-113856
-			$key F26 $data 0-0
-			$key F27 $data 0-0
-			$key kodUnit $data 7
-			$key kodProduk $data 62599903072-2599903072
-
 	//[input][0][F22]
-	
 			$key F22 $data 3002
 			$key F23 $data 13667-48810
-			$key kodUnit $data 23
-			$key kodProduk $data 72410101002-2410101002
 	*/
-	$jumNilai = 0;
 	$kiniP = (int)$p['produk'];
-	$papar = '<table  border="1" class="excel" id="example">';
-	foreach ($borang as $jadual => $row):
-	$printed_headers = false; # mula bina jadual
-	#-----------------------------------------------------------------
-	for ($kira=0; $kira < count($row); $kira++)
-	{
-		//print the headers once: 	
-		if ( !$printed_headers ) 
-			$papar .= tajukMedan2($kira,$row);
-		$printed_headers = true;
-
-		foreach($row[$kira] as $key=>$data): 
-			//echo "\$key $key \$data $data<br>";
-			if ($jadual=='output' && $key=='F25'):
-				list($dulu,$jum) = explode('-',$data);
-				
-				//$nilai_dulu = ($jum==0) ? 0 :(($dulu / $jum) * 100);
-				$nisbah = ($jum==0) ? 0 :($dulu / $jum);
-				$value = number_format($nisbah,2,'.',',') . '%';
-				$anggar = ($dulu / $jum) * $kiniP;
-				$jumNilai += floor($anggar * 1) / 1;
-				$nilai_kini = floor($anggar * 1) / 1;
-		
-				$papar .= "<tr><td>dulu / jum $value </td><td>
-				($dulu / $jum) x $kiniP = " . $nilai_kini . " | $jumNilai
-				</td></tr>
-				";
-
-			endif;
-		endforeach;
-	}
+	$kiniK = (int)$p['kosBahan'];
+	
+	foreach ($row[$kiraBil] as $key => $data):
+		if ($jadual=='output' && in_array($key,array('F25'))):
+			list($dulu,$jum) = explode('-',$data);
+			$nisbah = ($jum==0) ? 0 :($dulu / $jum);
+			$nisbah2 = ($jum==0) ? 0 :(($dulu / $jum) * 100);
+			$value = number_format($nisbah2,2,'.',',') . '%';
+			$anggar = ($dulu / $jum) * $kiniP;
+			$jumNilai += floor($anggar * 1) / 1;
+			$nilai_kini = floor($anggar * 1) / 1;
+					
+			$papar = "dulu = $dulu |  $value<br>"
+				. " kini = ($dulu / $jum) x $kiniP = " . $nilai_kini 
+				. " ";
+		elseif ($jadual=='output' && in_array($key,array('F24'))):
+			# produk
+			list($dulu,$jum) = explode('-',$borang['output'][$kiraBil]['F25']);
+			$nisbah = ($jum==0) ? 0 :($dulu / $jum);
+			$nisbah2 = ($jum==0) ? 0 :(($dulu / $jum) * 100);
+			$value = number_format($nisbah2,2,'.',',') . '%';
+			$anggar = ($dulu / $jum) * $kiniP;
+			$nilai_kini = floor($anggar * 1) / 1;
+			# kuantiti
+			$kuantiti_dulu = $data;
+			$aup = ($data==1) ? 1: ($dulu / $data);
+			$aup2 = number_format($aup,2,'.',',') . '';
+			$kini = $nilai_kini / $aup2;
+			$kuantiti_kini = number_format($kini,0,'.',',') . '';
+			
+			$papar = ($kuantiti_dulu==1) ? 1 : " dulu = $kuantiti_dulu | aup " . $aup2 . '<br>'
+				. " kini = $nilai_kini / $aup2 = " . ($kuantiti_kini)
+				. "";
+		elseif ($jadual=='input' && in_array($key,array('F23'))):
+			list($dulu,$jum) = explode('-',$data);
+			$nisbah = ($jum==0) ? 0 :($dulu / $jum);
+			$nisbah2 = ($jum==0) ? 0 :(($dulu / $jum) * 100);
+			$value = number_format($nisbah2,2,'.',',') . '%';
+			$anggar = ($dulu / $jum) * $kiniK;
+			$jumNilai += floor($anggar * 1) / 1;
+			$nilai_kini = floor($anggar * 1) / 1;
+					
+			$papar = "dulu = $dulu |  $value<br>"
+				. " kini = ($dulu / $jum) x $kiniK = " . $nilai_kini 
+				. " ";
+		elseif ($jadual=='input' && in_array($key,array('F22'))):
+			# produk
+			list($dulu,$jum) = explode('-',$borang['input'][$kiraBil]['F23']);
+			$nisbah = ($jum==0) ? 0 :($dulu / $jum);
+			$nisbah2 = ($jum==0) ? 0 :(($dulu / $jum) * 100);
+			$value = number_format($nisbah2,2,'.',',') . '%';
+			$anggar = ($dulu / $jum) * $kiniP;
+			$nilai_kini = floor($anggar * 1) / 1;
+			# kuantiti
+			$kuantiti_dulu = $data;
+			$aup = ($data==1) ? 1: ($dulu / $data);
+			$aup2 = number_format($aup,2,'.',',') . '';
+			$kini = $nilai_kini / $aup2;
+			$kuantiti_kini = number_format($kini,0,'.',',') . '';
+			
+			$papar = ($kuantiti_dulu==1) ? 1 : " dulu = $kuantiti_dulu | aup " . $aup2 . '<br>'
+				. " kini = $nilai_kini / $aup2 = " . ($kuantiti_kini)
+				. "";
+		else:
+			$papar = $data;
+		endif;
+		echo "<td>$papar</td>";
 	endforeach;
+	
+	return $jumNilai;
+	
+	//return array('data2'=>$papar,'jumNilai'=>$jumNilai);
 
-	$produk = $p['produk'];
-	$papar .= "<tr><td> $produk = $produk </td><td> \$jumNilai = $jumNilai </td></tr>";
-	$papar .= '<table>';
-	return $papar;
 }
-//analisisProdukKodbahan($perangkaan, $this->kesID, $this->papar->borang);
+
+//echo '<pre>'; print_r($this->borang); echo '</pre>';
+/*echo '<pre>'; print_r($this->kod_aset); echo '</pre>';
+//*/
 $p = dataProdukKodbahan($perangkaan, $this->kesID);
-$p2 = analisisProdukKodbahan($p, $this->borang);
-echo $p2;
+	foreach ($this->borang as $jadual => $row):
+		if ( count($row)==0 ) echo '';
+		else
+		{
+			echo '<div class="tab-pane" id="' . $jadual . '">' . "\r"
+				. '<span class="badge badge-success">Analisis data ' . $jadual . "\r"
+				. 'Ada ' . count($row) . ' kes '
+				. '</span>'
+				. '<table  border="1" class="excel" id="example">';
+			$printed_headers = false; # mula bina jadual
+			#-----------------------------------------------------------------
+			for ($kiraBil=0; $kiraBil < count($row); $kiraBil++)
+			//foreach ($row as $jadual2 => $baris)
+			{		
+				#print the headers once: 	
+					if ( !$printed_headers )
+					{
+						tajukMedan($kiraBil,$row);
+						$printed_headers = true;
+					}
+
+				echo '<tbody><tr>' . "\r" . '<td>' . ($kiraBil+1) . '</td>' . "\r";
+				$jumNilai = 0;
+				$p2 = analisisProdukKodBahan($this->borang, $p, $jadual, $row, $kiraBil, $jumNilai);
+				echo '</tr></tbody>';
+				//*/
+			}
+			echo '<tbody><tr>' . "\r" . '<td colspan=10>Jumlah ' . $p2['jumNilai'] . '</td></tr></tbody>';
+			echo '</table></div>';
+			
+
+		}# if ( count($row)==0 )
+	endforeach;
+	
+	
+
 //echo '<pre>'; print_r($p); echo '</pre>';
 
+echo "\n\r";
 ?>
 <!-- Analisis data this->kod_aset -->
 <?php 

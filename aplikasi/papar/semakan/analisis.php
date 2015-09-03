@@ -277,14 +277,8 @@ function tajukMedan2($kira,$row)
 
 function analisisProdukKodBahan($borang, $p, $jadual, $row, $kiraBil, $jumNilai)
 {
-	//echo "\$produk " . $p['produk'] . ",\$kosBahan " . $p['kosBahan'] . "<br>";
-	//echo '<pre>'; print_r($borang); echo '</pre>';
-	/*[output][0][F22]
-			$key F24 $data 168
-			$key F25 $data 37572-113856
-	//[input][0][F22]
-			$key F22 $data 3002
-			$key F23 $data 13667-48810
+	/*[output][0][F22]	$key F24 $data 168 | $key F25 $data 37572-113856
+	//[input][0][F22]	$key F22 $data 3002	| $key F23 $data 13667-48810
 	*/
 	$kiniP = (int)$p['produk'];
 	$kiniK = (int)$p['kosBahan'];
@@ -296,7 +290,6 @@ function analisisProdukKodBahan($borang, $p, $jadual, $row, $kiraBil, $jumNilai)
 			$nisbah2 = ($jum==0) ? 0 :(($dulu / $jum) * 100);
 			$value = number_format($nisbah2,2,'.',',') . '%';
 			$anggar = ($dulu / $jum) * $kiniP;
-			$jumNilai += floor($anggar * 1) / 1;
 			$nilai_kini = floor($anggar * 1) / 1;
 					
 			$papar = "dulu = $dulu |  $value<br>"
@@ -326,7 +319,6 @@ function analisisProdukKodBahan($borang, $p, $jadual, $row, $kiraBil, $jumNilai)
 			$nisbah2 = ($jum==0) ? 0 :(($dulu / $jum) * 100);
 			$value = number_format($nisbah2,2,'.',',') . '%';
 			$anggar = ($dulu / $jum) * $kiniK;
-			$jumNilai += floor($anggar * 1) / 1;
 			$nilai_kini = floor($anggar * 1) / 1;
 					
 			$papar = "dulu = $dulu |  $value<br>"
@@ -356,7 +348,7 @@ function analisisProdukKodBahan($borang, $p, $jadual, $row, $kiraBil, $jumNilai)
 		echo "<td>$papar</td>";
 	endforeach;
 	
-	return $jumNilai;
+	return array('jumNilai'=>$nilai_kini);
 	
 	//return array('data2'=>$papar,'jumNilai'=>$jumNilai);
 
@@ -390,10 +382,11 @@ $p = dataProdukKodbahan($perangkaan, $this->kesID);
 				echo '<tbody><tr>' . "\r" . '<td>' . ($kiraBil+1) . '</td>' . "\r";
 				$jumNilai = 0;
 				$p2 = analisisProdukKodBahan($this->borang, $p, $jadual, $row, $kiraBil, $jumNilai);
+				$jumNIlai += $p2['jumNilai'];
 				echo '</tr></tbody>';
 				//*/
 			}
-			echo '<tbody><tr>' . "\r" . '<td colspan=10>Jumlah ' . $p2['jumNilai'] . '</td></tr></tbody>';
+			echo '<tbody><tr>' . "\r" . '<td colspan=10>Jumlah ' . $jumNilai . '</td></tr></tbody>';
 			echo '</table></div>';
 			
 

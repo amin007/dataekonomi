@@ -280,7 +280,7 @@ foreach ($this->kod_produk as $myTable => $row)
 <!-- Jadual <?php echo $myTable ?> ########################################### -->	
 <table  border="1" class="excel" id="example"><?php
 // mula bina jadual
-	$io = array('thn','Batch','Estab','nama_produk','Commodity',
+	$io = array('thn','Batch','Estab'/*,'nama_produk'*/,'Commodity',
 	'F3001','%export F28','nama','kod');
 	$jadual= array('q14_2010','q15_2010','harta_q04_2010','pekerjaan');
 	$jum = count($row);	

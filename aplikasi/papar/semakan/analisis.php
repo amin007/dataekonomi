@@ -16,19 +16,6 @@ function analisis($perangkaan, $jadual, $key, $data)
 		$value = $data;
 		$anggaran = null;
 	}
-	if (in_array($key, array('F2001','F2101') ) )
-	{
-		$nilai_dulu = ($hasil_dulu==0) ? 0 :(($data / $hasil_dulu) * 100);
-		$value = number_format($nilai_dulu,4,'.',',') . '%';
-		$anggar = ($data / $hasil_dulu) * $hasil_kini;
-		$anggaran = number_format($anggar,0,'.',',');
-		$hasilProduk = ($key=='F2001') ? $anggaran : 0;
-		$nilai_dulu = ($belanja_dulu==0) ? 0 :(($data / $belanja_dulu) * 100 );
-		$value = number_format($nilai_dulu,4,'.',',') . '%';
-		$anggar = ($key=='F2130' && $susut_kini!=0) ? $susut_kini : ($data / $belanja_dulu) * $belanja_kini;
-		$anggaran = number_format($anggar,0,'.',',');
-		$kosBahan = ($key=='F2101') ? $anggaran : 0;
-	}
 	elseif ($jadual == $sv . '_q08_2010' && $sv='205')
 	{// hasil
 		$nilai_dulu = ($hasil_dulu==0) ? 0 :(($data / $hasil_dulu) * 100);
@@ -163,9 +150,9 @@ foreach ($this->kesID as $myTable => $row)
 		<table border="1" class="excel" id="example">
 		<?php
 		$printed_headers = false; # mula bina jadual
-		$senaraiJadual = array($sv . '_q08_2010','s' . $sv . '_q08_2010'
-			$sv .'_q09_2010', 's' . $sv . '_q09_2010');
-		$senaraiJadual2 = array('s' . $sv . '_q02_2010','s' . $sv .'_q03_2010');
+		$senaraiJadual = array($sv . '_q08_2010','s' . $sv . '_q08_2010',
+			$sv . '_q09_2010', 's' . $sv . '_q09_2010');
+		$senaraiJadual2 = array('s' . $sv . '_q02_2010','s' . $sv . '_q03_2010');
 		
 		if (in_array($myTable, $senaraiJadual )):
 			$tajukMedan = array('keterangan','kod','data',
@@ -237,13 +224,127 @@ foreach ($this->kesID as $myTable => $row)
 <?php
 	} // if ( count($row)==0 )
 }
-?><pre>$p-><?php
-#$p = analisis($perangkaan, $myTable, $key, $data); # array('nilai'=>$value,'anggar'=>$anggaran,'produk'=>$hasilProduk,'bahan'=>$kosBahan);
-echo ''; print_r($p) . '';
-?></pre>
+?>
 <!-- Analisis data this->kod_produk -->
+<?php
+function dataProdukKodbahan($perangkaan, $kesID)
+{
+	$sv = $perangkaan['sv']['dulu'];
+	$hasil_dulu = $perangkaan['hasil']['dulu'];
+	$hasil_kini = $perangkaan['hasil']['kini'];
+	$belanja_dulu = $perangkaan['belanja']['dulu'];
+	$belanja_kini = $perangkaan['belanja']['kini'];
+	
+	foreach ($kesID as $myTable => $row):
+		foreach ($row[0] as $key=>$data):
+			if (in_array($key, array('F2001') ) )
+			{
+				$nilai_dulu = ($hasil_dulu==0) ? 0 :(($data / $hasil_dulu) * 100);
+				$value = number_format($nilai_dulu,4,'.',',') . '%';
+				$hasilProduk = ($data / $hasil_dulu) * $hasil_kini;
+			}
+			elseif (in_array($key, array('F2101') ) )
+			{
+				$nilai_dulu = ($belanja_dulu==0) ? 0 :(($data / $belanja_dulu) * 100 );
+				$value = number_format($nilai_dulu,4,'.',',') . '%';
+				$kosBahan = ($data / $belanja_dulu) * $belanja_kini;
+
+			}
+	endforeach;endforeach;
+	
+	return array('produk'=>$hasilProduk, 'kosBahan'=>$kosBahan);
+}
+function tajukMedan($kira,$row)
+{
+	?><thead><tr>
+<th>#</th><?php	
+		foreach ( array_keys($row[$kira]) as $tajuk ) : 
+			if ( !is_int($tajuk) ) 
+			?><th><?php echo $tajuk ?></th><?php
+		endforeach ?>
+</tr></thead><?php 
+}
+function tajukMedan2($kira,$row)
+{
+	$papar = "<thead><tr>\r<th>#</th>";
+		foreach ( array_keys($row[$kira]) as $tajuk ) : 
+			if ( !is_int($tajuk) ) 
+			$papar .= "<th>$tajuk</th>";
+		endforeach;
+	$papar .= "</tr></thead>";
+}
+
+function analisisProdukKodbahan($p, $borang)
+{
+	//echo "\$produk " . $p['produk'] . ",\$kosBahan " . $p['kosBahan'] . "<br>";
+	//echo '<pre>'; print_r($borang); echo '</pre>';
+	/*[output][0][F22]
+			$key F22 $data
+			$key F23 $data
+			$key F24 $data 168
+			$key F25 $data 37572-113856
+			$key F26 $data 0-0
+			$key F27 $data 0-0
+			$key kodUnit $data 7
+			$key kodProduk $data 62599903072-2599903072
+
+	//[input][0][F22]
+	
+			$key F22 $data 3002
+			$key F23 $data 13667-48810
+			$key kodUnit $data 23
+			$key kodProduk $data 72410101002-2410101002
+	*/
+	$jumNilai = 0;
+	$kiniP = (int)$p['produk'];
+	$papar = '<table  border="1" class="excel" id="example">';
+	foreach ($borang as $jadual => $row):
+	$printed_headers = false; # mula bina jadual
+	#-----------------------------------------------------------------
+	for ($kira=0; $kira < count($row); $kira++)
+	{
+		//print the headers once: 	
+		if ( !$printed_headers ) 
+			$papar .= tajukMedan2($kira,$row);
+		$printed_headers = true;
+
+		foreach($row[$kira] as $key=>$data): 
+			//echo "\$key $key \$data $data<br>";
+			if ($jadual=='output' && $key=='F25'):
+				list($dulu,$jum) = explode('-',$data);
+				
+				//$nilai_dulu = ($jum==0) ? 0 :(($dulu / $jum) * 100);
+				$nisbah = ($jum==0) ? 0 :($dulu / $jum);
+				$value = number_format($nisbah,2,'.',',') . '%';
+				$anggar = ($dulu / $jum) * $kiniP;
+				$jumNilai += floor($anggar * 1) / 1;
+				$nilai_kini = floor($anggar * 1) / 1;
+		
+				$papar .= "<tr><td>dulu / jum $value </td><td>
+				($dulu / $jum) x $kiniP = " . $nilai_kini . " | $jumNilai
+				</td></tr>
+				";
+
+			endif;
+		endforeach;
+	}
+	endforeach;
+
+	$produk = $p['produk'];
+	$papar .= "<tr><td> $produk = $produk </td><td> \$jumNilai = $jumNilai </td></tr>";
+	$papar .= '<table>';
+	return $papar;
+}
+//analisisProdukKodbahan($perangkaan, $this->kesID, $this->papar->borang);
+$p = dataProdukKodbahan($perangkaan, $this->kesID);
+$p2 = analisisProdukKodbahan($p, $this->borang);
+echo $p2;
+//echo '<pre>'; print_r($p); echo '</pre>';
+
+?>
+<!-- Analisis data this->kod_aset -->
 <?php 
-foreach ($this->kod_produk as $myTable => $row)
+foreach ($this->kod_aset as $myTable => $row)
 {
 	if ( count($row)==0 ) echo '';
 	else
@@ -251,38 +352,28 @@ foreach ($this->kod_produk as $myTable => $row)
 	<div class="tab-pane" id="<?php echo $myTable ?>">
 	<span class="badge badge-success">Analisis data <?php echo $myTable ?>|
 	D: Data Tahun Lepas, SI : Peratus Susutnilai, H: Peratus Dari Jumlah Harta, A: Anggaran</span>
-<!-- Jadual <?php echo $myTable ?> ########################################### -->	
-<table  border="1" class="excel" id="example">
-<?php
-// mula bina jadual
-$printed_headers = false; 
-#-----------------------------------------------------------------
-for ($kira=0; $kira < count($row); $kira++)
-{	//print the headers once: 	
-	if ( !$printed_headers ) 
-	{	?><thead><tr>
-<th>#</th>
-<?php	foreach ( array_keys($row[$kira]) as $tajuk ) : 
-			if ( !is_int($tajuk) ) 
-			?><th><?php echo $tajuk ?></th><?php
-		endforeach ?>
-</tr></thead><?php
-		$printed_headers = true; 
-	}
-#-----------------------------------------------------------------		 
-	//print the data row ?>
+	<!-- Jadual <?php echo $myTable ?> ########################################### -->	
+	<table  border="1" class="excel" id="example">
+<?php $printed_headers = false; # mula bina jadual
+	#-----------------------------------------------------------------
+	for ($kira=0; $kira < count($row); $kira++)
+	{
+		//print the headers once: 	
+		if ( !$printed_headers ) 
+			tajukMedan($kira,$row);
+		$printed_headers = true;
+	#-----------------------------------------------------------------?>
 <tbody><tr>
 <td><?php echo $kira+1 ?></td>	
-<?php foreach ( $row[$kira] as $key=>$data ) :?>
+<?php 	foreach ( $row[$kira] as $key=>$data ) :?>
 <td align="right"><?php echo (in_array($key, 
-	array('thn','Estab','F3001','Commodity'))) ? 
-	$data : semakJenis($sv, $key, $data) ?></td>
-<?php endforeach ?>
+			array('thn','Estab','F3001','Commodity'))) ? 
+			$data : semakJenis($sv, $key, $data) ?></td>
+<?php 	endforeach ?>
 </tr></tbody>
 <?php
-}
-#-----------------------------------------------------------------
-?></table>
+	}
+#-----------------------------------------------------------------?></table>
 <!-- Jadual <?php echo $myTable ?> ########################################### -->		
 	</div>
 <?php

@@ -1040,5 +1040,67 @@ class Borang
 	return $pekerja;
 	}
 /////////////////////////////////////////////////////////////////////////////////////////////////////
+	public static function borangStaf($info)
+	{
+		//echo '<pre>Borang::borangStaf($info)='; print_r($info) . '</pre><hr>';
+		$bangsaStaf = array(1=>'Melayu', 2=>'Iban',
+			3=>'Bidayuh', 4=>'Bajau',
+			5=>'Kadazan', 6=>'Bumiputra Lain',
+			7=>'Cina', 8=>'India', 9=>'WM Lain2',
+			10=>'Indonesia', 11=>'Filipina',
+			12=>'Bangladesh', 13=>'BWM Lain2',
+			14=>'Jumlah', 18=>'Gaji');
+		$lelaki = array(1=>'Pemilik(ROB)-1',2=>'Pekerja keluarga(ROB)-2',
+			3=>'Pengurusan-3.1',4=>'Juruteknik-3.2',
+			5=>'Kerani-3.3',6=>'Pekerja Asas-3.4',
+			7=>'-3.5',8=>'-3.6',9=>'',10=>'',
+			11=>'Pekerja sambilan-4',19=>'Jumlah pekerja-5');
+		$keyLelaki = array(0=>1,1=>2,2=>3,3=>4,4=>5,5=>6,6=>7,7=>8,8=>9,9=>10,10=>11,11=>19);
+		$wanita = array(21=>'Pemilik(ROB)-1',22=>'Pekerja keluarga(ROB)-2',
+			23=>'Pengurusan-3.1',24=>'Juruteknik-3.2',
+			25=>'Kerani-3.3',26=>'Pekerja Asas-3.4',
+			27=>'-3.5',	28=>'-3.6',29=>'',30=>'',
+			31=>'Pekerja sambilan-4',39=>'Jumlah pekerja-5');
+		$keyWanita = array(0=>21,1=>22,2=>23,3=>24,4=>25,5=>26,6=>27,7=>28,	8=>29,9=>30,10=>31,11=>39);
+		/*
+		$info
+		[11] => Array
+        (
+            [nama] => Jumlah pekerja-5
+            [L] => 19
+			[L01] => - [L02] => - [L03] => - [L04] => - [L05] => -
+			[L06] => - [L07] => - [L08] => - [L09] => - 
+			[L10] => - [L11] => - [L12] => - [L13] => - 
+			[L14] => - [Gaji|L18] => -
+            [W] => 39
+            [W01] => 3 [W02] => - [W03] => - [W04] => - [W05] => -
+            [W06] => - [W07] => - [W08] => - [W09] => - 
+			[W10] => - [W11] => - [W12] => - [W13] => -
+            [W14] => 3 [Gaji|W18] => 20000
+        )
+		*/
+		
+		foreach ($info as $kira => $row):
+			$pekerja[$kira]['nama'] = $info[$kira]['nama'];
+			$pekerja[$kira]['L'] = $info[$kira]['L'];
+			$pekerja[$kira]['Msia|L'] = $info[$kira]['L01'] + $info[$kira]['L02'] + $info[$kira]['L03'] + $info[$kira]['L04'] 
+				+ $info[$kira]['L05'] + $info[$kira]['L06'] + $info[$kira]['L07'] + $info[$kira]['L08'] + $info[$kira]['L09'];
+			$pekerja[$kira]['Pati|L'] = $info[$kira]['L10'] + $info[$kira]['L11'] + $info[$kira]['L12'] + $info[$kira]['L13'];
+			$pekerja[$kira]['JumL|L14'] = $info[$kira]['L14'];
+			$pekerja[$kira]['Gaji|L18'] = $info[$kira]['Gaji|L18'];
+			$pekerja[$kira]['W'] = $info[$kira]['W'];
+			$pekerja[$kira]['Msia|W'] = $info[$kira]['W01'] + $info[$kira]['W02'] + $info[$kira]['W03'] + $info[$kira]['W04'] 
+				+ $info[$kira]['W05'] + $info[$kira]['W06'] + $info[$kira]['W07'] + $info[$kira]['W08'] + $info[$kira]['W09'];
+			$pekerja[$kira]['Pati|W'] = $info[$kira]['W10'] + $info[$kira]['W11'] + $info[$kira]['W12'] + $info[$kira]['W13'];
+			$pekerja[$kira]['JumW|W14'] = $info[$kira]['W14'];
+			$pekerja[$kira]['Gaji|W18'] = $info[$kira]['Gaji|W18'];
+		endforeach;
+		
+		//echo '<pre>Borang::borangStaf($pekerja)='; print_r($pekerja) . '</pre><hr>';
+		
+		return $pekerja;
+		
+	}
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 #####################################################################################################
 }

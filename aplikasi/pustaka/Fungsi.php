@@ -510,7 +510,8 @@ function inputText2($kira, $jum, $io, $jadual, $key, $data)
 			   . '<input type="text" ' . $name . ' value="' 
 			   . $data . '" class="input-mini"></div>';
 	}
-	elseif ( $jadual == 'output' || $jadual == 'input')
+	//elseif ( $jadual == 'output' || $jadual == 'input')
+	elseif ( in_array($jadual,array('output','input','teamgenius')) )
 	{
 		$baris = $key;
 		$name = 'name="' . $jadual . '[' . $kira . '][' . $baris . ']"'

@@ -794,7 +794,7 @@ class Semakan extends Kawal
 			{
 				$sql = Borang::borangOutput('kod2010_output', $myTable, $cari);
 				$this->papar->kod_produk[$myTable] = 
-				$this->tanya->cariProdukBaru($myTable, $sql);
+					$this->tanya->cariProdukBaru($myTable, $sql);
 				$this->papar->kod_produk['output'] =
 					Data::produkOutput($this->papar->kod_produk[$myTable]);
 				/* ubahsuai tatasusunan $info

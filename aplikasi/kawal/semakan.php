@@ -889,7 +889,7 @@ class Semakan extends Kawal
 
 		$this->papar->kod_produk['pekerjaan'] = 
 			Data::dataPekerja($jadualStaf,$jenisPekerjaan,$prosesID);
-		$this->papar->kod_produk['stafLP'] = 
+		$this->papar->kod_produk['teamgenius'] = 
 			Borang::borangStaf($this->papar->kod_produk['pekerjaan']);
 	}
 	

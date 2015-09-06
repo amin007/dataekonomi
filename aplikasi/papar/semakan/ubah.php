@@ -96,7 +96,7 @@ else
 		'lelaki','wanita');
 	//echo '$cetak:' . $cetak . '|$mencari:' . $mencari;
 	//echo '<pre>205::$this->kod_produk='; print_r($this->kod_produk) . '<pre>';
-	//echo "<hr>perangkaan : " . print_r($this->perangkaan) . "";
+	//echo "<hr>99:perangkaan : "; print_r($this->perangkaan) . "";
 ?>
 <div align="center"><form method="POST" action="<?php echo $mencari ?>" autocomplete="off">
 <span class="badge"><?php echo $tajuk ?></span>

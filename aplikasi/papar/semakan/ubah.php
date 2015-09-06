@@ -282,7 +282,7 @@ foreach ($this->kod_produk as $myTable => $row)
 // mula bina jadual
 	$io = array('thn','Batch','Estab'/*,'nama_produk'*/,'Commodity',
 	'F3001','%export F28','nama','kod');
-	$jadual= array('q14_2010','q15_2010','harta_q04_2010','pekerjaan');
+	$jadual= array('q14_2010','q15_2010','harta_q04_2010','harta_s'.$this->sv.'_q04_2010','pekerjaan');
 	$jum = count($row);	
 $printed_headers = false; 
 #-----------------------------------------------------------------
@@ -306,6 +306,9 @@ for ($kira=0; $kira < count($row); $kira++)
 	<?php endforeach ?>
 	</tr></tbody>
 <?php
+	else:echo '<tbody><tr>' . "\r" . '<td colspan=10>' 
+		. $key . '|' . $data . '</td></tr></tbody>';
+
 	endif;#if (isset($row[$kira]))
 }
 #-----------------------------------------------------------------

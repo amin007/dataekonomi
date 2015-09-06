@@ -329,7 +329,7 @@ class Borang
 		$cariID = ( !isset($cari['id']) ) ? '' : $cari['id'];
 		$thnMula = ( !isset($cari['thn_mula']) ) ? '' : $cari['thn_mula'];
 		$thnAkhir = ( !isset($cari['thn_akhir']) ) ? '' : $cari['thn_akhir'];
-		$SELECT = 'SELECT thn,/*Batch,Estab,*/';
+		$SELECT = 'SELECT thn,';/* ' "'.$baris.'" as `#`,' Batch,Estab,*/
 		$WHERE = " FROM `$myTable` "
 			. "WHERE $cariMedan like '$cariID%' "
 			. "AND thn BETWEEN $thnMula and $thnAkhir";
@@ -338,7 +338,7 @@ class Borang
 		for ($kira = 1;$kira < 19; $kira++)
 		{
 			$baris = kira3($kira, 2);
-			$medan[] = '(' . $SELECT
+			$medan[] = '(' . $SELECT 
 				. 'F22' . $baris . ' as F22,F23' . $baris . ' as F23'
 				. ',F24' . $baris . ' as F24'
 				. ',concat_ws("-",F25' . $baris . ',F2542) as `F25`'
@@ -346,10 +346,12 @@ class Borang
 				. ',concat_ws("-",F27' . $baris . ',F2742) as `F27`'
 				. ',F28' . $baris . ' as `%export F28`,F29' . $baris . ' as `kodUnit`'
 				. ',concat_ws("-",F30' . $baris . ',SUBSTRING(F30' . $baris . ',-10)) as `kodProduk`' 
-				. ',( SELECT concat_ws("-",keterangan,kod_produk) '
+				. ',(IFNULL('
+				. '( SELECT concat_ws("-",keterangan,kod_produk) '
 				//. ', (SELECT CONCAT("<abbr title=\"", keterangan, "\">", kod_produk, "</abbr>") '
 				. 'FROM ' . $kodProduk . ' b WHERE b.kod_produk='
-				. 'SUBSTRING(F30' . $baris . ',-10) LIMIT 1) as nama_produk'	
+				. 'SUBSTRING(F30' . $baris . ',-10) LIMIT 1)'
+				. ',"kosong")) as nama_produk'	
 				. $WHERE . ')';
 		}// tamat ulang $kira:$cariID dalam kod_produk['q14_2010']
 
@@ -510,6 +512,70 @@ class Borang
 		return $aset;
 	 
 	
+	}
+/////////////////////////////////////////////////////////////////////////////////////////////////////	
+	public static function inputAsetAm($cari)
+	{
+		// jenis harta
+		$jenisHarta = array(1=>'Tanah(X71)',
+			2=>'Bangunan dan binaan lain(X72,X73,X74,X75)',
+			3=>'Kenderaan(X76,X77,X78)',
+			4=>'Perkakasan komputer(X79)',
+			5=>'Perisian komputer(X80)',
+			6=>'Jentera dan kelengkapan(X81)',
+			7=>'Perabut dan pemasangan(X82)',
+			8=>'Muhibah dsb(X84),Paten(X70),',
+			9=>'Lain2 harta(X86)', 0=>'Jumlah harta(X99)', 
+			81=>'Harta tetap dibuat/dibina sendiri(F04X)',
+			82=>'Jumlah harta tetap pada akhir tahun(F0899/M0083)',
+			83=>'Semua harta',
+			84=>'Jumlah tanggungan(M0084)',
+			85=>'Modal Berbayar(F0031/M0085)',
+			86=>'Rizab(F0032/M0086)');
+
+		$nilaiBuku= array(6=>'Pelupusan',7=>'Pembelian');
+			
+		// set pembolehubah awal
+		$jumAset_dulu = $jum['aset_dulu'];
+		$jumAset_kini = $jum['aset_kini'];
+		
+		//echo '<pre>Borang::inputAsetAm($cari)='; print_r($cari) . '</pre><hr>';
+		// mula cari 
+		$kira = 0;
+		foreach ($jenisHarta as $key => $jenis)
+		{	
+			$aset[$kira]['nama'] = $jenis;
+			//$aset[$kira]['kod'] = $key;
+			foreach ($nilaiBuku as $key2 => $modal)
+			{
+				$lajur = kira3($key2, 1);
+				$baris = 'F00' . $lajur . $key;
+				echo '<br>'.$baris.'='.$cari[$baris];
+				if ($key=='0')
+				{
+					$aset[$kira]['F0070'] = 
+						isset($cari['F0070']) ? $cari['F0070'] : 0;
+					$aset[$kira]['F0080'] = 
+						isset($cari['F0080']) ? $cari['F0080'] : 0;
+				}
+				elseif (in_array($key,array(81,82,83,84,85,86)) )
+				{
+					//$aset[$kira]['F00'.$key] = 
+					$aset[$kira]['F00'.$key] = 
+						isset($cari['F00'.$key]) ? $cari['F00'.$key] : 0;
+				}
+				else
+				{// mula kiraan bandingan antara 2 tahun
+					$aset[$kira][$baris] = isset($cari[$baris]) ?	$cari[$baris] : 0;
+				}
+			}
+			$kira++;
+		}		
+		//echo '<pre>$jum='; print_r($jum) . '</pre><hr>';
+		echo '<pre>Borang::binaAsetAm($aset)='; print_r($aset) . '</pre><hr>';
+		return $aset;
+	
+		
 	}
 /////////////////////////////////////////////////////////////////////////////////////////////////////	
 	public static function binaAset($cari)
@@ -813,65 +879,18 @@ class Borang
 			86=>'Rizab');
 
 		$nilaiBuku= array(6=>'Pelupusan',7=>'Pembelian');
-			
-		// set pembolehubah awal
-		$dulu = $jum['aset_dulu'];
-		$kini = $jum['aset_kini'];
-		
-		// mula cari 
-		$kira = 0;
-		foreach ($jenisHarta as $key => $jenis)
-		{	
-			$aset[$kira]['nama'] = $jenis;
-			//$aset[$kira]['kod'] = $key;
-			foreach ($nilaiBuku as $key2 => $modal)
-			{
-				$lajur = kira3($key2, 1);
-				$baris = 'F00' . $lajur . $key;
-				//echo '<br>'.$baris.'='.$cari[$baris];
-				if ($key=='0')
-				{
-					$aset[$kira]["Pelupusan"] = 
-						isset($cari['F0070']) ? $cari['F0070'] : 0;
-					$aset[$kira]["Pembelian"] = 
-						isset($cari['F0080']) ? $cari['F0080'] : 0;
-				}
-				elseif (in_array($key,array(81,82,83,49,84,85,86)) )
-				{
-					$aset[$kira]["Pelupusan"] = '-';
-					if ($key==83)
-					{
-						$harta = isset($cari['F00'.$key]) ? $cari['F00'.$key] : 0;
-						$kiraHarta = ($harta==0)? 0 : number_format($harta,0,'.',',');
-						$anggaran = ($dulu==0)? 0 : number_format(
-							($harta / $dulu) * $kini,0,'.',',');
+/*
+		$aset[$kira]['nama'] = 'susutNilai';
+		$aset[$kira]['Pelupusan'] = 0;
+		$aset[$kira]['Pembelian'] = $susut['F0049'];
+		$aset[$kira+1]['nama'] = 'jumlahBelanja';
+		$aset[$kira+1]['Pelupusan'] = 0;
+		$aset[$kira+1]['Pembelian'] = $susut['F0060'];//*/
 
-						$aset[$kira]["Pembelian"] =
-						($kiraHarta=='0') ? '-' : // kalau harta = 0
-						'D:' . $kiraHarta . 
-						'<br>A:' . $anggaran;
-					}
-					else
-					{
-						$aset[$kira]["Pembelian"] = 
-							isset($cari['F00'.$key]) ? $cari['F00'.$key] : 0;					
-					}
-					
-				}
-				else
-				{
-					$aset[$kira]["$modal"] = isset($cari[$baris]) ?	$cari[$baris] : 0;
-
-					// mula kiraan bandingan antara 2 tahun
-					//$aset[$kira]["$modal"] = isset($cari[$baris]) ?	$cari[$baris] : 0;
-				}
-			}
-			$kira++;
-		}
-		echo '<pre>$jum='; print_r($jum) . '</pre><hr>';
+		echo '<pre>890:$jum='; print_r($jum) . '</pre><hr>';
 		//echo '<pre>$cari='; print_r($cari) . '</pre><hr>';
-		echo '<pre>Borang::analisaAsetAm($aset)='; print_r($aset) . '</pre><hr>';
-		return $aset;
+		//echo '<pre>Borang::analisaAsetAm($aset)='; print_r($aset) . '</pre><hr>';
+		//return $aset;
 
 	}
 /////////////////////////////////////////////////////////////////////////////////////////////////////

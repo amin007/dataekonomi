@@ -572,7 +572,7 @@ class Borang
 			$kira++;
 		}		
 		//echo '<pre>$jum='; print_r($jum) . '</pre><hr>';
-		echo '<pre>Borang::binaAsetAm($aset)='; print_r($aset) . '</pre><hr>';
+		//echo '<pre>Borang::binaAsetAm($aset)='; print_r($aset) . '</pre><hr>';
 		return $aset;
 	
 		

@@ -268,7 +268,7 @@ class Borang
 
 		// papar sql
 		$query = implode("\rUNION\r",$medan);
-		//echo '<hr><pre>$sql output='; print_r($query) . '</pre><hr>';
+		echo '<hr><pre>$sql output='; print_r($query) . '</pre><hr>';
 		return $query;
 
 	}
@@ -550,7 +550,7 @@ class Borang
 			{
 				$lajur = kira3($key2, 1);
 				$baris = 'F00' . $lajur . $key;
-				echo '<br>'.$baris.'='.$cari[$baris];
+				//echo '<br>553:'.$baris.'='.$cari[$baris];
 				if ($key=='0')
 				{
 					$aset[$kira]['F0070'] = 
@@ -879,6 +879,64 @@ class Borang
 			86=>'Rizab');
 
 		$nilaiBuku= array(6=>'Pelupusan',7=>'Pembelian');
+		// mula cari 
+		$kira = 0;
+		foreach ($jenisHarta as $key => $jenis)
+		{	
+			$aset[$kira]['nama'] = $jenis;
+			//$aset[$kira]['kod'] = $key;
+			foreach ($nilaiBuku as $key2 => $modal)
+			{
+				$lajur = kira3($key2, 1);
+				$baris = 'F00' . $lajur . $key;
+				//echo '<br>'.$baris.'='.$cari[$baris];
+				if ($key=='0')
+				{
+					$aset[$kira]['05:Lupus_Dulu'] = 
+						isset($cari['F0070']) ? $cari['F0070'] : 0;
+					$aset[$kira]['02:Beli_Dulu'] = 
+						isset($cari['F0080']) ? $cari['F0080'] : 0;
+					$aset[$kira]['05:Lupus_Anggar'] = 'x';
+					$aset[$kira]['02:Beli_Anggar']  = 'x';
+				}
+				elseif (in_array($key,array(81,82,83,84,85,86)) )
+				{
+					$aset[$kira]['05:Lupus_Dulu'] = '-';
+					$aset[$kira]['02:Beli_Dulu'] = 
+						isset($cari['F00'.$key]) ? $cari['F00'.$key] : 0;
+					$aset[$kira]['05:Lupus_Anggar'] = '-';
+					
+					if ($key==82): 
+						$aset[$kira]['02:Beli_Anggar'] = $jum['aset_dulu'];
+					elseif ($key==83): 
+						$aset[$kira]['02:Beli_Anggar'] = $jum['aset_kini'];
+					elseif ($key==85): 
+						$nisbah = ($jum['aset_dulu'] / $jum['aset_kini'])+1;
+						$value = number_format($nisbah,2,'.',',') . '%';
+						$anggar = $cari['F0085'] * $nisbah;
+						$modalBerbayar = floor($anggar * 1) / 1;
+						$aset[$kira]['02:Beli_Anggar'] = $value . ' | ' .$modalBerbayar;
+					elseif ($key==86): $aset[$kira]['02:Beli_Anggar'] = 
+							isset($cari['F00'.$key]) ? $cari['F00'.$key] : 0;
+					else: $aset[$kira]['02:Beli_Anggar'] = 0;
+					endif;
+				}
+				else
+				{// mula kiraan bandingan antara 2 tahun
+					if ($lajur==6):
+						$aset[$kira]['02:Beli_Dulu'] = 
+							isset($cari[$baris]) ?	$cari[$baris] : 0;
+					else:
+						$aset[$kira]['05:Lupus_Dulu'] = 
+							isset($cari[$baris]) ?	$cari[$baris] : 0;				
+						$aset[$kira]['05:Lupus_Anggar'] = 'x';
+						$aset[$kira]['02:Beli_Anggar']  = 'x';
+					endif;					
+				}
+			}
+			$kira++;
+		}		
+		
 /*
 		$aset[$kira]['nama'] = 'susutNilai';
 		$aset[$kira]['Pelupusan'] = 0;
@@ -886,11 +944,10 @@ class Borang
 		$aset[$kira+1]['nama'] = 'jumlahBelanja';
 		$aset[$kira+1]['Pelupusan'] = 0;
 		$aset[$kira+1]['Pembelian'] = $susut['F0060'];//*/
-
-		echo '<pre>890:$jum='; print_r($jum) . '</pre><hr>';
-		//echo '<pre>$cari='; print_r($cari) . '</pre><hr>';
-		//echo '<pre>Borang::analisaAsetAm($aset)='; print_r($aset) . '</pre><hr>';
-		//return $aset;
+		//echo '<pre>923:$jum='; print_r($jum) . '</pre><hr>';
+		//echo '<pre>924:$cari='; print_r($cari) . '</pre><hr>';
+		//echo '<pre>936:Borang::analisaAsetAm($aset)='; print_r($aset) . '</pre><hr>';
+		return $aset;
 
 	}
 /////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -133,6 +133,7 @@ class Semakan extends Kawal
 			{
 				$this->papar->kod_produk = array();
 				$kp = 's'.$sv.'_q0';
+				$susutNilai =  $this->papar->prosesID[$kp.'3_2010'][0]['F0049'];
 				$jadualStaf = array($kp.'5a_2010',$kp.'5b_2010');
 				// bentuk soalan 4 - aset
 				$this->semak_aset($senaraiAset = array('s'.$sv.'_q04_2010'),
@@ -327,10 +328,11 @@ class Semakan extends Kawal
 		elseif ($semak == 'Kira')
 		{
 			$kiraan = array($sv . '_q08_2010',$sv . '_q09_2010',
-				//'s' . $sv . '_q02_2010', 's' . $sv . '_q03_2010',
+				's' . $sv . '_q02_2010', 's' . $sv . '_q03_2010',
 				's' . $sv . '_q08_2010', 's' . $sv . '_q09_2010',
 				'semasa');
-			$senaraiHarta = array('jadualHarta');
+			//$senaraiHarta = array('harta_q04_2010','harta_s'.$this->sv.'_q04_2010');
+			$senaraiHarta = array('jadualHarta','jadualHartaAm');
 			
 			foreach ($_POST as $myTable => $value)
 			{		
@@ -341,7 +343,7 @@ class Semakan extends Kawal
 				}
 				elseif ( in_array($myTable,$senaraiHarta) )
 				{
-					$jadualHarta = 'harta';
+					echo $myTable . '<br>';
 					foreach ($value as $kekunci => $papar)
 						$cariHarta[$kekunci] = bersih($papar);
 				}
@@ -358,29 +360,40 @@ class Semakan extends Kawal
 			$this->cari_keterangan_medan($sv, $this->papar->kesID); 
 			
 			# cari perbandingan aset dulu dan kini //echo "\$jadualHarta = $jadualHarta <br>"; 
-			$this->papar->kod_aset['harta'] = ($jadualHarta=='harta') ?
-			Borang::analisaAset($cariHarta, 
-			array(
-				'aset_dulu' => $this->papar->kesID['semasa'][0]['aset_dulu'],
-				'aset_kini' => $this->papar->kesID['semasa'][0]['aset_kini'],
-				'susut_dulu' => $this->papar->kesID['semasa'][0]['susut_dulu'],
-				'susut_kini' => $this->papar->kesID['semasa'][0]['susut_kini'],
-				'asetsewa_dulu' => $this->papar->kesID['semasa'][0]['asetsewa_dulu'],
-				'asetsewa_kini' => $this->papar->kesID['semasa'][0]['asetsewa_kini'],
-			)) : Borang::analisaAset($cariHarta, 
-			array(
-				'aset_dulu' => $this->papar->kesID['semasa'][0]['aset_dulu'],
-				'aset_kini' => $this->papar->kesID['semasa'][0]['aset_kini'],
-			));
+			if (isset($cariHarta)):
+				$this->papar->kod_aset['harta'] = 
+				Borang::analisaAset($cariHarta, 
+				array(
+					'aset_dulu' => $this->papar->kesID['semasa'][0]['aset_dulu'],
+					'aset_kini' => $this->papar->kesID['semasa'][0]['aset_kini'],
+					'susut_dulu' => $this->papar->kesID['semasa'][0]['susut_dulu'],
+					'susut_kini' => $this->papar->kesID['semasa'][0]['susut_kini'],
+					'asetsewa_dulu' => $this->papar->kesID['semasa'][0]['asetsewa_dulu'],
+					'asetsewa_kini' => $this->papar->kesID['semasa'][0]['asetsewa_kini'],
+				));
+			else:
+				echo 'Borang Aset Am';
+				$susutDulu = $this->papar->kesID['s' . $sv . '_q03_2010'][0]['F0049'];
+				$BelanjaDulu = $this->papar->kesID['s' . $sv . '_q03_2010'][0]['F0060'];
+				$this->papar->kod_aset['harta'] = 
+				Borang::analisaAsetAm($cariHarta, 
+				array(
+					'aset_dulu' => $this->papar->kesID['semasa'][0]['aset_dulu'],
+					'aset_kini' => $this->papar->kesID['semasa'][0]['aset_kini'],
+					'susut_dulu' => $this->papar->kesID['semasa'][0]['susut_dulu'],
+					'susut_kini' => $this->papar->kesID['semasa'][0]['susut_kini'],
+				));
+			endif;
 			//*/
 			# untuk pastikan tiada orang hack
 			$this->papar->paparID = $this->papar->kesID['semasa'][0]['newss'];
 			$this->papar->carian = 'newss';
 						
 			/*echo '<pre>';
-			//echo '<hr>$_POST->'; print_r($_POST);
+			echo '<hr>$_POST->'; print_r($_POST);
+			//echo '<hr>$cariHarta->'; print_r($this->papar->kod_aset);
 			//echo '<hr>$cariHarta->'; print_r($cariHarta);
-			echo '<hr>$this->papar->borang->'; print_r($this->papar->borang);
+			//echo '<hr>$this->papar->borang->'; print_r($this->papar->borang);
 			//echo '<hr>$this->papar->kesID->'; print_r($this->papar->kesID);
 			//echo '<hr>$this->papar->kod_produk->'; print_r($this->papar->kod_produk);
 			//echo '<hr>$this->papar->paparID=' . $this->papar->paparID;
@@ -390,7 +403,7 @@ class Semakan extends Kawal
 			
 			# pergi ke fail analisis di PAPAR
 			$this->papar->paparNilai = bersih($_POST['paparNilai']) == 'Tidak' ? '-' : '+';
-			$this->papar->baca('semakan/analisis', 0);//*/
+			//$this->papar->baca('semakan/analisis', 0);//*/
 		
 		}
 		
@@ -864,6 +877,7 @@ class Semakan extends Kawal
 	private function semak_aset($asetIndustri, $aset, $paparID) 
 	{// khas untuk soalan aset
 		//echo "<pre>senaraiAset:", print_r($asetIndustri, 1) . '| jadual:', print_r($aset, 1) . "<br>";
+		//echo "<pre>paparID:", print_r($paparID, 1) . "<br>";
 		
 		foreach ($asetIndustri as $key => $myTable):
 			//echo ($myTable!=$aset) ? null : "myTable:$myTable | aset:$aset|<br>";
@@ -875,6 +889,8 @@ class Semakan extends Kawal
 			elseif ($aset==null)
 				@$this->papar->kod_produk['harta_' . $myTable] = 
 					Borang::binaAsetAm($paparID[$myTable][0]);
+				@$this->papar->kod_produk['jadualHartaAm'] = 
+					Borang::inputAsetAm($paparID[$myTable][0]);
 		endforeach;
 
 	}

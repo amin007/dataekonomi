@@ -18,22 +18,22 @@ function analisis($perangkaan, $jadual, $key, $data)
 	}
 	elseif ($jadual == $sv . '_q08_2010' && $sv='205')
 	{// hasil
-		$nilai_dulu = ($hasil_dulu==0) ? 0 :(($data / $hasil_dulu) * 100);
+		$nilai_dulu = ($hasil_dulu==0 || $data==0) ? 0 :(($data / $hasil_dulu) * 100);
 		$value = number_format($nilai_dulu,4,'.',',') . '%';
-		$anggar = ($data / $hasil_dulu) * $hasil_kini;
+		$anggar = ($hasil_dulu==0 || $data==0) ? 0 : (($data / $hasil_dulu) * $hasil_kini);
 		$anggaran = number_format($anggar,0,'.',',');
 		
 	}
 	elseif ($jadual == 's206_q08_2010' && $sv='206')
 	{// hasil
-		$nilai_dulu = ($hasil_dulu==0) ? 0 :(($data / $hasil_dulu) * 100);
+		$nilai_dulu = ($hasil_dulu==0 || $data==0) ? 0 :(($data / $hasil_dulu) * 100);
 		$value = number_format($nilai_dulu,4,'.',',') . '%';
-		$anggar = ($data / $hasil_dulu) * $hasil_kini;
+		$anggar = ($hasil_dulu==0 || $data==0) ? 0 : (($data / $hasil_dulu) * $hasil_kini);
 		$anggaran = number_format($anggar,0,'.',',');
 	}
 	elseif ($jadual == $sv . '_q09_2010' && $sv='205')
 	{// belanja
-		$nilai_dulu = ($belanja_dulu==0) ? 0 :(($data / $belanja_dulu) * 100 );
+		$nilai_dulu = ($belanja_dulu==0 || $data==0) ? 0 :(($data / $belanja_dulu) * 100 );
 		$value = number_format($nilai_dulu,4,'.',',') . '%';
 		$anggar = ($key=='F2130' && $susut_kini!=0) ? $susut_kini : ($data / $belanja_dulu) * $belanja_kini;
 		$anggaran = number_format($anggar,0,'.',',');
@@ -41,36 +41,36 @@ function analisis($perangkaan, $jadual, $key, $data)
 	}
 	elseif ($jadual == 's206_q09_2010' && $sv='206')
 	{// belanja
-		$nilai_dulu = ($belanja_dulu==0) ? 0 :(($data / $belanja_dulu) * 100 );
+		$nilai_dulu = ($belanja_dulu==0 || $data==0) ? 0 :(($data / $belanja_dulu) * 100 );
 		$value = number_format($nilai_dulu,4,'.',',') . '%';
-		$anggar = ($data / $belanja_dulu) * $belanja_kini;
+		$anggar = ($belanja_dulu==0 || $data==0) ? 0 :(($data / $belanja_dulu) * $belanja_kini);
 		$anggaran = number_format($anggar,0,'.',',');
 	}
 	elseif ($jadual == 's' . $sv . '_q02_2010' && $sv != '206')
 	{// hasil
-		$nilai_dulu = ($hasil_dulu==0) ? 0 :(($data / $hasil_dulu) * 100);
+		$nilai_dulu = ($hasil_dulu==0 || $data==0) ? 0 :(($data / $hasil_dulu) * 100);
 		$value = number_format($nilai_dulu,4,'.',',') . '%';
-		$anggar = ($data / $hasil_dulu) * $hasil_kini;
+		$anggar = ($hasil_dulu==0 || $data==0) ? 0 : (($data / $hasil_dulu) * $hasil_kini);
 		$anggaran = number_format($anggar,0,'.',',');
 	}
 	elseif ($jadual == 's' . $sv . '_q03_2010' && $sv != '206')
 	{// belanja
-		$nilai_dulu = ($belanja_dulu==0) ? 0 :(($data / $belanja_dulu) * 100 );
+		$nilai_dulu = ($belanja_dulu==0 || $data==0) ? 0 :(($data / $belanja_dulu) * 100 );
 		$value = number_format($nilai_dulu,4,'.',',') . '%';
-		$anggar = ($data / $belanja_dulu) * $belanja_kini;
+		$anggar = ($belanja_dulu==0 || $data==0) ? 0 : (($data / $belanja_dulu) * $belanja_kini);
 		$anggaran = number_format($anggar,0,'.',',');
 	}
 	elseif($jadual == 's' . $sv . '_q08_2010' && in_array($sv,$asetPenuh))
 	{# hasil
-		$nilai_dulu = ($hasil_dulu==0) ? 0 :(($data / $hasil_dulu) * 100);
+		$nilai_dulu = ($hasil_dulu==0 || $data==0) ? 0 :(($data / $hasil_dulu) * 100);
 		$value = number_format($nilai_dulu,4,'.',',') . '%';
-		$anggar = ($data / $hasil_dulu) * $hasil_kini;
+		$anggar = ($hasil_dulu==0 || $data==0) ? 0 : (($data / $hasil_dulu) * $hasil_kini);
 		$anggaran = number_format($anggar,0,'.',',');
 		$kosBahan = ($key=='F2101') ? $anggaran : 0;
 	}
 	elseif($jadual == 's' . $sv . '_q09_2010' && in_array($sv,$asetPenuh))
 	{# belanja
-		$nilai_dulu = ($belanja_dulu==0) ? 0 :(($data / $belanja_dulu) * 100 );
+		$nilai_dulu = ($belanja_dulu==0 || $data==0) ? 0 :(($data / $belanja_dulu) * 100 );
 		$value = number_format($nilai_dulu,4,'.',',') . '%';
 		$anggar = ($key=='F2130' && $susut_kini!=0) ? $susut_kini : ($data / $belanja_dulu) * $belanja_kini;
 		$anggaran = number_format($anggar,0,'.',',');
@@ -242,15 +242,15 @@ function dataProdukKodbahan($perangkaan, $kesID)
 		foreach ($row[0] as $key=>$data):
 			if (in_array($key, array('F2001') ) )
 			{
-				$nilai_dulu = ($hasil_dulu==0) ? 0 :(($data / $hasil_dulu) * 100);
+				$nilai_dulu = ($hasil_dulu==0 || $data==0) ? 0 :(($data / $hasil_dulu) * 100);
 				$value = number_format($nilai_dulu,4,'.',',') . '%';
-				$hasilProduk = ($data / $hasil_dulu) * $hasil_kini;
+				$hasilProduk = ($hasil_dulu==0 || $data==0) ? 0 : (($data / $hasil_dulu) * $hasil_kini);
 			}
 			elseif (in_array($key, array('F2101') ) )
 			{
-				$nilai_dulu = ($belanja_dulu==0) ? 0 :(($data / $belanja_dulu) * 100 );
+				$nilai_dulu = ($belanja_dulu==0 || $data==0) ? 0 :(($data / $belanja_dulu) * 100 );
 				$value = number_format($nilai_dulu,4,'.',',') . '%';
-				$kosBahan = ($data / $belanja_dulu) * $belanja_kini;
+				$kosBahan = ($belanja_dulu==0 || $data==0) ? 0 :(($data / $belanja_dulu) * $belanja_kini);
 
 			}
 	endforeach;endforeach;
@@ -289,10 +289,10 @@ function analisisProdukKodBahan($borang, $p, $jadual, $row, $kiraBil, $jumNilai)
 	foreach ($row[$kiraBil] as $key => $data):
 		if ($jadual=='output' && in_array($key,array('F25'))):
 			list($dulu,$jum) = explode('-',$data);
-			$nisbah = ($jum==0) ? 0 :($dulu / $jum);
-			$nisbah2 = ($jum==0) ? 0 :(($dulu / $jum) * 100);
+			$nisbah = ($jum==0 || $dulu==0) ? 0 :($dulu / $jum);
+			$nisbah2 = ($jum==0 || $dulu==0) ? 0 :(($dulu / $jum) * 100);
 			$value = number_format($nisbah2,2,'.',',') . '%';
-			$anggar = ($dulu / $jum) * $kiniP;
+			$anggar = ($jum==0 || $dulu==0) ? 0 : (($dulu / $jum) * $kiniP);
 			$nilai_kini = floor($anggar * 1) / 1;
 					
 			$papar = "dulu = $dulu |  $value<br>"
@@ -301,10 +301,10 @@ function analisisProdukKodBahan($borang, $p, $jadual, $row, $kiraBil, $jumNilai)
 		elseif ($jadual=='output' && in_array($key,array('F24'))):
 			# produk
 			list($dulu,$jum) = explode('-',$borang['output'][$kiraBil]['F25']);
-			$nisbah = ($jum==0) ? 0 :($dulu / $jum);
-			$nisbah2 = ($jum==0) ? 0 :(($dulu / $jum) * 100);
+			$nisbah = ($jum==0 || $dulu==0) ? 0 :($dulu / $jum);
+			$nisbah2 = ($jum==0 || $dulu==0) ? 0 :(($dulu / $jum) * 100);
 			$value = number_format($nisbah2,2,'.',',') . '%';
-			$anggar = ($dulu / $jum) * $kiniP;
+			$anggar = ($jum==0 || $dulu==0) ? 0 : (($dulu / $jum) * $kiniP);
 			$nilai_kini = floor($anggar * 1) / 1;
 			# kuantiti
 			$kuantiti_dulu = $data;
@@ -318,10 +318,10 @@ function analisisProdukKodBahan($borang, $p, $jadual, $row, $kiraBil, $jumNilai)
 				. "";
 		elseif ($jadual=='input' && in_array($key,array('F23'))):
 			list($dulu,$jum) = explode('-',$data);
-			$nisbah = ($jum==0) ? 0 :($dulu / $jum);
-			$nisbah2 = ($jum==0) ? 0 :(($dulu / $jum) * 100);
+			$nisbah = ($jum==0 || $dulu==0) ? 0 :($dulu / $jum);
+			$nisbah2 = ($jum==0 || $dulu==0) ? 0 :(($dulu / $jum) * 100);
 			$value = number_format($nisbah2,2,'.',',') . '%';
-			$anggar = ($dulu / $jum) * $kiniK;
+			$anggar = ($jum==0) ? 0 : (($dulu / $jum) * $kiniK);
 			$nilai_kini = floor($anggar * 1) / 1;
 					
 			$papar = "dulu = $dulu |  $value<br>"
@@ -330,10 +330,10 @@ function analisisProdukKodBahan($borang, $p, $jadual, $row, $kiraBil, $jumNilai)
 		elseif ($jadual=='input' && in_array($key,array('F22'))):
 			# produk
 			list($dulu,$jum) = explode('-',$borang['input'][$kiraBil]['F23']);
-			$nisbah = ($jum==0) ? 0 :($dulu / $jum);
-			$nisbah2 = ($jum==0) ? 0 :(($dulu / $jum) * 100);
+			$nisbah = ($jum==0 || $dulu==0) ? 0 :($dulu / $jum);
+			$nisbah2 = ($jum==0 || $dulu==0) ? 0 :(($dulu / $jum) * 100);
 			$value = number_format($nisbah2,2,'.',',') . '%';
-			$anggar = ($dulu / $jum) * $kiniP;
+			$anggar = ($jum==0 || $dulu==0) ? 0 : (($dulu / $jum) * $kiniP);
 			$nilai_kini = floor($anggar * 1) / 1;
 			# kuantiti
 			$kuantiti_dulu = $data;

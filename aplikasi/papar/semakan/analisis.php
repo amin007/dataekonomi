@@ -373,34 +373,25 @@ $p = dataProdukKodbahan($perangkaan, $this->kesID);
 			$printed_headers = false; # mula bina jadual
 			#-----------------------------------------------------------------
 			for ($kiraBil=0; $kiraBil < count($row); $kiraBil++)
-			//foreach ($row as $jadual2 => $baris)
 			{		
-				#print the headers once: 	
-					if ( !$printed_headers )
-					{
-						tajukMedan($kiraBil,$row);
-						$printed_headers = true;
-					}
+				if (isset($row($kiraBil))):
+						if ( !$printed_headers )
+						{#print the headers once:
+							tajukMedan($kiraBil,$row);
+							$printed_headers = true;
+						}
 
-				echo '<tbody><tr>' . "\r" . '<td>' . ($kiraBil+1) . '</td>' . "\r";
-				$p2 = analisisProdukKodBahan($this->borang, $p, $jadual, $row, $kiraBil, $jumNilai=0);
-				$jumNilai += $p2['jumNilai'];
-				echo '</tr></tbody>';
-				//*/
+					echo '<tbody><tr>' . "\r" . '<td>' . ($kiraBil+1) . '</td>' . "\r";
+					$p2 = analisisProdukKodBahan($this->borang, $p, $jadual, $row, $kiraBil, $jumNilai=0);
+					$jumNilai += $p2['jumNilai'];
+					echo '</tr></tbody>';
+				endif;
 			}
 			//echo '<tbody><tr>' . "\r" . '<td colspan=10>Jumlah ' . $jumNilai . '</td></tr></tbody>';
 			echo '</table></div>';
-			
-
 		}# if ( count($row)==0 )
 	endforeach;
-	
-	
-
-//echo '<pre>'; print_r($p); echo '</pre>';
-
-echo "\n\r";
-?>
+echo "\n\r"; ?>
 <!-- Analisis data this->kod_aset -->
 <?php 
 foreach ($this->kod_aset as $myTable => $row)

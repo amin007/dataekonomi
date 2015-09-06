@@ -22,31 +22,23 @@ foreach ($this->cariNama as $key => $value)
 $papar = 'lintang';
 
 if ($papar=='bawah')
-{// if ($papar=='bawah')
-?>
+{// if ($papar=='bawah')?>
 
 <?php
 foreach ($this->cariNama as $myTable => $row)
 {// mula ulang $row
-/////////////////////////////////////////////////////////////////
-?>
+/////////////////////////////////////////////////////////////////?>
 <table border="1" class="excel" id="example">
 <?php
-// mula bina jadual
-$printed_headers = false; 
+$printed_headers = false; # mula bina jadual
 #-----------------------------------------------------------------
 for ($kira=0; $kira < count($row); $kira++)
-{
-	//print the headers once: 	
+{	# print the headers once: 	
 	if ( !$printed_headers ) 
-	{##=============================================================
-		?><thead><tr>
+	{?><thead><tr>
 <th>#</th>
-<?php
-		foreach ( array_keys($row[$kira]) as $tajuk ) 
+<?php	foreach ( array_keys($row[$kira]) as $tajuk ) 
 		{ 
-			// anda mempunyai kunci integer serta kunci rentetan
-			// kerana cara PHP mengendalikan tatasusunan.
 			if ( !is_int($tajuk) ) 
 			{
 				if ($tajuk=='keterangan'):
@@ -56,23 +48,16 @@ for ($kira=0; $kira < count($row); $kira++)
 <?php			endif;
 			} 
 		}
-
 ?></tr></thead>
-<?php
-	##=============================================================
-		$printed_headers = true; 
+<?php	$printed_headers = true; 
 	} 
-#-----------------------------------------------------------------		 
-	//print the data row 
-	?><tbody><tr>
+#-----// print the data row------------------------------------------------------------	
+?><tbody><tr>
 <td><?php echo $kira+1 ?></td>	
 <?php
-	
 	foreach ( $row[$kira] as $key=>$data ) 
 	{	?><td><?php echo $data ?></td>
 <?php
-		if ($key=='sidap')
-			$ssm = substr($data,0,12); 
 	} 
 ?>
 </tr></tbody>
@@ -125,21 +110,16 @@ foreach ($this->cariNama as $myTable => $row)
 <!-- Jadual <?php echo $myTable ?> ########################################### -->	
 <table  border="1" class="excel" id="example">
 <?php
-// mula bina jadual
-$printed_headers = false; 
+$printed_headers = false; # mula bina jadual
 #-----------------------------------------------------------------
 for ($kira=0; $kira < count($row); $kira++)
-{
-	//print the headers once: 	
+{	#print the headers once: 	
 	if ( !$printed_headers ) 
-	{
-		?><thead><tr>
+	{	?><thead><tr>
 <th>#</th>
-<?php
-		foreach ( array_keys($row[$kira]) as $tajuk ) 
-		{ 
-			// anda mempunyai kunci integer serta kunci rentetan
-			// kerana cara PHP mengendalikan tatasusunan.
+<?php	foreach ( array_keys($row[$kira]) as $tajuk ) 
+		{ 	# anda mempunyai kunci integer serta kunci rentetan
+			# kerana cara PHP mengendalikan tatasusunan.
 			if ( !is_int($tajuk) ) 
 			{ 
 				$paparTajuk = ($tajuk=='nama') ?
@@ -148,30 +128,15 @@ for ($kira=0; $kira < count($row); $kira++)
 				?><th><?php echo $paparTajuk ?></th>
 <?php		} 
 		}
-
-?></tr></thead>
-<?php
-		$printed_headers = true; 
+		?></tr></thead>
+<?php	$printed_headers = true; 
 	} 
-#-----------------------------------------------------------------		 
-	//print the data row 
+#---//print the data row--------------------------------------------------------------		 
 	?><tbody><tr>
 <td><?php echo $kira+1 ?></td>	
 <?php
-	
 	foreach ( $row[$kira] as $key=>$data ) 
 	{		
-		if ($key=='sidap')
-		{
-			$sidap= $data;
-			$ssm = substr($data,0,12); 
-		}
-		elseif ($key=='nama')
-		{
-			$syarikat = $data;
-		}
-		else
-			{}
 		?><td><?php echo $data ?></td>
 <?php
 	} 

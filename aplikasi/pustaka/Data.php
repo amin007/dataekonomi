@@ -467,6 +467,17 @@ class Data
 					$baris[$key][$kodLajur] = $data;
 				endforeach;
 			endforeach;
+			foreach ($baris as $kunci => $data2):
+				//foreach ($data2 as $kunci2 => $data3):
+					list($f25,$jum) = explode('-',$baris[$kunci]['F25']);
+					$f24 = $baris[$kunci]['F24'];
+					if ($f25 == 0 && in_array($f24,array(0,'Nilai Produk Lain2'))):
+						//echo " baris[$kunci]['F24']= " . $baris[$kunci]['F24'] . " |";
+						//echo " baris[$kunci]['F25']= " . $baris[$kunci]['F25'] . " <br>";
+						unset($info[$kunci]); unset($baris[$kunci]);
+					endif;
+				//endforeach;
+			endforeach;
 
 			//echo '<pre>Data::produkOutput($baris)='; print_r($baris) . '</pre><hr>';
 			return $baris;

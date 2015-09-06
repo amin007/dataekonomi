@@ -360,7 +360,8 @@ function analisisProdukKodBahan($borang, $p, $jadual, $row, $kiraBil, $jumNilai)
 //echo '<pre>'; print_r($this->borang); echo '</pre>';
 /*echo '<pre>'; print_r($this->kod_aset); echo '</pre>';
 //*/
-$p = dataProdukKodbahan($perangkaan, $this->kesID);
+if (isset($this->borang['hasilProduk'])):
+	$p = dataProdukKodbahan($perangkaan, $this->kesID);
 	foreach ($this->borang as $jadual => $row):
 		if ( count($row)==0 ) echo '';
 		else
@@ -374,7 +375,6 @@ $p = dataProdukKodbahan($perangkaan, $this->kesID);
 			#-----------------------------------------------------------------
 			for ($kiraBil=0; $kiraBil < count($row); $kiraBil++)
 			{		
-				//if (isset($row($kiraBil))):
 						if ( !$printed_headers )
 						{#print the headers once:
 							tajukMedan($kiraBil,$row);
@@ -384,15 +384,16 @@ $p = dataProdukKodbahan($perangkaan, $this->kesID);
 					$p2 = analisisProdukKodBahan($this->borang, $p, $jadual, $row, $kiraBil, $jumNilai=0);
 					$jumNilai += $p2['jumNilai'];
 					echo '</tr></tbody>';
-				//endif;
 			}
 			//echo '<tbody><tr>' . "\r" . '<td colspan=10>Jumlah ' . $jumNilai . '</td></tr></tbody>';
 			echo '</table></div>';
 		}# if ( count($row)==0 )
 	endforeach;
+endif;
 echo "\n\r"; ?>
 <!-- Analisis data this->kod_aset -->
 <?php 
+//echo '<pre>'; print_r($this->kod_aset); echo '</pre>';
 foreach ($this->kod_aset as $myTable => $row)
 {
 	if ( count($row)==0 ) echo '';

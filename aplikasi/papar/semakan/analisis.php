@@ -372,7 +372,7 @@ function dataGaji($perangkaan, $key, $data)
 		$value = number_format($nilai_dulu,4,'.',',') . '%';
 		$kini = ($gaji_dulu==0 || $data==0) ? 0 : (($data / $gaji_dulu) * $gaji_kini);
 		
-		$papar = ($data==0) ? '' : " dulu = $data |  " . $$nilai_dulu . '<br>'
+		$papar = ($data==0) ? '' : " dulu = $data |  " . $nilai_dulu . '<br>'
 				. " kini = $nilai_kini / $aup2 = " . ($kini)
 				. "";
 	}

@@ -339,12 +339,12 @@ function analisisProdukKodBahan($borang, $p, $jadual, $row, $kiraBil, $jumNilai)
 			$nilai_kini = floor($anggar * 1) / 1;
 			# kuantiti
 			$kuantiti_dulu = $data;
-			$aup = ($data==1) ? 1: ($dulu / $data);
+			$aup = ($data==0) ? 0: ($dulu / $data);
 			$aup2 = number_format($aup,2,'.',',') . '';
 			$kini = $nilai_kini / $aup2;
 			$kuantiti_kini = number_format($kini,0,'.',',') . '';
 			
-			$papar = ($kuantiti_dulu==1) ? 1 : " dulu = $kuantiti_dulu | aup " . $aup2 . '<br>'
+			$papar = ($kuantiti_dulu==0) ? 0 : " dulu = $kuantiti_dulu | aup " . $aup2 . '<br>'
 				. " kini = $nilai_kini / $aup2 = " . ($kuantiti_kini)
 				. "";
 		else:

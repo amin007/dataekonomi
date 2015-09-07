@@ -1155,7 +1155,6 @@ class Borang
 		
 		for ($kira = 1; $kira <= 18; $kira++):
 			$kiraan = kira3($kira,2);
-			//echo " jantina $kira " . ($kira%2) . "<br>";
 			#L	Msia|L	Pati|L	JumL|L14	Gaji|L18	W	Msia|W	Pati|W	JumW|W14	Gaji|W18
 			if (($kira%2)!=0):
 				$L = $kiraan;

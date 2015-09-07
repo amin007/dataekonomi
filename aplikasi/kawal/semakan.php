@@ -149,7 +149,7 @@ class Semakan extends Kawal
 				$this->papar->perangkaan['belanja']  = $this->papar->prosesID[$kp.'3_2010'][0]['F0060'];
 				$this->papar->perangkaan['gaji']     = $this->papar->prosesID[$kp.'3_2010'][0]['F0043'];
 				$this->papar->perangkaan['aset']     = $this->papar->prosesID[$kp.'4_2010'][0]['F0083'];
-				$this->papar->perangkaan['asetsewa'] = 0;
+				$this->papar->perangkaan['asetsewa'] = $this->papar->prosesID[$kp.'3_2010'][0]['F0057'];
 			}			
 				/*echo '<pre>';
 				echo '<hr>$this->papar->perangkaan='; print_r($this->papar->perangkaan); 

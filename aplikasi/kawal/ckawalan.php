@@ -142,7 +142,7 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 		$myTable2  = array(
 			'101','205','206','305','306','307','308',
 			'309','311','312','316','328',
-			'331','334','335','800','850');
+			'331','334','335','393','800','850');
 
 		//echo '<pre>$myJadual:' . print_r($myJadual) . '</pre>';
 		$this->papar->cariNama = array();
@@ -158,18 +158,26 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 			$jum = pencamSqlLimit($bilSemua = 500, $item = 500, $ms = 1);
 			$kumpul = array('kumpul'=>'', 'susun'=>'');
 			$susun[] = array_merge($jum, $kumpul );
-		
-			# cari data sql
-			$cari2[] = array('fix'=>'z1','atau'=>'WHERE','medan'=>'c.estab','apa'=>'b.newss','akhir'=>NULL);
-			$cari2[] = array('fix'=>'z2','atau'=>'AND','medan'=>'c.f0014','apa'=>"'$msic2008%'",'akhir'=>NULL);
-			$cari2[] = array('fix'=>'z2','atau'=>'AND','medan'=>'b.alamat3a','apa'=>"'$bandar%'",'akhir'=>NULL);
-			
-			foreach  ($myTable2 as $key=>$jadual):
-				$paparJadual = ($jadual=='205') ? 'q01_2010' : 's' . $jadual . '_q01_2010';
+				
+			foreach  ($myTable2 as $key=>$jadual): // s393_tbldatareview_2010
+				if (in_array($jadual, array('205','206'))):
+					$paparJadual = 'q01_2010';
+					$msicMedan = 'c.f0014,c.f0015';
+					$msicCari = 'c.f0014';
+				else:
+					$paparJadual = 's' . $jadual . '_tbldatareview_2010';
+					$msicMedan = 'c.KodIndustri';
+					$msicCari = 'c.KodIndustri';
+				endif;
+				# cari data sql
+				$cari2[0] = array('fix'=>'z1','atau'=>'WHERE','medan'=>'c.estab','apa'=>'b.newss','akhir'=>NULL);
+				$cari2[1] = array('fix'=>'z2','atau'=>'AND','medan'=>$msicCari,'apa'=>"'$msic2008%'",'akhir'=>NULL);
+				$cari2[2] = array('fix'=>'z2','atau'=>'AND','medan'=>'b.alamat3a','apa'=>"'$bandar%'",'akhir'=>NULL);
+
 				$this->papar->cariNama[$jadual] = 
 				//$this->tanya->cariSql("$paparJadual c, alamat_newss_2013 b",
 				$this->tanya->cariSemuaData("$paparJadual c, alamat_newss_2013 b",
-					'c.estab newss,sidap,c.F0014,c.F0015,concat_ws(" ",b.nama,b.operator) as nama,'
+					'c.estab newss,sidap,'.$msicMedan.',concat_ws(" ",b.nama,b.operator) as nama,'
 					. 'concat_ws(" ",b.alamat1a,b.alamat2a,b.poskod,b.alamat3a) alamat' . "\r"
 					,$cari2, $susun);//*/
 			endforeach;

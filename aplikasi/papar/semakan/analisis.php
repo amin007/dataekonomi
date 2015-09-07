@@ -355,7 +355,7 @@ function analisisProdukKodBahan($borang, $p, $jadual, $row, $kiraBil, $jumNilai)
 	
 	return array('jumNilai'=>$nilai_kini);
 }
-function dataGaji($perangkaan, $key, $data)
+function dataGaji($perangkaan, $key, $data, $row, $kiraBil)
 {
 	$sv = $perangkaan['sv']['dulu'];
 	$hasil_dulu = $perangkaan['hasil']['dulu'];
@@ -364,25 +364,25 @@ function dataGaji($perangkaan, $key, $data)
 	$belanja_kini = $perangkaan['belanja']['kini'];
 	$gaji_dulu = $perangkaan['gaji']['dulu'];
 	$gaji_kini = $perangkaan['gaji']['kini'];
-	
+
+	# kira purata sebulan untuk seorang staf
+	//$kunci = (($key=='Gaji|L18') ? 'JumL|L14' : 'JumW|W14');
+	$org = $row[$kiraBil][(($key=='Gaji|L18') ? 'JumL|L14' : 'JumW|W14')];
+	$bln = ($org==0 || $data==0) ? '' :($data / $org)/12;
+	$purataGaji = ($org==0 || $data==0) ? '' : 'sebln = ' . number_format($bln,2,'.',',') . '';
+
 	#L	Msia|L	Pati|L	JumL|L14	Gaji|L18	W	Msia|W	Pati|W	JumW|W14	Gaji|W18
 	if (in_array($key, array('Gaji|L18','Gaji|W18') ) )
 	{
-		$nilai_dulu = ($gaji_dulu==0 || $data==0) ? 0 :(($data / $gaji_dulu) * 100);
-		$value = number_format($nilai_dulu,4,'.',',') . '%';
+		$nisbah = ($gaji_dulu==0 || $data==0) ? 0 :(($data / $gaji_dulu) * 100);
+		$value = number_format($nisbah,2,'.',',') . '%';
 		$kini = ($gaji_dulu==0 || $data==0) ? 0 : (($data / $gaji_dulu) * $gaji_kini);
+		$nilai_kini = number_format($kini,0,'.',',') . '';
 		
-		$papar = ($data==0) ? '' : " dulu = $data |  " . $nilai_dulu . '<br>'
-				. " kini = $nilai_kini / $aup2 = " . ($kini)
+		$papar = ($data==0) ? '' : " $purataGaji <br>"
+				. " dulu = $data |  " . $value . '<br>'
+				. " kini = ($data / $gaji_dulu) x $gaji_kini) = " . ($nilai_kini)
 				. "";
-	}
-	elseif (in_array($key, array('F2101') ) )
-	{
-		$nilai_dulu = ($belanja_dulu==0 || $data==0) ? 0 :(($data / $belanja_dulu) * 100 );
-		$value = number_format($nilai_dulu,4,'.',',') . '%';
-		$kosBahan = ($belanja_dulu==0 || $data==0) ? 0 :(($data / $belanja_dulu) * $belanja_kini);
-		
-		$papar = $data;
 	}
 	else
 		$papar = $data;
@@ -445,7 +445,7 @@ if (isset($this->staf['teamgenius'])):
 					echo '<tbody><tr>' . "\r" . '<td>' . ($kiraBil+1) . '</td>';
 						foreach ( $row[$kiraBil] as $key=>$data ) :
 						//echo '<td align="right">' . "$data</td>";
-						echo dataGaji($perangkaan, $key, $data);
+						echo dataGaji($perangkaan, $key, $data, $row, $kiraBil);
 						endforeach;				
 					echo '</tr></tbody>';
 			}

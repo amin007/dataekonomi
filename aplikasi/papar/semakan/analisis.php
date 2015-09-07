@@ -104,11 +104,13 @@ else
 	$perangkaan['sv']['kini'] = $this->kesID['semasa'][0]['sv'];
 	$perangkaan['hasil']['dulu'] = $this->kesID['semasa'][0]['hasil_dulu'];
 	$perangkaan['belanja']['dulu'] = $this->kesID['semasa'][0]['belanja_dulu'];
+	$perangkaan['gaji']['dulu'] = $this->kesID['semasa'][0]['gaji_dulu'];
 	$perangkaan['susut']['dulu'] = $this->kesID['semasa'][0]['susut_dulu'];
 	$perangkaan['aset']['dulu'] = $this->kesID['semasa'][0]['aset_dulu'];
 	$perangkaan['asetsewa']['dulu'] = $this->kesID['semasa'][0]['asetsewa_dulu'];
 	$perangkaan['hasil']['kini'] = $this->kesID['semasa'][0]['hasil_kini'];
 	$perangkaan['belanja']['kini'] = $this->kesID['semasa'][0]['belanja_kini'];
+	$perangkaan['gaji']['kini'] = $this->kesID['semasa'][0]['gaji_kini'];
 	$perangkaan['susut']['kini'] = $this->kesID['semasa'][0]['susut_kini'];
 	$perangkaan['aset']['kini'] = $this->kesID['semasa'][0]['aset_kini'];
 	$perangkaan['asetsewa']['kini'] = $this->kesID['semasa'][0]['asetsewa_kini'];
@@ -295,7 +297,7 @@ function analisisProdukKodBahan($borang, $p, $jadual, $row, $kiraBil, $jumNilai)
 			$anggar = ($jum==0 || $dulu==0) ? 0 : (($dulu / $jum) * $kiniP);
 			$nilai_kini = floor($anggar * 1) / 1;
 					
-			$papar = "dulu = $dulu |  $value<br>"
+			$papar = ($data==0) ? 0: "dulu = $dulu |  $value<br>"
 				. " kini = ($dulu / $jum) x $kiniP = " . $nilai_kini 
 				. " ";
 		elseif ($jadual=='output' && in_array($key,array('F24'))):
@@ -308,12 +310,12 @@ function analisisProdukKodBahan($borang, $p, $jadual, $row, $kiraBil, $jumNilai)
 			$nilai_kini = floor($anggar * 1) / 1;
 			# kuantiti
 			$kuantiti_dulu = $data;
-			$aup = ($data==1) ? 1: ($dulu / $data);
+			$aup = ($data==0) ? 0: ($dulu / $data);
 			$aup2 = number_format($aup,2,'.',',') . '';
-			$kini = $nilai_kini / $aup2;
+			$kini = ($data==0) ? 0: $nilai_kini / $aup2;
 			$kuantiti_kini = number_format($kini,0,'.',',') . '';
 			
-			$papar = ($kuantiti_dulu==1) ? 1 : " dulu = $kuantiti_dulu | aup " . $aup2 . '<br>'
+			$papar = ($kuantiti_dulu==0) ? 0 : " dulu = $kuantiti_dulu | aup " . $aup2 . '<br>'
 				. " kini = $nilai_kini / $aup2 = " . ($kuantiti_kini)
 				. "";
 		elseif ($jadual=='input' && in_array($key,array('F23'))):
@@ -324,7 +326,7 @@ function analisisProdukKodBahan($borang, $p, $jadual, $row, $kiraBil, $jumNilai)
 			$anggar = ($jum==0) ? 0 : (($dulu / $jum) * $kiniK);
 			$nilai_kini = floor($anggar * 1) / 1;
 					
-			$papar = "dulu = $dulu |  $value<br>"
+			$papar = ($dulu==0) ? 0: "dulu = $dulu |  $value<br>"
 				. " kini = ($dulu / $jum) x $kiniK = " . $nilai_kini 
 				. " ";
 		elseif ($jadual=='input' && in_array($key,array('F22'))):
@@ -352,15 +354,45 @@ function analisisProdukKodBahan($borang, $p, $jadual, $row, $kiraBil, $jumNilai)
 	endforeach;
 	
 	return array('jumNilai'=>$nilai_kini);
+}
+function dataGaji($perangkaan, $key, $data)
+{
+	$sv = $perangkaan['sv']['dulu'];
+	$hasil_dulu = $perangkaan['hasil']['dulu'];
+	$hasil_kini = $perangkaan['hasil']['kini'];
+	$belanja_dulu = $perangkaan['belanja']['dulu'];
+	$belanja_kini = $perangkaan['belanja']['kini'];
+	$gaji_dulu = $perangkaan['gaji']['dulu'];
+	$gaji_kini = $perangkaan['gaji']['kini'];
 	
-	//return array('data2'=>$papar,'jumNilai'=>$jumNilai);
-
+	#L	Msia|L	Pati|L	JumL|L14	Gaji|L18	W	Msia|W	Pati|W	JumW|W14	Gaji|W18
+	if (in_array($key, array('Gaji|L18','Gaji|W18') ) )
+	{
+		$nilai_dulu = ($gaji_dulu==0 || $data==0) ? 0 :(($data / $gaji_dulu) * 100);
+		$value = number_format($nilai_dulu,4,'.',',') . '%';
+		$kini = ($gaji_dulu==0 || $data==0) ? 0 : (($data / $gaji_dulu) * $gaji_kini);
+		
+		$papar = ($data==0) ? '' : " dulu = $data |  " . $$nilai_dulu . '<br>'
+				. " kini = $nilai_kini / $aup2 = " . ($kini)
+				. "";
+	}
+	elseif (in_array($key, array('F2101') ) )
+	{
+		$nilai_dulu = ($belanja_dulu==0 || $data==0) ? 0 :(($data / $belanja_dulu) * 100 );
+		$value = number_format($nilai_dulu,4,'.',',') . '%';
+		$kosBahan = ($belanja_dulu==0 || $data==0) ? 0 :(($data / $belanja_dulu) * $belanja_kini);
+		
+		$papar = $data;
+	}
+	else
+		$papar = $data;
+	//*/
+	
+	return '<td align="right">' . "$papar</td>";
 }
 
 //echo '<pre>'; print_r($this->borang); echo '</pre>';
-/*echo '<pre>'; print_r($this->kod_aset); echo '</pre>';
-//*/
-if (isset($this->borang['hasilProduk'])):
+if (isset($this->borang['output'])):
 	$p = dataProdukKodbahan($perangkaan, $this->kesID);
 	foreach ($this->borang as $jadual => $row):
 		if ( count($row)==0 ) echo '';
@@ -382,13 +414,46 @@ if (isset($this->borang['hasilProduk'])):
 						}
 					echo '<tbody><tr>' . "\r" . '<td>' . ($kiraBil+1) . '</td>' . "\r";
 					$p2 = analisisProdukKodBahan($this->borang, $p, $jadual, $row, $kiraBil, $jumNilai=0);
-					$jumNilai += $p2['jumNilai'];
+					//$jumNilai += $p2['jumNilai'];
 					echo '</tr></tbody>';
 			}
 			//echo '<tbody><tr>' . "\r" . '<td colspan=10>Jumlah ' . $jumNilai . '</td></tr></tbody>';
 			echo '</table></div>';
 		}# if ( count($row)==0 )
 	endforeach;
+endif;
+if (isset($this->staf['teamgenius'])):
+	//echo '<pre>'; print_r($this->staf); echo '</pre>';
+		foreach ($this->staf as $jadual => $row):
+		if ( count($row)==0 ) echo '';
+		else
+		{
+			echo '<div class="tab-pane" id="' . $jadual . '">' . "\r"
+				. '<span class="badge badge-success">Analisis data ' . $jadual . "\r"
+				. 'Ada ' . count($row) . ' kes '
+				. '</span>'
+				. '<table  border="1" class="excel" id="example">';
+			$printed_headers = false; # mula bina jadual
+			#-----------------------------------------------------------------
+			for ($kiraBil=0; $kiraBil < count($row); $kiraBil++)
+			{		
+						if ( !$printed_headers )
+						{#print the headers once:
+							tajukMedan($kiraBil,$row);
+							$printed_headers = true;
+						}
+					echo '<tbody><tr>' . "\r" . '<td>' . ($kiraBil+1) . '</td>';
+						foreach ( $row[$kiraBil] as $key=>$data ) :
+						//echo '<td align="right">' . "$data</td>";
+						echo dataGaji($perangkaan, $key, $data);
+						endforeach;				
+					echo '</tr></tbody>';
+			}
+			//echo '<tbody><tr>' . "\r" . '<td colspan=10>Jumlah ' . $jumNilai . '</td></tr></tbody>';
+			echo '</table></div>';
+		}# if ( count($row)==0 )
+	endforeach;
+
 endif;
 echo "\n\r"; ?>
 <!-- Analisis data this->kod_aset -->

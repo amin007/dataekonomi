@@ -163,13 +163,9 @@ foreach ($this->kesID as $myTable => $row)
 		$senaraiJadual2 = array('s' . $sv . '_q02_2010','s' . $sv . '_q03_2010');
 		
 		if (in_array($myTable, $senaraiJadual )):
-			$tajukMedan = array('keterangan','kod','data',
-				'anggaran','% dulu'
-			);
+			$tajukMedan = array('keterangan','kod','data','anggaran','% dulu');
 		elseif (in_array($myTable, $senaraiJadual2 ) && $sv != '206'):
-			$tajukMedan = array('keterangan','kod','data',
-				'anggaran','% dulu'
-			);
+			$tajukMedan = array('keterangan','kod','data','anggaran','% dulu');
 		else: 
 			$tajukMedan = array('keterangan','kod','data');
 		endif;
@@ -185,7 +181,6 @@ foreach ($this->kesID as $myTable => $row)
 			$thn = ($key=='thn') ? $data : 2010; 
 			$keterangan = !isset($this->keterangan[$myTable][$key][$thn]) ?
 				'tiada maklumat' : $this->keterangan[$myTable][$key][$thn];
-			$paparanData = ($data==null || $data == 0) ? '-' : null;
 		
 		if ($this->paparNilai == '-' && $data == 0): echo '';
 		else:?><tr>
@@ -212,8 +207,7 @@ foreach ($this->kesID as $myTable => $row)
 					. '<td align="right">' . $p['nilai'] . '</td>'
 					. '';
 			else: echo '<td colspan=4>-</td>';
-			endif;
-		//echo analisis($perangkaan, $myTable, $key, $data) ?>
+			endif; ?>
 		</tr><?php
 		endif;
 		endforeach; ?>

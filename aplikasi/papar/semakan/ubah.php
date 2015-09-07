@@ -96,8 +96,9 @@ else
 		's' . $this->sv . '_q05b_2010',
 		'lelaki','wanita');
 	//echo '$cetak:' . $cetak . '|$mencari:' . $mencari;
-	//echo '<pre>205::$this->kod_produk='; print_r($this->kod_produk) . '<pre>';
-	//echo "<hr>99:perangkaan : "; print_r($this->perangkaan) . "";
+	//echo '<pre>99::$this->kod_produk='; print_r($this->kod_produk) . '<pre>';
+	//echo '<pre>100::$this->_pptAsetPenuh='; print_r($this->pptAsetPenuh) . '<pre>';
+	//echo "<hr>101:perangkaan : "; print_r($this->perangkaan) . "";
 ?>
 <div align="center"><form method="POST" action="<?php echo $mencari ?>" autocomplete="off">
 <span class="badge"><?php echo $tajuk ?></span>
@@ -229,7 +230,7 @@ foreach ($this->prosesID as $myTable => $row)
 			'206_q08_2010','206_q09_2010','s'.$this->sv.'_q04_2010',
 			's'.$this->sv.'_q08_2010','s'.$this->sv.'_q09_2010');
 			
-			if(in_array($this->sv,$this->_pptAsetPenuh)):
+			if(in_array($this->sv,$this->pptAsetPenuh)):
 				echo inputText('proses', $key, $data);
 			else:
 				echo (in_array($myTable, $jadualAnalisa ) ) ?

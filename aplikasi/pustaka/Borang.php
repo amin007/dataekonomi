@@ -268,7 +268,7 @@ class Borang
 
 		// papar sql
 		$query = implode("\rUNION\r",$medan);
-		echo '<hr><pre>$sql output='; print_r($query) . '</pre><hr>';
+		//echo '<hr><pre>$sql output='; print_r($query) . '</pre><hr>';
 		return $query;
 
 	}

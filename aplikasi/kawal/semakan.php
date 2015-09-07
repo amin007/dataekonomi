@@ -134,8 +134,14 @@ class Semakan extends Kawal
 				$this->papar->kod_produk = array();
 				$kp = 's'.$sv.'_q0';
 				# bentuk soalan staf lelaki dan perempuan
-				$jadualStaf = array($kp.'6_2010');
-				$this->semak_staf($jadualStaf, $this->papar->prosesID, $sv);
+				$jadualStaf = $kp.'6_2010';
+				if( isset($this->papar->prosesID[$jadualStaf]) )
+				{	$this->papar->kod_produk['pekerjaan'] = 
+						Data::dataPekerjaBrgAm($this->papar->prosesID[$jadualStaf]);
+					$this->papar->kod_produk['teamgenius'] = 
+						Borang::borangAmStaf($this->papar->kod_produk['pekerjaan']);
+				} else { echo '<hr>'.$jadualStaf.'<pre>semak data $this->papar->kod_produk[pekerjaan]:'; 
+					print_r($this->papar->kod_produk['pekerjaan']) . '</pre>';	}
 				# bentuk soalan 4 - aset
 				$this->semak_aset($senaraiAset = array('s'.$sv.'_q04_2010'),
 					null, $prosesID);

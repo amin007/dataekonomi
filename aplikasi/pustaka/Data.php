@@ -633,14 +633,31 @@ class Data
 		$kategori[] = 'Lelaki - Jumlah pekerja-5 / 6.7';
 		$kategori[] = 'Wanita - Jumlah pekerja-5 / 6.7';
 
+		$sijil[] = 'Pascasiswazah';
+		$sijil[] = 'Bacelor';
+		$sijil[] = 'Diploma';
+		$sijil[] = 'STPM';
+		$sijil[] = 'SPM';
+		$sijil[] = 'Bawah SPM';
+		$sijil[] = 'Jumlah Sijil';
+		$sijil[] = 'Bumiputera';
+		$sijil[] = 'Cina';
+		$sijil[] = 'India';
+		$sijil[] = 'Lain-lain';
+		$sijil[] = 'Pati';
+		$sijil[] = 'Jumlah Bangsa';
+
 		for ($kira = 1; $kira <= 18; $kira++):
 			$kiraan = kira3($kira,2);
+			$paparSijil = (isset($sijil[$kira-1]) ? $sijil[$kira-1] . ' | F01'.$kiraan: null);
 			$staf[] = array(
 				'kategori' => ($kategori[$kira-1]), 
 				'malaysia' => (isset($prosesID[0]['F10'.$kiraan]) ? $prosesID[0]['F10'.$kiraan] : null),
 				'pati' => (isset($prosesID[0]['F11'.$kiraan]) ? $prosesID[0]['F11'.$kiraan] : null),
 				'jum' => (isset($prosesID[0]['F12'.$kiraan]) ? $prosesID[0]['F12'.$kiraan] : null),
-				'gaji' => (isset($prosesID[0]['F13'.$kiraan]) ? $prosesID[0]['F13'.$kiraan] : null)
+				'gaji' => (isset($prosesID[0]['F13'.$kiraan]) ? $prosesID[0]['F13'.$kiraan] : null),
+				'Sijil'=> $paparSijil,
+				'JumS'=> (isset($prosesID[0]['F01'.$kiraan]) ? $prosesID[0]['F01'.$kiraan] : null)
 				);
 		endfor;
 

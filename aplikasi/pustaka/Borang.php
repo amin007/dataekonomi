@@ -1139,6 +1139,20 @@ class Borang
 		$kategori[] = 'Jumlah pekerja-5 / 6.7';
 		$kategori[] = 'Wanita - Jumlah pekerja-5 / 6.7';
 
+		$sijil[] = 'Pascasiswazah';
+		$sijil[] = 'Bacelor';
+		$sijil[] = 'Diploma';
+		$sijil[] = 'STPM';
+		$sijil[] = 'SPM';
+		$sijil[] = 'Bawah SPM';
+		$sijil[] = 'Jumlah Sijil';
+		$sijil[] = 'Bumiputera';
+		$sijil[] = 'Cina';
+		$sijil[] = 'India';
+		$sijil[] = 'Lain-lain';
+		$sijil[] = 'Pati';
+		$sijil[] = 'Jumlah Bangsa';
+		
 		for ($kira = 1; $kira <= 18; $kira++):
 			$kiraan = kira3($kira,2);
 			//echo " jantina $kira " . ($kira%2) . "<br>";
@@ -1157,7 +1171,9 @@ class Borang
 					'Msia|W'=> (isset($prosesID[0]['F10'.$P]) ? $prosesID[0]['F10'.$P] : null),
 					'Pati|W'=> (isset($prosesID[0]['F11'.$P]) ? $prosesID[0]['F11'.$P] : null),
 					'JumW|W14'=> (isset($prosesID[0]['F12'.$P]) ? $prosesID[0]['F12'.$P] : null),
-					'Gaji|W18'=> (isset($prosesID[0]['F13'.$P]) ? $prosesID[0]['F13'.$P] : null)
+					'Gaji|W18'=> (isset($prosesID[0]['F13'.$P]) ? $prosesID[0]['F13'.$P] : null),
+					//'Sijil'=> (isset($sijil[$kira-1]) ? $sijil[$kira-1] : null),
+					//'JumS'=> (isset($prosesID[0]['F01'.$L]) ? $prosesID[0]['F01'.$L] : null)
 					);
 			endif;
 		endfor;

@@ -3,7 +3,7 @@
 function analisis($perangkaan, $jadual, $key, $data)
 {
 	// (in_array($jadual, array('q08_2010','q09_2010') ) )
-	$asetPenuh = array(101,205,206,301,303,305,306,307,308,309,312,314,316,331);
+	$asetPenuh = array(101,205,206,301,303,305,306,307,308,309,312,314,316,325,331);
 	$sv = $perangkaan['sv'];
 	$hasil = $perangkaan['hasil'];
 	$belanja = $perangkaan['belanja'];

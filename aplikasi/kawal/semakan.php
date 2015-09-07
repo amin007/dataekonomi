@@ -249,8 +249,8 @@ class Semakan extends Kawal
 			/*
 			echo '<pre>';			
 			//echo '<hr>$this->papar->prosesID='; print_r($this->papar->prosesID);
-			//echo '<hr>$this->papar->kod_produk='; print_r($this->papar->kod_produk); // khas untuk survey 205
-			echo '<hr>$this->papar->perangkaan='; print_r($this->papar->perangkaan); 
+			echo '<hr>$this->papar->kod_produk='; print_r($this->papar->kod_produk); // khas untuk survey 205
+			//echo '<hr>$this->papar->perangkaan='; print_r($this->papar->perangkaan); 
 			//echo '<hr>$this->papar->paparID=' . $this->papar->paparID;
 			echo '<hr>$this->papar->carian: ' . $this->papar->carian . '<br>';
 			echo '</pre>';//*/		
@@ -348,7 +348,13 @@ class Semakan extends Kawal
 					foreach ($value as $kekunci => $papar)
 						$cariHarta[$kekunci] = bersih($papar);
 				}
-				elseif ( $myTable == 'output' || $myTable == 'input')
+				elseif ( $myTable == 'teamgenius')
+				{
+					foreach ($value as $kekunci => $papar)
+						foreach ($papar as $namaMedan => $papar2)
+							$this->papar->staf[$myTable][$kekunci][$namaMedan] = bersih($papar2);				
+				}
+				elseif ( in_array($myTable, array('output','input') ) )
 				{
 					foreach ($value as $kekunci => $papar)
 						foreach ($papar as $namaMedan => $papar2)
@@ -392,7 +398,8 @@ class Semakan extends Kawal
 						
 			/*echo '<pre>';
 			//echo '<hr>$_POST->'; print_r($_POST);
-			echo '<hr>$cariHarta->'; print_r($this->papar->kod_aset);
+			echo '<hr>$staf->'; print_r($this->papar->staf);
+			//echo '<hr>$cariHarta->'; print_r($this->papar->kod_aset);
 			//echo '<hr>$cariHarta->'; print_r($cariHarta);
 			//echo '<hr>$this->papar->borang->'; print_r($this->papar->borang);
 			//echo '<hr>$this->papar->kesID->'; print_r($this->papar->kesID);

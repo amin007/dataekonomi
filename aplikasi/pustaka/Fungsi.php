@@ -390,11 +390,8 @@ function inputText($jadual, $key, $data)
 {    // istihar pembolehubah 
 	$name = 'name="' . $jadual . '[' . $key . ']"'
 		  . ' id="' . $key . '"';
-
 	$medanApa = $jadual . '[' . $key . ']';
-	//elseif(in_array($key,array('fe','tel','fax','responden','email')))
-	// $input =  '<textarea ' . $name . ' rows="1" cols="20">' . $data . '</textarea>';
-	$input = '<div class="input-prepend">'
+	$input = '<div class="input-prepend">' . $jadual
 		   //. '<span class="add-on">' . $medanApa . '</span>' 
 		   . '<input type="text" ' . $name . ' value="' 
 		   . $data . '" class="input-medium"></div>';

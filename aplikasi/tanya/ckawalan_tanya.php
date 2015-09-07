@@ -126,9 +126,7 @@ class Ckawalan_Tanya extends Tanya
 			 . $this->dibawah($susun);
 		
 		echo htmlentities($sql) . '<br>';
-		//$result = $this->db->selectAll($sql);
-		
-		return $result;
+
 	}
 
 	public function cariKes($myTable, $cari)

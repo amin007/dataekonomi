@@ -46,6 +46,7 @@ function analisis($perangkaan, $jadual, $key, $data)
 	}
 	elseif (in_array($sv,$asetPenuh)) 
 	{
+		echo '49: kp s'.$sv.'_q04_2010<br>';
 		if ($jadual == 's'.$sv.'_q04_2010' && $noKey == 'F09') 
 			$nilai = ($sewa==0) ? 0 : (($data / $sewa) * 100);
 		elseif ($jadual == 's'.$sv.'_q04_2010' && $noKey != 'F09') 
@@ -226,10 +227,15 @@ foreach ($this->prosesID as $myTable => $row)
 		<?php $jadualAnalisa = array('q04_2010','q08_2010','q09_2010',
 			's'.$this->sv.'_q02_2010','s'.$this->sv.'_q03_2010',
 			'206_q08_2010','206_q09_2010','s'.$this->sv.'_q04_2010',
-			's'.$this->sv.'_q08_2010','s'.$this->sv.'_q09_2010',);
-			echo (in_array($myTable, $jadualAnalisa ) ) ?
-			analisis($this->perangkaan, $myTable, $key, $data)
-			: inputText('proses', $key, $data) ?>
+			's'.$this->sv.'_q08_2010','s'.$this->sv.'_q09_2010');
+			
+			if(in_array($this->sv,array('312'))):
+				echo inputText('proses', $key, $data);
+			else:
+				echo (in_array($myTable, $jadualAnalisa ) ) ?
+				analisis($this->perangkaan, $myTable, $key, $data)
+				: inputText('proses', $key, $data);
+			endif; ?>
 		</tr><?php endif; endforeach; ?></table>
 	</td><?php
 	}#-----------------------------------------------------------------?>

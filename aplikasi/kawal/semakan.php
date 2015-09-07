@@ -397,8 +397,8 @@ class Semakan extends Kawal
 			$this->papar->carian = 'newss';
 						
 			/*echo '<pre>';
-			//echo '<hr>$_POST->'; print_r($_POST);
-			echo '<hr>$staf->'; print_r($this->papar->staf);
+			echo '<hr>$_POST->'; print_r($_POST);
+			//echo '<hr>$staf->'; print_r($this->papar->staf);
 			//echo '<hr>$cariHarta->'; print_r($this->papar->kod_aset);
 			//echo '<hr>$cariHarta->'; print_r($cariHarta);
 			//echo '<hr>$this->papar->borang->'; print_r($this->papar->borang);

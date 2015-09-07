@@ -107,8 +107,8 @@ class Semakan extends Kawal
 			}
 			elseif(in_array($sv,$this->_pptAsetPenuh))
 			{
-				$this->papar->kod_produk = array();
-				$kp = 's' . $sv . '_q';
+				$this->papar->kod_produk = array(); 
+				$kp = 's' . $sv . '_q'; //echo '111: kp ' . $kp . '<br>';
 				# bentuk soalan staf lelaki dan perempuan
 				$jadualStaf = array($kp.'05a_2010',$kp.'05b_2010');
 				$this->semak_staf($jadualStaf, $this->papar->prosesID, $sv);

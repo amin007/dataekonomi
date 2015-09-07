@@ -139,7 +139,8 @@ class Semakan extends Kawal
 				{	$this->papar->kod_produk['pekerjaan'] = 
 						Data::dataPekerjaBrgAm($this->papar->prosesID[$jadualStaf]);
 					$this->papar->kod_produk['teamgenius'] = 
-						Borang::borangAmStaf($this->papar->kod_produk['pekerjaan']);
+						//Data::dataPekerjaBrgAm($this->papar->prosesID[$jadualStaf]);
+						Borang::borangAmStaf($this->papar->prosesID[$jadualStaf]);
 				} else { echo '<hr>'.$jadualStaf.'<pre>semak data $this->papar->kod_produk[pekerjaan]:'; 
 					print_r($this->papar->kod_produk['pekerjaan']) . '</pre>';	}
 				# bentuk soalan 4 - aset

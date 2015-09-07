@@ -1116,6 +1116,57 @@ class Borang
 	return $pekerja;
 	}
 /////////////////////////////////////////////////////////////////////////////////////////////////////
+	public static function borangAmStaf($prosesID)
+	{
+		//echo '1121:<pre>Borang::borangAmStaf($prosesID)='; print_r($prosesID) . '</pre><hr>';
+		#L	Msia|L	Pati|L	JumL|L14	Gaji|L18	W	Msia|W	Pati|W	JumW|W14	Gaji|W18
+		$kategori[] = 'Pemilik(ROB)-1 / 6.3';
+		$kategori[] = 'Wanita - Pemilik(ROB)-1 / 6.3';
+		$kategori[] = 'Pekerja keluarga(ROB)-2 / 6.4';
+		$kategori[] = 'Wanita - Pekerja keluarga(ROB)-2 / 6.4';
+		$kategori[] = '<b>Jum pekerja bergaji -5.3.6 / 6.5</b>';
+		$kategori[] = '<b>Wanita - Jum pekerja bergaji -5.3.6 / 6.5</b>';
+		$kategori[] = 'Pengurusan-3.1 / 6.5.A';
+		$kategori[] = 'Wanita - Pengurusan-3.1 / 6.5.A';
+		$kategori[] = 'Juruteknik-3.2 / 6.5.B';
+		$kategori[] = 'Wanita - Juruteknik-3.2 / 6.5.B';
+		$kategori[] = 'Kerani-3.3 / 6.5.C';
+		$kategori[] = 'Wanita - Kerani-3.3 / 6.5.C';
+		$kategori[] = 'pekerja am';
+		$kategori[] = 'Wanita - pekerja am';
+		$kategori[] = 'Pekerja sambilan-4 / 6.6';
+		$kategori[] = 'Wanita - Pekerja sambilan-4 / 6.6';
+		$kategori[] = 'Jumlah pekerja-5 / 6.7';
+		$kategori[] = 'Wanita - Jumlah pekerja-5 / 6.7';
+
+		for ($kira = 1; $kira <= 18; $kira++):
+			$kiraan = kira3($kira,2);
+			//echo " jantina $kira " . ($kira%2) . "<br>";
+			#L	Msia|L	Pati|L	JumL|L14	Gaji|L18	W	Msia|W	Pati|W	JumW|W14	Gaji|W18
+			if (($kira%2)!=0):
+				$L = $kiraan;
+				$P = $kiraan+1;
+				$staf[] = array(
+					'kategori' => ($kategori[$kira-1]), 
+					'L' => $kiraan,
+					'Msia|L' => (isset($prosesID[0]['F10'.$L]) ? $prosesID[0]['F10'.$L] : null),
+					'Pati|L' => (isset($prosesID[0]['F11'.$L]) ? $prosesID[0]['F11'.$L] : null),
+					'JumL|L14' => (isset($prosesID[0]['F12'.$L]) ? $prosesID[0]['F12'.$L] : null),
+					'Gaji|L18' => (isset($prosesID[0]['F13'.$L]) ? $prosesID[0]['F13'.$L] : null),
+					'W' => $kiraan+1,
+					'Msia|W'=> (isset($prosesID[0]['F10'.$P]) ? $prosesID[0]['F10'.$P] : null),
+					'Pati|W'=> (isset($prosesID[0]['F11'.$P]) ? $prosesID[0]['F11'.$P] : null),
+					'JumW|W14'=> (isset($prosesID[0]['F12'.$P]) ? $prosesID[0]['F12'.$P] : null),
+					'Gaji|W18'=> (isset($prosesID[0]['F13'.$P]) ? $prosesID[0]['F13'.$P] : null)
+					);
+			endif;
+		endfor;
+
+		//echo '<pre>$prosesID:'; print_r($prosesID) . '</pre>';
+		//echo '<pre>$staf:'; print_r($staf) . '</pre>';
+		return $staf;
+	}
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static function borangStaf($info)
 	{
 		//echo '<pre>Borang::borangStaf($info)='; print_r($info) . '</pre><hr>';

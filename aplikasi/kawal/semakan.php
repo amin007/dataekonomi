@@ -133,9 +133,10 @@ class Semakan extends Kawal
 			{
 				$this->papar->kod_produk = array();
 				$kp = 's'.$sv.'_q0';
-				$susutNilai =  $this->papar->prosesID[$kp.'3_2010'][0]['F0049'];
-				$jadualStaf = array($kp.'5a_2010',$kp.'5b_2010');
-				// bentuk soalan 4 - aset
+				# bentuk soalan staf lelaki dan perempuan
+				$jadualStaf = array($kp.'6_2010');
+				$this->semak_staf($jadualStaf, $this->papar->prosesID, $sv);
+				# bentuk soalan 4 - aset
 				$this->semak_aset($senaraiAset = array('s'.$sv.'_q04_2010'),
 					null, $prosesID);
 				// cari sv, jumlah pendapatan dan pembelanjaan
@@ -148,6 +149,7 @@ class Semakan extends Kawal
 				$this->papar->perangkaan['hasil']    = $this->papar->prosesID[$kp.'2_2010'][0]['F0040'];
 				$this->papar->perangkaan['belanja']  = $this->papar->prosesID[$kp.'3_2010'][0]['F0060'];
 				$this->papar->perangkaan['gaji']     = $this->papar->prosesID[$kp.'3_2010'][0]['F0043'];
+				$this->papar->perangkaan['susut']    = $this->papar->prosesID[$kp.'3_2010'][0]['F0049'];
 				$this->papar->perangkaan['aset']     = $this->papar->prosesID[$kp.'4_2010'][0]['F0083'];
 				$this->papar->perangkaan['asetsewa'] = $this->papar->prosesID[$kp.'3_2010'][0]['F0057'];
 			}			

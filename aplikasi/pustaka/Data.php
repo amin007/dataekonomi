@@ -614,7 +614,6 @@ class Data
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static function dataPekerjaBrgAm($prosesID)
 	{
-
 		$kategori[] = 'Lelaki - Pemilik(ROB)-1 / 6.3';
 		$kategori[] = 'Wanita - Pemilik(ROB)-1 / 6.3';
 		$kategori[] = 'Lelaki - Pekerja keluarga(ROB)-2 / 6.4';

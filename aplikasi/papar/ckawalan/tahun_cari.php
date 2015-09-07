@@ -94,6 +94,7 @@ function pautan($paparID, $jadual)
 		'314 Bas 2010-2012' => '../cprosesan/ubah/314/' . $id . '/2010/2012',
 		'316 2010-2012' => '../cprosesan/ubah/316/' . $id . '/2010/2012',
 		'318 Lori 2010-2012' => '../cprosesan/ubah/318/' . $id . '/2010/2012',
+		'325 Kiriman Cepat 2010-2012' => '../cprosesan/ubah/325/' . $id . '/2010/2012',
 		'328 FNB 2010-2012' => '../cprosesan/ubah/328/' . $id . '/2010/2012',
 		'331 2010-2012' => '../cprosesan/ubah/331/' . $id . '/2010/2012',
 		'334 2010-2012' => '../cprosesan/ubah/334/' . $id . '/2010/2012',

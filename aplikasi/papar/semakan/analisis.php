@@ -137,13 +137,16 @@ else
 
 <?php 
 //echo '<pre>'; print_r($this->kesID) . '</pre>';
+$tajuk = ' | Dulu:' . kira($perangkaan['hasil']['dulu']) 
+	   . ' | Kini:' . kira($perangkaan['hasil']['kini']);
+
 foreach ($this->kesID as $myTable => $row)
 {
 	if ( count($row)==0 ) echo '';
 	elseif ($myTable=='semasa') echo '';
 	else
 	{?>	
-	<span class="badge badge-success">Analisis data <?php echo $myTable ?></span>
+	<span class="badge badge-success">Analisis data <?php echo $myTable . $tajuk ?></span>
 	<!-- Jadual <?php echo $myTable ?> ########################################### -->	
 	<table><tr>
 	<?php
@@ -161,11 +164,11 @@ foreach ($this->kesID as $myTable => $row)
 		
 		if (in_array($myTable, $senaraiJadual )):
 			$tajukMedan = array('keterangan','kod','data',
-				'jum_dulu','jum_kini','% dulu','anggaran'
+				'anggaran','% dulu'
 			);
 		elseif (in_array($myTable, $senaraiJadual2 ) && $sv != '206'):
 			$tajukMedan = array('keterangan','kod','data',
-				'jum_dulu','jum_kini','% dulu','anggaran'
+				'anggaran','% dulu'
 			);
 		else: 
 			$tajukMedan = array('keterangan','kod','data');
@@ -187,7 +190,7 @@ foreach ($this->kesID as $myTable => $row)
 		if ($this->paparNilai == '-' && $data == 0): echo '';
 		else:?><tr>
 		<td><?php echo $keterangan ?></td>
-		<td><?php echo $key . $paparanData ?></td>
+		<td><?php echo $key ?></td>
 		<td align="right"><?php echo (in_array($key, $senaraiMedan)) ? 
 			$data : semakJenis($sv, $key, $data) ?></td>
 		<?php 
@@ -195,24 +198,18 @@ foreach ($this->kesID as $myTable => $row)
 				|| $myTable==$sv .'_q09_2010' || $myTable=='s' . $sv . '_q09_2010'): 
 				$p = analisis($perangkaan, $myTable, $key, $data); 
 				# array('nilai'=>$value,'anggar'=>$anggaran,'produk'=>$hasilProduk,'bahan'=>$kosBahan);
-				echo '<td>' . kira($perangkaan['hasil']['dulu']) . '</td>'
-					. '<td>' . kira($perangkaan['hasil']['kini']) . '</td>'
+				echo '<td align="right">' . $p['anggar'] . '</td>'
 					. '<td align="right">' . $p['nilai'] . '</td>'
-					. '<td align="right">' . $p['anggar'] . '</td>'
 					. '';
 			elseif ($myTable=='s' . $sv . '_q02_2010' && $sv!='206'): 
 				$p = analisis($perangkaan, $myTable, $key, $data); 
-				echo '<td>' . kira($perangkaan['hasil']['dulu']) . '</td>'
-					. '<td>' . kira($perangkaan['hasil']['kini']) . '</td>'
+				echo '<td align="right">' . $p['anggar'] . '</td>'
 					. '<td align="right">' . $p['nilai'] . '</td>'
-					. '<td align="right">' . $p['anggar'] . '</td>'
 					. '';
 			elseif ($myTable=='s' . $sv .'_q03_2010' && $sv!='206'): 
 				$p = analisis($perangkaan, $myTable, $key, $data); 
-				echo '<td>' . kira($perangkaan['belanja']['dulu']) . '</td>'
-					. '<td>' . kira($perangkaan['belanja']['kini']) . '</td>'
+				echo '<td align="right">' . $p['anggar'] . '</td>'
 					. '<td align="right">' . $p['nilai'] . '</td>'
-					. '<td align="right">' . $p['anggar'] . '</td>'
 					. '';
 			else: echo '<td colspan=4>-</td>';
 			endif;

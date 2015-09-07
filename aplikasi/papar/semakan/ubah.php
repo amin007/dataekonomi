@@ -299,15 +299,26 @@ for ($kira=0; $kira < count($row); $kira++)
 //print the data row ?><tbody><tr>
 	<td><?php echo $kira+1 ?></td>	
 	<?php foreach ( $row[$kira] as $key=>$data ) :?>
-	<td align="right"><?php $papar = (in_array($key, $io)) ? 
+	<td align="right"><?php 
+	$papar = (in_array($key, $io)) ? 
 		$data : semakJenis($this->sv, $key, $data);
-		echo (in_array($myTable, $jadual)) ? $papar : 
-			inputText2($kira, $jum, $io, $myTable, $key, $data); ?></td>
+	list($f25,$jum) = ($myTable=='output') ? 
+		explode('-',$row[$kira]['F25']): array('x','x');
+	if (in_array($myTable, $jadual)):
+		echo $papar;
+	else:
+		echo inputText2($kira, $jum, $io, $myTable, $key, $data); 
+	endif;
+
+		//echo (in_array($myTable, $jadual)) ? $papar : 
+		//	inputText2($kira, $jum, $io, $myTable, $key, $data); 
+?></td>
 	<?php endforeach ?>
 	</tr></tbody>
 <?php
 	else:echo '<tbody><tr>' . "\r" . '<td colspan=10>' 
-		. $key . '|' . $data . '</td></tr></tbody>';
+		. " $kira $key  $data "
+		. '</td></tr></tbody>';
 
 	endif;#if (isset($row[$kira]))
 }

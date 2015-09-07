@@ -877,21 +877,27 @@ class Semakan extends Kawal
 
 	private function semak_aset($asetIndustri, $aset, $paparID) 
 	{// khas untuk soalan aset
-		echo "<pre>880:senaraiAset:", print_r($asetIndustri, 1) . '| jadual:', print_r($aset, 1) . "<br>";
+		//echo "<pre>880:senaraiAset:", print_r($asetIndustri, 1) . '| jadual:', print_r($aset, 1) . "<br>";
 		//echo "<pre>paparID:", print_r($paparID, 1) . "<br>";
 		
 		foreach ($asetIndustri as $key => $myTable):
 			//echo ($myTable!=$aset) ? null : "myTable:$myTable | aset:$aset|<br>";
 			if ($aset==$myTable && in_array($aset,$asetIndustri) )
-				{@$this->papar->kod_produk['harta_' . $myTable] = 
+			{
+				//echo "<pre>887:senaraiAset:", print_r($asetIndustri, 1) . '| jadual:', print_r($aset, 1) . "<br>";
+				@$this->papar->kod_produk['harta_' . $myTable] = 
 					Borang::binaAset($paparID[$myTable][0]);
 				@$this->papar->kod_produk['jadualHarta'] = 
-					Borang::inputAset($paparID[$myTable][0]);}
+					Borang::inputAset($paparID[$myTable][0]);
+			}
 			elseif ($aset==null)
+			{
+				//echo "<pre>895:senaraiAset:", print_r($asetIndustri, 1) . '| jadual:', print_r($aset, 1) . "<br>";
 				@$this->papar->kod_produk['harta_' . $myTable] = 
 					Borang::binaAsetAm($paparID[$myTable][0]);
 				@$this->papar->kod_produk['jadualHartaAm'] = 
 					Borang::inputAsetAm($paparID[$myTable][0]);
+			}
 		endforeach;
 
 	}

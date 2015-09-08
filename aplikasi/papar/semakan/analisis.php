@@ -192,19 +192,18 @@ foreach ($this->kesID as $myTable => $row)
 		<?php 
 			if ($myTable==$sv . '_q08_2010' || $myTable=='s' . $sv . '_q08_2010'
 				|| $myTable==$sv .'_q09_2010' || $myTable=='s' . $sv . '_q09_2010'): 
-				//$p = analisis($perangkaan, $myTable, $key, $data); 
-				$p = analisis($perangkaan, $this->ppt, $myTable, $key, $data);
+				$p = analisis($perangkaan, $this->ppt, $myTable, $key, $data); 
 				# array('nilai'=>$value,'anggar'=>$anggaran,'produk'=>$hasilProduk,'bahan'=>$kosBahan);
 				echo '<td align="right">' . $p['anggar'] . '</td>'
 					. '<td align="right">' . $p['nilai'] . '</td>'
 					. '';
 			elseif ($myTable=='s' . $sv . '_q02_2010' && $sv!='206'): 
-				$p = analisis($perangkaan, $this->ppt, $myTable, $key, $data);
+				$p = analisis($perangkaan, $this->ppt, $myTable, $key, $data); 
 				echo '<td align="right">' . $p['anggar'] . '</td>'
 					. '<td align="right">' . $p['nilai'] . '</td>'
 					. '';
 			elseif ($myTable=='s' . $sv .'_q03_2010' && $sv!='206'): 
-				$p = analisis($perangkaan, $this->ppt, $myTable, $key, $data);
+				$p = analisis($perangkaan, $this->ppt, $myTable, $key, $data); 
 				echo '<td align="right">' . $p['anggar'] . '</td>'
 					. '<td align="right">' . $p['nilai'] . '</td>'
 					. '';
@@ -360,7 +359,7 @@ function dataGaji($perangkaan, $key, $data, $row, $kiraBil)
 
 	# kira purata sebulan untuk seorang staf
 	//$kunci = (($key=='Gaji|L18') ? 'JumL|L14' : 'JumW|W14');
-	$org = $row[$kiraBil][(($key=='Gaji|L18') ? 'Jum|L14' : 'Jum|W14')];
+	$org = $row[$kiraBil][(($key=='Gaji|L18') ? 'JumL|L14' : 'JumW|W14')];
 	$bln = ($org==0 || $data==0) ? '' :($data / $org)/12;
 	$purataGaji = ($org==0 || $data==0) ? '' : 'sebln = ' . number_format($bln,2,'.',',') . '';
 

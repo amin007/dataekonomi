@@ -1,6 +1,8 @@
 <?php
+
 function analisis($perangkaan, $ppt, $jadual, $key, $data)
 {
+	// (in_array($jadual, array('q08_2010','q09_2010') ) )
 	$asetPenuh = $ppt['AsetPenuh'];
 	$asetBrgAm = $ppt['BrgAm'];
 	$sv = $perangkaan['sv'];
@@ -39,6 +41,7 @@ function analisis($perangkaan, $ppt, $jadual, $key, $data)
 			$nilai = ($hasil==0) ? 0 : (($data / $hasil) * 100 );
 		elseif ($jadual == $sv.'_q09_2010')
 			$nilai = ($belanja==0) ? 0 : (($data / $belanja) * 100 );
+		$value = number_format($nilai,4,'.',',') . '%';
 		$name = 'name="' . $jadual . '[' . $key . ']"'
 			  . ' id="' . $key . '"';
 	}
@@ -55,9 +58,8 @@ function analisis($perangkaan, $ppt, $jadual, $key, $data)
 			$nilai = ($belanja==0) ? 0 : (($data / $belanja) * 100 );
 		elseif(in_array($jadual,$abaikan))
 			$nilai = 'x';
-		$name = ($nilai == 'x') ? 
-			'name="proses[' . $key . ']" id="' . $key . '"':
-			'name="' . $jadual . '[' . $key . ']" id="' . $key . '"';
+		$name = 'name="' . $jadual . '[' . $key . ']"'
+			  . ' id="' . $key . '"';
 	}
 	elseif (in_array($sv,$asetBrgAm)) 
 	{

@@ -358,7 +358,6 @@ function dataGaji($perangkaan, $key, $data, $row, $kiraBil)
 	$gaji_kini = $perangkaan['gaji']['kini'];
 
 	# kira purata sebulan untuk seorang staf
-	//$kunci = (($key=='Gaji|L18') ? 'JumL|L14' : 'JumW|W14');
 	$org = $row[$kiraBil][(($key=='Gaji|L18') ? 'Jum|L14' : 'Jum|W14')];
 	$bln = ($org==0 || $data==0) ? '' :($data / $org)/12;
 	$purataGaji = ($org==0 || $data==0) ? '' : 'sebln = ' . number_format($bln,2,'.',',') . '';
@@ -378,7 +377,6 @@ function dataGaji($perangkaan, $key, $data, $row, $kiraBil)
 	}
 	else
 		$papar = $data;
-	//*/
 	
 	return '<td align="right">' . "$papar</td>";
 }
@@ -392,8 +390,7 @@ if (isset($this->borang['output'])):
 		{
 			echo '<div class="tab-pane" id="' . $jadual . '">' . "\r"
 				. '<span class="badge badge-success">Analisis data ' . $jadual . "\r"
-				. 'Ada ' . count($row) . ' kes '
-				. '</span>'
+				. 'Ada ' . count($row) . ' kes </span>'
 				. '<table  border="1" class="excel" id="example">';
 			$printed_headers = false; # mula bina jadual
 			#-----------------------------------------------------------------

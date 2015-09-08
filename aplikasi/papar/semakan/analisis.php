@@ -260,6 +260,7 @@ function tajukMedan($kira,$row)
 			?><th><?php echo $tajuk ?></th><?php
 		endforeach ?>
 </tr></thead><?php 
+	return $printed_headers = true;
 }
 function tajukMedan2($kira,$row)
 {
@@ -396,17 +397,12 @@ if (isset($this->borang['output'])):
 			#-----------------------------------------------------------------
 			for ($kiraBil=0; $kiraBil < count($row); $kiraBil++)
 			{		
-						if ( !$printed_headers )
-						{#print the headers once:
-							tajukMedan($kiraBil,$row);
-							$printed_headers = true;
-						}
+					if ( !$printed_headers )
+						$printed_headers = tajukMedan($kiraBil,$row);
 					echo '<tbody><tr>' . "\r" . '<td>' . ($kiraBil+1) . '</td>' . "\r";
 					$p2 = analisisProdukKodBahan($this->borang, $p, $jadual, $row, $kiraBil, $jumNilai=0);
-					//$jumNilai += $p2['jumNilai'];
 					echo '</tr></tbody>';
 			}
-			//echo '<tbody><tr>' . "\r" . '<td colspan=10>Jumlah ' . $jumNilai . '</td></tr></tbody>';
 			echo '</table></div>';
 		}# if ( count($row)==0 )
 	endforeach;

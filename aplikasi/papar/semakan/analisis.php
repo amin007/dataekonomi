@@ -359,7 +359,7 @@ function dataGaji($perangkaan, $key, $data, $row, $kiraBil)
 
 	# kira purata sebulan untuk seorang staf
 	//$kunci = (($key=='Gaji|L18') ? 'JumL|L14' : 'JumW|W14');
-	$org = $row[$kiraBil][(($key=='Gaji|L18') ? 'JumL|L14' : 'JumW|W14')];
+	$org = $row[$kiraBil][(($key=='Gaji|L18') ? 'Jum|L14' : 'Jum|W14')];
 	$bln = ($org==0 || $data==0) ? '' :($data / $org)/12;
 	$purataGaji = ($org==0 || $data==0) ? '' : 'sebln = ' . number_format($bln,2,'.',',') . '';
 

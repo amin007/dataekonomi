@@ -429,7 +429,6 @@ if (isset($this->staf['teamgenius'])):
 				endforeach;				
 				echo '</tr></tbody>';
 			}
-			//echo '<tbody><tr>' . "\r" . '<td colspan=10>Jumlah ' . $jumNilai . '</td></tr></tbody>';
 			echo '</table></div>';
 		}# if ( count($row)==0 )
 	endforeach;

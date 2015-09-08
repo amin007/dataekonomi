@@ -106,7 +106,7 @@ class Cari extends Kawal
 		$semak2 = isset($_POST['cari'][2]) ? $_POST['cari'][2] : null;
 		$atau = isset($_POST['atau']) ? $_POST['atau'] : null;
 		$this->papar->cariNama = null;
-		echo '<pre>$_POST->', print_r($_POST, 1) . '</pre>';
+		//echo '<pre>$_POST->', print_r($_POST, 1) . '</pre>';
 		//echo '$bil=' . $bil. '<br>$muka=' . $muka. '<br>';
 		//echo '$pilih=' . $pilih. '<br>$semak=' . $semak. '<br>';
 		
@@ -214,9 +214,9 @@ class Cari extends Kawal
 			{// mula ulang table
 				// senarai nama medan
 				$medan = '*'; 
-				
 				$this->papar->cariNama[$myTable] = $this->tanya
-				->cariBanyakMedan($myTable, $medan, $kira, $had);
+				//->cariSql('pom_lokaliti.'.$myTable, $medan, $kira, $had);
+				->cariBanyakMedan('pom_lokaliti.'.$myTable, $medan, $kira, $had);
 				
 			}// tamat ulang table
 			
@@ -241,11 +241,11 @@ class Cari extends Kawal
 		}
 		
 		// semak output
-		/*
-		echo '<pre>';
-		//echo '$this->papar->cariNama:'; print_r($this->papar->cariNama);
-		echo '$this->papar->carian : ' . $this->papar->carian . '<br>'
-			. '$this->papar->apa : ' . $this->papar->apa . '<br>';
+		
+		/*echo '<pre>';
+		echo '$this->papar->cariNama:'; print_r($this->papar->cariNama);
+		//echo '$this->papar->carian : ' . $this->papar->carian . '<br>';
+		//echo '$this->papar->apa : ' . $this->papar->apa . '<br>';
 		echo '</pre>';
 		//*/
 		// paparkan ke fail cari/$namajadual.php
@@ -253,7 +253,7 @@ class Cari extends Kawal
 		{
 			$_SESSION['mesej'] = $mesej;
 			
-			echo 'Patah balik ke ' . $lokasi . $mesej . '<hr>' . $data;
+			//echo 'Patah balik ke ' . $lokasi . $mesej . '<hr>' . $data;
 			header('location:' . URL . 'cari/' . $lokasi . $namajadual . '/2');
 		}
 		else 
@@ -261,7 +261,7 @@ class Cari extends Kawal
 			//echo 'Tak patah balik';
 			$this->papar->baca('cari/' . $namajadual, 0);	
 		}
-
+		//*/
 	}
 
 }

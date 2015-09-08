@@ -273,7 +273,7 @@ function tajukMedan2($kira,$row)
 	return $papar;
 }
 
-function analisisProdukKodBahan($borang, $p, $jadual, $row, $kiraBil, $jumNilai)
+function analisisProdukKodBahan($borang, $p, $jadual, $row, $kiraBil)
 {
 	/*[output][0][F22]	$key F24 $data 168 | $key F25 $data 37572-113856
 	//[input][0][F22]	$key F22 $data 3002	| $key F23 $data 13667-48810
@@ -345,8 +345,6 @@ function analisisProdukKodBahan($borang, $p, $jadual, $row, $kiraBil, $jumNilai)
 		endif;
 		echo "<td>$papar</td>";
 	endforeach;
-	
-	return array('jumNilai'=>$nilai_kini);
 }
 function dataGaji($perangkaan, $key, $data, $row, $kiraBil)
 {
@@ -400,7 +398,7 @@ if (isset($this->borang['output'])):
 					if ( !$printed_headers )
 						$printed_headers = tajukMedan($kiraBil,$row);
 					echo '<tbody><tr>' . "\r" . '<td>' . ($kiraBil+1) . '</td>' . "\r";
-					$p2 = analisisProdukKodBahan($this->borang, $p, $jadual, $row, $kiraBil, $jumNilai=0);
+					$p2 = analisisProdukKodBahan($this->borang, $p, $jadual, $row, $kiraBil);
 					echo '</tr></tbody>';
 			}
 			echo '</table></div>';

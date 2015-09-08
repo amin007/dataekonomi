@@ -50,11 +50,10 @@ class Cari extends Kawal
 		   echo 'mana ko pergi daa lokaliti($negeri)<br>';
 		 */
 		
-		$this->papar->medan = $this->tanya->paparMedan($negeri);
+		$this->papar->medan = $this->tanya->paparMedan('pom_lokaliti.'.$negeri);
 		//echo '<pre>$this->papar->medan:<br>'; print_r($this->papar->medan); 
 
 		// Set pemboleubah utama
-		//$this->papar->pegawai = senarai_kakitangan();
 		$this->papar->url = dpt_url();
 		$this->papar->mesej = $mesej;
 

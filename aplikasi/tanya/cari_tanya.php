@@ -24,10 +24,50 @@ class Cari_Tanya extends Tanya
 		return $result;
 	}
 
+	public function cariSql($myTable, $medan, $kira, $had)
+	{
+		$sql ="\rSELECT $medan FROM $myTable WHERE \r";
+		
+		foreach ($_POST['pilih'] as $key=>$cari)
+		{
+			$apa = $_POST['cari'][$key];
+			$f = isset($_POST['fix'][$key]) ? $_POST['fix'][$key] : null;
+			$atau = isset($_POST['atau'][$key]) ? $_POST['atau'][$key] : null;
+			
+			//$sql.="\r$key => $f  | ";
+
+			if ($apa==null) 
+				$sql .= "$atau $cari is null\r";
+			elseif ($myTable=='msic2008') 
+			{
+				if ($cari=='msic') $sql.=($f=='x') ?
+				"$atau ($cari='$apa' or msic2000='$apa')\r" :
+				"$atau ($cari like '%$apa%' or msic2000 like '%$apa%')\r";
+				else $sql.=($f=='x') ?
+				"$atau ($cari='$apa' or notakaki='$apa')\r" :
+				"$atau ($cari like '%$apa%' or notakaki like '%$apa%')\r";
+			}
+			elseif ($myTable=='kodproduk_aup') 
+			{
+				$pilih = 'substring(kod_produk,1,5)';
+				if ($cari=='msic') $sql.=($f=='x') ?
+				"$atau ($pilih='$apa' or kod_produk='$apa')\r" :
+				"$atau ($pilih like '%$apa%' or kod_produk like '%$apa%')\r";
+				else $sql.=($f=='x') ? "$atau `$cari`='$apa'\r" : 
+				"$atau `$cari` like '%$apa%'\r";					
+			}
+			else 
+				$sql.=($f=='x') ? "$atau `$cari`='$apa'\r" : 
+				"$atau `$cari` like '%$apa%'\r";					
+		}
+		
+		$sql.="LIMIT $had "; echo $sql . '<br>';
+		return $this->db->selectAll($sql);
+	
+	}
+	
 	public function cariBanyakMedan($myTable, $medan, $kira, $had)
 	{
-		$myTable = ($myTable=='pom_lokaliti.malaysia') ?
-			$myTable:"`$myTable`";
 		$sql ="\rSELECT $medan FROM $myTable WHERE \r";
 		
 		foreach ($_POST['pilih'] as $key=>$cari)

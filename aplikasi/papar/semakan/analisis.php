@@ -395,7 +395,7 @@ if (isset($this->borang['output'])):
 			#-----------------------------------------------------------------
 			for ($kiraBil=0; $kiraBil < count($row); $kiraBil++)
 			{		
-					if ( !$printed_headers )
+					if ( !$printed_headers )#print the headers once:
 						$printed_headers = tajukMedan($kiraBil,$row);
 					echo '<tbody><tr>' . "\r" . '<td>' . ($kiraBil+1) . '</td>' . "\r";
 					$p2 = analisisProdukKodBahan($this->borang, $p, $jadual, $row, $kiraBil);
@@ -420,17 +420,14 @@ if (isset($this->staf['teamgenius'])):
 			#-----------------------------------------------------------------
 			for ($kiraBil=0; $kiraBil < count($row); $kiraBil++)
 			{		
-						if ( !$printed_headers )
-						{#print the headers once:
-							tajukMedan($kiraBil,$row);
-							$printed_headers = true;
-						}
-					echo '<tbody><tr>' . "\r" . '<td>' . ($kiraBil+1) . '</td>';
-						foreach ( $row[$kiraBil] as $key=>$data ) :
-						//echo '<td align="right">' . "$data</td>";
-						echo dataGaji($perangkaan, $key, $data, $row, $kiraBil);
-						endforeach;				
-					echo '</tr></tbody>';
+				if ( !$printed_headers ) #print the headers once:
+					$printed_headers = tajukMedan($kiraBil,$row);
+				echo '<tbody><tr>' . "\r" . '<td>' . ($kiraBil+1) . '</td>';
+				foreach ( $row[$kiraBil] as $key=>$data ) :
+					//echo '<td align="right">' . "$data</td>";
+					echo dataGaji($perangkaan, $key, $data, $row, $kiraBil);
+				endforeach;				
+				echo '</tr></tbody>';
 			}
 			//echo '<tbody><tr>' . "\r" . '<td colspan=10>Jumlah ' . $jumNilai . '</td></tr></tbody>';
 			echo '</table></div>';

@@ -200,9 +200,9 @@ foreach ($this->prosesID as $myTable => $row)
 	elseif (in_array($myTable,$buangJadual)) echo '';
 	else
 	{
-		if ($myTable == 'q08_2010'):
+		if (in_array($myTable,array('q08_2010','206_q08_2010','s'.$this->sv.'_q08_2010'))):
 			$kiraJumlah = ' id="kirahasil"';
-		elseif ($myTable == 'q09_2010'):
+		elseif (in_array($myTable,array('q09_2010','206_q09_2010','s'.$this->sv.'_q09_2010'))):
 			$kiraJumlah = ' id="kirabelanja"';
 		else:
 			$kiraJumlah = '';
@@ -230,13 +230,9 @@ foreach ($this->prosesID as $myTable => $row)
 			'206_q08_2010','206_q09_2010','s'.$this->sv.'_q04_2010',
 			's'.$this->sv.'_q08_2010','s'.$this->sv.'_q09_2010');
 			
-			if(in_array($this->sv,$this->pptAsetPenuh)):
-				echo inputText('proses', $key, $data);
-			else:
-				echo (in_array($myTable, $jadualAnalisa ) ) ?
-				analisis($this->perangkaan, $this->_pptAsetPenuh, $myTable, $key, $data)
-				: inputText('proses', $key, $data);
-			endif; ?>
+			echo (in_array($myTable, $jadualAnalisa ) ) ?
+				analisis($this->perangkaan, $this->pptAsetPenuh, $myTable, $key, $data)
+				: inputText('proses', $key, $data); ?>
 		</tr><?php endif; endforeach; ?></table>
 	</td><?php
 	}#-----------------------------------------------------------------?>

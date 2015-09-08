@@ -762,7 +762,6 @@ class Borang
 
 		// mula cari 
 		$kira = 0;
-		$kerjaPelaksanaan = array(72,73,74,81,86,99);
 		$kP = array(72,73,74,81,86,99);
 		$kPP = array(72=>'Tmpt kediaman',73=>'Bukan Tmpt Kediaman',74=>'Binaan lain',
 			81=>'Jentera dan kelengkapan',86=>'Lain2 harta', 99=>'Jumlah harta');

@@ -26,7 +26,9 @@ class Cari_Tanya extends Tanya
 
 	public function cariBanyakMedan($myTable, $medan, $kira, $had)
 	{
-		$sql ="\rSELECT $medan FROM `$myTable` WHERE \r";
+		$myTable = ($myTable=='pom_lokaliti.malaysia') ?
+			$myTable:"`$myTable`";
+		$sql ="\rSELECT $medan FROM $myTable WHERE \r";
 		
 		foreach ($_POST['pilih'] as $key=>$cari)
 		{

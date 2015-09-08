@@ -13,7 +13,8 @@ class Semakan extends Kawal
 		$this->papar->_folder = 'semakan/'; 
 		$this->papar->kelas = 'semakan/'; 
 		$this->_pptAsetPenuh = array(101,301,303,305,306,307,308,309,312,314,316,318,325,331);
-		$this->papar->pptAsetPenuh = $this->_pptAsetPenuh;
+		$this->papar->ppt['AsetPenuh'] = $this->_pptAsetPenuh;
+		$this->papar->ppt['BrgAm'] = array(328,334,335,890);
 		$this->_pptBrgAm = array(328,334,335);
 		$this->_pptBrgAm2 = array(890);
 

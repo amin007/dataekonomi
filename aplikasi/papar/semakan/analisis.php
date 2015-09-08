@@ -135,8 +135,9 @@ else
 ?>
 </table>
 
-<?php 
-//echo '<pre>'; print_r($this->kesID) . '</pre>';
+<!-- <pre><?php //print_r($this->kesID);?></pre> -->
+
+<?php
 $tajuk = ' | Dulu:' . kira($perangkaan['hasil']['dulu']) 
 	   . ' | Kini:' . kira($perangkaan['hasil']['kini']);
 

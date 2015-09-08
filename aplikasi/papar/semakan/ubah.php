@@ -1,9 +1,10 @@
 <?php
 
-function analisis($perangkaan, $_pptAsetPenuh, $jadual, $key, $data)
+function analisis($perangkaan, $ppt, $jadual, $key, $data)
 {
 	// (in_array($jadual, array('q08_2010','q09_2010') ) )
-	$asetPenuh = $_pptAsetPenuh;
+	$asetPenuh = $ppt['AsetPenuh'];
+	$asetBrgAm = $ppt['BrgAm'];
 	$sv = $perangkaan['sv'];
 	$hasil = $perangkaan['hasil'];
 	$belanja = $perangkaan['belanja'];
@@ -11,6 +12,7 @@ function analisis($perangkaan, $_pptAsetPenuh, $jadual, $key, $data)
 	$sewa = $perangkaan['asetsewa'];
 	$noKey = substr($key, 0, 3);
 	//echo "<hr>$key : $sewaHarta ";
+	//echo "<hr>sv $sv | jadual $jadual ";
 	
 	if (in_array($key, array('thn','batch','Estab') ) )
 	{
@@ -26,7 +28,6 @@ function analisis($perangkaan, $_pptAsetPenuh, $jadual, $key, $data)
 			$nilai = ($hasil==0) ? 0 : (($data / $hasil) * 100 );
 		elseif ($jadual == 'q09_2010')
 			$nilai = ($belanja==0) ? 0 : (($data / $belanja) * 100 );
-		$value = number_format($nilai,4,'.',',') . '%';
 		$name = 'name="' . $sv . '_' . $jadual . '[' . $key . ']"'
 			  . ' id="' . $key . '"';
 	}
@@ -46,7 +47,7 @@ function analisis($perangkaan, $_pptAsetPenuh, $jadual, $key, $data)
 	}
 	elseif (in_array($sv,$asetPenuh)) 
 	{
-		echo '49: kp s'.$sv.'_q04_2010<br>';
+		$abaikan = array('s'.$sv.'_q02_2010','s'.$sv.'_q03_2010');
 		if ($jadual == 's'.$sv.'_q04_2010' && $noKey == 'F09') 
 			$nilai = ($sewa==0) ? 0 : (($data / $sewa) * 100);
 		elseif ($jadual == 's'.$sv.'_q04_2010' && $noKey != 'F09') 
@@ -55,11 +56,12 @@ function analisis($perangkaan, $_pptAsetPenuh, $jadual, $key, $data)
 			$nilai = ($hasil==0) ? 0 : (($data / $hasil) * 100 );
 		elseif ($jadual == 's'.$sv.'_q09_2010')
 			$nilai = ($belanja==0) ? 0 : (($data / $belanja) * 100 );
-		$value = number_format($nilai,4,'.',',') . '%';
+		elseif(in_array($jadual,$abaikan))
+			$nilai = 'x';
 		$name = 'name="' . $jadual . '[' . $key . ']"'
 			  . ' id="' . $key . '"';
 	}
-	else
+	elseif (in_array($sv,$asetBrgAm)) 
 	{
 		if ($jadual == 's'.$sv.'_q02_2010')
 			$nilai = ($hasil==0) ? 0 : (($data / $hasil) * 100 );
@@ -67,12 +69,12 @@ function analisis($perangkaan, $_pptAsetPenuh, $jadual, $key, $data)
 			$nilai = ($belanja==0) ? 0 : (($data / $belanja) * 100 );
 		elseif ($jadual == 's'.$sv.'_q04_2010')
 			$nilai = ($aset==0) ? 0 : (($data / $aset) * 100 );
-		$value = number_format($nilai,4,'.',',') . '%';
 		$name = 'name="' . $jadual . '[' . $key . ']"'
 			  . ' id="' . $key . '"';
-
 	}
-	// istihar pembolehubah 
+	# istihar pembolehubah 
+	//$value = number_format($nilai,4,'.',',') . '%';
+	$value = ($nilai == 'x') ? '' : number_format($nilai,4,'.',',') . '%';
 	$input = '<input type="text" ' . $name . ' value="' 
 		   . $data . '" class="input-large">' . $value;
 	return '<td>' . $input . '</td>' . "\r";
@@ -231,7 +233,7 @@ foreach ($this->prosesID as $myTable => $row)
 			's'.$this->sv.'_q08_2010','s'.$this->sv.'_q09_2010');
 			
 			echo (in_array($myTable, $jadualAnalisa ) ) ?
-				analisis($this->perangkaan, $this->pptAsetPenuh, $myTable, $key, $data)
+				analisis($this->perangkaan, $this->ppt, $myTable, $key, $data)
 				: inputText('proses', $key, $data); ?>
 		</tr><?php endif; endforeach; ?></table>
 	</td><?php

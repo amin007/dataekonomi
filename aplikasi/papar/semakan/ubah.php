@@ -1,8 +1,6 @@
 <?php
-
 function analisis($perangkaan, $ppt, $jadual, $key, $data)
 {
-	// (in_array($jadual, array('q08_2010','q09_2010') ) )
 	$asetPenuh = $ppt['AsetPenuh'];
 	$asetBrgAm = $ppt['BrgAm'];
 	$sv = $perangkaan['sv'];

@@ -316,8 +316,7 @@ class Semakan extends Kawal
 			$posLaju = json_encode($posmen);
 			
 			/*echo "<pre>";
-			echo "_newss : $this->_newss <br>";
-			echo "_nama : $this->_nama <br>";
+			echo "_newss : $this->_newss <br>";	echo "_nama : $this->_nama <br>";
 			//echo '<hr>$_POST->'; print_r($_POST);
 			//echo '<hr>$posmen->'; print_r($posmen);
 			//echo '<hr>$posLaju:'; var_dump($posmen,$posLaju);
@@ -406,7 +405,7 @@ class Semakan extends Kawal
 			$this->papar->paparID = $this->papar->kesID['semasa'][0]['newss'];
 			$this->papar->carian = 'newss';
 						
-			/*echo '<pre>';
+			echo '<pre>';
 			echo '<hr>$_POST->'; print_r($_POST);
 			//echo '<hr>$staf->'; print_r($this->papar->staf);
 			//echo '<hr>$cariHarta->'; print_r($this->papar->kod_aset);
@@ -421,7 +420,7 @@ class Semakan extends Kawal
 			
 			# pergi ke fail analisis di PAPAR
 			$this->papar->paparNilai = bersih($_POST['paparNilai']) == 'Tidak' ? '-' : '+';
-			$this->papar->baca('semakan/analisis', 0);//*/
+			//$this->papar->baca('semakan/analisis', 0);//*/
 		
 		}
 		

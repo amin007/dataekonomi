@@ -86,9 +86,6 @@ Senarai Kes Untuk Kawalan
 		<input type="submit" class="btn btn-default" value="Cari">
 		</div>
 		<div class="col-lg-3">
-		<?php pautan() ?>
-		</div>
-		<div class="col-lg-3">
 		<input type="text" class="form-control" placeholder="MSIC 2008" name="msic2008">
 		</div>
 		<div class="col-lg-3">

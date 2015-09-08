@@ -721,13 +721,15 @@ class Borang
 /////////////////////////////////////////////////////////////////////////////////////////////////////	
 	public static function analisaAset($cari, $jum)
 	{
-		// jenis harta
+		# jenis harta
 		$jenisHarta = array(71=>'Tanah',
 			72=>'Tmpt kediaman',
 			73=>'Bukan Tmpt Kediaman',
 			74=>'Binaan lain',
 			75=>'Pembangunan tanah',
 			76=>'Kereta penumpang',
+			88=>'Bas',
+			89=>'Ambulan',
 			77=>'Kereta perdagangan',
 			78=>'Kenderaan lain',
 			79=>'Perkakasan komputer',
@@ -735,7 +737,7 @@ class Borang
 			81=>'Jentera dan kelengkapan',
 			82=>'Perabut dan pemasangan',
 			70=>'Paten', 84=>'Muhibah',
-			86=>'Lain2 harta', 99=>'Jumlah harta', 
+			86=>'Lain2 harta', 99=>'Jumlah harta',
 			85=>'Kerja dlm pelaksanaan');
 
 		$nilaiBuku= array(1=>'Awal', // 'Nilai buku pada awal tahun'
@@ -747,8 +749,10 @@ class Borang
 			7=>'Susut nilai',
 			8=>'Akhir', // 'Nilai buku pada akhir tahun'
 			9=>'Sewa');
-			
-		// set pembolehubah awal
+		
+		//$cari['F7285'] = '123456'; $cari['F9985'] = '123456';
+		//echo '<pre>Borang::binaAsetAm($aset)='; print_r($cari) . '</pre><hr>';
+		# set pembolehubah awal
 		$jumAset_dulu = $jum['aset_dulu'];
 		$jumAset_kini = $jum['aset_kini'];
 		$susut_dulu = $jum['susut_dulu'];
@@ -756,16 +760,18 @@ class Borang
 		$sewa_dulu = $jum['asetsewa_dulu'];
 		$sewa_kini = $jum['asetsewa_kini'];
 
-		/*
-		echo '<pre>$jumAset_dulu = ' . $jumAset_dulu
-			. '. $jumAset_kini = ' . $jumAset_kini
-			. '<br> $sewa_dulu = ' . $sewa_dulu
-			. '. $sewa_kini = ' . $sewa_kini
-			. '<br>$cari->'; print_r($cari) . '</pre>';//*/
 		// mula cari 
 		$kira = 0;
+		$kerjaPelaksanaan = array(72,73,74,81,86,99);
+		$kP = array(72,73,74,81,86,99);
+		$kPP = array(72=>'Tmpt kediaman',73=>'Bukan Tmpt Kediaman',74=>'Binaan lain',
+			81=>'Jentera dan kelengkapan',86=>'Lain2 harta', 99=>'Jumlah harta');
 		foreach ($jenisHarta as $key => $jenis)
 		{	
+			/*$xsiap = 'F'.$key.'85';
+			$aset[$kira]['KerjaPelaksanaan'] = (in_array($key,$kerjaPelaksanaan))? (# jika dalam list
+				isset($cari[$xsiap]) ? $xsiap . '=' . number_format($cari[$xsiap],0,'.',',')
+					: "<strong>$xsiap</strong>") : ''; # jika tiada data*/
 			$aset[$kira]['nama'] = $jenis;
 			$aset[$kira]['kod'] = $key;
 			foreach ($nilaiBuku as $key2 => $modal)
@@ -775,7 +781,15 @@ class Borang
 				$dulu = ($modal=='Sewa') ? $sewa_dulu : $susut_dulu;//$jumAset_dulu;
 				$kini = ($modal=='Sewa') ? $sewa_kini : $susut_kini;//$jumAset_kini;
 
-				if ($lajur=='07')
+				if ($key=='85')
+				{
+					$k = isset($kP[$lajur-1]) ? $kP[$lajur-1] : null;
+					$kunci = 'F'.$k.'85';
+					$kenyataan = $kPP[$k] . '-' . $kunci . '<br>';
+					$aset[$kira]["$modal - 0$key2"] = isset($cari[$kunci]) ? 
+						$kenyataan . number_format($cari[$kunci],0,'.',',') : null;
+				}
+				elseif ($lajur=='07')
 				{
 					// buat asas untuk formula kira jumlah aset
 					$jum[$kira][$baris] = isset($cari[$baris]) ?
@@ -828,7 +842,6 @@ class Borang
 					'D:' . $kiraHarta .
 					'<br>H:' . $peratusHarta .
 					'<br>A:' . $anggaran;
-
 				}
 				else
 				{	// buat asas untuk formula kira jumlah aset
@@ -848,7 +861,6 @@ class Borang
 					'D:' . $kiraHarta .
 					'<br>H:' . $peratusHarta .
 					'<br>A:' . $anggaran;
-
 				}
 			}
 		

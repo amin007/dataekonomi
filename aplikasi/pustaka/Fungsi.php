@@ -102,8 +102,10 @@ function dpt_senarai($namajadual)
 		$e.'tblstock');
 	elseif ($namajadual=='johor')
 		$jadual = array('johor');
-	elseif ($namajadual=='malaysia')
-		$jadual = array('pom_lokaliti.malaysia');
+		elseif ($namajadual=='malaysia')
+		$jadual = array('kedah','kelantan','melaka','negeri9',
+			'pahang','penang','perak','perlis','selangor','terengganu',
+			'sabah','sarawak','kl','labuan','putrajaya');
 	
 	return $jadual;
 }

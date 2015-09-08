@@ -1164,12 +1164,12 @@ class Borang
 					'L' => $kiraan,
 					'Msia|L' => (isset($prosesID[0]['F10'.$L]) ? $prosesID[0]['F10'.$L] : null),
 					'Pati|L' => (isset($prosesID[0]['F11'.$L]) ? $prosesID[0]['F11'.$L] : null),
-					'JumL|L14' => (isset($prosesID[0]['F12'.$L]) ? $prosesID[0]['F12'.$L] : null),
+					'Jum|L14' => (isset($prosesID[0]['F12'.$L]) ? $prosesID[0]['F12'.$L] : null),
 					'Gaji|L18' => (isset($prosesID[0]['F13'.$L]) ? $prosesID[0]['F13'.$L] : null),
 					'W' => $kiraan+1,
 					'Msia|W'=> (isset($prosesID[0]['F10'.$P]) ? $prosesID[0]['F10'.$P] : null),
 					'Pati|W'=> (isset($prosesID[0]['F11'.$P]) ? $prosesID[0]['F11'.$P] : null),
-					'JumW|W14'=> (isset($prosesID[0]['F12'.$P]) ? $prosesID[0]['F12'.$P] : null),
+					'Jum|W14'=> (isset($prosesID[0]['F12'.$P]) ? $prosesID[0]['F12'.$P] : null),
 					'Gaji|W18'=> (isset($prosesID[0]['F13'.$P]) ? $prosesID[0]['F13'.$P] : null),
 					//'Sijil'=> (isset($sijil[$kira-1]) ? $sijil[$kira-1] : null),
 					//'JumS'=> (isset($prosesID[0]['F01'.$L]) ? $prosesID[0]['F01'.$L] : null)
@@ -1228,18 +1228,17 @@ class Borang
 			$pekerja[$kira]['Msia|L'] = $info[$kira]['L01'] + $info[$kira]['L02'] + $info[$kira]['L03'] + $info[$kira]['L04'] 
 				+ $info[$kira]['L05'] + $info[$kira]['L06'] + $info[$kira]['L07'] + $info[$kira]['L08'] + $info[$kira]['L09'];
 			$pekerja[$kira]['Pati|L'] = $info[$kira]['L10'] + $info[$kira]['L11'] + $info[$kira]['L12'] + $info[$kira]['L13'];
-			$pekerja[$kira]['JumL|L14'] = $info[$kira]['L14'];
+			$pekerja[$kira]['Jum|L14'] = $info[$kira]['L14'];
 			$pekerja[$kira]['Gaji|L18'] = $info[$kira]['Gaji|L18'];
 			$pekerja[$kira]['W'] = $info[$kira]['W'];
 			$pekerja[$kira]['Msia|W'] = $info[$kira]['W01'] + $info[$kira]['W02'] + $info[$kira]['W03'] + $info[$kira]['W04'] 
 				+ $info[$kira]['W05'] + $info[$kira]['W06'] + $info[$kira]['W07'] + $info[$kira]['W08'] + $info[$kira]['W09'];
 			$pekerja[$kira]['Pati|W'] = $info[$kira]['W10'] + $info[$kira]['W11'] + $info[$kira]['W12'] + $info[$kira]['W13'];
-			$pekerja[$kira]['JumW|W14'] = $info[$kira]['W14'];
+			$pekerja[$kira]['Jum|W14'] = $info[$kira]['W14'];
 			$pekerja[$kira]['Gaji|W18'] = $info[$kira]['Gaji|W18'];
 		endforeach;
 		
 		//echo '<pre>Borang::borangStaf($pekerja)='; print_r($pekerja) . '</pre><hr>';
-		
 		return $pekerja;
 		
 	}

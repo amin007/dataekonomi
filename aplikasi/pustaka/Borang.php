@@ -785,7 +785,7 @@ class Borang
 				{
 					$k = isset($kP[$lajur-1]) ? $kP[$lajur-1] : null;
 					$kunci = 'F'.$k.'85';
-					$kenyataan = $kPP[$k] . '-' . $kunci . '<br>';
+					$kenyataan =  isset($cari[$kunci]) ? $kPP[$k] . '-' . $kunci . '<br>' : null;
 					$aset[$kira]["$modal - 0$key2"] = isset($cari[$kunci]) ? 
 						$kenyataan . number_format($cari[$kunci],0,'.',',') : null;
 				}

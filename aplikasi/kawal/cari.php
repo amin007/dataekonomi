@@ -106,7 +106,7 @@ class Cari extends Kawal
 		$semak2 = isset($_POST['cari'][2]) ? $_POST['cari'][2] : null;
 		$atau = isset($_POST['atau']) ? $_POST['atau'] : null;
 		$this->papar->cariNama = null;
-		//echo '<pre>$_POST->', print_r($_POST, 1) . '</pre>';
+		echo '<pre>$_POST->', print_r($_POST, 1) . '</pre>';
 		//echo '$bil=' . $bil. '<br>$muka=' . $muka. '<br>';
 		//echo '$pilih=' . $pilih. '<br>$semak=' . $semak. '<br>';
 		
@@ -205,6 +205,24 @@ class Cari extends Kawal
 			$this->papar->carian=$carian;
 			$mesej = null; $lokasi = null;
 		}
+		elseif (!empty($namajadual) && $namajadual=='malaysia') 
+		{
+			/*`KOD NEGERI`, `NEGERI`,*/ 
+			$jadual = dpt_senarai('malaysia');
+			// mula cari $cariID dalam $jadual
+			foreach ($jadual as $key => $myTable)
+			{// mula ulang table
+				// senarai nama medan
+				$medan = '*'; 
+				
+				$this->papar->cariNama[$myTable] = $this->tanya
+				->cariBanyakMedan($myTable, $medan, $kira, $had);
+				
+			}// tamat ulang table
+			
+			$this->papar->carian=$carian;
+			$mesej = null; $lokasi = null;
+		}
 		elseif (!empty($namajadual) && $namajadual=='data_mm_prosesan') 
 		{
 			$jadual = dpt_senarai('prosesan');
@@ -235,7 +253,7 @@ class Cari extends Kawal
 		{
 			$_SESSION['mesej'] = $mesej;
 			
-			//echo 'Patah balik ke ' . $lokasi . $mesej . '<hr>' . $data;
+			echo 'Patah balik ke ' . $lokasi . $mesej . '<hr>' . $data;
 			header('location:' . URL . 'cari/' . $lokasi . $namajadual . '/2');
 		}
 		else 

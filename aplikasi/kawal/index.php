@@ -26,6 +26,7 @@ class Index extends Kawal
 		$this->papar->ip2 = substr($ip,0,10);
 		$this->papar->hostname = gethostbyaddr($_SERVER['REMOTE_ADDR']);
 		$this->papar->server = $_SERVER['SERVER_NAME'];
+		$this->papar->tajuk = 'Login Untuk POM';
 
 		# pergi papar kandungan
 		//$this->papar->baca('index/muar');

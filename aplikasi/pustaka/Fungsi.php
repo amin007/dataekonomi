@@ -47,6 +47,28 @@ function dpt_ip()
 	return $IP;
 }
 
+function senarai_kakitangan()
+{
+    $pegawai[]='adam';
+    $pegawai[]='amin';
+    $pegawai[]='ariff';
+    $pegawai[]='azim';
+    $pegawai[]='fendi';
+    $pegawai[]='irwan';
+    $pegawai[]='khairi';
+    $pegawai[]='mazlan';
+    $pegawai[]='murad';
+    $pegawai[]='musa';
+    $pegawai[]='mustaffa';
+    $pegawai[]='norita';
+    $pegawai[]='razak';
+    $pegawai[]='shukor';
+    $pegawai[]='suhaida';
+    $pegawai[]='sujana';
+    
+    return $pegawai;
+}
+
 function dpt_senarai($namajadual)
 {
 	$e = null; //'pom_dataekonomi.';

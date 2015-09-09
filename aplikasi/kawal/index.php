@@ -19,12 +19,13 @@ class Index extends Kawal
 	
 	function muar() 
 	{
-		// Set pemboleubah utama
+		# Set pemboleubah utama
 		$this->papar->Tajuk_Muka_Surat='Enjin Carian Ekonomi';
 		$this->papar->isi='';
 		$this->papar->IP=dpt_ip(); // dapatkan senarai IP yang dibenarkan
-		// pergi papar kandungan
-		$this->papar->baca('index/muar');
+		# pergi papar kandungan
+		//$this->papar->baca('index/muar');
+		$this->papar->baca('mobile/muar');
 	}
 
 	function kluang() 

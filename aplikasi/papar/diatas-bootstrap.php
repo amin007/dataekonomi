@@ -6,16 +6,19 @@ $font_url = JS . 'bootstrap3/font/';
 
 //$theme[]='cerulean_blue';
 //$theme[]=''; basic
+$theme[]='_print';
 $theme[]='-united_jingga';
 $theme[]='-united_jingga2';
 //$theme[]='journal_white';
 //$theme[]='spruce_hijau';
 
-$hariini = 1; //rand(0, count($theme)-1); 
+$hariini = 2; //rand(0, count($theme)-1); 
 $pilih = $theme[$hariini];
+$pilih2 = $theme[0];
 
 ?><!-- Le styles -->
-	<link href="<?php echo $css_url ?>theme/bootstrap<?php echo $pilih ?>.css" rel="stylesheet"><?php
+	<link href="<?php echo $css_url ?>theme/bootstrap<?php echo $pilih ?>.css" rel="stylesheet">
+	<link href="<?php echo $css_url ?>theme/bootstrap<?php echo $pilih2 ?>.css" rel="stylesheet"><?php
 if (isset($this->css)) 
 {
 	foreach ($this->css as $css)

@@ -818,12 +818,14 @@ class Semakan extends Kawal
 	private function semak_produk($cari) // khas untuk survey 205
 	{
 		$medan = '*';
+		$kodProduk = 'kod2010_output';
+		$kodProduk2 = 'mcpa2009_tr2014'; 
 		// mula cari $cariID dalam $kod_produk
 		foreach ($this->kod_produk() as $key => $myTable)
 		{// mula ulang table
 			if ($myTable=='q14_2010')
 			{
-				$sql = Borang::borangOutput('kod2010_output', $myTable, $cari);
+				$sql = Borang::borangOutput($kodProduk, $myTable, $cari);
 				$this->papar->kod_produk[$myTable] = 
 					$this->tanya->cariProdukBaru($myTable, $sql);
 				$this->papar->kod_produk['output'] =
@@ -835,9 +837,9 @@ class Semakan extends Kawal
 			}
 			elseif ($myTable=='q15_2010')
 			{
-				$sql = Borang::borangInput('kod2010_input', $myTable, $cari);
+				$sql = Borang::borangInput($kodProduk, $myTable, $cari);
 				$this->papar->kod_produk[$myTable] = 
-				$this->tanya->cariProdukBaru($myTable, $sql);
+					$this->tanya->cariProdukBaru($myTable, $sql);
 				$this->papar->kod_produk['input'] =
 					Data::produkInput($this->papar->kod_produk[$myTable]);
 				/* ubahsuai tatasusunan $info

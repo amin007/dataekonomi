@@ -89,6 +89,16 @@ function analisis($perangkaan, $ppt, $jadual, $key, $data)
 	//$input = $value . '</td><td align="right">' . $anggaran;
 	//return '<td align="right">' . $value . '</td><td align="right">' . $anggaran . '</td>' . "\r";
 }
+function dataSyarikat($perangkaan)
+{
+	$sv = $perangkaan['sv']['dulu'];
+	$namaPertubuhan = $perangkaan['nama']['dulu'];
+	$newssPertubuhan = $perangkaan['newss']['dulu'];
+	
+	//echo '<caption>'.$namaPertubuhan.'</caption>';
+	echo $namaPertubuhan;
+	//echo '';
+}
 
 if ($this->carian=='[id:0]')
 	echo '<h1><span class="badge">Prosesan: data kosong </span></h1>';
@@ -138,7 +148,8 @@ else
 <!-- <pre><?php //print_r($this->kesID);?></pre> -->
 
 <?php
-$tajuk = ' | Dulu:' . kira($perangkaan['hasil']['dulu']) 
+$tajuk = ' | ' . dataSyarikat($perangkaan)
+	   . ' | Dulu:' . kira($perangkaan['hasil']['dulu']) 
 	   . ' | Kini:' . kira($perangkaan['hasil']['kini']);
 
 foreach ($this->kesID as $myTable => $row)
@@ -147,7 +158,8 @@ foreach ($this->kesID as $myTable => $row)
 	elseif ($myTable=='semasa') echo '';
 	else
 	{?>	
-	<span class="badge badge-success">Analisis data <?php echo $myTable . $tajuk ?></span>
+	<span class="badge badge-success">Analisis data <?php 
+	echo $myTable . $tajuk ?></span>
 	<!-- Jadual <?php echo $myTable ?> ########################################### -->	
 	<table><tr>
 	<?php
@@ -157,7 +169,7 @@ foreach ($this->kesID as $myTable => $row)
 	{	#print the data row ?>
 		<td valign="top">
 		<table border="1" class="excel" id="example">
-		<?php
+		<?php 
 		$printed_headers = false; # mula bina jadual
 		$senaraiJadual = array($sv . '_q08_2010','s' . $sv . '_q08_2010',
 			$sv . '_q09_2010', 's' . $sv . '_q09_2010');
@@ -245,7 +257,6 @@ function dataProdukKodbahan($perangkaan, $kesID)
 				$nilai_dulu = ($belanja_dulu==0 || $data==0) ? 0 :(($data / $belanja_dulu) * 100 );
 				$value = number_format($nilai_dulu,4,'.',',') . '%';
 				$kosBahan = ($belanja_dulu==0 || $data==0) ? 0 :(($data / $belanja_dulu) * $belanja_kini);
-
 			}
 	endforeach;endforeach;
 	
@@ -389,7 +400,7 @@ if (isset($this->borang['output'])):
 		{
 			echo '<div class="tab-pane" id="' . $jadual . '">' . "\r"
 				. '<span class="badge badge-success">Analisis data ' . $jadual . "\r"
-				. 'Ada ' . count($row) . ' kes </span>'
+				. 'Ada ' . count($row) . ' kes untuk ' . dataSyarikat($perangkaan) . '</span>'
 				. '<table  border="1" class="excel" id="example">';
 			$printed_headers = false; # mula bina jadual
 			#-----------------------------------------------------------------
@@ -413,8 +424,7 @@ if (isset($this->staf['teamgenius'])):
 		{
 			echo '<div class="tab-pane" id="' . $jadual . '">' . "\r"
 				. '<span class="badge badge-success">Analisis data ' . $jadual . "\r"
-				. 'Ada ' . count($row) . ' kes '
-				. '</span>'
+				. 'Ada ' . count($row) . ' kes untuk ' . dataSyarikat($perangkaan) . '</span>'
 				. '<table  border="1" class="excel" id="example">';
 			$printed_headers = false; # mula bina jadual
 			#-----------------------------------------------------------------
@@ -444,11 +454,12 @@ foreach ($this->kod_aset as $myTable => $row)
 	else
 	{?>	
 	<div class="tab-pane" id="<?php echo $myTable ?>">
-	<span class="badge badge-success">Analisis data <?php echo $myTable ?>|
+	<span class="badge badge-success">Analisis data <?php echo $myTable . dataSyarikat($perangkaan) ?>|
 	D: Data Tahun Lepas, SI : Peratus Susutnilai, H: Peratus Dari Jumlah Harta, A: Anggaran</span>
 	<!-- Jadual <?php echo $myTable ?> ########################################### -->	
 	<table  border="1" class="excel" id="example">
-<?php $printed_headers = false; # mula bina jadual
+<?php  
+	$printed_headers = false; # mula bina jadual
 	#-----------------------------------------------------------------
 	for ($kira=0; $kira < count($row); $kira++)
 	{

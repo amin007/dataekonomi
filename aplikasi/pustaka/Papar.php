@@ -44,8 +44,20 @@ class Papar
 		
 		$cariNama = array ('index/index', 'index/login',
 		'index/login_automatik','index/daftar','index/muar');
+		$cariJQM = array('mobile/mobile','mobile/iconjqm');
 
-		if ($noInclude == true) 
+		if ($paparFail == false) 
+		{
+			Mulakan::failPaparTidakWujud();
+		}
+		//elseif (in_array($nama,$cariJQM)) 
+		elseif ( $namafail[0]=='mobile')
+		{
+			require PAPAR . '/diatas-jqm.php';
+			require $paparFail;
+			require PAPAR . '/dibawah-jqm.php';
+		}
+		elseif ($noInclude == true) 
 		{
 			require $paparFail;
 		}

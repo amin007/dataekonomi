@@ -91,12 +91,10 @@ function analisis($perangkaan, $ppt, $jadual, $key, $data)
 }
 function dataSyarikat($perangkaan)
 {
-	$sv = $perangkaan['sv']['dulu'];
 	$namaPertubuhan = $perangkaan['nama']['dulu'];
-	$newssPertubuhan = $perangkaan['newss']['dulu'];
 	
 	//echo '<caption>'.$namaPertubuhan.'</caption>';
-	return $namaPertubuhan;
+	return ' ' . $namaPertubuhan;
 	//echo '';
 }
 
@@ -155,7 +153,7 @@ foreach ($this->kesID as $myTable => $row)
 	elseif ($myTable=='semasa') echo '';
 	else
 	{
-		$tajuk = ' | ' . dataSyarikat($perangkaan)
+		$tajuk = ' |' . dataSyarikat($perangkaan)
 			. ' | Dulu:' . kira($perangkaan['hasil']['dulu']) 
 			. ' | Kini:' . kira($perangkaan['hasil']['kini']);
 	
@@ -345,9 +343,9 @@ function analisisProdukKodBahan($borang, $p, $jadual, $row, $kiraBil)
 			$nilai_kini = floor($anggar * 1) / 1;
 			# kuantiti
 			$kuantiti_dulu = $data;
-			$aup = ($data==0) ? 0: ($dulu / $data);
+			$aup = ($data==0 || $dulu==0) ? 0: ($dulu / $data);
 			$aup2 = number_format($aup,2,'.',',') . '';
-			$kini = $nilai_kini / $aup2;
+			$kini = ($nilai_kini==0 || $aup==0) ? 0 : $nilai_kini / $aup;
 			$kuantiti_kini = number_format($kini,0,'.',',') . '';
 			
 			$papar = ($kuantiti_dulu==0) ? 0 : " dulu = $kuantiti_dulu | aup " . $aup2 . '<br>'

@@ -24,9 +24,12 @@ if (isset($this->css))
 ?><link rel="stylesheet" href="<?php echo $css_url . $css ?>"><?php
 	}
 }
-echo "\n";
-?>
-
+echo "\n"; ?>
+<style type="text/css">
+/*.navbar-xs { min-height:28px; height: 28px; }
+.navbar-xs .navbar-brand{ padding: 0px 12px;font-size: 16px;line-height: 28px; }
+.navbar-xs .navbar-nav > li > a {  padding-top: 0px; padding-bottom: 0px; line-height: 28px; }*/
+</style>
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>

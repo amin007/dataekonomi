@@ -96,7 +96,7 @@ function dataSyarikat($perangkaan)
 	$newssPertubuhan = $perangkaan['newss']['dulu'];
 	
 	//echo '<caption>'.$namaPertubuhan.'</caption>';
-	echo $namaPertubuhan;
+	return $namaPertubuhan;
 	//echo '';
 }
 
@@ -148,16 +148,18 @@ else
 <!-- <pre><?php //print_r($this->kesID);?></pre> -->
 
 <?php
-$tajuk = ' | ' . dataSyarikat($perangkaan)
-	   . ' | Dulu:' . kira($perangkaan['hasil']['dulu']) 
-	   . ' | Kini:' . kira($perangkaan['hasil']['kini']);
 
 foreach ($this->kesID as $myTable => $row)
 {
 	if ( count($row)==0 ) echo '';
 	elseif ($myTable=='semasa') echo '';
 	else
-	{?>	
+	{
+		$tajuk = ' | ' . dataSyarikat($perangkaan)
+			. ' | Dulu:' . kira($perangkaan['hasil']['dulu']) 
+			. ' | Kini:' . kira($perangkaan['hasil']['kini']);
+	
+	?>	
 	<span class="badge badge-success">Analisis data <?php 
 	echo $myTable . $tajuk ?></span>
 	<!-- Jadual <?php echo $myTable ?> ########################################### -->	
@@ -399,8 +401,9 @@ if (isset($this->borang['output'])):
 		else
 		{
 			echo '<div class="tab-pane" id="' . $jadual . '">' . "\r"
-				. '<span class="badge badge-success">Analisis data ' . $jadual . "\r"
-				. 'Ada ' . count($row) . ' kes untuk ' . dataSyarikat($perangkaan) . '</span>'
+				. '<span class="badge badge-success">Analisis data ' 
+				. $jadual . dataSyarikat($perangkaan) . "\r"
+				. 'Ada ' . count($row) . ' kes </span>'
 				. '<table  border="1" class="excel" id="example">';
 			$printed_headers = false; # mula bina jadual
 			#-----------------------------------------------------------------
@@ -423,8 +426,9 @@ if (isset($this->staf['teamgenius'])):
 		else
 		{
 			echo '<div class="tab-pane" id="' . $jadual . '">' . "\r"
-				. '<span class="badge badge-success">Analisis data ' . $jadual . "\r"
-				. 'Ada ' . count($row) . ' kes untuk ' . dataSyarikat($perangkaan) . '</span>'
+				. '<span class="badge badge-success">Analisis data ' 
+				. $jadual . dataSyarikat($perangkaan) . "\r"
+				. 'Ada ' . count($row) . ' kes </span>'
 				. '<table  border="1" class="excel" id="example">';
 			$printed_headers = false; # mula bina jadual
 			#-----------------------------------------------------------------

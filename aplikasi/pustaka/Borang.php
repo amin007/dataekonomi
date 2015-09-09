@@ -797,7 +797,7 @@ class Borang
 						$cari[$baris] : '-');
 					$susutNilai = $jum[$kira]['F07'.$key];
 					$awalTahun = $jum[$kira]['F01'.$key];		
-					$peratusSusut = ($susutNilai==0)? 0 : number_format( 
+					$peratusSusut = ($susutNilai==0 || $awalTahun ==0)? 0 : number_format( 
 						(($susutNilai / $awalTahun) * 100),4,'.',',') . '%';
 					//echo '<hr>' . $baris . '=' . $harta . '|' . $modal;
 					$kiraHarta = ($harta==0)? 0 : number_format($harta,0,'.',',');

@@ -12,7 +12,7 @@ class Login_Tanya extends Tanya
 		//echo '<pre>$_POST->'; print_r($_POST);
 		//echo 'Kod:' . Hash::rahsia('md5', $_POST['password']) . ': </pre><pre>';
 
-		// set pembolehubah		
+		# set pembolehubah		
 		$cariUser = bersih($_POST['username']);
 		$cariPass = Hash::rahsia('md5', 
 					bersih($_POST['password']) );
@@ -22,12 +22,11 @@ class Login_Tanya extends Tanya
 			$sql = 'SELECT ' . $cariMedan . ' FROM nama_pegawai'
 				 . ' WHERE namaPegawai = "' . $cariUser . '" '
 				 . ' AND kataLaluan = "' . $cariPass . '" ';
-		
 			//echo $sql . '<br>';
 			$data = $this->db->selectAll($sql); 
-			// $data adalah array untuk jadual $myTable
+			# $data adalah array untuk jadual $myTable
 			//echo '<hr><pre>$data:'; print_r($data) . '</pre><hr>'; 
-			// kira jumlah data
+			# kira jumlah data
 			$bil = $this->db->rowcount($sql); //echo ' | $bil=' . $bil;
 		}
 		catch (PDOException $e) 
@@ -36,7 +35,7 @@ class Login_Tanya extends Tanya
 			echo '<br><a href="' . URL . 'ruangtamu/logout">Keluar</a>';
 			exit;
 		}
-				
+		
 		if ($bil == 1) 
 		{	//echo 'login berjaya';
 			Sesi::init();
@@ -51,7 +50,7 @@ class Login_Tanya extends Tanya
 		{	//echo 'login gagal';
 			Sesi::set('loggedIn', false);	
 			header('location:' . URL . 'login/salah');
-		}			
+		}//*/			
 	}
 
 	public function semakid_lama()

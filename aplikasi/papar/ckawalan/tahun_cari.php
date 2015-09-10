@@ -80,7 +80,8 @@ function pautan($paparID, $jadual)
 	$proses = array (		
 		//'surveyAm <-2009' => '../cprosesan/ubah/' . $ssm . '/2004/2009',
 		//'surveyAm 2010->' => '../cprosesan/ubah/' . $id . '/2010/2012',
-		'205 <-2009' => $urlClass . '205/' . $ssm . '/2004/2009',
+		'205 Pembuatan <-2009' => $urlClass . '205/' . $ssm . '/2004/2009',
+		'205 Pembuatan 2010-2012' => $urlClass . '205' . $sse2010,
 		'CDT 2009->' => $urlClass . 'cdt/' . $ssm . '/2004/2013',
 		'ICDT 2012->' => $urlClass . 'icdt/' . $id . '/2004/2013',
 		'100 2010-2012' => $urlClass . '100' . $sse2010,
@@ -91,7 +92,6 @@ function pautan($paparID, $jadual)
 		'201 2010-2012' => $urlClass . '201' . $sse2010,
 		'202 2010-2012' => $urlClass . '202' . $sse2010,
 		'203 2010-2012' => $urlClass . '203' . $sse2010,
-		'205 2010-2012' => $urlClass . '205' . $sse2010,
 		'206 2010-2012' => $urlClass . '206' . $sse2010,
 		'301 2010-2012' => $urlClass . '301' . $sse2010,
 		'302 2010-2012' => $urlClass . '302' . $sse2010,

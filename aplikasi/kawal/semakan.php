@@ -353,8 +353,7 @@ class Semakan extends Kawal
 				}
 				elseif ( in_array($myTable,$senaraiHarta) )
 				{
-					//echo '346:' . $myTable . '<br>';
-					$jadualAset = $myTable;
+					$jadualAset = $myTable; //echo '346:' . $myTable . '<br>';
 					foreach ($value as $kekunci => $papar)
 						$cariHarta[$kekunci] = bersih($papar);
 				}
@@ -369,12 +368,17 @@ class Semakan extends Kawal
 					foreach ($value as $kekunci => $papar)
 						foreach ($papar as $namaMedan => $papar2)
 							$this->papar->borang[$myTable][$kekunci][$namaMedan] = bersih($papar2);
-					//*/
+				}
+				elseif ( $myTable == 'proses')
+				{
+					foreach ($value as $kekunci => $papar)
+						$this->papar->prosesData[$myTable][0][$kekunci] = bersih($papar);
 				}
 			}
 					
 			# cari keterangan medan
 			$this->cari_keterangan_medan($sv, $this->papar->kesID); 
+			$this->cari_keterangan_medan($sv, $this->papar->prosesData); 
 			
 			# cari perbandingan aset dulu dan kini //echo "\$jadualHarta = $jadualHarta <br>"; 
 			if (isset($cariHarta) && $jadualAset=='jadualHarta'):
@@ -407,12 +411,13 @@ class Semakan extends Kawal
 			$this->papar->carian = 'newss';
 						
 			/*echo '<pre>';
-			echo '<hr>$_POST->'; print_r($_POST);
+			//echo '<hr>$_POST->'; print_r($_POST);
 			//echo '<hr>$staf->'; print_r($this->papar->staf);
 			//echo '<hr>$cariHarta->'; print_r($this->papar->kod_aset);
 			//echo '<hr>$cariHarta->'; print_r($cariHarta);
 			//echo '<hr>$this->papar->borang->'; print_r($this->papar->borang);
 			//echo '<hr>$this->papar->kesID->'; print_r($this->papar->kesID);
+			//echo '<hr>$this->papar->data->'; print_r($this->papar->data);
 			//echo '<hr>$this->papar->kod_produk->'; print_r($this->papar->kod_produk);
 			//echo '<hr>$this->papar->paparID=' . $this->papar->paparID;
 			//echo '<hr>$this->papar->carian: ' . $this->papar->carian;

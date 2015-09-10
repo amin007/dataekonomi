@@ -27,7 +27,7 @@ if ( in_array($this->ip2,$this->senaraiIP) )
 	<div data-demo-html="true">	
 	<div data-role="popup" id="popupMenu" data-theme="a">
 	<div data-role="popup" id="<?php echo $fe ?>" data-theme="a" class="ui-corner-all">
-		<form data-ajax="false" method="POST" action="login/semakid">
+		<form data-ajax="false" method="POST" action="<?php echo URL ?>login/semakid">
 		<div style="padding:10px 20px;">
 <?php if ( $fe=='amin' ): $nama='amin007'?>
 			<?php echo $imej ?>

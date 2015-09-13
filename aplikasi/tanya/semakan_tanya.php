@@ -6,7 +6,6 @@ class Semakan_Tanya extends Tanya
 	public function __construct() 
 	{
 		parent::__construct();
-		$this->_susun = ' ORDER BY nama';
 	}
 	
 	public function cariKawal($myTable, $cari)

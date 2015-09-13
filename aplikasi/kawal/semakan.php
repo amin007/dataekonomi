@@ -856,12 +856,12 @@ class Semakan extends Kawal
 					//18101 01 004 23
 				$medan = '*';
 				$this->papar->kod_produk[$myTable] = 
-					$this->tanya->cariProdukLama($myTable, $medan, $cari);
+					$this->tanya->cariSemuaMedan($myTable, $medan, $cari);
 			}
 			else
 			{
 				$this->papar->kod_produk[$myTable] = 
-					$this->tanya->cariProdukLama($myTable, $medan, $cari);
+					$this->tanya->cariSemuaMedan($myTable, $medan, $cari);
 			}
 			
 		}// tamat ulang table

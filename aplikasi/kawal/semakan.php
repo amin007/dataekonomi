@@ -820,14 +820,14 @@ class Semakan extends Kawal
 	
 	}
 	
-	private function semak_produk($cari) // khas untuk survey 205
+	private function semak_produk($cari) # khas untuk survey 205
 	{
 		$medan = '*';
 		$kodProduk = 'kod2010_output';
 		$kodProduk2 = 'mcpa2009_tr2014'; 
-		// mula cari $cariID dalam $kod_produk
+		# mula cari $cariID dalam $kod_produk
 		foreach ($this->kod_produk() as $key => $myTable)
-		{// mula ulang table
+		{# mula ulang table
 			if ($myTable=='q14_2010')
 			{
 				$sql = Borang::borangOutput($kodProduk, $myTable, $cari);
@@ -864,7 +864,7 @@ class Semakan extends Kawal
 					$this->tanya->cariSemuaMedan($myTable, $medan, $cari);
 			}
 			
-		}// tamat ulang table
+		}# tamat ulang table
 		
 		//echo '<pre>$this->papar->kod_produk='; print_r($this->papar->kod_produk) . '<pre>';
 	}
@@ -873,23 +873,23 @@ class Semakan extends Kawal
 	{
 		$senarai = Borang::cariKeterangan($kesID);
 		
-		// cari keterangan medan yang lain				
+		# cari keterangan medan yang lain				
 		foreach ($senarai as $myTable => $papar)
-		{// mula ulang table
+		{# mula ulang table
 			foreach ($papar as $namaMedan => $data)
-			{// mula ulang table
+			{# mula ulang table
 				//echo '$namaMedan['.$data.']['.$myTable.']:'.$namaMedan.'<br>';
 				$cari[0] = array('medan' => 'kod_medan','id' => $namaMedan);
 				$cari[1] = array('medan' => 'kod_survey','id' => $sv);
 				$this->papar->keterangan[$myTable][$namaMedan] = 
 					$this->tanya->keterangan_medan('kod_sv_prosesan', $cari);
-			}// tamat ulang table
-		}// tamat ulang table
+			}# tamat ulang table
+		}# tamat ulang table
 
 	}
 
 	private function semak_aset($asetIndustri, $aset, $paparID) 
-	{// khas untuk soalan aset
+	{# khas untuk soalan aset
 		//echo "<pre>880:senaraiAset:", print_r($asetIndustri, 1) . '| jadual:', print_r($aset, 1) . "<br>";
 		//echo "<pre>paparID:", print_r($paparID, 1) . "<br>";
 		
@@ -916,7 +916,7 @@ class Semakan extends Kawal
 	}
 
 	private function semak_staf($jadualStaf, $prosesID)
-	{// khas untuk soalan staf
+	{# khas untuk soalan staf
 			$jenisPekerjaan = array(0=>'Pemilik(ROB)-1',1=>'Pekerja keluarga(ROB)-2',
 			2=>'Pengurusan-3.1',3=>'Juruteknik-3.2',4=>'Kerani-3.3',5=>'Pekerja Asas-3.4',
 			6=>'Pekerja Mahir-3.5.1',7=>'Pekerja XMahir-3.5.2',
@@ -934,13 +934,13 @@ class Semakan extends Kawal
 		if(isset($paparID[$A][0]) ):
 			foreach( array('asas','struktur','msic','aset','staf','hasil','belanja','stok','tambahan') 
 			as $key => $myTable)
-			{// mula ulang tatasusunan
+			{# mula ulang tatasusunan
 				$jadual = substr($myTable, 0, 14);
 				$Jadual2 = 'cdt' . huruf('Besar', $jadual);
 				$this->papar->kod_produk[$jadual] = (in_array($jadual,array('asas'))) ?
 					Data::$Jadual2($paparID[$A][0],$paparID[$C][0])
 					: Data::$Jadual2($paparID[$B][0]);
-			}// tamat ulang tatasusunan
+			}# tamat ulang tatasusunan
 		endif;
 	}
 	
@@ -948,13 +948,13 @@ class Semakan extends Kawal
 	{
 		if(isset($paparID['data_icdt2012_asas'][0]) ):
 			foreach($this->senarai_jadual('icdt') as $key => $myTable)
-			{// mula ulang tatasusunan
+			{# mula ulang tatasusunan
 				$jadual = substr($myTable, 14, 14);
 				$Jadual2 = 'icdt' . huruf('Besar', $jadual);
 				if(in_array($jadual,array('asas','struktur','aset','staf','hasil','belanja','stok','cawangan'))) 
 					$this->papar->kod_produk[$jadual] = 
 						Data::$Jadual2($paparID[$myTable][0]);
-			}// tamat ulang tatasusunan
+			}# tamat ulang tatasusunan
 		endif;
 	}
 ###	

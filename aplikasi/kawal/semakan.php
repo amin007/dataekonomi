@@ -835,10 +835,6 @@ class Semakan extends Kawal
 					$this->tanya->cariProdukBaru($myTable, $sql);
 				$this->papar->kod_produk['output'] =
 					Data::produkOutput($this->papar->kod_produk[$myTable]);
-				/* ubahsuai tatasusunan $info
-				$info = $this->tanya->cariProdukLama($myTable, $medan, $cari);
-				$this->papar->kod_produk['kodOutput'] = Data::kodOutput($info);
-				$baris = $this->papar->kod_produk['kodOutput'];*/
 			}
 			elseif ($myTable=='q15_2010')
 			{
@@ -847,13 +843,6 @@ class Semakan extends Kawal
 					$this->tanya->cariProdukBaru($myTable, $sql);
 				$this->papar->kod_produk['input'] =
 					Data::produkInput($this->papar->kod_produk[$myTable]);
-				/* ubahsuai tatasusunan $info
-				$info = $this->tanya->cariProdukLama($myTable, $medan, $cari);
-				$this->papar->kod_produk['kodInput'] = Data::kodInput($info);
-				$baris = $this->papar->kod_produk['kodInput'];*/			
-				//echo '<pre>($baris Input)='; print_r($baris) . '</pre><hr>';				
-				
-				
 			}
 			elseif ($myTable == 's14') 
 			{
@@ -867,12 +856,12 @@ class Semakan extends Kawal
 					//18101 01 004 23
 				$medan = '*';
 				$this->papar->kod_produk[$myTable] = 
-				$this->tanya->cariProdukLama($myTable, $medan, $cari);
+					$this->tanya->cariProdukLama($myTable, $medan, $cari);
 			}
 			else
 			{
 				$this->papar->kod_produk[$myTable] = 
-				$this->tanya->cariProdukLama($myTable, $medan, $cari);
+					$this->tanya->cariProdukLama($myTable, $medan, $cari);
 			}
 			
 		}// tamat ulang table

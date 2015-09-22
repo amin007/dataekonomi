@@ -41,43 +41,42 @@ function jadualData($keterangan, $kunci, $nilai)
 {
 	$data = prosesData($kunci, $nilai);
 	$paparMedan = array('Input','Output','OwnershipRvw','LegalStatus','ValueAdded');
-	$papar = (in_array($kunci,$paparMedan))? '<td colspan="2">'.$data.'</td>':null;
+	$papar = (in_array($kunci,$paparMedan))? '<td colspan="3">'.$data.'</td>':null;
 	//$papar = '<td colspan="2">'.$data.'</td>';
 	echo ($keterangan=='-') ? $papar:
-		'<td align="right">'.$keterangan.'</td>
+		'<td align="right">'.$keterangan.'</td><td>'.$kunci.'</td>
 		<td align="right">'.$data.'</td>';	
 }
 function prosesData($kunci, $nilai)
 {
-	$paparMedan = array('Input','Output','OwnershipRvw','LegalStatus','ValueAdded');
+	$paparMedan = array('Survey','Input','Output','OwnershipRvw','LegalStatus','ValueAdded');
 	if (in_array($kunci, array('F0003','F0004','F0005')))
 	{
 		$data = preg_replace('/(\d{1,2})(\d{2})(\d{4})$/', 
 			'$3-$2-$1', $nilai).PHP_EOL;
-		$data = date('d M Y',strtotime($data));
-		$data = $data . ' | ' . $kunci;
+		$data = date('d-M-Y',strtotime($data));
 	}
 	elseif  (in_array($kunci, $paparMedan))
 	{
-		$data = $kunci . ' = ' . $nilai;
+		$data = (is_numeric($nilai)) ? number_format($nilai,0) : $nilai;
+		$data = $kunci . ' = ' . $data;
 	}
 	elseif  (in_array($kunci, array('NEGERILOK','REGIONLOK',
 		'estab','KodIndustri','KodNegeri','Year'
 		)))
 	{
-		$data = $nilai . ' | ' . $kunci;
+		$data = $nilai;
 	}
 	// kod sahaja
-	elseif  (in_array($kunci, array('F0014','F0015',
+	elseif  (in_array($kunci, array('F0002','F0014','F0015',
 		'F0016','F0017','F0018','F0023','F0024','F0025','F0026',
 		'F0030','F0047','F1510','F1511','F1512','F1513','F1913','F1919')))
 	{
-		$data = $nilai . ' | ' . $kunci;
+		$data = $nilai;
 	}
 	else 
 	{
 		$data = (is_numeric($nilai)) ? number_format($nilai,0) : $nilai;
-		$data = $data . ' | ' . $kunci;
 	}
 	
 	#papar data

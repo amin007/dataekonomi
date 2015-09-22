@@ -1,4 +1,5 @@
 <table><tr><?php
+$mengira = 1;
 foreach ($this->dataAsal as $myTable => $row)
 {
 	if ( count($row)==0 ) echo '';
@@ -20,6 +21,7 @@ foreach ($this->dataAsal as $myTable => $row)
 				echo jadualData($keterangan, $key, $data);
 				echo '</tr></tbody>';
 			endif;
+			$mengira++;
 		endforeach;				
 		#-----------------------------------------------------------------
 		echo '</table></div>';	
@@ -29,22 +31,25 @@ foreach ($this->dataAsal as $myTable => $row)
 }
 ?>
 </tr></table>
-<?php /*
+<?php 
+/*
 echo '<pre>';
-echo '<hr>$this->papar->keterangan->', print_r($this->keterangan, 1);
+echo 'medan ada ' . $mengira;
 echo '</pre>';
 //*/
 function jadualData($keterangan, $kunci, $nilai)
 {
 	$data = prosesData($kunci, $nilai);
-	echo 
-	'<td align="right">'.$keterangan.'</td>
-	<td align="right">'.$data.'</td>
-	';	
+	$paparMedan = array('Input','Output','OwnershipRvw','LegalStatus','ValueAdded');
+	$papar = (in_array($kunci,$paparMedan))? '<td colspan="2">'.$data.'</td>':null;
+	//$papar = '<td colspan="2">'.$data.'</td>';
+	echo ($keterangan=='-') ? $papar:
+		'<td align="right">'.$keterangan.'</td>
+		<td align="right">'.$data.'</td>';	
 }
 function prosesData($kunci, $nilai)
 {
-	
+	$paparMedan = array('Input','Output','OwnershipRvw','LegalStatus','ValueAdded');
 	if (in_array($kunci, array('F0003','F0004','F0005')))
 	{
 		$data = preg_replace('/(\d{1,2})(\d{2})(\d{4})$/', 
@@ -52,9 +57,20 @@ function prosesData($kunci, $nilai)
 		$data = date('d M Y',strtotime($data));
 		$data = $data . ' | ' . $kunci;
 	}
-	elseif  (in_array($kunci, array('NEGERILOK','REGIONLOK','F0014','F0015',
-		'F0016','F0017','F0018','F0023','F0024','F0030','F0047',
-		'F1510','F1511','F1512','F1513','F1913','F1919')))
+	elseif  (in_array($kunci, $paparMedan))
+	{
+		$data = $kunci . ' = ' . $nilai;
+	}
+	elseif  (in_array($kunci, array('NEGERILOK','REGIONLOK',
+		'estab','KodIndustri','KodNegeri','Year'
+		)))
+	{
+		$data = $nilai . ' | ' . $kunci;
+	}
+	// kod sahaja
+	elseif  (in_array($kunci, array('F0014','F0015',
+		'F0016','F0017','F0018','F0023','F0024','F0025','F0026',
+		'F0030','F0047','F1510','F1511','F1512','F1513','F1913','F1919')))
 	{
 		$data = $nilai . ' | ' . $kunci;
 	}

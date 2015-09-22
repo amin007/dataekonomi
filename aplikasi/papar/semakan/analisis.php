@@ -489,5 +489,5 @@ foreach ($this->kod_aset as $myTable => $row)
 ?>
 
 data2 lain
-<?php //include 'analisis_proses_data.php'; ?>
+<?php include 'analisis_proses_data.php'; ?>
 <?php } // $this->carian=='sidap' - tamat ?>

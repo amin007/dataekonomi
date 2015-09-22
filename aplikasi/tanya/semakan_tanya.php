@@ -60,8 +60,9 @@ class Semakan_Tanya extends Tanya
 		$cariID = ( !isset($cari[0]['id']) ) ? '' : $cari[0]['id'];
 		$cariMedan2 = ( !isset($cari[1]['medan']) ) ? '' : $cari[1]['medan'];
 		$cariID2 = ( !isset($cari[1]['id']) ) ? '' : $cari[1]['id'];
-		
-		$sql = "SELECT * FROM `$myTable` "
+		$medan = 'kod_medan,kod_survey,`2010`'; // 2005-2013
+		//$medan = '*'; // 2005-2013
+		$sql = "SELECT $medan FROM `$myTable` "
 			 . "WHERE $cariMedan like '$cariID' " 
 			 . "AND $cariMedan2 like '$cariID2' ";
 		

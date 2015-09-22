@@ -123,8 +123,33 @@ else
 	$perangkaan['aset']['kini'] = $this->kesID['semasa'][0]['aset_kini'];
 	$perangkaan['asetsewa']['kini'] = $this->kesID['semasa'][0]['asetsewa_kini'];
 	//echo '<pre>$perangkaan->'; print_r($perangkaan) . '</pre>';
-	
 ?>
+<style type="text/css">
+/* Table like excel view
+-------------------------------------------------- */
+table.excel {
+	border-style:ridge;
+	border-width:1;
+	border-collapse:collapse;
+	font-family:sans-serif;
+	font-size:11px;
+}
+table.excel thead th, table.excel tbody th {
+	background:#CCCCCC;
+	border-style:ridge;
+	border-width:1;
+	text-align: center;
+	vertical-align: top;
+}
+table.excel tbody th { text-align:center; vertical-align: top; }
+table.excel tbody td { vertical-align:bottom; }
+table.excel tbody td 
+{ 
+	padding: 0 3px; border: 1px solid #aaaaaa;
+	background:#ffffff;
+}
+</style>
+
 <span class="badge">Analisis Data</span>
 <table border="1" class="excel" id="example">
 <tr><td>data</td><td>dulu</td><td>kini</td></tr>

@@ -110,7 +110,7 @@ else
 </form></div>
 
 <hr>
-<form method="post" action="<?php echo URL;?>semakan/simpan/">
+<form method="post" action="<?php echo URL;?>semakan/simpan/" target="_blank">
 <span class="badge">Jadual Kawalan</span>
 <div class="tabbable tabs-top">
 	<ul class="nav nav-tabs">

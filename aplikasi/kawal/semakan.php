@@ -372,13 +372,13 @@ class Semakan extends Kawal
 				elseif ( $myTable == 'proses')
 				{
 					foreach ($value as $kekunci => $papar)
-						$this->papar->prosesData[$myTable][0][$kekunci] = bersih($papar);
+						$prosesData[$myTable][0][$kekunci] = bersih($papar);
 				}
 			}
 					
 			# cari keterangan medan
 			$this->cari_keterangan_medan($sv, $this->papar->kesID); 
-			$this->cari_keterangan_medan($sv, $this->papar->prosesData); 
+			$this->semak_prosesMedan($sv, $prosesData, 'proses'); 
 			
 			# cari perbandingan aset dulu dan kini //echo "\$jadualHarta = $jadualHarta <br>"; 
 			if (isset($cariHarta) && $jadualAset=='jadualHarta'):
@@ -412,6 +412,7 @@ class Semakan extends Kawal
 						
 			/*echo '<pre>';
 			//echo '<hr>$_POST->'; print_r($_POST);
+			echo '<hr>prosesData->'; print_r($this->papar->prosesData);
 			//echo '<hr>$staf->'; print_r($this->papar->staf);
 			//echo '<hr>$cariHarta->'; print_r($this->papar->kod_aset);
 			//echo '<hr>$cariHarta->'; print_r($cariHarta);
@@ -888,6 +889,29 @@ class Semakan extends Kawal
 
 	}
 
+	private function semak_prosesMedan($sv, $prosesData, $jadual)
+	{
+		$this->cari_keterangan_medan($sv, $prosesData); 
+		$kira = count($prosesData[$jadual][0]);
+		$jumlah = $kira / 2;
+		//echo "898:<pre>:$jumlah:prosesData", print_r($prosesData[$jadual], 1) . "</pre>";
+		//echo "895:<pre>:$kira:keterangan:", print_r($this->papar->keterangan[$jadual], 1) . "</pre>";
+		//$this->papar->keterangan[$jadual][$medan][$key]
+		$bilMedan = 1;
+		foreach ( $prosesData[$jadual][0] as $key=>$data ) : 
+			if ($bilMedan++ <=$jumlah) $this->papar->dataAsal['asal'][0][$key] = $data;		
+			else $this->papar->dataAsal['asal2'][0][$key] = $data;		
+			//echo "$key => $data <br>";
+		endforeach;	//*/
+		
+		//echo "907:<pre>:\$proses2:", print_r($this->papar->dataAsal, 1) . "</pre>";
+		//echo "908:<pre>:\$prosesdata:", print_r($prosesData, 1) . "</pre>";
+/*
+[proses][0][NEGERILOK]
+*/
+		
+	}
+	
 	private function semak_aset($asetIndustri, $aset, $paparID) 
 	{# khas untuk soalan aset
 		//echo "<pre>880:senaraiAset:", print_r($asetIndustri, 1) . '| jadual:', print_r($aset, 1) . "<br>";

@@ -412,13 +412,10 @@ class Semakan extends Kawal
 						
 			/*echo '<pre>';
 			//echo '<hr>$_POST->'; print_r($_POST);
-			echo '<hr>prosesData->'; print_r($this->papar->prosesData);
 			//echo '<hr>$staf->'; print_r($this->papar->staf);
 			//echo '<hr>$cariHarta->'; print_r($this->papar->kod_aset);
-			//echo '<hr>$cariHarta->'; print_r($cariHarta);
 			//echo '<hr>$this->papar->borang->'; print_r($this->papar->borang);
 			//echo '<hr>$this->papar->kesID->'; print_r($this->papar->kesID);
-			//echo '<hr>$this->papar->data->'; print_r($this->papar->data);
 			//echo '<hr>$this->papar->kod_produk->'; print_r($this->papar->kod_produk);
 			//echo '<hr>$this->papar->paparID=' . $this->papar->paparID;
 			//echo '<hr>$this->papar->carian: ' . $this->papar->carian;
@@ -907,7 +904,7 @@ class Semakan extends Kawal
 		foreach ( $proses2[$jadual][0] as $key=>$data ) : 
 				if ($bilMedan < $jumlah) $this->papar->dataAsal['asal'][0][$key] = $data;		
 				else $this->papar->dataAsal['asal2'][0][$key] = $data;		
-				echo "$bilMedan : $key => $data <br>";
+				//echo "$bilMedan : $key => $data <br>";
 				$bilMedan++;
 		endforeach;	//*/
 		

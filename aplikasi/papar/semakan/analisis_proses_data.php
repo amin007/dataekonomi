@@ -1,14 +1,14 @@
+<?php
+echo $tajuk = ' | ' . dataSyarikat($perangkaan);
+?>
 <table><tr><?php
 $mengira = 1;
 foreach ($this->dataAsal as $myTable => $row)
 {
 	if ( count($row)==0 ) echo '';
 	else
-	{	$tajuk = ' |' . dataSyarikat($perangkaan);
-	?>
-	<td valign="top">
-	<span class="badge badge-success">Analisis data <?php echo $myTable . $tajuk ?></span>
-<?php 
+	{	
+	?><td valign="top"><?php 
 		echo '<table  border="1" class="excel" id="example">';
 		#-----------------------------------------------------------------
 		foreach ( $row[0] as $key=>$data ) :
@@ -25,8 +25,7 @@ foreach ($this->dataAsal as $myTable => $row)
 		endforeach;				
 		#-----------------------------------------------------------------
 		echo '</table></div>';	
-?>	</td>
-	<?php
+	?></td><?php
 	} // if ( count($row)==0 )
 }
 ?>

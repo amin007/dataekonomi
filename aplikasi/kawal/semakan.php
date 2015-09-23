@@ -309,15 +309,8 @@ class Semakan extends Kawal
 						$posmen[$myTable][$kekunci] = bersih($papar);
 				}
 			}
-			
-			// paparkan newss dan nama syarikat
-			$this->_newss = $posmen['semasa']['newss'];
-			$this->_nama = $posmen['semasa']['nama'];
-			// json_encode() untuk $posmen 
-			$posLaju = json_encode($posmen);
-			
+					
 			/*echo "<pre>";
-			echo "_newss : $this->_newss <br>";	echo "_nama : $this->_nama <br>";
 			//echo '<hr>$_POST->'; print_r($_POST);
 			//echo '<hr>$posmen->'; print_r($posmen);
 			//echo '<hr>$posLaju:'; var_dump($posmen,$posLaju);
@@ -325,9 +318,9 @@ class Semakan extends Kawal
 			//echo "</pre>"; //*/
 			
 			$data = array(
-				'newss' => $this->_newss,
-				'nama' => $this->_nama,
-				'data' => $posLaju
+				'newss' => $posmen['semasa']['newss'],
+				'nama' => posmen['semasa']['nama'],
+				'data' => json_encode($posmen)
 				);
 			$jadual = 'data_anggaran';
 			

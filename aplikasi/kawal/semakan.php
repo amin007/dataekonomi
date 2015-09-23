@@ -882,26 +882,22 @@ class Semakan extends Kawal
 	private function semak_prosesMedan($sv, $prosesData, $jadual)
 	{
 		$this->cari_keterangan_medan($sv, $prosesData); 
-		//echo "898:<pre>:$jumlah:prosesData", print_r($prosesData[$jadual], 1) . "</pre>";
-		//echo "895:<pre>:$kira:keterangan:", print_r($this->papar->keterangan[$jadual], 1) . "</pre>";
-		//$this->papar->keterangan[$jadual][$medan][$key]
-		$bilMedan = 1;
 		foreach ( $prosesData[$jadual][0] as $key=>$data ) : 
 			if($data != 0):
 				$proses2[$jadual][0][$key] = $data;		
 			endif;
 		endforeach;	//*/
 		$kira = count($proses2[$jadual][0]);
-		$jumlah = $kira / 2;
-		//echo "kira => $kira, jumlah => $jumlah <br>";
+		$jumlah = number_format( ($kira / 2), 0,'.',',');
+		//echo "line896: kira : $kira | jumlah = $jumlah | ";
+		$bilMedan = 1;
 		foreach ( $proses2[$jadual][0] as $key=>$data ) : 
-				if ($bilMedan < $jumlah) $this->papar->dataAsal['asal'][0][$key] = $data;		
-				else $this->papar->dataAsal['asal2'][0][$key] = $data;		
-				//echo "$bilMedan : $key => $data <br>";
-				$bilMedan++;
+			if ($bilMedan++ <= $jumlah) $this->papar->dataAsal['asal'][0][$key] = $data;		
+			else $this->papar->dataAsal['asal2'][0][$key] = $data;		
 		endforeach;	//*/
 		
-		//echo "908:<pre>:\$proses2:", print_r($this->papar->dataAsal, 1) . "</pre>";		
+		//echo "line904: bilMedan : $bilMedan <br>";
+		//echo "905:<pre>:\$proses2:", print_r($this->papar->dataAsal, 1) . "</pre>";		
 	}
 	
 	private function semak_aset($asetIndustri, $aset, $paparID) 

@@ -18,7 +18,7 @@ foreach ($this->dataAsal as $myTable => $row)
 			if($data==0): echo '';
 			else:
 				echo '<tbody><tr>' . "\r";
-				echo jadualData($keterangan, $key, $data);
+				echo jadualData($keterangan, $key, $data, $perangkaan);
 				echo '</tr></tbody>';
 			endif;
 			$mengira++;
@@ -59,19 +59,26 @@ function prosesData($kunci, $nilai)
 	{
 		$data = (is_numeric($nilai)) ? number_format($nilai,0) : $nilai;
 		$data = $kunci . ' = ' . $data;
-	}
+	}# perkataan
 	elseif  (in_array($kunci, array('NEGERILOK','REGIONLOK',
 		'estab','KodIndustri','KodNegeri','Year'
 		)))
 	{
 		$data = $nilai;
-	}
-	// kod sahaja
+	}# kod sahaja
 	elseif  (in_array($kunci, array('F0002','F0014','F0015',
 		'F0016','F0017','F0018','F0023','F0024','F0025','F0026',
 		'F0030','F0047','F1510','F1511','F1512','F1513','F1913','F1919')))
 	{
 		$data = $nilai;
+	}
+	elseif ($kunci=='F1630') 
+	{
+		
+	}
+	elseif ($kunci=='F1530') 
+	{
+		
 	}
 	else 
 	{

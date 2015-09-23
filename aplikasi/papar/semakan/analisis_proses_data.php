@@ -1,4 +1,5 @@
 <?php
+//echo '<pre>$perangkaan->'; print_r($perangkaan) . '</pre>';
 echo $tajuk = ' | ' . dataSyarikat($perangkaan);
 ?>
 <table><tr><?php
@@ -17,7 +18,7 @@ foreach ($this->dataAsal as $myTable => $row)
 				'-' : $this->keterangan['proses'][$key][$thn];
 			if($data==0): echo '';
 			else:
-				echo '<tbody><tr>' . "\r";
+				echo '<tbody><tr><td>' . $mengira . "</td>\r";
 				echo jadualData($keterangan, $key, $data, $perangkaan);
 				echo '</tr></tbody>';
 			endif;
@@ -36,9 +37,9 @@ echo '<pre>';
 echo 'medan ada ' . $mengira;
 echo '</pre>';
 //*/
-function jadualData($keterangan, $kunci, $nilai)
+function jadualData($keterangan, $kunci, $nilai, $perangkaan)
 {
-	$data = prosesData($kunci, $nilai);
+	$data = prosesData($kunci, $nilai, $perangkaan);
 	$paparMedan = array('Input','Output','OwnershipRvw','LegalStatus','ValueAdded');
 	$papar = (in_array($kunci,$paparMedan))? '<td colspan="3">'.$data.'</td>':null;
 	//$papar = '<td colspan="2">'.$data.'</td>';
@@ -46,7 +47,7 @@ function jadualData($keterangan, $kunci, $nilai)
 		'<td align="right">'.$keterangan.'</td><td>'.$kunci.'</td>
 		<td align="right">'.$data.'</td>';	
 }
-function prosesData($kunci, $nilai)
+function prosesData($kunci, $nilai, $perangkaan)
 {
 	$paparMedan = array('Survey','Input','Output','OwnershipRvw','LegalStatus','ValueAdded');
 	if (in_array($kunci, array('F0003','F0004','F0005')))
@@ -74,11 +75,29 @@ function prosesData($kunci, $nilai)
 	}
 	elseif ($kunci=='F1630') 
 	{
+		$untungKini = $perangkaan['hasil']['kini'] - $perangkaan['belanja']['kini'];
+		//$untungDulu = $perangkaan['hasil']['dulu'] - $perangkaan['belanja']['dulu'];
+
+		/*$nilai_dulu = ($untungKini==0 || $nilai==0) ? 0 :(($nilai / $untungKini) * 100 ); # dapatkan %
+		$value = number_format($nilai_dulu,4,'.',',') . '%';
+		$anggar = ($untungKini==0 || $data==0) ? 0 : (($data / $untungKini) * $untungDulu);
+		$anggaran = number_format($anggar,0,'.',',');*/
 		
+		$untungDulu = (is_numeric($nilai)) ? number_format($nilai,0) : $nilai;
+		$untungKini = (is_numeric($untungKini)) ? number_format($untungKini,0) : $untungKini;
+		
+		$data = " dulu = $untungDulu <br> kini = $untungKini";
 	}
 	elseif ($kunci=='F1530') 
 	{
-		
+		$untungDulu = $perangkaan['hasil']['dulu'] - $perangkaan['belanja']['dulu'];
+		$nisbahDulu = $untungDulu / $perangkaan['hasil']['dulu'];
+		$nisbah = number_format($nisbahDulu,4,'.',',') . '%';
+		# kini
+		$untungKini = $perangkaan['hasil']['kini'] * $nisbah;
+		$nisbahKini = number_format($untungKini,0,'.',',') . '';
+	
+		$data = "dulu = $untungDulu <br> kini = $nisbahKini ";
 	}
 	else 
 	{

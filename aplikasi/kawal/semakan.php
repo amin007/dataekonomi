@@ -319,7 +319,7 @@ class Semakan extends Kawal
 			
 			$data = array(
 				'newss' => $posmen['semasa']['newss'],
-				'nama' => posmen['semasa']['nama'],
+				'nama' => $posmen['semasa']['nama'],
 				'data' => json_encode($posmen)
 				);
 			$jadual = 'data_anggaran';

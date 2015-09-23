@@ -168,9 +168,7 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 					$msicCari = 'c.f0014';
 				else:
 					$paparJadual = 's' . $jadual . '_tbldatareview_2010';
-						//'s' . $jadual . '_q01_2010';
 					$msicMedan = 'c.KodIndustri `msic`';
-						//'c.F005,c.F006',
 					$msicCari = 'c.KodIndustri';
 				endif;
 				# cari data sql

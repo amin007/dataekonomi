@@ -16,13 +16,11 @@ foreach ($this->dataAsal as $myTable => $row)
 			$thn = ($key=='thn') ? $data : 2010; 
 			$keterangan = !isset($this->keterangan['proses'][$key][$thn]) ?
 				'-' : $this->keterangan['proses'][$key][$thn];
-			if($data==0): echo '';
-			else:
-				echo '<tbody><tr><td>' . $mengira . "</td>\r";
+
+				echo '<tbody><tr><td>' . $mengira++ . "</td>\r";
 				echo jadualData($keterangan, $key, $data, $perangkaan);
 				echo '</tr></tbody>';
-			endif;
-			$mengira++;
+
 		endforeach;				
 		#-----------------------------------------------------------------
 		echo '</table></div>';	
@@ -40,9 +38,10 @@ echo '</pre>';
 function jadualData($keterangan, $kunci, $nilai, $perangkaan)
 {
 	$data = prosesData($kunci, $nilai, $perangkaan);
-	$paparMedan = array('Input','Output','OwnershipRvw','LegalStatus','ValueAdded');
+	$paparMedan = array('Input','Output','OwnershipRvw','LegalStatus','ValueAdded',
+		'NEGERILOK','REGIONLOK','estab','KodIndustri','KodNegeri','Year');
 	$papar = (in_array($kunci,$paparMedan))? '<td colspan="3">'.$data.'</td>':null;
-	//$papar = '<td colspan="2">'.$data.'</td>';
+	//$papar = '<td colspan="3">'.$kunci.'='.$data.'</td>';
 	echo ($keterangan=='-') ? $papar:
 		'<td align="right">'.$keterangan.'</td><td>'.$kunci.'</td>
 		<td align="right">'.$data.'</td>';	
@@ -65,7 +64,7 @@ function prosesData($kunci, $nilai, $perangkaan)
 		'estab','KodIndustri','KodNegeri','Year'
 		)))
 	{
-		$data = $nilai;
+		$data = $kunci . ' = ' . $nilai;
 	}# kod sahaja
 	elseif  (in_array($kunci, array('F0002','F0014','F0015',
 		'F0016','F0017','F0018','F0023','F0024','F0025','F0026',

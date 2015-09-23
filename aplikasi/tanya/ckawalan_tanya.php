@@ -121,12 +121,11 @@ class Ckawalan_Tanya extends Tanya
 	
 	public function cariSql($myTable, $medan, $carian, $susun)
 	{
-		$sql = 'SELECT ' . $medan . ' FROM ' . $myTable 
-			 . $this->dimana($carian)
+		$sql = 'SELECT ' . $medan . ' FROM ' . $myTable
+			 . $this->dimana($carian) 
 			 . $this->dibawah($susun);
 		
 		echo htmlentities($sql) . '<br>';
-
 	}
 
 	public function cariKes($myTable, $cari)

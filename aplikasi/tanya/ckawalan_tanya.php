@@ -89,8 +89,6 @@ class Ckawalan_Tanya extends Tanya
 				 $order = isset($carian[$key]['susun']) ? $carian[$key]['susun']  : null;
 				  $dari = isset($carian[$key]['dari'])  ? $carian[$key]['dari']   : null;			
 				   $max = isset($carian[$key]['max'])   ? $carian[$key]['max']    : null;
-				
-				//echo "\$cari = $cari, \$key=$key <br>";
 			}
 				if ($kumpul!=null)$susunan .= " GROUP BY $kumpul\r";
 				if ($order!=null) $susunan .= " ORDER BY $order\r";
@@ -98,11 +96,7 @@ class Ckawalan_Tanya extends Tanya
 						" LIMIT $max\r" : " LIMIT $dari,$max\r";
 		endif; 
 		
-		//echo '<pre>carian:'; print_r($carian) . '</pre><br>';
-		//echo " $susunan hahaha<hr>";
-		//echo "<hr>\$kumpul:$kumpul \$order:$order \$dari:$dari \$max:$max hahaha<hr>";
-		return $susunan;
-		
+		return $susunan;		
 	}
 
 	public function cariSemuaData($myTable, $medan, $carian, $susun)

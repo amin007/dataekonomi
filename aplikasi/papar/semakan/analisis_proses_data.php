@@ -18,7 +18,7 @@ foreach ($this->dataAsal as $myTable => $row)
 				'-' : $this->keterangan['proses'][$key][$thn];
 
 				echo '<tbody><tr><td>' . $mengira++ . "</td>\r";
-				echo jadualData($keterangan, $key, $data, $perangkaan);
+				echo jadualData($keterangan, $key, $data, $perangkaan, $sv);
 				echo '</tr></tbody>';
 
 		endforeach;				
@@ -35,23 +35,28 @@ echo '<pre>';
 echo 'medan ada ' . $mengira;
 echo '</pre>';
 //*/
-function jadualData($keterangan, $kunci, $nilai, $perangkaan)
+function jadualData($keterangan, $kunci, $nilai, $perangkaan, $sv)
 {
-	$data = prosesData($kunci, $nilai, $perangkaan);
+	$data = prosesData($kunci, $nilai, $perangkaan, $sv);
 	$papar = $kunci . ' = ' . $nilai;
 	//$papar = '<td colspan="3">'.$kunci.'='.$data.'</td>';
 	echo ($keterangan=='-') ? '<td colspan="3">'.$papar.'</td>':
 		'<td align="right">'.$keterangan.'</td><td>'.$kunci.'</td>
 		<td align="right">'.$data.'</td>';	
 }
-function prosesData($kunci, $nilai, $perangkaan)
+function prosesData($kunci, $nilai, $perangkaan, $sv)
 {
 	$paparMedan = array('Survey','Input','Output','OwnershipRvw','LegalStatus','ValueAdded');
 	if (in_array($kunci, array('F0003','F0004','F0005')))
 	{
-		$data = preg_replace('/(\d{1,2})(\d{2})(\d{4})$/', 
+		if(in_array($sv,array(890))):
+			$data = $nilai;
+		else:
+			$tarikh = preg_replace('/(\d{1,2})(\d{2})(\d{4})$/', 
 			'$3-$2-$1', $nilai).PHP_EOL;
-		$data = date('d-M-Y',strtotime($data));
+			$data = date('d-M-Y',strtotime($tarikh));
+		endif;
+		//&& !
 	}
 	elseif  (in_array($kunci, $paparMedan))
 	{

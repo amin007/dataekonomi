@@ -144,7 +144,7 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 			'301',/*'302',*/'303',/*'304',*/'305','306','307','308','309',/*'310',*/
 			'311','312',/*'313',*/'314',/*'315',*/'316',/*'317',*/'318',/*'319','320',
 			322,323,324*/'325','328','331',/*332,333*/'334','335',
-			/*391,392,*/'393','800',/*810,840,850*/'850'/*999*/);
+			/*391,392,*/'393','800',/*810,840,850*/'850','890'/*999*/);
 
 		//echo '<pre>$myJadual:' . print_r($myJadual) . '</pre>';
 		$this->papar->cariNama = array();
@@ -168,17 +168,20 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 					$msicCari = 'c.f0014';
 				else:
 					$paparJadual = 's' . $jadual . '_tbldatareview_2010';
+						//'s' . $jadual . '_q01_2010';
 					$msicMedan = 'c.KodIndustri `msic`';
+						//'c.F005,c.F006',
 					$msicCari = 'c.KodIndustri';
 				endif;
 				# cari data sql
-				$cari2[0] = array('fix'=>'z1','atau'=>'WHERE','medan'=>'c.estab','apa'=>'b.newss','akhir'=>NULL);
-				$cari2[1] = array('fix'=>'z2','atau'=>'AND','medan'=>$msicCari,'apa'=>"'$msic2008%'",'akhir'=>NULL);
-				$cari2[2] = array('fix'=>'z2','atau'=>'AND','medan'=>'b.alamat3a','apa'=>"'$bandar%'",'akhir'=>NULL);
+				$cariSama = "\r ON c.estab = b.newss ";
+				$cari2[0] = array('fix'=>'z2','atau'=>'WHERE','medan'=>$msicCari,'apa'=>"'$msic2008%'",'akhir'=>NULL);
+				if($bandar!=null)	
+					$cari2[1] = array('fix'=>'z2','atau'=>'AND','medan'=>'b.alamat3a','apa'=>"'$bandar%'",'akhir'=>NULL);
 
-				$this->papar->cariNama[$jadual] = 
-				//$this->tanya->cariSql("$paparJadual c, alamat_newss_2013 b",
-				$this->tanya->cariSemuaData("$paparJadual c, alamat_newss_2013 b",
+				$this->papar->cariNama[$jadual] = $this->tanya->
+				//cariSql("$paparJadual c INNER JOIN alamat_newss_2013 b $cariSama",
+				cariSemuaData("$paparJadual c INNER JOIN alamat_newss_2013 b $cariSama",
 					'c.estab newss,sidap,'.$msicMedan.',concat_ws(" ",b.nama,b.operator) as nama,'
 					. 'concat_ws(" ",b.alamat1a,b.alamat2a,b.poskod,b.alamat3a) alamat' . "\r"
 					,$cari2, $susun);//*/

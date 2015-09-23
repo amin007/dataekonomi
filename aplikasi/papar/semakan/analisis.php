@@ -132,7 +132,7 @@ table.excel {
 	border-width:1;
 	border-collapse:collapse;
 	font-family:sans-serif;
-	font-size:11px;
+	font-size:10px;
 }
 table.excel thead th, table.excel tbody th {
 	background:#CCCCCC;

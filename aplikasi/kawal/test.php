@@ -89,6 +89,24 @@ class Test extends Kawal
 		# semak pembolehubah $this->papar->cariApa
 		//echo '<pre>', print_r($cariApa, 1) . '</pre><br>';
 	}
+	public function semaknewss() 
+    {    
+		# mula papar semua dalam $myTable
+		$myTable = 'alamat_newss_2013';
+		$medan = '*';
+		$carian[] = array('fix'=>'like','atau'=>'WHERE','medan'=>'newss','apa'=>null,'akhir'=>null);
+		$jum = pencamSqlLimit(50, 50, 1);
+		$cantumSusun[] = array_merge($jum, array('kumpul'=>null,'susun'=>null) );
+		# sql guna limit 
+		$this->papar->cariNama[$myTable] = $this->tanya->
+			//cariSql($myTable, $medan, $carian, $cantumSusun);
+			cariSemuaData($myTable, $medan, $carian, $cantumSusun);
 
+		# paparan
+		$this->_t = 'tahun_';
+		$this->papar->carian='newss'; # set pembolehubah untuk LIHAT => $this->carian
+		$this->papar->apa = 'kosong' ; # set pembolehubah untuk LIHAT => $this->apa
+		$this->papar->baca('ckawalan/' . $this->_t . 'cari');
+	}
 ################################################################################################
 }

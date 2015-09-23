@@ -8,22 +8,9 @@ class Test_Tanya extends Tanya
 		parent::__construct();
 	}
 
-	private function dimana($carian)
+	private function cariApa($fix,$atau,$medan,$cariApa,$akhir)
 	{
-		//' WHERE ' . $medan . ' like %:cariID% ', array(':cariID' => $cariID));
 		$where = null;
-		if($carian==null || $carian=='' || empty($carian) ):
-			$where .= null;
-		else:
-			foreach ($carian as $key=>$value)
-			{
-				   $atau = isset($carian[$key]['atau'])  ? $carian[$key]['atau'] . ' ' : null;
-				  $medan = isset($carian[$key]['medan']) ? $carian[$key]['medan']      : null;
-				    $fix = isset($carian[$key]['fix'])   ? $carian[$key]['fix']        : null;			
-				$cariApa = isset($carian[$key]['apa'])   ? $carian[$key]['apa']        : null;
-				  $akhir = isset($carian[$key]['akhir']) ? $carian[$key]['akhir']      : null;
-				//echo "\r$key => ($fix) $atau $medan -> '$cariApa' |";
-				
 				if($cariApa==null )
 					$where .= ($fix=='x!=') ? " $atau`$medan` !='' $akhir\r"
 						: " $atau`$medan` is null $akhir\r";
@@ -69,7 +56,26 @@ class Test_Tanya extends Tanya
 					$where .= " $atau$medan in $cariApa $akhir\r";
 				elseif($fix=='zxin')
 					$where .= " $atau$medan not in $cariApa $akhir\r";	
-					
+		# pulangkan nilai $where
+		//' WHERE ' . $medan . ' like %:cariID% ', array(':cariID' => $cariID));
+		return $where;
+	}
+	
+	private function dimana($carian)
+	{
+		$where = null;
+		if($carian==null || $carian=='' || empty($carian) ):
+			$where .= null;
+		else:
+			foreach ($carian as $key=>$value)
+			{
+				   $atau = isset($carian[$key]['atau'])  ? $carian[$key]['atau'] . ' ' : null;
+				  $medan = isset($carian[$key]['medan']) ? $carian[$key]['medan']      : null;
+				    $fix = isset($carian[$key]['fix'])   ? $carian[$key]['fix']        : null;			
+				$cariApa = isset($carian[$key]['apa'])   ? $carian[$key]['apa']        : null;
+				  $akhir = isset($carian[$key]['akhir']) ? $carian[$key]['akhir']      : null;
+				//echo "\r$key => ($fix) $atau $medan -> '$cariApa' |";
+				$where = $this->cariApa($fix,$atau,$medan,$cariApa,$akhir);
 			}
 		endif;
 	
@@ -79,27 +85,29 @@ class Test_Tanya extends Tanya
 
 	private function dibawah($carian)
 	{
+		//echo '<pre>'; print_r($carian).  '<pre>';
 		$susunan = null;
 		if($carian==null || empty($carian) ):
 			$susunan .= null;
 		else:
 			foreach ($carian as $key=>$cari)
 			{
-				$kumpul = isset($carian[$key]['kumpul'])? $carian[$key]['kumpul'] : null;
-				 $order = isset($carian[$key]['susun']) ? $carian[$key]['susun']  : null;
-				  $dari = isset($carian[$key]['dari'])  ? $carian[$key]['dari']   : null;			
-				   $max = isset($carian[$key]['max'])   ? $carian[$key]['max']    : null;
+				$mengira = isset($carian[$key]['mengira'])? $carian[$key]['mengira'] : null;
+				 $kumpul = isset($carian[$key]['kumpul']) ? $carian[$key]['kumpul']  : null;
+				  $order = isset($carian[$key]['susun'])  ? $carian[$key]['susun']   : null;
+				   $dari = isset($carian[$key]['dari'])   ? $carian[$key]['dari']    : null;			
+				    $max = isset($carian[$key]['max'])    ? $carian[$key]['max']     : null;
 				
 				//echo "\$cari = $cari, \$key=$key <br>";
 			}
 				if ($kumpul!=null)$susunan .= " GROUP BY $kumpul\r";
+				if ($mengira!=null)$susunan .= " $mengira\r";
 				if ($order!=null) $susunan .= " ORDER BY $order\r";
 				if ($max!=null)   $susunan .= ($dari==0) ? 
 						" LIMIT $max\r" : " LIMIT $dari,$max\r";
 		endif; 
 	
-		return $susunan;
-		
+		return $susunan;	
 	}
 
 	public function cariSemuaData($myTable, $medan, $carian, $susun)

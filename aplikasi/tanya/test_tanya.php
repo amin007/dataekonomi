@@ -109,6 +109,37 @@ class Test_Tanya extends Tanya
 		return $susunan;	
 	}
 
+	public function pilihMedan($database,$myTable)
+	{
+		/*TABLE_CATALOG TABLE_SCHEMA	TABLE_NAME	
+		COLUMN_NAME	ORDINAL_POSITION COLUMN_DEFAULT	IS_NULLABLE	DATA_TYPE	
+		CHARACTER_MAXIMUM_LENGTH	CHARACTER_OCTET_LENGTH	NUMERIC_PRECISION	NUMERIC_SCALE	
+		CHARACTER_SET_NAME	COLLATION_NAME	
+		COLUMN_TYPE	COLUMN_KEY	EXTRA	PRIVILEGES	COLUMN_COMMENT*/
+		$medan = 'COLUMN_NAME, DATA_TYPE, ' . "\r"
+			   . 'concat_ws(" ",CHARACTER_MAXIMUM_LENGTH, NUMERIC_PRECISION) DATA_NO, '. "\r"
+			   . 'COLUMN_KEY, EXTRA, PRIVILEGES,	COLUMN_COMMENT';
+		$medan = huruf('Besar_Depan', $medan);
+		$sql = ' SELECT ' . "\r" . $medan . "\r" 
+			 . ' FROM INFORMATION_SCHEMA.COLUMNS' . "\r"
+			 . ' WHERE table_schema = ' . $database . "\r"
+			 . ' AND table_name = ' . $myTable;
+		
+		echo htmlentities($sql) . '<br>';
+		return $this->db->selectAll($sql);
+	}
+	public function ubahMedan($myTable, $medan)
+	{
+		$sql = 'ALTER TABLE `' . $myTable . '` '
+			 . 'CHANGE `' . $medan['asal'] . '` '
+			 . '`' . $medan['baru'] . '` ' . $medan['jenis'] . ' '
+			 . 'AFTER `' . $medan['selepas'] . '` ';
+		
+		echo htmlentities($sql) . '<br>';
+		//return $this->db->selectAll($sql);
+
+	}
+	
 	public function cariSemuaData($myTable, $medan, $carian, $susun)
 	{
 		$sql = 'SELECT ' . $medan . ' FROM ' . $myTable 

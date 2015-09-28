@@ -29,12 +29,12 @@ else
 $mula = 1;
 $lajur = ($this->sv==205) ? 10 : 5;
 $soalAm = array(
-	's'.$this->sv.'_q04_2010',
-	's'.$this->sv.'_q05_2010',
+	//'s'.$this->sv.'_q04_2010',
+	//'s'.$this->sv.'_q05_2010',
 	's'.$this->sv.'_q05a_2010',
 	's'.$this->sv.'_q05b_2010',
-	's'.$this->sv.'_q11_2010',
-	/*'s'.$this->sv.'_q10_2010',
+	/*'s'.$this->sv.'_q11_2010',
+	's'.$this->sv.'_q10_2010',
 	's'.$this->sv.'_qsd_2010',
 	's'.$this->sv.'_q06_2010',
 	's'.$this->sv.'_q07_2010',

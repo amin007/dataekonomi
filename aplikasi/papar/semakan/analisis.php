@@ -16,6 +16,17 @@ function analisis($perangkaan, $ppt, $jadual, $key, $data)
 		$value = $data;
 		$anggaran = null;
 	}
+	elseif( in_array($key,array('F2149','F2163')) 
+		&& in_array($sv,array('301')) )
+	{// gaji
+		$value = $data;
+		$gaji = $perangkaan['gaji']['kini'];
+		$susut = $perangkaan['susut']['kini'];
+		$anggar = ($key=='F2149') ? $susut : $gaji;
+		$anggaran = number_format($anggar,0,'.',',');
+		$anggaran = '<span style="font: italic bold 12px arial, serif;">' . $anggaran . '</span>';
+		
+	}
 	elseif ($jadual == $sv . '_q08_2010' && $sv='205')
 	{// hasil
 		$nilai_dulu = ($hasil_dulu==0 || $data==0) ? 0 :(($data / $hasil_dulu) * 100);
@@ -154,7 +165,6 @@ table.excel tbody td
 <table border="1" class="excel" id="example">
 <tr><td>data</td><td>dulu</td><td>kini</td></tr>
 <?php
-
 	foreach ( $perangkaan AS $key=>$data ) :
 		//echo '<tr><td align="right">' .$key. '='.$data.'</td></tr>';
 		echo '<tr><td align="right">' . $key . '</td>' 

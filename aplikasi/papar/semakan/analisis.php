@@ -46,9 +46,27 @@ function analisis($perangkaan, $ppt, $jadual, $key, $data)
 	{// belanja
 		$nilai_dulu = ($belanja_dulu==0 || $data==0) ? 0 :(($data / $belanja_dulu) * 100 );
 		$value = number_format($nilai_dulu,4,'.',',') . '%';
-		$anggar = ($key=='F2130' && $susut_kini!=0) ? $susut_kini : ($data / $belanja_dulu) * $belanja_kini;
-		$anggaran = number_format($anggar,0,'.',',');
-		
+		if ($key=='F2130' && $susut_kini!=0):
+			$anggar = $susut_kini;
+			$anggaran = number_format($anggar,0,'.',',');
+			$anggaran = '<span style="font: italic bold 12px arial, serif;">' . $anggaran . '</span>';
+		elseif ($key=='F2148' && $perangkaan['gaji']['kini']!=0):
+			$anggar = $perangkaan['gaji']['kini'];
+			$anggaran = number_format($anggar,0,'.',',');
+			$anggaran = '<span style="font: italic bold 12px arial, serif;">' . $anggaran . '</span>';
+		elseif ($key=='F2129'): # sewa tanah
+			$anggar = $data;
+			$anggaran = number_format($anggar,0,'.',',');
+			$anggaran = '<span style="font: italic bold 12px arial, serif;">' . $anggaran . '</span>';
+		elseif ($key=='F2140'): # sewa tanah
+			$anggar = 0;
+			$anggaran = number_format($anggar,0,'.',',');
+			$anggaran = '<span style="font: italic bold 12px arial, serif;">' . $anggaran . '</span>';
+		else:
+			$anggar = ($data / $belanja_dulu) * $belanja_kini;
+			$anggaran = number_format($anggar,0,'.',',');
+		endif;
+	
 	}
 	elseif ($jadual == 's206_q09_2010' && $sv='206')
 	{// belanja

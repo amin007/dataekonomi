@@ -205,30 +205,20 @@ class Semakan extends Kawal
 	
 	function ubah($sv=null, $cariID = null, $mula = null, $akhir = null, $cetak = null)
 	{	//echo '<br>Anda berada di class Cprosesan extends Kawal:ubah($cari,$mula,$akhir,$cetak)<br>';
-		// setkan semua pembolehubah
-		$medan = '*'; // senarai nama medan
+		# setkan semua pembolehubah
+		$medan = '*'; # senarai nama medan
 		$cariKawal = array (
-			'sv' => $sv, // senarai survey
-			'id' => (isset($cariID) ? $cariID : null) , // benda yang dicari
+			'sv' => $sv, # senarai survey
+			'id' => (isset($cariID) ? $cariID : null) # benda yang dicari
 			);
 		$cariProses = array (
-			'sv' => $sv, // senarai survey
-			'medan' => 'estab', // cari dalam medan apa
-			'id' => (isset($cariID) ? $cariID : null) , // benda yang dicari
-			'thn_mula' => $mula, // tahun mula
-			'thn_akhir' => $akhir // tahun akhir
+			'sv' => $sv, # senarai survey
+			'medan' => 'estab', # cari dalam medan apa
+			'id' => (isset($cariID) ? $cariID : null), # benda yang dicari
+			'thn_mula' => $mula, # tahun mula
+			'thn_akhir' => $akhir # tahun akhir
 			);
-		$this->papar->sv = $sv;
-		$this->papar->kesID = array();
-		$this->papar->thn_mula = $cariProses['thn_mula'];
-		$this->papar->thn_akhir = $cariProses['thn_akhir'];
-		
-		/* semak
-		echo '<hr><pre>';
-		echo '<br>$cariKawal='; print_r($cariKawal);
-		echo '<br>$cariProses='; print_r($cariProses);
-		echo '</pre>';//*/
-		
+				
 		if (!empty($cariKawal['id'])&& !empty($sv)) 
 		{	
 			$myJadual['kawal'] = dpt_senarai('kawalan_tahunan');
@@ -252,13 +242,16 @@ class Semakan extends Kawal
 			
 			/*echo '<pre>'; echo '<hr>$kawalID='; print_r($kawalID); echo '<hr>$prosesID='; print_r($prosesID); echo '</pre>';//*/
 			$this->papar->carian = $cariKawal['id'];
+			$this->papar->sv = $sv;
+			$this->papar->kesID = array();
+			$this->papar->thn_mula = $cariProses['thn_mula'];
+			$this->papar->thn_akhir = $cariProses['thn_akhir'];
 		}
 		else
 		{
 			$this->papar->carian='[id:0]';
 		}
-			/*
-			echo '<pre>';			
+			/*echo '<pre>';			
 			//echo '<hr>$this->papar->prosesID='; print_r($this->papar->prosesID);
 			echo '<hr>$this->papar->kod_produk='; print_r($this->papar->kod_produk); // khas untuk survey 205
 			//echo '<hr>$this->papar->perangkaan='; print_r($this->papar->perangkaan); 

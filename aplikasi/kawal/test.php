@@ -127,5 +127,70 @@ class Test extends Kawal
 		//$this->papar->baca('test/cari');
 	}
 
+	public function bacafail($fail = "*.txt")
+	{
+		$lokasi = '' . $fail;
+		if (file_exists($lokasi)) 
+		{
+			echo "The file $lokasi exists | ";
+			echo $myTable = substr($fail, 0, -4);  // returns "abcde"
+			//$fail = "BE11_S206-copy.txt"; $myTable = "BE11_S206-copy";
+			###############################################################################
+			$f = fopen($lokasi, "r");
+			while(!feof($f)) 
+			{ 
+				$data[] = explode("|", fgets($f));
+			}
+			fclose($f);
+
+			$buang = count($data)-1;
+			unset($data[$buang]);
+
+			/*
+			CREATE TABLE Persons
+(
+PersonID int,
+LastName varchar(255),
+FirstName varchar(255),
+Address varchar(255),
+City varchar(255)
+);
+			*/
+			
+			$senarai = array(); 
+			$cantumMedan = null;
+			foreach ($data as $key => $papar):
+				foreach ($papar as $key2 => $papar2):
+					$senarai[] = $paparan = bersih($papar2);
+					if ($key==0)
+					{
+						if (in_array($key2,array(0,2,3,4,5,11,16,17,18)))
+							$cantumMedan .= 'F' .  sprintf("%04d", $key2) . " varchar(".strlen($paparan)."),";
+						elseif (strlen($paparan) < 7)
+							$cantumMedan .= 'F' .  sprintf("%04d", $key2) . " int(10),";
+						elseif (is_numeric($papar2))
+							$cantumMedan .= 'F' .  sprintf("%04d", $key2) . " bigint(20),";
+						else
+							$cantumMedan .= 'F' .  sprintf("%04d", $key2) . " varchar(".strlen($paparan)."),"; /*$paparan*/
+						$kira = $key2;
+					}
+				endforeach;
+				$cantumData[] = "('" . implode("','", $senarai) . "')";
+				$senarai = null;
+			endforeach;
+			##################################################################################
+			
+		}
+		else
+			echo "The file $lokasi does not exist |";
+
+		# set sql
+		$sql  = "CREATE TABLE $myTable /*".($kira)."*/(\r";
+		$sql .= substr($cantumMedan, 0, -1);
+		$sql .= "\r);\r\rINSERT INTO $myTable VALUES \r";
+		$sql .= implode(",\r", $cantumData);
+		echo '<pre>$sql->', print_r($sql, 1) . '</pre>';
+		//*/
+	}
 ################################################################################################
 }

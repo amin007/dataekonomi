@@ -364,8 +364,8 @@ $perangkaan['susut_dulu'] = 	isset($this->perangkaan['susut']) ?	$this->perangka
 $perangkaan['aset_dulu'] = 		isset($this->perangkaan['aset']) ? $this->perangkaan['aset'] : null;
 $perangkaan['asetsewa_dulu'] = 	isset($this->perangkaan['asetsewa']) ? $this->perangkaan['asetsewa'] : null;
 
-$nisbah = rand(-30, 30)/100;
-$nisbah = 1 - $nisbah;
+$nisbah = rand(-30, -10)/100;
+$nisbah = 1 + $nisbah;
 $nilaiNisbah = 1;
 
 $perangkaan['hasil_kini'] = ($nilaiNisbah!=0) ?	$nisbah * $this->perangkaan['hasil'] : null;

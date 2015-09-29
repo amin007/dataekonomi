@@ -175,5 +175,19 @@ class Test_Tanya extends Tanya
 		//$this->db->insert($sql);
 	}
 
+	public function tambahJadual($myTable, $kira, $cantumMedan, $cantumData)
+	{
+		//echo '<pre>$sql->', print_r($data, 1) . '</pre>';
+		
+		# set sql
+		$sql  = "CREATE TABLE $myTable /*".($kira)."*/(\r";
+		$sql .= substr($cantumMedan, 0, -1);
+		$sql .= "\r);\r\rINSERT INTO $myTable VALUES \r";
+		$sql .= implode(",\r", $cantumData);
+		echo '$sql-><pre>', print_r($sql, 1) . '</pre>';
+		//*/
+		//$this->db->insert($sql);
+	}
+
 #####################################################################################################
 }

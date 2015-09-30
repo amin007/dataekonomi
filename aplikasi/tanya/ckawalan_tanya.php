@@ -99,7 +99,7 @@ class Ckawalan_Tanya extends Tanya
 		return $susunan;		
 	}
 
-	public function cariSemuaData($myTable, $medan, $carian, $susun)
+	public function cariSemuaData($myTable, $medan = '*', $carian, $susun)
 	{
 		$sql = 'SELECT ' . $medan . ' FROM ' . $myTable 
 			 . $this->dimana($carian)
@@ -113,7 +113,7 @@ class Ckawalan_Tanya extends Tanya
 		return $result;
 	}
 	
-	public function cariSql($myTable, $medan, $carian, $susun)
+	public function cariSql($myTable, $medan = '*', $carian, $susun)
 	{
 		$sql = 'SELECT ' . $medan . ' FROM ' . $myTable
 			 . $this->dimana($carian) 

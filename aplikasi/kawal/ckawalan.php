@@ -220,6 +220,7 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 		$id['ssm'] = ($jenisID == 'Sidap') ? $_POST['id'] : null;
 		$id['newss'] = ($jenisID == 'Newss') ? $_POST['id'] : null;
 		$id['operator'] = ($jenisID == 'Operator') ? $_POST['id'] : null;
+		$id['datalama'] = ($jenisID == 'Datalama') ? $_POST['id'] : null;
 		//echo '<pre>$id:' . print_r($id) . '</pre>';
 
 		if (!empty($id['ssm'])) 
@@ -287,6 +288,29 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 				$this->tanya->cariKes($myTable, $cari);
 			}# tamat ulang table
 
+		}
+		elseif (!empty($id['datalama']))
+		{
+			//echo 'Anda berada di :' . $id[''] . '<br>';
+			$myJadual = dpt_senarai('datalama');
+			$carian = $id['datalama'];
+			$medan = '*, nodaftar as sidap';//'nodaftar as sidap, nama';
+			$cari[] = array('fix'=>'zlike','atau'=>'WHERE','medan'=>'concat_ws("",nodaftar,nama)','apa'=>"'%$carian%'",'akhir'=>NULL);
+			$this->papar->carian = 'datalama'; # set pembolehubah untuk LIHAT => $this->carian
+			$this->papar->apa = $id['datalama'];# set pembolehubah untuk LIHAT => $this->apa
+			
+			# mula cari $cariID dalam $myJadual
+			foreach ($myJadual as $key => $myTable)
+			{# mula ulang table
+				$bilSemua = $this->tanya->//cariSql($myTable, $medan, $cari)
+					cariRow($myTable, $medan, $cari);
+				$jum = pencamSqlLimit($bilSemua, $item = 500, $ms = 1);
+				$susun[] = array_merge($jum, array('kumpul'=>'', 'susun'=>''));
+				$this->papar->cariNama[$myTable] = $this->tanya->
+					cariSemuaData($myTable, $medan, $cari, $susun);
+					//cariSql($myTable, $medan, $cari, $susun);
+			}# tamat ulang table
+			//*/
 		}
 		else
 		{

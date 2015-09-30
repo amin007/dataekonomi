@@ -16,6 +16,7 @@ class Ckawalan extends Kawal
 		# pilih template
 		// $this->_t = '_'; # template lama
 		$this->_t = 'tahun_'; # template baru
+		$this->papar->levelPegawai = Sesi::get('levelPegawai');
 	}
 	
 	public function index() 

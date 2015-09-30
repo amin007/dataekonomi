@@ -3,6 +3,7 @@
 //echo '<pre>$this->cariNama:'; print_r($this->cariNama) . '</pre>';
 //echo '<pre>$this->carian:'; print_r($this->carian) . '</pre>';
 //echo '<pre>$this->apa:'; print_r($this->apa) . '</pre>';
+//echo '<pre>Sesi:'; print_r($_SESSION) . '</pre>';
 	
 if ($this->carian=='[id:0]')
 	echo 'Maaf data yang anda cari tiada dalam maklumat kami.<br>';
@@ -48,7 +49,7 @@ foreach ($this->cariNama as $myTable => $row)
 			endif; ?>
 	<td><?php echo $data ?></td><?php
 		endforeach;	?>	
-	<td><?php pautan($paparID, $myTable) ?></td>
+	<td><?php pautan($paparID, $myTable, $this->levelPegawai) ?></td>
 	</tr></tbody>
 	<?php
 	}
@@ -61,23 +62,29 @@ foreach ($this->cariNama as $myTable => $row)
 
 <?php } // $this->carian - tamat ?>
 <?php
-function pautan($paparID, $jadual)
+function pautan($paparID, $jadual, $levelPegawai)
 {
 	$ssm = !isset($paparID['ssm']) ? '000000000000' : $paparID['ssm'];
 	$id  = !isset($paparID['id'])  ? '000000000000' : $paparID['id'];
 	$kawalNewss = array('sse2010_kawal','alamat_newss_2013');
 	$kawalID = (in_array($jadual, $kawalNewss)) ? $id : $ssm;
-	$p = array(
+	$urlClass = '../cprosesan/ubah/';
+	$thnLama = '/2004/2013';
+	$sse2010 = '/' . $id . '/2010/2015';
+	$p = ( $levelPegawai == 'pegawai') ?
+		array(
+		'kawalan' => '../ckawalan/ubah/' . $kawalID,
+		'Data 205 Pembuatan Tahun Sebelm 2009' => $urlClass . '205/' . $ssm . '/2004/2009',
+		'Data 205 Pembuatan Tahun 2010-2015' => $urlClass . '205' . $sse2010
+		) : array(
 		'kawalan' => '../ckawalan/ubah/' . $kawalID,
 		'semakan' => '../semakan/ubah/205/' . $id . '/2010/2012',
 		'anggaran' => '../anggaran/semak/' . $id,		
 		//'imej' => '../cimej/imej/' . $ssm,
 		//'tahun sv205' => '../cprosesan205/tahun/' . $ssm
 		);
-	$urlClass = '../cprosesan/ubah/';
-	$thnLama = '/2004/2013';
-	$sse2010 = '/' . $id . '/2010/2015';
-	$proses = array (		
+	$proses = ( $levelPegawai == 'pegawai') ?
+		array() : array (		
 		//'surveyAm <-2009' => '../cprosesan/ubah/' . $ssm . '/2004/2009',
 		//'surveyAm 2010->' => '../cprosesan/ubah/' . $id . '/2010/2012',
 		'205 Pembuatan <-2009' => $urlClass . '205/' . $ssm . '/2004/2009',

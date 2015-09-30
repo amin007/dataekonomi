@@ -104,7 +104,7 @@ function dpt_senarai($namajadual)
 			$e2.'pp',$e2.'inlis3',$e2.'pp1malaysia',
 			$e2.'dba_rob',/*$e2.'profilrob',*/$e2.'dba_roc',
 			$e2.'sidap',$e2.'sisfor',
-			$e2.'am2010',$e2.'kawalan_ekonomi2005-2009'
+			$e2.'am2010',$e2.'`kawalan_ekonomi2005-2009`'
 			);
 	}
 	elseif ($namajadual=='kawalan_tahunan')

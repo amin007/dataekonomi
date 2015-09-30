@@ -16,7 +16,7 @@ Senarai Kes Untuk Kawalan
 	<h2>Sebelum 2010</h2>
 	<div class="form-group">
 		<select class="form-control" name="jenisID">
-		<option>Sidap</option><option>Nama</option><option>Operator</option>
+		<option>Sidap</option><option>Nama</option><option>Operator</option><option>Datalama</option>
 		</select>
 	</div><div class="form-group">
 		<div class="input-group">

@@ -31,7 +31,7 @@
 /* Echo out a label for the example */
 .bs-docs-example:after {
   content: "Selamat Datang <?php echo huruf('Besar_Depan' , Sesi::get('namaPenuh')) 
-  ?>. Silalah duduk di ruang tamu ini";
+  ?>. ";
   position: absolute;
   top: -1px;
   left: -1px;
@@ -52,15 +52,12 @@
 <div class="pasaran">
 <div class="bs-docs-example">
 <p class="lead" style="text-align:justify;">
-
-Adapun sejak banci eks tahun 2005 lagi, saya telah membangunkan <b>sistem online</b>.
-ikutkan nak mengatasi masalah sistem icr sahaja serta laporan yang dijanakan terus dari sistem icr.
-sampai banci ekonomi 2006, saya telah buat sistem kawalan prosesan sepenuhnya
-secara online. Cetak senarai batch pun online sahaja.
-Jadi sekarang saya dah susun sistem yang saya dah buat mengikut banci/penyiasatan 
-Tahunan, Bulanan, Suku Tahun, Setengah Tahun dan  Ad-hock.
-Harap anda dapat faham tentang sistem yang saya bangunkan menerusi php dan mysql juga mssql.
-Sekian Wasalam .</p>
+Bermula pada Banci EKS 2005, desakan ke arah pembinaan satu pengkalan data pertubuhan ekonomi dilihat mampu 
+memberi kesan signifikan kepada kualiti data Jabatan Perangkaan Malaysia khususnya JP Johor.
+Dengan pelaksanaan Banci Ekonomi pada tahun 2006 dan diikuti beberapa siri banci/penyiasatan 
+berkaitan pertubuhan ekonomi dalam tempoh berkala (bulanan, tahunan, suku tahunan, setiap 5 tahun dll),
+satu pasukan kerja Inovasi JP Johor yang diberi nama MAHARANI telah merintis jalan ke arah mewujudkan 
+pengkalan data khusus pertubuhan ekonomi di negeri ini, dan dikenali sebagai M-ECO.</p>
 </div>
 
 <p><a class="btn btn-primary btn-large">Pergi lebih jauh &raquo;</a></p>

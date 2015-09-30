@@ -129,12 +129,11 @@ class Test extends Kawal
 
 	public function bacafail($fail = "*.txt")
 	{
-		$lokasi = '' . $fail;
+		$lokasi = URL_DATA . $fail;
 		if (file_exists($lokasi)) 
 		{
-			echo "The file $lokasi exists | ";
-			echo $myTable = substr($fail, 0, -4);  // returns "abcde"
-			//$fail = "BE11_S206-copy.txt"; $myTable = "BE11_S206-copy";
+			//echo "The file $lokasi exists | ";
+			$myTable = substr($fail, 0, -4);  // returns "abcde"
 			###############################################################################
 			$f = fopen($lokasi, "r");
 			while(!feof($f)) 
@@ -145,17 +144,6 @@ class Test extends Kawal
 
 			$buang = count($data)-1;
 			unset($data[$buang]);
-
-			/*
-			CREATE TABLE Persons
-(
-PersonID int,
-LastName varchar(255),
-FirstName varchar(255),
-Address varchar(255),
-City varchar(255)
-);
-			*/
 			
 			$senarai = array(); 
 			$cantumMedan = null;
@@ -179,18 +167,45 @@ City varchar(255)
 				$senarai = null;
 			endforeach;
 			##################################################################################
-			
+			$this->tanya->tambahJadual($myTable, $kira, $cantumMedan, $cantumData);
 		}
 		else
 			echo "The file $lokasi does not exist |";
 
-		# set sql
-		$sql  = "CREATE TABLE $myTable /*".($kira)."*/(\r";
-		$sql .= substr($cantumMedan, 0, -1);
-		$sql .= "\r);\r\rINSERT INTO $myTable VALUES \r";
-		$sql .= implode(",\r", $cantumData);
-		echo '<pre>$sql->', print_r($sql, 1) . '</pre>';
-		//*/
+		
+	}
+	
+	public function paparfail()
+	{
+		$lokasi = URL_DATA;
+		if (file_exists($lokasi)) 
+		{
+			$dh = opendir($lokasi);
+			//echo '<pre>';print_r($dh);echo '</pre>';
+			$i=1;
+			while (($file = readdir($dh)) !== false) 
+			{
+				if($file != "."
+					&& $file != ".."
+					&& $file != "Thumbs.db"
+					&& $file != "index.html"
+					&& $file != "index.php") 
+				{
+					if ($file=='index.php') {echo "";}
+					elseif (is_dir($file)==false) 
+					{ 
+						echo "\n" . $i++ . ')<a target="_blank" href="'
+							. URL . 'test/bacafail/'
+							. $file . '">' . $file 
+							. '</a>: ' //. filesize($file) . ' bytes'
+							. '<br>';
+					}
+				}		 
+			}//*/
+			closedir($dh);
+		}
+		else
+			echo "The file $lokasi does not exist |";
 	}
 ################################################################################################
 }

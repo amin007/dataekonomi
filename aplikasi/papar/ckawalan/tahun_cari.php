@@ -3,49 +3,40 @@
 //echo '<pre>$this->cariNama:'; print_r($this->cariNama) . '</pre>';
 //echo '<pre>$this->carian:'; print_r($this->carian) . '</pre>';
 //echo '<pre>$this->apa:'; print_r($this->apa) . '</pre>';
-//echo '<pre>Sesi:'; print_r($_SESSION) . '</pre>';
 	
 if ($this->carian=='[id:0]')
 	echo 'Maaf data yang anda cari tiada dalam maklumat kami.<br>';
 else
-{ // $this->carian - mula
-	// setkan pembolehubah
-	$cari = $this->carian . '=' . $this->apa;
-?>
+{ # $this->carian - mula
+	# setkan pembolehubah
+	$cari = $this->carian . '=' . $this->apa; ?>
 Anda mencari <?php echo $cari ?><hr>
 <?php
 foreach ($this->cariNama as $myTable => $row)
-{// mula ulang $row
-?>
+{# mula ulang $row ?>
 	<table  border="1" class="excel" id="example">
 	<?php
-	// mula bina jadual
-	$printed_headers = false; 
+	$printed_headers = false; # mula bina jadual
 	#-----------------------------------------------------------------
 	for ($kira=0; $kira < count($row); $kira++)
-	{	//print the headers once: 	
+	{	# print the headers once:
 		if ( !$printed_headers ) : ?><thead><tr>
 	<th>#</th>
 	<?php	foreach ( array_keys($row[$kira]) AS $tajuk ) : 
-			// anda mempunyai kunci integer serta kunci rentetan
-			// kerana cara PHP mengendalikan tatasusunan.
-				if ( !is_int($tajuk) ) :
-					?><th><?php echo $tajuk ?></th>
-	<?php		endif;
-			endforeach;
+			# anda mempunyai kunci integer serta kunci rentetan
+			# kerana cara PHP mengendalikan tatasusunan.
+			?><th><?php echo $tajuk ?></th>
+	<?php	endforeach;
 	?><th>Jadual:<?php echo $myTable ?></th>
 	</tr></thead><?php 
 			$printed_headers = true; 
 		endif;
-	#-----------------------------------------------------------------	
-		//print the data row ?>
+	#-----print the data row------------------------------------------------?>
 	<tbody><tr>
 	<td><?php echo $kira+1 ?></td><?php
 		foreach ( $row[$kira] AS $key=>$data ) :
-			if ($key=='sidap'):
-				$paparID['ssm'] = substr($data,0,12); 
-			elseif ($key=='newss'):
-				$paparID['id'] = substr($data,0,12); 
+			if ($key=='sidap'): $paparID['ssm'] = substr($data,0,12); 
+			elseif ($key=='newss'): $paparID['id'] = substr($data,0,12); 
 			endif; ?>
 	<td><?php echo $data ?></td><?php
 		endforeach;	?>	
@@ -57,10 +48,10 @@ foreach ($this->cariNama as $myTable => $row)
 	?>
 	</table>
 <?php
-}// tamat ulang $row
+}# tamat ulang $row
 ?>
 
-<?php } // $this->carian - tamat ?>
+<?php } # $this->carian - tamat ?>
 <?php
 function pautan($paparID, $jadual, $levelPegawai)
 {
@@ -71,20 +62,45 @@ function pautan($paparID, $jadual, $levelPegawai)
 	$urlClass = '../cprosesan/ubah/';
 	$thnLama = '/2004/2013';
 	$sse2010 = '/' . $id . '/2010/2015';
-	$p = ( $levelPegawai == 'pegawai') ?
+	$k = dataK($kawalID, $id);
+	$p = dataP($urlClass, $id, $ssm, $sse2010);
+	$kawal = ( $levelPegawai == 'pegawai') ?
 		array(
 		'kawalan' => '../ckawalan/ubah/' . $kawalID,
-		'Data 205 Pembuatan Tahun Sebelm 2009' => $urlClass . '205/' . $ssm . '/2004/2009',
+		'Data 205 Pembuatan Tahun Sebelum 2009' => $urlClass . '205/' . $ssm . '/2004/2009',
 		'Data 205 Pembuatan Tahun 2010-2015' => $urlClass . '205' . $sse2010
-		) : array(
+		) : $k;
+	$proses = ( $levelPegawai == 'pegawai') ? array() : $p;
+	foreach ( $kawal AS $key=>$data ) :
+		//echo '$key='.$key.' | $data='.$data.'|<br>';
+		?><a target="_blank" href="<?php echo $data 
+		?>" class="btn btn-info btn-mini"><?php echo $key ?></a><?php
+	endforeach;
+	?><div class="btn-group">
+	<button class="btn dropdown-toggle btn-mini" data-toggle="dropdown">
+	Data Prosesan<span class="caret"></span></button>
+	<ul class="dropdown-menu"><?php 	
+		foreach ( $proses AS $key2=>$data2 ):?>
+		<li><a target="_blank" href="<?php 
+		echo $data2 ?>">survey <?php echo $key2 ?></a></li><?php
+		endforeach;
+	?></ul></div><?php
+}
+
+function dataK($kawalID, $id)
+{
+	return array(
 		'kawalan' => '../ckawalan/ubah/' . $kawalID,
 		'semakan' => '../semakan/ubah/205/' . $id . '/2010/2012',
 		'anggaran' => '../anggaran/semak/' . $id,		
 		//'imej' => '../cimej/imej/' . $ssm,
 		//'tahun sv205' => '../cprosesan205/tahun/' . $ssm
-		);
-	$proses = ( $levelPegawai == 'pegawai') ?
-		array() : array (		
+	);
+}
+
+function dataP($urlClass, $id, $ssm, $sse2010)
+{
+	return array (		
 		//'surveyAm <-2009' => '../cprosesan/ubah/' . $ssm . '/2004/2009',
 		//'surveyAm 2010->' => '../cprosesan/ubah/' . $id . '/2010/2012',
 		'205 Pembuatan <-2009' => $urlClass . '205/' . $ssm . '/2004/2009',
@@ -116,7 +132,7 @@ function pautan($paparID, $jadual, $levelPegawai)
 		'314 Bas 2010-2012' => $urlClass . '314' . $sse2010,
 		'315 2010-2012' => $urlClass . '315' . $sse2010,
 		'316 2010-2012' => $urlClass . '316' . $sse2010,
-		'312 2010-2012' => $urlClass . '317' . $sse2010,
+		'317 2010-2012' => $urlClass . '317' . $sse2010,
 		'318 Lori 2010-2012' => $urlClass . '318' . $sse2010,
 		'319 2010-2012' => $urlClass . '319' . $sse2010,
 		'320 2010-2012' => $urlClass . '320' . $sse2010,
@@ -139,21 +155,6 @@ function pautan($paparID, $jadual, $levelPegawai)
 		'850 2010-2012' => $urlClass . '850' . $sse2010,
 		'890 2010-2012' => $urlClass . '890' . $sse2010,
 		'999 2010-2012' => $urlClass . '999' . $sse2010,
-		);
-
-	foreach ( $p AS $key=>$data ) :
-		//echo '$key='.$key.' | $data='.$data.'|<br>';
-		?><a target="_blank" href="<?php echo $data 
-		?>" class="btn btn-info btn-mini"><?php echo $key ?></a><?php
-	endforeach;
-	?><div class="btn-group">
-	<button class="btn dropdown-toggle btn-mini" data-toggle="dropdown">
-	Data Prosesan<span class="caret"></span></button>
-	<ul class="dropdown-menu"><?php 	
-		foreach ( $proses AS $key2=>$data2 ):?>
-		<li><a target="_blank" href="<?php 
-		echo $data2 ?>">survey <?php echo $key2 ?></a></li><?php
-		endforeach;
-	?></ul></div><?php
+	);
 }
 ?>

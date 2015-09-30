@@ -85,9 +85,11 @@ else
 	$cari = $this->carian; 
 	$ID = $this->paparID; 
 	$tahun = $this->thn_mula . ' hingga ' . $this->thn_akhir;
-	$paparKesID = $ID . '/' . $this->thn_mula . '/' . $this->thn_akhir . '/cetak';
+	$cetakID = $ID . '/' . $this->thn_mula . '/' . $this->thn_akhir . '/cetak';
+	$paparID = $ID . '/' . $this->thn_mula . '/' . $this->thn_akhir;
 	$tajuk = 'Prosesan' . $this->sv . ' : Dari tahun ' . $tahun;
-	$cetak = URL . $this->kelas . 'ubah/' . $this->sv . '/' . $paparKesID;
+	$cetak = URL . $this->kelas . 'ubah/' . $this->sv . '/' . $cetakID;
+	$prosesan = URL . 'cprosesan/ubah/' . $this->sv . '/' . $paparID;
 	$mencari = URL . $this->kelas . 'ubahCetak/' . $this->sv;
 	$senaraiMedan = array('thn','Estab','F0002','F0014','F0015');
 	$buangJadual = array('q04_2010','q05a_2010','q05b_2010',
@@ -102,6 +104,8 @@ else
 ?>
 <div align="center"><form method="POST" action="<?php echo $mencari ?>" autocomplete="off">
 <span class="badge"><?php echo $tajuk ?></span>
+<a href="<?php echo $prosesan ?>"><span class="badge"><i
+ class="icon-print icon-white"></i>Cprosesan</span></a>
 <a href="<?php echo $cetak ?>"><span class="badge"><i
  class="icon-print icon-white"></i>Cetak</span></a>
 <input type="text" name="cari" size="40" value="<?=$ID;?>">

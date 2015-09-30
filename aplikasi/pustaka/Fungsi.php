@@ -72,6 +72,7 @@ function senarai_kakitangan()
 function dpt_senarai($namajadual)
 {
 	$e = null; //'pom_dataekonomi.';
+	$e2 = 'pom_projek.';
 	if ($namajadual=='msiclama')
 		$jadual = array($e.'msic08',$e.'msic2008',
 		$e.'msic_v1',$e.'msic_bandingan',
@@ -97,9 +98,19 @@ function dpt_senarai($namajadual)
 		'5p_icdt'.$t,'rangka_icdt'.$t,
 		'alamat_icdt'.$t);
 	}
+	elseif ($namajadual=='datalama')
+	{
+		$jadual = array(
+			$e2.'pp',$e2.'inlis3',$e2.'pp1malaysia',
+			$e2.'dba_rob',/*$e2.'profilrob',*/$e2.'dba_roc',
+			$e2.'sidap',$e2.'sisfor',
+			$e2.'am2010',$e2.'kawalan_ekonomi2005-2009'
+			);
+	}
 	elseif ($namajadual=='kawalan_tahunan')
 	{
-		$jadual = array('kawal_ppmas09',
+		$jadual = array(
+			'kawal_ppmas09',
 			'kawal_rpe09',
 			'kawal_tani09',
 			'sse08_rangka',

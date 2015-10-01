@@ -21,6 +21,7 @@
   padding: 39px 19px 14px;
   *padding-top: 19px;
   background-color: #fff;
+  opacity: 0.5;filter:alpha(opacity=50); 
   color: <?php echo $font ?>;
   border: 1px solid #ddd;
   -webkit-border-radius: 4px;

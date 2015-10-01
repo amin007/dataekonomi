@@ -1,16 +1,19 @@
 <?php
-$css_url = JS . 'bootstrap3/css/';
-$js_url  = JS . 'bootstrap3/js/';
-$ico_url = JS . 'bootstrap3/img/';
-$font_url = JS . 'bootstrap3/font/';
+      $bt = '3';
+ $css_url = JS . 'bootstrap'.$bt.'/css/';
+ $js_url  = JS . 'bootstrap'.$bt.'/js/';
+ $ico_url = JS . 'bootstrap'.$bt.'/img/';
+$font_url = JS . 'bootstrap'.$bt.'/font/';
+$css_url2 = JS . 'bootstrap-3.3.5/css/';
 $fontAwesome = JS . 'font-awesome-4.4.0/css/';
 
 //$theme[]='cerulean_blue';
 //$theme[]=''; basic
-$theme[]='_print';
-$theme[]='-united_jingga';
-$theme[]='-united_jingga2';
+$theme[]='theme/bootstrap_print';
+$theme[]='theme/bootstrap-united_jingga';
+$theme[]='theme/bootstrap-united_jingga2';
 $theme[]='font-awesome';
+$theme[]='bootstrap';
 //$theme[]='journal_white';
 //$theme[]='spruce_hijau';
 
@@ -20,8 +23,8 @@ $pilih2 = $theme[0];
 $pilih3 = $theme[3];
 
 ?><!-- Le styles -->
-	<link href="<?php echo $css_url ?>theme/bootstrap<?php echo $pilih ?>.css" rel="stylesheet">
-	<link href="<?php echo $css_url ?>theme/bootstrap<?php echo $pilih2 ?>.css" rel="stylesheet">
+	<link href="<?php echo $css_url . $pilih ?>.css" rel="stylesheet">
+	<link href="<?php echo $css_url . $pilih2 ?>.css" rel="stylesheet">
 	<link href="<?php echo $fontAwesome . $pilih3 ?>.css" rel="stylesheet"><?php
 if (isset($this->css)) 
 {

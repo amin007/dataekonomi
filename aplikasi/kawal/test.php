@@ -178,16 +178,13 @@ class Test extends Kawal
 		$lokasi = URL_DATA;
 		if (file_exists($lokasi)) 
 		{
-			$dh = opendir($lokasi);
-			//echo '<pre>';print_r($dh);echo '</pre>';
+			$dh = opendir($lokasi); //echo '<pre>';print_r($dh);echo '</pre>';
 			$i=1;
 			while (($file = readdir($dh)) !== false) 
 			{
-				if($file != "."
-					&& $file != ".."
-					&& $file != "Thumbs.db"
-					&& $file != "index.html"
-					&& $file != "index.php") 
+				if	(!in_array(
+						$file, array(".","..","Thumbs.db","index.html","index.php") 
+					)) 
 				{
 					if ($file=='index.php') {echo "";}
 					elseif (is_dir($file)==false) 

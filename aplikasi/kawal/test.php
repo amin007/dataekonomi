@@ -13,8 +13,6 @@ class Test extends Kawal
 		echo 'class Test::index() extends Kawal ';
 	}
 	
-################################################################################################
-## contoh carian papar tarikh dan nossm
 	public function binasql($kpLama = null, $kpBaru = null) 
     {    
 		# mula papar semua dalam $myTable
@@ -206,6 +204,12 @@ class Test extends Kawal
 		}
 		else
 			echo "The file $lokasi does not exist |";
+	}
+	
+	public function paparorang()
+	{
+		$pegawai = unserialize(PEGAWAI);
+		echo '<pre>', print_r($pegawai, 1) . '</pre><br>';
 	}
 ################################################################################################
 }

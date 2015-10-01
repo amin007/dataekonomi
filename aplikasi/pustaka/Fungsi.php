@@ -49,22 +49,7 @@ function dpt_ip()
 
 function senarai_kakitangan()
 {
-    $pegawai[]='adam';
-    $pegawai[]='amin';
-    $pegawai[]='ariff';
-    $pegawai[]='azim';
-    $pegawai[]='fendi';
-    $pegawai[]='irwan';
-    $pegawai[]='khairi';
-    $pegawai[]='mazlan';
-    $pegawai[]='murad';
-    $pegawai[]='musa';
-    $pegawai[]='mustaffa';
-    $pegawai[]='norita';
-    $pegawai[]='razak';
-    $pegawai[]='shukor';
-    $pegawai[]='suhaida';
-    $pegawai[]='sujana';
+	$pegawai = unserialize(PEGAWAI);
     
     return $pegawai;
 }

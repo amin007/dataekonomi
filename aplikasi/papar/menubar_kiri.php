@@ -29,15 +29,19 @@
 			</ul>
 		</li>
 	</ul>
+glyphicon glyphicon-search
+glyphicon glyphicon-stats
+glyphicon glyphicon-picture
+<span class="glyphicon glyphicon-stats"></span>
 */
 $nav = 'class="dropdown-toggle" data-toggle="dropdown"';
-$filter = '<span class="glyphicon glyphicon-filter"></span>';
+$filter = '<i class="fa fa-filter"></i>';//'<span class="glyphicon glyphicon-filter"></span>';
 ?>
 	<ul  class="nav navbar-nav">
 	<!-- mula  ul class="nav" -->
 	<?php if (Sesi::get('loggedIn') == true):?>
 	<li class="dropdown"><a href="<?php echo URL ?>ckawalan">
-		<span class="glyphicon glyphicon-search"></span>Jejak</a></li>
+		<i class="fa fa-search"></i></span>Jejak</a></li>
 		<?php 
 		$khas = array('amin007','azizah');
 		$user = Sesi::get('namaPegawai');
@@ -49,7 +53,7 @@ $filter = '<span class="glyphicon glyphicon-filter"></span>';
 		<?php endif ?>
 	<li class="dropdown">
 		<a <?php echo $nav ?> href="#">
-		<span class="glyphicon glyphicon-search"></span>Kod<b class="caret"></b></a>
+		<i class="fa fa-photo"></i>Kod<b class="caret"></b></a>
 		<ul class="dropdown-menu">
 		<li class="nav-header">Kamus Kod</li>
 		<li><a href="<?php echo URL ?>cari/semua/msic"><?php echo $filter ?>MSIC</a></li>
@@ -63,7 +67,7 @@ $filter = '<span class="glyphicon glyphicon-filter"></span>';
 		</ul>
 	</li>
 	<li><a href="<?php echo 'http://' . $_SERVER['SERVER_NAME'] ?>/private_html">
-		<span class="glyphicon glyphicon-stats"></span>E-Survey POM</a></li>
+		<i class="fa fa-bar-chart"></i>E-Survey POM</a></li>
 	<?php else: ?>
 	<li class="dropdown"><a href="<?php echo URL ?>index">Index</a></li>
 	<?php endif; ?>

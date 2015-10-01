@@ -1,5 +1,8 @@
 <?php Sesi::init(); 
 
+//glyphicon glyphicon-home
+//glyphicon glyphicon-send
+//glyphicon glyphicon-user
 //$paparMenuAtas = 0;
 $paparMenuAtas = 1;
 
@@ -15,14 +18,14 @@ else
 <div class="navbar navbar-default">
 <!-- div class="navbar navbar-default navbar-fixed-top" -->
 		<a href="<?php echo URL ?>ruangtamu" class="navbar-brand">
-			<span class="glyphicon glyphicon-home"></span> Anjung</a>
+			<i class="fa fa-home"></i> Anjung</a>
 		<a href="<?php echo URL ?>ruangtamu/logout" class="navbar-brand">
-			<span class="glyphicon glyphicon-send"></span> Keluar</a>
+			<i class="fa fa-paper-plane-o"></i> Keluar</a>
 	<?php require 'menubar_kiri.php'; ?>
 
 	<!-- menu kanan mula -->
 	<ul class="nav navbar-nav navbar-right">
-		<li><a><span class="glyphicon glyphicon-user"></span><?php 
+		<li><a><i class="fa fa-user-secret"></i><?php 
 		echo huruf('Besar_Depan' , Sesi::get('namaPenuh')) 
 		?></a></li>
 	</ul> 

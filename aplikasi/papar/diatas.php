@@ -5,8 +5,8 @@
 <title><?php
 echo Tajuk_Muka_Surat;
 $dpt_url = dpt_url();
-echo (empty($url[2])) ? null 
-	: '[' . $dpt_url[2] . ']';
+echo (empty($url[2])) ? null : 
+	'[' . $dpt_url[2] . ']';
 ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
@@ -40,8 +40,7 @@ table.excel tbody td
 }
 </style>
 </head><?php
-/*
-style="background: url('<?php echo GAMBAR ?>') no-repeat center center fixed;background-size: cover;"
-*/
+$paparGambar = ($dpt_url[0] != 'ruangtamu') ? null : 
+	"background: url('".GAMBAR."') no-repeat center center fixed;background-size: cover;";
 ?>
-<body>
+<body style="<?php echo $paparGambar ?>">

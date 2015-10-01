@@ -11,7 +11,7 @@
   border-radius: 6px;
 }
 
-/* Bootstrap code examples
+/* Bootstrap code examples <?php $font = '#800080'; ?>
 -------------------------------------------------- */
 
 /* Base class */
@@ -21,7 +21,7 @@
   padding: 39px 19px 14px;
   *padding-top: 19px;
   background-color: #fff;
-  color: #000;
+  color: <?php echo $font ?>;
   border: 1px solid #ddd;
   -webkit-border-radius: 4px;
      -moz-border-radius: 4px;
@@ -40,7 +40,7 @@
   font-weight: bold;*/
   background-color: #f5f5f5;
   border: 1px solid #ddd;
-  color: #9da0a4;
+  color: <?php echo $font ?>; /*#9da0a4*/
   -webkit-border-radius: 4px 0 4px 0;
      -moz-border-radius: 4px 0 4px 0;
           border-radius: 4px 0 4px 0;

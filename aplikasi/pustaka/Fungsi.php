@@ -41,14 +41,15 @@ function pecah_url($ulang)
 
 function dpt_ip()
 {
-	$IP = array('192.168.1.', '10.69.112.', 
-		'127.0.0.1'/*, '10.72.112.'*/);
-
+	# define('ALAMAT_IP', serialize (array()) );
+	$IP = unserialize(ALAMAT_IP);
+	
 	return $IP;
 }
 
 function senarai_kakitangan()
 {
+	# define('PEGAWAI', serialize (array()) );
 	$pegawai = unserialize(PEGAWAI);
     
     return $pegawai;

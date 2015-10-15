@@ -21,7 +21,7 @@
 <div class="bs-example"><div class="jumbotron">
 	<h1>Pengenalan</h1>
 	<p class="lead" style="text-align:justify;">
-	Ini adalah inovasi tentang semua data-data syarikat di negeri johor serta data-data yang
+	Ini adalah inovasi tentang BIG DATA syarikat di negeri johor serta yang
 	berkaitan seperti kod msic, produk, lokaliti dan sebagainya.
 	Sekian Wasalam.
 	<h5>Rujukan utama dalam kerja-kerja analisis data-data ekonomi<br>

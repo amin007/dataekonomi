@@ -174,9 +174,9 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 				endif;
 				# cari data sql
 				$cariSama = "\r ON c.estab = b.newss ";
-				$cari2[0] = array('fix'=>'z2','atau'=>'WHERE','medan'=>$msicCari,'apa'=>"'$msic2008%'",'akhir'=>NULL);
+				$cari2[0] = array('fix'=>'zlike','atau'=>'WHERE','medan'=>$msicCari,'apa'=>"'$msic2008%'",'akhir'=>NULL);
 				if($bandar!=null)	
-					$cari2[1] = array('fix'=>'z2','atau'=>'AND','medan'=>'b.alamat3a','apa'=>"'$bandar%'",'akhir'=>NULL);
+					$cari2[1] = array('fix'=>'zlike','atau'=>'AND','medan'=>'b.alamat3a','apa'=>"'$bandar%'",'akhir'=>NULL);
 
 				$this->papar->cariNama[$jadual] = $this->tanya->
 				//cariSql("$paparJadual c INNER JOIN alamat_newss_2013 b $cariSama",

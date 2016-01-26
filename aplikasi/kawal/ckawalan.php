@@ -163,8 +163,12 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 			$susun[] = array_merge($jum, $kumpul );
 				
 			foreach  ($myTable2 as $key=>$jadual): // s393_tbldatareview_2010
-				if (in_array($jadual, array('205','206'))):
+				if (in_array($jadual, array('205'))):
 					$paparJadual = 'q01_2010';
+					$msicMedan = 'c.f0014,c.f0015';
+					$msicCari = 'c.f0014';
+				elseif (in_array($jadual, array('206'))):
+					$paparJadual = 's206_q01_2010';
 					$msicMedan = 'c.f0014,c.f0015';
 					$msicCari = 'c.f0014';
 				else:

@@ -107,6 +107,18 @@ class Ckawalan_Tanya extends Tanya
 		return $susunan;		
 	}
 
+	private function bentukSQL($myTable, $medan = '*', $carian, $susun)
+	{
+		$sql = 'SELECT ' . $medan . ' FROM ' . $myTable 
+			 . $this->dimana($carian)
+			 . $this->dibawah($susun);
+		
+		//echo '<pre>susun:'; print_r($susun) . '</pre><br>';
+		//echo htmlentities($sql) . '<br>';
+		
+		return $sql;
+	}
+	
 	public function cariRow($myTable, $medan = '*', $carian)
 	{
 		$sql = 'SELECT ' . $medan . ' FROM ' . $myTable 

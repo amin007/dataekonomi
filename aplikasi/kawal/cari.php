@@ -13,11 +13,10 @@ class Cari extends Kawal
 	{	
 		//echo '<br>public function index() class Cari extends Kawal ';
 		$this->papar->medan = null;
-		// Set pemboleubah utama
-		//$this->papar->pegawai = senarai_kakitangan();
+		# Set pemboleubah utama
 		$this->papar->url = dpt_url();
 
-		// pergi papar kandungan
+		# pergi papar kandungan
 		$this->papar->baca('cari/index');
 	}
 	
@@ -30,16 +29,15 @@ class Cari extends Kawal
 		
 		$this->papar->medan = ($borang=='msic') ?
 			$this->tanya->paparMedan('msic2000')
-			: // jika $borang!='msic'
+			: # jika $borang!='msic'
 			$this->tanya->paparMedan('kodproduk_mei2011');
 		//echo '<pre>$this->papar->medan:<br>'; print_r($this->papar->medan); 
 		
-		// Set pemboleubah utama
-		//$this->papar->pegawai = senarai_kakitangan();
+		# Set pemboleubah utama
 		$this->papar->url = dpt_url();
 		$this->papar->mesej = $mesej;
 
-		// pergi papar kandungan
+		# pergi papar kandungan
 		$this->papar->baca('cari/index');
 	}
 
@@ -53,11 +51,11 @@ class Cari extends Kawal
 		$this->papar->medan = $this->tanya->paparMedan('pom_lokaliti.'.$negeri);
 		//echo '<pre>$this->papar->medan:<br>'; print_r($this->papar->medan); 
 
-		// Set pemboleubah utama
+		# Set pemboleubah utama
 		$this->papar->url = dpt_url();
 		$this->papar->mesej = $mesej;
 
-		// pergi papar kandungan
+		# pergi papar kandungan
 		$this->papar->baca('cari/index');	
 	}
 	
@@ -66,26 +64,23 @@ class Cari extends Kawal
 		/* fungsi ini memaparkan borang
 		 * untuk carian syarikat sahaja
 		 */
+		
 		$this->papar->medan = $this->tanya->paparMedan('data_mm_prosesan');
 		//echo '<pre>$this->papar->medan:<br>'; print_r($this->papar->medan); 
 		$url = dpt_url();
+		# Set pemboleubah utama
 		$this->papar->url = $url;
-		
-		// set latarbelakang
-		//$this->papar->gambar=gambar_latarbelakang('../../');
-		// Set pemboleubah utama
-		//$this->papar->pegawai = senarai_kakitangan();
-		
-		// pergi papar kandungan
+			
+		# pergi papar kandungan
 		$this->papar->baca('cari/index', 0);
 	}
 
 	public function data() 
 	{	
-		// Set pemboleubah utama
+		# Set pemboleubah utama
 		//$this->papar->pegawai = senarai_kakitangan();
 
-		// pergi papar kandungan
+		# pergi papar kandungan
 		$this->papar->baca('cari/index');
 	}
 
@@ -94,6 +89,7 @@ class Cari extends Kawal
 		/* fungsi ini memaparkan hasil carian
 		 * untuk jadual msic2000 dan msic2008
 		 */
+		
 		$had = '0, ' . $bil; # setkan $had untuk sql
 		$kira = pecah_post($_POST); //echo '<pre>$kira->'; print_r($kira); echo '</pre>';
 		# setkan pembolehubah dulu

@@ -144,9 +144,14 @@ class Ckawalan_Tanya extends Tanya
 	
 	public function cariSql($myTable, $medan = '*', $carian, $susun)
 	{
-		$sql = 'SELECT ' . $medan . ' FROM ' . $myTable
-			 . $this->dimana($carian) 
-			 . $this->dibawah($susun);
+		$sql = $this->bentukSQL($myTable, $medan, $carian, $susun);
+		
+		echo htmlentities($sql) . '<br>';
+	}
+
+	public function cariCantumSql($myTable, $medan = '*', $carian, $susun)
+	{
+		return $sql = $this->bentukSQL($myTable, $medan, $carian, $susun);
 		
 		echo htmlentities($sql) . '<br>';
 	}

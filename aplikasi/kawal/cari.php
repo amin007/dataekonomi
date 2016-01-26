@@ -183,24 +183,36 @@ class Cari extends Kawal
 		elseif (!empty($namajadual) && $namajadual=='johor') 
 		{
 			/*`KOD NEGERI`, `NEGERI`,*/ 
-			$jadual = dpt_senarai('johor');
-			// mula cari $cariID dalam $jadual
-			foreach ($jadual as $key => $myTable)
-			{// mula ulang table
-				// senarai nama medan
-				$medan = '`KOD NGDBBP 2010`,`PEJABAT OPERASI`,' .
-				"\r" . ' concat (`KOD DAERAH BANCI`,"-",`DAERAH BANCI`," | ",`NEGERI`) as DB,' .
-				"\r" . ' concat (`KOD STRATA`,"-",`STRATA`) as STRATA,' .
-				"\r" . ' concat (`KOD MUKIM`,"-",`MUKIM`) as MUKIM,' .
-				"\r" . ' concat (`KOD BP`,"-",`DAERAH PENTADBIRAN`) as DAERAH,' .
-				"\r" . ' concat (`KOD PBT`,"-",`PIHAK BERKUASA TEMPATAN`) as PBT,' .
-				"\r" . ' concat (`KOD BDR`,"-",`NAMA BANDAR`) as BANDAR,' .
+				# senarai nama medan
+				$medanAsal = '`KOD NGDBBP 2010`,`PEJABAT OPERASI`,' .
+				"\r" . ' concat(`KOD DAERAH BANCI`,"-",`DAERAH BANCI`," | ",`NEGERI`) as DB,' .
+				"\r" . ' concat(`KOD STRATA`,"-",`STRATA`) as STRATA,' .
+				"\r" . ' concat(`KOD MUKIM`,"-",`MUKIM`) as MUKIM,' .
+				"\r" . ' concat(`KOD BP`,"-",`DAERAH PENTADBIRAN`) as DAERAH,' .
+				"\r" . ' concat(`KOD PBT`,"-",`PIHAK BERKUASA TEMPATAN`) as PBT,' .
+				"\r" . ' concat(`KOD BDR`,"-",`NAMA BANDAR`) as BANDAR,' .
 				"\r" . '`DESKRIPSI (LOKALITI STATISTIC KAWKECIL)`, `LOKALITI UNTUK INDEKS`'; 
+				# senarai nama medan
+				$medanBaru = '`KOD NGDBBP 2010`,' .
+				//"\r" . ' concat("01",`no_db`, `no_bp_baru`) as `KodNGDBBP`,' .
+				"\r" . ' `kod_strata` as STRATA, NEGERI,' .
+				"\r" . ' concat(`KodMukim`,"-",`Mukim`) as MUKIM,' .
+				"\r" . ' concat(`KodDP`,"-",`Daerah Pentadbiran`) as DAERAH,' .
+				"\r" . ' concat(`KodPBT`,"-",`PBT`) as PBT,' .
+				"\r" . ' `catatan`, `kawasan`,' .
+				"\r" . ' `LOKALITI UNTUK INDEKS`'; 
 				
-				$this->papar->cariNama[$myTable] = $this->tanya
-				->cariBanyakMedan($myTable, $medan, $kira, $had);
-				
-			}// tamat ulang table
+			# mula cari $cariID dalam $jadual
+			$jadual = dpt_senarai('johor');
+			foreach ($jadual as $key => $myTable)
+			{# mula ulang table
+				$medan = ($myTable=='pom_lokaliti.johor') ? 
+					$medanAsal : $medanBaru;
+				$myJadual = ($myTable=='pom_lokaliti.johor') ? 
+					'JOHOR':'LK-JOHOR';
+				$this->papar->cariNama[$myJadual] = $this->tanya
+					->cariBanyakMedan($myTable, $medan, $kira, $had);
+			}# tamat ulang table
 			
 			$this->papar->carian=$carian;
 			$mesej = null; $lokasi = null;

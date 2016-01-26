@@ -20,6 +20,8 @@ class Ckawalan_Tanya extends Tanya
 				$where .= " $atau`$medan` = '$cariApa' $akhir\r";
 			elseif($fix=='x!=')
 				$where .= " $atau`$medan` != '$cariApa' $akhir\r";
+			elseif($fix=='x<=')
+				$where .= " $atau`$medan` <= '$cariApa' $akhir\r";
 			elseif($fix=='like')
 				$where .= " $atau`$medan` like '$cariApa' $akhir\r";
 			elseif($fix=='xlike')

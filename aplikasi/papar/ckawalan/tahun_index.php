@@ -94,6 +94,18 @@ Senarai Kes Untuk Kawalan
 	</div>
 </form>
 
+<form class="form-horizontal" role="form" method="post" action="ckawalan/data2011">
+	<div class="form-group">
+		<label class="col-lg-1 control-label">Hasil</label>
+		<div class="col-lg-1">
+		<input type="submit" class="btn btn-default" value="Cari">
+		</div>
+		<div class="col-lg-3">
+		<input type="text" class="form-control" placeholder="Hasil" name="hasil">
+		</div>
+	</div>
+</form>
+
 </div><!--container-->
 <?php
 function pautan($paparID = null, $jadual = null)

@@ -94,10 +94,9 @@ class Cari extends Kawal
 		/* fungsi ini memaparkan hasil carian
 		 * untuk jadual msic2000 dan msic2008
 		 */
-		 
-		$had = '0, ' . $bil; // setkan $had untuk sql
-		$kira = pecah_post($_POST); #echo '<pre>$kira->'; print_r($kira); echo '</pre>';
-		// setkan pembolehubah dulu
+		$had = '0, ' . $bil; # setkan $had untuk sql
+		$kira = pecah_post($_POST); //echo '<pre>$kira->'; print_r($kira); echo '</pre>';
+		# setkan pembolehubah dulu
 		$namajadual = isset($_POST['namajadual']) ? $_POST['namajadual'] : null;
 		$susun = isset($_POST['susun']) ? $_POST['susun'] : 1;
 		$carian = isset($_POST['cari']) ? $_POST['cari'] : null;
@@ -125,18 +124,17 @@ class Cari extends Kawal
 		elseif (!empty($namajadual) && $namajadual=='msic') 
 		{
 			$jadual = dpt_senarai('msicbaru');
-			// mula cari $cariID dalam $jadual
+			# mula cari $cariID dalam $jadual
 			foreach ($jadual as $key => $myTable)
-			{// mula ulang table
-				// senarai nama medan
+			{# mula ulang table
+				# senarai nama medan
 				$medan = ($myTable=='msic2008') ? 
 					'seksyen S,bahagian B,kumpulan Kpl,kelas Kls,' .
 					'msic2000,msic,keterangan,notakaki' 
 					: '*'; 
 				$this->papar->cariNama[$myTable] = $this->tanya
 				->cariBanyakMedan($myTable, $medan, $kira, $had);
-
-			}// tamat ulang table
+			}# tamat ulang table
 			
 			$this->papar->carian=$carian;
 			$mesej = null; $lokasi = null;
@@ -144,20 +142,19 @@ class Cari extends Kawal
 		elseif (!empty($namajadual) && $namajadual=='produk') 
 		{
 			$jadual = dpt_senarai('produk');
-			// mula cari $cariID dalam $jadual
+			# mula cari $cariID dalam $jadual
 			foreach ($jadual as $key => $myTable)
-			{// mula ulang table
-				// senarai nama medan
+			{# mula ulang table
+				# senarai nama medan
 				$medan = ($myTable=='kodproduk_aup') ? 
 					'bil,substring(kod_produk_lama,1,5) as msic,kod_produk_lama,' .
 					'kod_produk,unit_kuantiti unit,keterangan,keterangan_bi,aup,min,max' 
 					: '*'; 
 				$this->papar->cariNama[$myTable] = $this->tanya
 				->cariBanyakMedan($myTable, $medan, $kira, $had);
-			}// tamat ulang table
+			}# tamat ulang table
 			
-			
-			// papar jadual kod unit
+			# papar jadual kod unit
 			$unit = 'kodproduk_unitkuantiti';
 				$this->papar->cariNama[$unit] = $this->tanya
 					->paparSemuaJadual($unit, '*');
@@ -168,14 +165,14 @@ class Cari extends Kawal
 		elseif (!empty($namajadual) && $namajadual=='syarikat') 
 		{
 			$jadual = dpt_senarai('syarikat');
-			// mula cari $cariID dalam $jadual
+			# mula cari $cariID dalam $jadual
 			foreach ($jadual as $key => $myTable)
-			{// mula ulang table
-				// senarai nama medan
+			{# mula ulang table
+				# senarai nama medan
 				$medan = '*'; 
 				$this->papar->cariNama[$myTable] = $this->tanya
 				->cariBanyakMedan($myTable, $medan, $kira, $had);
-			}// tamat ulang table
+			}# tamat ulang table
 			
 			$this->papar->carian=$carian;
 			$mesej = null; $lokasi = null;
@@ -223,14 +220,13 @@ class Cari extends Kawal
 			$jadual = dpt_senarai('malaysia');
 			// mula cari $cariID dalam $jadual
 			foreach ($jadual as $key => $myTable)
-			{// mula ulang table
-				// senarai nama medan
+			{# mula ulang table
+				# senarai nama medan
 				$medan = '*'; 
 				$this->papar->cariNama[$myTable] = $this->tanya
 				//->cariSql('pom_lokaliti.'.$myTable, $medan, $kira, $had);
 				->cariBanyakMedan('pom_lokaliti.'.$myTable, $medan, $kira, $had);
-				
-			}// tamat ulang table
+			}# tamat ulang table
 			
 			$this->papar->carian=$carian;
 			$mesej = null; $lokasi = null;
@@ -238,29 +234,29 @@ class Cari extends Kawal
 		elseif (!empty($namajadual) && $namajadual=='data_mm_prosesan') 
 		{
 			$jadual = dpt_senarai('prosesan');
-			// mula cari $cariID dalam $jadual
+			# mula cari $cariID dalam $jadual
 			foreach ($jadual as $key => $myTable)
-			{// mula ulang table
-				// senarai nama medan
+			{# mula ulang table
+				# senarai nama medan
 				$medan = '*'; 
-				//echo '$myTable:' . $myTable . '<br>';
+				#echo '$myTable:' . $myTable . '<br>';
 				$this->papar->cariNama[$myTable] = $this->tanya
 				->cariBanyakMedan($myTable, $medan, $kira, $had);
-			}// tamat ulang table
+			}# tamat ulang table
 			
 			$this->papar->carian = $carian;
 			$mesej = null; $lokasi = null;
 		}
 		
-		// semak output
-		
+		# semak output
 		/*echo '<pre>';
 		echo '$this->papar->cariNama:'; print_r($this->papar->cariNama);
 		//echo '$this->papar->carian : ' . $this->papar->carian . '<br>';
 		//echo '$this->papar->apa : ' . $this->papar->apa . '<br>';
 		echo '</pre>';
 		//*/
-		// paparkan ke fail cari/$namajadual.php
+		
+		# paparkan ke fail cari/$namajadual.php
 		if ($mesej != null ) 
 		{
 			$_SESSION['mesej'] = $mesej;

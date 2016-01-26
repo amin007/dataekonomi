@@ -109,7 +109,7 @@ class Ckawalan_Tanya extends Tanya
 
 	private function bentukSQL($myTable, $medan = '*', $carian, $susun)
 	{
-		//bentukSQL($myTable, $medan, $carian, $susun);
+		//$this->bentukSQL($myTable, $medan, $carian, $susun);
 		$sql = 'SELECT ' . $medan . ' FROM ' . $myTable 
 			 . $this->dimana($carian)
 			 . $this->dibawah($susun);
@@ -133,9 +133,7 @@ class Ckawalan_Tanya extends Tanya
 
 	public function cariSemuaData($myTable, $medan = '*', $carian, $susun)
 	{
-		$sql = 'SELECT ' . $medan . ' FROM ' . $myTable 
-			 . $this->dimana($carian)
-			 . $this->dibawah($susun);
+		$sql = $this->bentukSQL($myTable, $medan, $carian, $susun);
 		
 		//echo htmlentities($sql) . '<br>';
 		$result = $this->db->selectAll($sql);

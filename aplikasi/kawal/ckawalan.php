@@ -329,6 +329,69 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 		
 	}
 	
+	public function data2011()
+	{
+		$myTable2  = array(
+			/*'100',*/'101',/*'103','104','105','201','202','203',*/'205','206',
+			'301',/*'302',*/'303',/*'304',*/'305','306','307','308','309',/*'310',*/
+			'311','312',/*'313',*/'314',/*'315',*/'316',/*'317',*/'318',/*'319','320',
+			322,323,324*/'325','328','331',/*332,333*/'334','335',
+			/*391,392,*/'393','800',/*810,840,850*/'850','890'/*999*/);
+
+		//echo '<pre>$myJadual:' . print_r($myJadual) . '</pre>';
+		$this->papar->cariNama = array();
+
+		# cari id berasaskan newss/ssm/sidap/nama/operator
+		$hasil = isset($_POST['hasil']) ? $_POST['hasil'] : null;
+		//echo '<pre>$id:' . print_r($id) . '</pre>';
+
+		if (!empty($hasil)) 
+		{
+			# set pembolehubah mysql asas
+			$jum = pencamSqlLimit($bilSemua = 500, $item = 500, $ms = 1);
+			$kumpul = array('kumpul'=>'', 'susun'=>'');
+			$susun[] = array_merge($jum, $kumpul );
+				
+			foreach  ($myTable2 as $key=>$jadual): // s393_tbldatareview_2010
+				if (in_array($jadual, array('205'))):
+					$paparJadual = 'q08_2010';
+					$msicMedan = 'F2099';
+				elseif (in_array($jadual, array('206'))):
+					$paparJadual = 's206_q08_2010';
+					$msicMedan = 'F2099';
+				else:
+					$paparJadual = 's' . $jadual . '_tbldatareview_2010';
+					$msicMedan = 'Revenue';
+				endif;
+				# cari data sql
+				$cari2[0] = array('fix'=>'x<=','atau'=>'WHERE','medan'=>$msicMedan,'apa'=>$hasil,'akhir'=>NULL);
+				$this->papar->cariNama[$jadual] = $this->tanya->
+					//cariSql("$paparJadual ",
+					cariSemuaData("$paparJadual",
+					' "jadual" newss, "'.$jadual.'" nama, count(*) ' . "\r"
+					,$cari2, $susun);//*/
+			endforeach;
+			
+			# papar cariam
+			$this->papar->carian = $msicMedan; # set pembolehubah untuk LIHAT => $this->carian
+			$this->papar->apa = $hasil; # set pembolehubah untuk LIHAT => $this->carian
+		}
+		else
+		{
+			$this->papar->carian='[id:0]'; # set pembolehubah untuk LIHAT => $this->carian
+			$this->papar->apa = null; # set pembolehubah untuk LIHAT => $this->apa
+		}
+		
+		# papar array dalam cariNama
+		//echo '<pre>$this->papar->carian:' . $this->papar->carian . '<br>';
+		//echo '<pre>$this->papar->apa:' . $this->papar->apa . '<br>';
+		//echo '<pre>$this->papar->cariNama:'; print_r($this->papar->cariNama) . '</pre>';
+		
+		# paparkan ke fail 
+		$this->papar->baca('ckawalan/' . $this->_t . 'cari');
+		
+	}
+	
 	function ubah($id) 
 	{	//echo '<br>Anda berada di class Imej extends Kawal:ubah($id)<br>';
 		

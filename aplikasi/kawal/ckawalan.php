@@ -372,7 +372,7 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 				$this->papar->cariNama[$jadual] = $this->tanya->
 					//cariSql("$paparJadual ",
 					cariSemuaData("$paparJadual",
-					' "jadual" newss, "'.$jadual.'" nama, count(*) ' . "\r"
+					' "'.$jadual.'" as kp, count(*) jum ' . "\r"
 					,$cari2, $susun);//*/
 			endforeach;
 			
@@ -392,7 +392,7 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 		//echo '<pre>$this->papar->cariNama:'; print_r($this->papar->cariNama) . '</pre>';
 		
 		# paparkan ke fail 
-		$this->papar->baca('ckawalan/' . $this->_t . 'cari');
+		$this->papar->baca('ckawalan/' . $this->_t . 'cari2');
 		
 	}
 	

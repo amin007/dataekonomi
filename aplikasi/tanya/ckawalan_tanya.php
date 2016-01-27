@@ -141,6 +141,14 @@ class Ckawalan_Tanya extends Tanya
 		
 		return $result;
 	}
+
+	public function cariSemuaSql($sql)
+	{	
+		//echo htmlentities($sql) . '<br>';
+		$result = $this->db->selectAll($sql);
+		
+		return $result;
+	}
 	
 	public function cariSql($myTable, $medan = '*', $carian, $susun)
 	{
@@ -153,7 +161,7 @@ class Ckawalan_Tanya extends Tanya
 	{
 		return $sql = $this->bentukSQL($myTable, $medan, $carian, $susun);
 		
-		echo htmlentities($sql) . '<br>';
+		//echo htmlentities($sql) . '<br>';
 	}
 
 	public function cariKes($myTable, $cari)

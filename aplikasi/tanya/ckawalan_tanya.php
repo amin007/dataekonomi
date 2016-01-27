@@ -85,23 +85,23 @@ class Ckawalan_Tanya extends Tanya
 	
 	}
 
-	private function dibawah($carian)
+	private function dibawah($susun)
 	{
-		$susunan = null;
-		if($carian==null || empty($carian) ):
+		$susunan = null; //echo '<pre>susun:'; print_r($susun) . '</pre><br>';
+		if($susun==null || empty($susun) ):
 			$susunan .= null;
 		else:
-			foreach ($carian as $key=>$cari)
+			foreach ($susun as $key=>$cari)
 			{
-				$kumpul = isset($carian[$key]['kumpul'])? $carian[$key]['kumpul'] : null;
-				 $order = isset($carian[$key]['susun']) ? $carian[$key]['susun']  : null;
-				  $dari = isset($carian[$key]['dari'])  ? $carian[$key]['dari']   : null;			
-				   $max = isset($carian[$key]['max'])   ? $carian[$key]['max']    : null;
+				$kumpul = isset($susun[$key]['kumpul'])? $susun[$key]['kumpul'] : null;
+				 $order = isset($susun[$key]['susun']) ? $susun[$key]['susun']  : null;
+				  $dari = isset($susun[$key]['dari'])  ? $susun[$key]['dari']   : null;			
+				   $max = isset($susun[$key]['max'])   ? $susun[$key]['max']    : null;
 			}
 				if ($kumpul!=null)$susunan .= " GROUP BY $kumpul\r";
 				if ($order!=null) $susunan .= " ORDER BY $order\r";
 				if ($max!=null)   $susunan .= ($dari==0) ? 
-						" LIMIT $max\r" : " LIMIT $dari,$max\r";
+					" LIMIT $max\r" : " LIMIT $dari,$max\r";
 		endif; 
 		
 		return $susunan;		

@@ -354,22 +354,23 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 			# set pembolehubah mysql asas
 			$jum = pencamSqlLimit($bilSemua = 500, $item = 500, $ms = 1);
 			$kumpul = array('kumpul'=>'', 'susun'=>'');
-			$susun[] = array_merge($jum, $kumpul );
+			$susun[] = array_merge($jum, $kumpul);
 			$query = null;
 				
 			foreach  ($myTable2 as $key=>$jadual): // s393_tbldatareview_2010
-				if (in_array($jadual, array('205'))):
+				# tentukan nilai $paparJadual & $paparMedan
+				if (in_array($jadual, array('205'))): 
 					$paparJadual = 'q08_2010';
-					$msicMedan = 'F2099';
+					$paparMedan = 'F2099';
 				elseif (in_array($jadual, array('206'))):
 					$paparJadual = 's206_q08_2010';
-					$msicMedan = 'F2099';
+					$paparMedan = 'F2099';
 				else:
 					$paparJadual = 's' . $jadual . '_tbldatareview_2010';
-					$msicMedan = 'Revenue';
+					$paparMedan = 'Revenue';
 				endif;
-				# cari data sql
-				$cari2[0] = array('fix'=>'x<=','atau'=>'WHERE','medan'=>$msicMedan,'apa'=>$hasil,'akhir'=>NULL);
+				# tatasusunan carian
+				$cari2[0] = array('fix'=>'x<=','atau'=>'WHERE','medan'=>$paparMedan,'apa'=>$hasil,'akhir'=>NULL);
 				# bentukSql
 				$query[] = $this->tanya->cariCantumSql($paparJadual,' "'.$jadual.'" as kp, count(*) jum ' . "\r"
 					,$cari2, $susun);
@@ -377,10 +378,10 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 			
 			# cantum sql
 			$sql = implode("UNION\r",$query);
-			$this->papar->cariNama['hasil_bawah_'. $hasil] = $this->tanya->cariSemuaSql($sql);
+			$this->papar->cariNama['hasil_bawah_' . $hasil] = $this->tanya->cariSemuaSql($sql);
 			# papar carian
-			$this->papar->carian = $msicMedan; # set pembolehubah untuk LIHAT => $this->carian
-			$this->papar->apa = $hasil; # set pembolehubah untuk LIHAT => $this->carian
+			$this->papar->carian = 'hasil bawah ' . $hasil; # set pembolehubah untuk LIHAT => $this->carian
+			$this->papar->apa = null; //$hasil; # set pembolehubah untuk LIHAT => $this->carian
 		}
 		else
 		{
@@ -395,7 +396,7 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 		//echo '<pre>$this->papar->cariNama:'; print_r($this->papar->cariNama) . '</pre>';
 		
 		# paparkan ke fail 
-		//$this->papar->baca('ckawalan/' . $this->_t . 'cari2');
+		$this->papar->baca('ckawalan/' . $this->_t . 'cari2');
 	}
 	
 	function ubah($id) 

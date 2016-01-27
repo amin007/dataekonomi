@@ -355,6 +355,7 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 			$jum = pencamSqlLimit($bilSemua = 500, $item = 500, $ms = 1);
 			$kumpul = array('kumpul'=>'', 'susun'=>'');
 			$susun[] = array_merge($jum, $kumpul );
+			$query = null;
 				
 			foreach  ($myTable2 as $key=>$jadual): // s393_tbldatareview_2010
 				if (in_array($jadual, array('205'))):
@@ -369,14 +370,15 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 				endif;
 				# cari data sql
 				$cari2[0] = array('fix'=>'x<=','atau'=>'WHERE','medan'=>$msicMedan,'apa'=>$hasil,'akhir'=>NULL);
-				$this->papar->cariNama[$jadual] = $this->tanya->
-					//cariSql("$paparJadual ",
-					cariSemuaData("$paparJadual",
-					' "'.$jadual.'" as kp, count(*) jum ' . "\r"
-					,$cari2, $susun);//*/
+				# bentukSql
+				$query[] = $this->tanya->cariCantumSql($paparJadual,' "'.$jadual.'" as kp, count(*) jum ' . "\r"
+					,$cari2, $susun);
 			endforeach;
 			
-			# papar cariam
+			# cantum sql
+			$sql = implode("UNION\r",$query);
+			$this->papar->cariNama['hasil_bawah_'. $hasil] = $this->tanya->cariSemuaSql($sql);
+			# papar carian
 			$this->papar->carian = $msicMedan; # set pembolehubah untuk LIHAT => $this->carian
 			$this->papar->apa = $hasil; # set pembolehubah untuk LIHAT => $this->carian
 		}
@@ -387,13 +389,13 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 		}
 		
 		# papar array dalam cariNama
+		//echo '<pre>$sql:' . $sql . '<br>';
 		//echo '<pre>$this->papar->carian:' . $this->papar->carian . '<br>';
 		//echo '<pre>$this->papar->apa:' . $this->papar->apa . '<br>';
 		//echo '<pre>$this->papar->cariNama:'; print_r($this->papar->cariNama) . '</pre>';
 		
 		# paparkan ke fail 
-		$this->papar->baca('ckawalan/' . $this->_t . 'cari2');
-		
+		//$this->papar->baca('ckawalan/' . $this->_t . 'cari2');
 	}
 	
 	function ubah($id) 
@@ -437,5 +439,5 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 		$this->papar->baca('ckawalan/ubah', 0);
 		
 	}
-
+#------------------------------------------------------------------------------------------------------------#
 }

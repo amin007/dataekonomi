@@ -370,15 +370,14 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 					$paparMedan = 'Revenue';
 				endif;
 				# tatasusunan carian
-				$cari2[0] = array('fix'=>'x<=','atau'=>'WHERE','medan'=>$paparMedan,'apa'=>$hasil,'akhir'=>NULL);
-				# bentukSql
-				$query[] = $this->tanya->cariCantumSql($paparJadual,' "'.$jadual.'" as kp, count(*) jum ' . "\r"
-					,$cari2, $susun);
+				$cari[0] = array('fix'=>'x<=','atau'=>'WHERE','medan'=>$paparMedan,'apa'=>$hasil,'akhir'=>NULL);
+				$cantumSql[] = $this->tanya->cariCantumSql($paparJadual,' "'.$jadual.'" as kp, count(*) jum '
+					,$cari, $susun); # cantum Sql
 			endforeach;
 			
 			# cantum sql
-			$sql = implode("UNION\r",$query);
-			$this->papar->cariNama['hasil_bawah_' . $hasil] = $this->tanya->cariSemuaSql($sql);
+			$this->papar->cariNama['hasil_bawah_' . $hasil] = 
+				$this->tanya->cariSemuaSql(implode("UNION\r",$cantumSql));
 			# papar carian
 			$this->papar->carian = 'hasil bawah ' . $hasil; # set pembolehubah untuk LIHAT => $this->carian
 			$this->papar->apa = null; //$hasil; # set pembolehubah untuk LIHAT => $this->carian
@@ -390,7 +389,6 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 		}
 		
 		# papar array dalam cariNama
-		//echo '<pre>$sql:' . $sql . '<br>';
 		//echo '<pre>$this->papar->carian:' . $this->papar->carian . '<br>';
 		//echo '<pre>$this->papar->apa:' . $this->papar->apa . '<br>';
 		//echo '<pre>$this->papar->cariNama:'; print_r($this->papar->cariNama) . '</pre>';

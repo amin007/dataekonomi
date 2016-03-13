@@ -128,6 +128,7 @@ class Test_Tanya extends Tanya
 		echo htmlentities($sql) . '<br>';
 		return $this->db->selectAll($sql);
 	}
+	
 	public function ubahMedan($myTable, $medan)
 	{
 		$sql = 'ALTER TABLE `' . $myTable . '` '
@@ -137,7 +138,6 @@ class Test_Tanya extends Tanya
 		
 		echo htmlentities($sql) . '<br>';
 		//return $this->db->selectAll($sql);
-
 	}
 	
 	public function cariSemuaData($myTable, $medan, $carian, $susun)
@@ -160,7 +160,6 @@ class Test_Tanya extends Tanya
 			 . $this->dibawah($susun);
 		
 		echo htmlentities($sql) . '<br>';
-
 	}
 
 	public function tambahSql($myTable, $data, $medan)

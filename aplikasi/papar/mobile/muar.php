@@ -17,20 +17,17 @@ if ( in_array($this->ip2,$this->senaraiIP) )
 		$file_headers = @get_headers($fail);
 		$imej = (($file_headers[0] == 'HTTP/1.1 404 Not Found')) ? 
 			'<a class="ui-btn ui-shadow ui-corner-all ui-icon-delete ui-btn-icon-notext ui-btn-inline">Delete</a>'
-			:'<img src="'.$fail.'">';
-		echo "\r";
-?>
+			:'<img src="' . $fail . '">';
+		echo "\r"; ?>
 	<div data-demo-html="true">	
 	<div data-role="popup" id="popupMenu" data-theme="a">
 	<div data-role="popup" id="<?php echo $fe ?>" data-theme="a" class="ui-corner-all">
 		<form data-ajax="false" method="POST" action="<?php echo URL ?>login/semakid">
 		<div style="padding:10px 20px;">
-<?php if ( $fe=='amin' ): $nama='amin007'?>
-			<?php echo $imej . "\r" ?>
+<?php if ( $fe=='amin' ): $nama='amin007'; echo $imej . "\r" ?>
 				<input type="hidden" name="username" value="<?php echo $nama ?>" placeholder="Nama Anda" data-theme="a" />
 				<input type="password" name="password" id="pw" placeholder="Kata Laluan" data-theme="a" />
-<?php else: ?>
-			<?php echo $imej . "\r\t\t\t\t";?> <br>anda ada kebenaran masuk sistem
+<?php else: echo $imej . "\r\t\t\t\t";?> <br>anda ada kebenaran masuk sistem
 				<input type="hidden" name="username" value="<?php echo $fe ?>" />
 				<input type="hidden" name="password" value="<?php echo $fe ?>" />
 <?php endif; ?>

@@ -12,7 +12,7 @@ class Mobile extends Kawal
 	
 	function index() 
 	{//echo 'class Mobile::index() extends Kawal <br>';
-		// pergi papar kandungan
+		# pergi papar kandungan
 		$this->papar->baca('mobile/mobile');
 	}
 		
@@ -26,22 +26,23 @@ class Mobile extends Kawal
 		$this->papar->server = $_SERVER['SERVER_NAME'];
 		$this->papar->tajuk = 'Login Untuk POM';
 		
-		// pergi papar kandungan
+		# pergi papar kandungan
 		$this->papar->baca('mobile/iconjqm');
 	}
 
 	function cari() 
 	{
-		// pergi papar kandungan
+		# pergi papar kandungan
 		$this->papar->baca('mobile/cari');
 	}
 
 	function cariNama() 
 	{
-		// pergi papar kandungan
+		$ pergi papar kandungan
 		$this->papar->baca('mobile/carinama');
 	}
-// function yang bukan dicapai secara terus dari URL	
+
+	# function yang bukan dicapai secara terus dari URL	
 	function carian() 
 	{
 		$cariNama = $this->semakData(bersih($_POST['cariNama']));

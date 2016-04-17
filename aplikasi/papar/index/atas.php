@@ -17,18 +17,21 @@ $css_url = JS . 'bootstrap/'.$bt.'/css/';
 $js_url  = JS . 'bootstrap/'.$bt.'/js/';
 $ico_url = JS . 'bootstrap/'.$bt.'/img/';
 $font_url = JS . 'bootstrap/'.$bt.'/font/';
+$fontAwesome = JS . 'font-awesome/4.4.0/css/';
+
 //$theme[]='cerulean_blue';
 //$theme[]=''; basic
 $theme[]='-united_jingga';
 //$theme[]='journal_white';
 //$theme[]='spruce_hijau';
+$theme[]='font-awesome';
 
 $hariini = 0; //rand(0, count($theme)-1); 
 $pilih = $theme[$hariini];
-
+$pilih3 = $theme[1];
 ?><!-- Le styles -->
 <link href="<?php echo $css_url ?>theme/bootstrap<?php echo $pilih ?>.css" rel="stylesheet">
-
+<link href="<?php echo $fontAwesome . $pilih3 ?>.css" rel="stylesheet">
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>

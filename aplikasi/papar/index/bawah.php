@@ -2,7 +2,8 @@
 	<footer>
 	<span class="label label-info">&copy; Hak Cipta Terperihara 2012 |
 	<a target="_blank" href="http://getbootstrap.com">
-	Theme <?php echo $pilih ?></a> </span>
+	<i class="fa fa-angle-double-right fa-2x" aria-hidden="true"></i>
+	Theme <?php echo $pilih ?> </a> </span>
 	</footer>
 <!-- // kemudian masukkan  jquery dan js lain2
 ---------------------------------------------------------------------------------- -->
@@ -17,7 +18,7 @@ $(document).ready(function()
     }, function () {
         jQuery(this).children('ul').removeClass('.submenu-show').addClass('submenu-hide');
     <?php // }).find("a:first").append(" &raquo; "); ?>
-	}).find("a:first").append(" <i class=<?php echo $simbol ?>></i> ");
+	}).find("a:first").append(" <i class=<?php echo $simbol='fa fa-angle-double-right' ?>></i> ");
 	
 	$('.tarikh').datepicker(
 		{ "format": "yyyy-mm-dd", 
@@ -63,8 +64,6 @@ if (isset($this->js))
 ?>		<script type="text/javascript" src="<?php echo $js_url . $js ?>"></script><?php
 	}
 }
-echo "\n";
-?>
-
+echo "\n"; ?>
 </body>
 </html>

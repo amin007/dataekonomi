@@ -12,11 +12,11 @@ echo (empty($url[2])) ? null
 <meta name="description" content="">
 <meta name="author" content="">
 <?php
-$css_url = JS . 'bootstrap3/css/';
-$js_url  = JS . 'bootstrap3/js/';
-$ico_url = JS . 'bootstrap3/img/';
-$font_url = JS . 'bootstrap3/font/';
-
+$bt = '3';
+$css_url = JS . 'bootstrap/'.$bt.'/css/';
+$js_url  = JS . 'bootstrap/'.$bt.'/js/';
+$ico_url = JS . 'bootstrap/'.$bt.'/img/';
+$font_url = JS . 'bootstrap/'.$bt.'/font/';
 //$theme[]='cerulean_blue';
 //$theme[]=''; basic
 $theme[]='-united_jingga';

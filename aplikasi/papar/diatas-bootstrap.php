@@ -1,11 +1,11 @@
 <?php
-      $bt = '3';
- $css_url = JS . 'bootstrap'.$bt.'/css/';
- $js_url  = JS . 'bootstrap'.$bt.'/js/';
- $ico_url = JS . 'bootstrap'.$bt.'/img/';
-$font_url = JS . 'bootstrap'.$bt.'/font/';
-$css_url2 = JS . 'bootstrap-3.3.5/css/';
-$fontAwesome = JS . 'font-awesome-4.4.0/css/';
+$bt = '3';
+$css_url = JS . 'bootstrap/'.$bt.'/css/';
+$js_url  = JS . 'bootstrap/'.$bt.'/js/';
+$ico_url = JS . 'bootstrap/'.$bt.'/img/';
+$font_url = JS . 'bootstrap/'.$bt.'/font/';
+$css_url2 = JS . 'bootstrap/3.3.5/css/';
+$fontAwesome = JS . 'font-awesome/4.4.0/css/';
 
 //$theme[]='cerulean_blue';
 //$theme[]=''; basic

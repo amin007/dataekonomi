@@ -8,11 +8,10 @@ else
 ?>
 <hr>
 	<footer>
-	<span class="label label-info">&copy; Hak Cipta Terperihara 2013 |
+	<span class="label label-info">&copy; Hak Cipta Terperihara 2012 |
 	<a target="_blank" href="http://getbootstrap.com">
 	Theme <?php echo $pilih ?></a>|
-	<a target="_blank" href="http://bootswatch.com/united/">
-	Ubuntu United</a>
+	<a target="_blank" href="http://bootswatch.com/united/">Ubuntu United</a>
 	</span>
 	</footer>
 <!-- // kemudian masukkan  jquery dan js lain2

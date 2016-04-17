@@ -27,5 +27,13 @@ $linkJS = $_SERVER['SERVER_NAME'] . '/private_html/js/jquery/mobile/';
 <body>
 <div data-role="page" id="home">
 	<div data-role="header" class="header">
-<?php echo "\n"; include 'menubar-jqm.php'; echo "\n"; ?>
+<?php 
+echo "\n"; echo "<h1>Alamat IP : <font color='red'>" . $this->ip . "</font> |" .
+//"<br>Alamat IP2 : <font color='red'>" . $this->ip2 . "</font> |" .
+"\rNama PC : <font color='red'>" . $this->hostname . "</font>" .
+//"\r<br>Server : <font color='red'>" . $this->server . "</font>" .
+"</h1>"; 
+include 'menubar-jqm.php'; 
+echo "\n"; 
+?>
 	</div>

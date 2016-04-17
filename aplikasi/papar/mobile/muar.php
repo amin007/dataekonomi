@@ -1,16 +1,11 @@
 <?php 
-echo "<br>Alamat IP : <font color='red'>" . $this->ip . "</font> |" .
-//"<br>Alamat IP2 : <font color='red'>" . $this->ip2 . "</font> |" .
-"\r<br>Nama PC : <font color='red'>" . $this->hostname . "</font> |" .
-//"\r<br>Server : <font color='red'>" . $this->server . "</font>" .
-"\r";
 
 if ( in_array($this->ip2,$this->senaraiIP) )
 {
 	$pegawai = senarai_kakitangan();
 	foreach ($pegawai as $key => $fe): 
 		$fail = 'http://' . $_SERVER['SERVER_NAME'] . '/private_html/bg/kakitangan/' . $fe . '.jpg';
-		$file_headers = @get_headers($fail);
+		$file_headers = @get_headers($fail); echo "\r";
 		$imej = (($file_headers[0] == 'HTTP/1.1 404 Not Found')) ? $fe:'<img src="'.$fail.'">'; ?>
 		<a href="#<?php echo $fe ?>" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" 
 		data-icon="user" data-theme="a" data-transition="flip"><?php echo $imej ?></a><?php 
@@ -23,6 +18,7 @@ if ( in_array($this->ip2,$this->senaraiIP) )
 		$imej = (($file_headers[0] == 'HTTP/1.1 404 Not Found')) ? 
 			'<a class="ui-btn ui-shadow ui-corner-all ui-icon-delete ui-btn-icon-notext ui-btn-inline">Delete</a>'
 			:'<img src="'.$fail.'">';
+		echo "\r";
 ?>
 	<div data-demo-html="true">	
 	<div data-role="popup" id="popupMenu" data-theme="a">
@@ -30,13 +26,11 @@ if ( in_array($this->ip2,$this->senaraiIP) )
 		<form data-ajax="false" method="POST" action="<?php echo URL ?>login/semakid">
 		<div style="padding:10px 20px;">
 <?php if ( $fe=='amin' ): $nama='amin007'?>
-			<?php echo $imej ?>
+			<?php echo $imej . "\r" ?>
 				<input type="hidden" name="username" value="<?php echo $nama ?>" placeholder="Nama Anda" data-theme="a" />
 				<input type="password" name="password" id="pw" placeholder="Kata Laluan" data-theme="a" />
 <?php else: ?>
-			<?php echo $imej 
-			. '';
-			?><br>anda ada kebenaran masuk sistem
+			<?php echo $imej . "\r\t\t\t\t";?> <br>anda ada kebenaran masuk sistem
 				<input type="hidden" name="username" value="<?php echo $fe ?>" />
 				<input type="hidden" name="password" value="<?php echo $fe ?>" />
 <?php endif; ?>

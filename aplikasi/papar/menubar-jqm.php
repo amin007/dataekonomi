@@ -8,7 +8,7 @@
 <?php elseif($this->tajuk=='Login Untuk POM'):?>
 		<div data-role="navbar">
 			<ul>
-				<li><a href="<?php //echo URL ?>#mobile" data-icon="home">Anjung</a></li>
+				<li><a href="<?php echo URL ?>index/muar" data-icon="home">Anjung</a></li>
 				<li><a href="<?php echo URL ?>mobile/icon" data-icon="bullets">Icon</a></li>
 			</ul>
 		</div>

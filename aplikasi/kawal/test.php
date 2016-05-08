@@ -170,7 +170,6 @@ class Test extends Kawal
 		else
 			echo "The file $lokasi does not exist |";
 
-		
 	}
 	
 	public function paparfail()
@@ -201,6 +200,7 @@ class Test extends Kawal
 		}
 		else
 			echo "The file $lokasi does not exist |";
+	
 	}
 	
 	public function paparorang()

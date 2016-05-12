@@ -229,9 +229,9 @@ foreach ($this->kesID as $myTable => $row)
 		$senaraiJadual2 = array('s' . $sv . '_q02_2010','s' . $sv . '_q03_2010');
 		
 		if (in_array($myTable, $senaraiJadual )):
-			$tajukMedan = array('keterangan','kod','data','anggaran','% dulu');
+			$tajukMedan = array('keterangan','kod','data dulu','data kini','% dulu');
 		elseif (in_array($myTable, $senaraiJadual2 ) && $sv != '206'):
-			$tajukMedan = array('keterangan','kod','data','anggaran','% dulu');
+			$tajukMedan = array('keterangan','kod','data dulu','data kini','% dulu');
 		else: 
 			$tajukMedan = array('keterangan','kod','data');
 		endif;

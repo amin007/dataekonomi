@@ -202,8 +202,8 @@ class Semakan extends Kawal
 		//*/
 	}
 	
-	function ubah($sv=null, $cariID = null, $mula = null, $akhir = null, $cetak = null)
-	{	//echo '<br>Anda berada di class Cprosesan extends Kawal:ubah($cari,$mula,$akhir,$cetak)<br>';
+	function ubah($sv=null, $cariID = null, $mula = null, $akhir = null, $cetak = null, $peratus = 1.0)
+	{	//echo '<br>Anda berada di class Cprosesan extends Kawal:ubah($cari,$mula,$akhir,$cetak, $peratus)<br>';
 		# setkan semua pembolehubah
 		$medan = '*'; # senarai nama medan
 		$cariKawal = array (
@@ -220,26 +220,18 @@ class Semakan extends Kawal
 				
 		if (!empty($cariKawal['id'])&& !empty($sv)) 
 		{	
-			$myJadual['kawal'] = dpt_senarai('kawalan_tahunan');
-			// mula cari $cariID dalam $myJadual['kawal']
-			foreach ($myJadual['kawal'] as $key => $myTable)
-			{// mula ulang table
+			foreach (dpt_senarai('kawalan_tahunan') as $key => $myTable) 
 				$kawalID[$myTable] = $this->tanya->cariKawal($myTable, $cariKawal);
-			}// tamat ulang table
 
-			$myJadual['proses'] = $this->senarai_jadual($sv); 
-			// mula cari $cariID dalam $myJadual['proses']
-			foreach ($myJadual['proses'] as $key => $myTable)
-			{// mula ulang table
+			foreach ($this->senarai_jadual($sv) as $key => $myTable)
 				$prosesID[$myTable] = $this->tanya->cariEstab($myTable, $cariProses);
-			}// tamat ulang table
 			
-			// paparkan data kesID yang ada nilai sahaja
+			# paparkan data kesID yang ada nilai sahaja
 			$this->papar->kawalID=array();
 			$this->semakKawalProses($sv, $kawalID, $prosesID, $cariKawal, $cariProses);
-			// cari kod io 	$this->paparIO($sv, $this->papar->prosesID, $cariProses);
+			# cari kod io $this->paparIO($sv, $this->papar->prosesID, $cariProses);
 			
-			/*echo '<pre>'; echo '<hr>$kawalID='; print_r($kawalID); echo '<hr>$prosesID='; print_r($prosesID); echo '</pre>';//*/
+			//echo '<pre><hr>$kawalID='; print_r($kawalID); echo '<hr>$prosesID='; print_r($prosesID) . '</pre>';//*/
 			$this->papar->carian = $cariKawal['id'];
 			$this->papar->sv = $sv;
 			$this->papar->kesID = array();
@@ -250,14 +242,15 @@ class Semakan extends Kawal
 		{
 			$this->papar->carian='[id:0]';
 		}
-			/*echo '<pre>';			
-			//echo '<hr>$this->papar->prosesID='; print_r($this->papar->prosesID);
+			/*echo '<pre><hr>$this->papar->prosesID='; print_r($this->papar->prosesID);
 			echo '<hr>$this->papar->kod_produk='; print_r($this->papar->kod_produk); // khas untuk survey 205
 			//echo '<hr>$this->papar->perangkaan='; print_r($this->papar->perangkaan); 
 			//echo '<hr>$this->papar->paparID=' . $this->papar->paparID;
 			echo '<hr>$this->papar->carian: ' . $this->papar->carian . '<br>';
 			echo '</pre>';//*/		
-		// memilih antara papar dan cetak
+			
+		# memilih antara papar dan cetak
+		$this->papar->peratus = $peratus;
 		if ($cetak == 'cetak') //echo 'cetak';
 			$this->papar->baca($this->papar->_folder . 'cetak', 0);
 		elseif ($cetak == 'papar') //echo 'papar';

@@ -89,7 +89,7 @@ Senarai Kes Untuk Kawalan
 		<input type="text" class="form-control" placeholder="MSIC 2008" name="msic2008">
 		</div>
 		<div class="col-lg-3">
-		<input type="text" class="form-control" placeholder="Bandar" name="bandar">
+		<input type="text" class="form-control" placeholder="Lokasi" name="bandar">
 		</div>
 	</div>
 </form>

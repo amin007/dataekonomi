@@ -922,7 +922,7 @@ class Borang
 					elseif ($key==83): 
 						$aset[$kira]['02:Beli_Anggar'] = $jum['aset_kini'];
 					elseif ($key==85): 
-						$nisbah = ($jum['aset_dulu'] / $jum['aset_kini'])+1;
+						$nisbah = ($jum['aset_kini']==0)?1:($jum['aset_dulu'] / $jum['aset_kini'])+1;
 						$value = number_format($nisbah,2,'.',',') . '%';
 						$anggar = $cari['F0085'] * $nisbah;
 						$modalBerbayar = floor($anggar * 1) / 1;

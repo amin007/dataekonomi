@@ -21,7 +21,6 @@ class Semakan extends Kawal
 	
 	private function semakKawalProses($sv, $kawalID, $prosesID, $cariKawal, $cariProses)
 	{
-		$this->papar->paparID = $cariKawal['id'];
 		// data kawalan =>	echo '<pre>$kawalID='; print_r($kawalID) . '<hr>';
 		foreach ($kawalID as $jadual => $key):
 			foreach ($key as $key2 => $data):
@@ -227,14 +226,13 @@ class Semakan extends Kawal
 				$prosesID[$myTable] = $this->tanya->cariEstab($myTable, $cariProses);
 			
 			# paparkan data kesID yang ada nilai sahaja
-			$this->papar->kawalID=array();
+			$this->papar->kawalID = array();
 			$this->semakKawalProses($sv, $kawalID, $prosesID, $cariKawal, $cariProses);
+			//echo '<pre><hr>$kawalID='; print_r($kawalID); echo '<hr>$prosesID='; print_r($prosesID) . '</pre>';//*/
 			# cari kod io $this->paparIO($sv, $this->papar->prosesID, $cariProses);
 			
-			//echo '<pre><hr>$kawalID='; print_r($kawalID); echo '<hr>$prosesID='; print_r($prosesID) . '</pre>';//*/
 			$this->papar->carian = $cariKawal['id'];
 			$this->papar->sv = $sv;
-			$this->papar->kesID = array();
 			$this->papar->thn_mula = $cariProses['thn_mula'];
 			$this->papar->thn_akhir = $cariProses['thn_akhir'];
 		}
@@ -244,8 +242,8 @@ class Semakan extends Kawal
 		}
 			/*echo '<pre><hr>$this->papar->prosesID='; print_r($this->papar->prosesID);
 			echo '<hr>$this->papar->kod_produk='; print_r($this->papar->kod_produk); // khas untuk survey 205
-			//echo '<hr>$this->papar->perangkaan='; print_r($this->papar->perangkaan); 
-			//echo '<hr>$this->papar->paparID=' . $this->papar->paparID;
+			echo '<hr>$this->papar->perangkaan='; print_r($this->papar->perangkaan); 
+			echo '<hr>$this->papar->paparID=' . $this->papar->paparID;
 			echo '<hr>$this->papar->carian: ' . $this->papar->carian . '<br>';
 			echo '</pre>';//*/		
 			

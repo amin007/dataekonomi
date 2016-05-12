@@ -21,7 +21,8 @@ class Semakan extends Kawal
 	
 	private function semakKawalProses($sv, $kawalID, $prosesID, $cariKawal, $cariProses)
 	{
-		// data kawalan =>	echo '<pre>$kawalID='; print_r($kawalID) . '<hr>';
+		//echo '<pre>$kawalID='; print_r($kawalID) . '<hr>'; # data kawalan
+		$this->papar->kawalID = array();
 		foreach ($kawalID as $jadual => $key):
 			foreach ($key as $key2 => $data):
 				foreach ($data as $medan => $nilai):
@@ -29,8 +30,9 @@ class Semakan extends Kawal
 						$this->papar->kawalID[$jadual][$key2][$medan] = $nilai;
 				endforeach;
 		   endforeach;
-		endforeach;
-		// data prosesan => echo '<pre>$prosesID='; print_r($prosesID) . '<hr>';
+		endforeach; //*/
+		
+		// echo '<pre>$prosesID='; print_r($prosesID) . '<hr>'; # data prosesan 
 		# senarai aset untuk 205/206
 		$asetIndustri = array('s04','q04_2010','s206_q04_2010','s'.$sv.'_q04_2010');
 
@@ -175,23 +177,21 @@ class Semakan extends Kawal
 	
 	public function index($cetak = null) 
 	{	
-		// dapatkan semua data
+		# dapatkan semua data
 			$myTable = 'data_anggaran';
 			$prosesID[$myTable] = $this->tanya->cariData($myTable);
 
-			// paparkan data kesID yang ada nilai sahaja
-			$this->papar->kawalID=array();
+		# paparkan data kesID yang ada nilai sahaja
 			$this->semakKawalProses($sv, $kawalID, $prosesID, $cariKawal, $cariProses);
 
 			/*echo '<pre>';
 			echo '<hr>$this->papar->kawalID='; print_r($this->papar->kawalID);
 			echo '<hr>$this->papar->prosesID='; print_r($this->papar->prosesID);
 			//echo '<hr>$this->papar->kod_produk='; print_r($this->papar->kod_produk); // khas untuk survey 205
-			//echo '<hr>$this->papar->paparID=' . $this->papar->paparID;
 			//echo '<hr>$this->papar->carian: ' . $this->papar->carian;
 			echo '</pre>';//*/
 		
-		// memilih antara papar dan cetak
+		# memilih antara papar dan cetak
 		if ($cetak == 'cetak') //echo 'cetak';
 		//	$this->papar->baca($this->papar->_folder . 'cetak', 0);
 		if ($cetak == 'papar') //echo 'papar';
@@ -226,7 +226,6 @@ class Semakan extends Kawal
 				$prosesID[$myTable] = $this->tanya->cariEstab($myTable, $cariProses);
 			
 			# paparkan data kesID yang ada nilai sahaja
-			$this->papar->kawalID = array();
 			$this->semakKawalProses($sv, $kawalID, $prosesID, $cariKawal, $cariProses);
 			//echo '<pre><hr>$kawalID='; print_r($kawalID); echo '<hr>$prosesID='; print_r($prosesID) . '</pre>';//*/
 			# cari kod io $this->paparIO($sv, $this->papar->prosesID, $cariProses);
@@ -235,9 +234,13 @@ class Semakan extends Kawal
 			$this->papar->sv = $sv;
 			$this->papar->thn_mula = $cariProses['thn_mula'];
 			$this->papar->thn_akhir = $cariProses['thn_akhir'];
-		} else { $this->papar->carian='[id:0]'; }	
-			# semak pembolehubah
-			/*echo '<pre><hr>$this->papar->prosesID='; print_r($this->papar->prosesID);
+		} 
+		else 
+			$this->papar->carian='[id:0]'; 
+			
+			/*# semak pembolehubah
+			echo '<pre><hr>$this->papar->kawalID='; print_r($this->papar->kawalID);
+			echo '<hr>$this->papar->prosesID='; print_r($this->papar->prosesID);
 			echo '<hr>$this->papar->kod_produk='; print_r($this->papar->kod_produk); // khas untuk survey 205
 			echo '<hr>$this->papar->perangkaan='; print_r($this->papar->perangkaan); 
 			echo '<hr>$this->papar->carian: ' . $this->papar->carian . '<br>';

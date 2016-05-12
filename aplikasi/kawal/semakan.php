@@ -6,10 +6,9 @@ class Semakan extends Kawal
 	public function __construct() 
 	{
 		parent::__construct();
-		parent::__construct();
         Kebenaran::kawalKeluar();
 		// lokasi fail PAPAR untuk survey
-			$this->papar->js = array('jquery-calx-1.1.8.js');
+		$this->papar->js = array('jquery-calx-1.1.8.js');
 		$this->papar->_folder = 'semakan/'; 
 		$this->papar->kelas = 'semakan/'; 
 		$this->_pptAsetPenuh = array(101,301,302,303,305,306,307,308,309,312,314,316,318,325,331);
@@ -303,8 +302,7 @@ class Semakan extends Kawal
 				}
 			}
 					
-			/*echo "<pre>";
-			//echo '<hr>$_POST->'; print_r($_POST);
+			/*echo "<pre><hr>$_POST->'; print_r($_POST);
 			//echo '<hr>$posmen->'; print_r($posmen);
 			//echo '<hr>$posLaju:'; var_dump($posmen,$posLaju);
 			echo "posLaju:", $posLaju, "\n<br>";

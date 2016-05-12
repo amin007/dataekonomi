@@ -517,8 +517,7 @@ foreach ($this->kod_aset as $myTable => $row)
 	$printed_headers = false; # mula bina jadual
 	#-----------------------------------------------------------------
 	for ($kira=0; $kira < count($row); $kira++)
-	{
-		//print the headers once: 	
+	{	# print the headers once: 	
 		if ( !$printed_headers ) 
 			tajukMedan($kira,$row);
 		$printed_headers = true;

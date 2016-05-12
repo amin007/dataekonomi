@@ -11,14 +11,15 @@ class Semakan_Tanya extends Tanya
 	public function cariKawal($myTable, $cari)
 	{
 		$medan = '*';
-		$cariMedan = ($myTable=='sse10_kawal' || $myTable=='alamat_newss_2013') ? 
+		$newssTable = array('sse10_kawal','alamat_newss_2013');
+		$cariMedan = (in_array($myTable,$newssTable))  ? 
 			'newss' : 'sidap'; 
-		$cariID = ( !isset($cari['id']) ) ? '' : $cari['id'];
+		$cariID = ( !isset($cari['id']) ) ? '' : 
+			"WHERE $cariMedan LIKE '%" . $cari['id'] . "%'";
 
-		$sql = "SELECT $medan FROM $myTable "
-			 . "WHERE $cariMedan LIKE '%$cariID%' ";
+		$sql = "SELECT * FROM $myTable $cariID ";
 		
-		//echo '<hr><pre>cariKes()=>$sql='; print_r($sql) . '</pre>';
+		//echo '<hr><pre>cariKes()=>$sql='; print_r($sql) . '</pre>'; $data=array();
 		$data = $this->db->selectAll($sql,2);
 		//echo '<hr><pre>$data='; print_r($data) . '</pre>';
 		

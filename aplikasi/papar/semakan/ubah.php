@@ -368,7 +368,8 @@ $perangkaan['susut_dulu'] = 	isset($this->perangkaan['susut']) ?	$this->perangka
 $perangkaan['aset_dulu'] = 		isset($this->perangkaan['aset']) ? $this->perangkaan['aset'] : null;
 $perangkaan['asetsewa_dulu'] = 	isset($this->perangkaan['asetsewa']) ? $this->perangkaan['asetsewa'] : null;
 
-$nisbah = rand(-30, -10)/100;
+$nisbah = ($this->peratus!=null) ? ($this->peratus)/100 : rand(-30, 30)/100;
+//$nisbah = rand(-30, 30)/100;
 $nisbah = 1 + $nisbah;
 $nilaiNisbah = 1;
 
@@ -395,9 +396,16 @@ $semasa = array(
 	/*4*/'susut_kini' => abs($perangkaan['susut_kini']),
 	/*5*/'aset_kini' => abs($perangkaan['aset_kini']),
 	/*6*/'asetsewa_kini' => abs($perangkaan['asetsewa_kini']),
-	'catatan' => $nisbah,
+	'catatan' => 'nisbah=' . $nisbah,
 	);
-
+# nota nisbah 
+		if ($this->peratus==0):
+			$notaNisbahPeratus = 'nisbah=' . $nisbah . ' diberi boleh komputer';
+		else:
+			$notaNisbahPeratus = 'nisbah=' . $nisbah . ' dan peratus=' . $this->peratus . '%';
+		endif;
+		?><tr><td align="right">Nisbah & Peratus</td><?php
+		?><td align="center"><?php echo $notaNisbahPeratus ?></td></tr><?php
 foreach ( $semasa AS $key=>$data ) :
 	if (in_array($key,array('hasil_kini','belanja_kini','gaji_kini','susut_kini','aset_kini','asetsewa_kini',))): echo '';
 	else:

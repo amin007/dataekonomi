@@ -193,7 +193,7 @@ class Semakan extends Kawal
 			echo '</pre>';//*/
 		
 		// memilih antara papar dan cetak
-		//if ($cetak == 'cetak') //echo 'cetak';
+		if ($cetak == 'cetak') //echo 'cetak';
 		//	$this->papar->baca($this->papar->_folder . 'cetak', 0);
 		if ($cetak == 'papar') //echo 'papar';
 			$this->papar->baca($this->papar->_folder . 'index', 1);			
@@ -202,7 +202,7 @@ class Semakan extends Kawal
 		//*/
 	}
 	
-	function ubah($sv=null, $cariID = null, $mula = null, $akhir = null, $cetak = null, $peratus = 1.0)
+	function ubah($sv=null, $cariID = null, $mula = null, $akhir = null, $cetak = null, $peratus = 0)
 	{	//echo '<br>Anda berada di class Cprosesan extends Kawal:ubah($cari,$mula,$akhir,$cetak, $peratus)<br>';
 		# setkan semua pembolehubah
 		$medan = '*'; # senarai nama medan
@@ -250,7 +250,7 @@ class Semakan extends Kawal
 			echo '</pre>';//*/		
 			
 		# memilih antara papar dan cetak
-		$this->papar->peratus = $peratus;
+		$this->papar->peratus = $peratus; 
 		if ($cetak == 'cetak') //echo 'cetak';
 			$this->papar->baca($this->papar->_folder . 'cetak', 0);
 		elseif ($cetak == 'papar') //echo 'papar';

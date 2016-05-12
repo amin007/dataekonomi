@@ -49,7 +49,7 @@ function prosesData($kunci, $nilai, $perangkaan, $sv)
 	$paparMedan = array('Survey','Input','Output','OwnershipRvw','LegalStatus','ValueAdded');
 	if (in_array($kunci, array('F0003','F0004','F0005')))
 	{
-		if(in_array($sv,array(890))):
+		if(in_array($sv,array(328,890))):
 			$data = $nilai;
 		else:
 			$tarikh = preg_replace('/(\d{1,2})(\d{2})(\d{4})$/', 

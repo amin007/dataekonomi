@@ -235,15 +235,11 @@ class Semakan extends Kawal
 			$this->papar->sv = $sv;
 			$this->papar->thn_mula = $cariProses['thn_mula'];
 			$this->papar->thn_akhir = $cariProses['thn_akhir'];
-		}
-		else
-		{
-			$this->papar->carian='[id:0]';
-		}
+		} else { $this->papar->carian='[id:0]'; }	
+			# semak pembolehubah
 			/*echo '<pre><hr>$this->papar->prosesID='; print_r($this->papar->prosesID);
 			echo '<hr>$this->papar->kod_produk='; print_r($this->papar->kod_produk); // khas untuk survey 205
 			echo '<hr>$this->papar->perangkaan='; print_r($this->papar->perangkaan); 
-			echo '<hr>$this->papar->paparID=' . $this->papar->paparID;
 			echo '<hr>$this->papar->carian: ' . $this->papar->carian . '<br>';
 			echo '</pre>';//*/		
 			

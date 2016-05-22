@@ -127,7 +127,8 @@ class Test extends Kawal
 
 	public function bacafail($fail = "*.txt")
 	{
-		$lokasi = URL_DATA . $fail; echo $lokasi;
+		//$URL_DATA = '';
+		$lokasi = URL_DATA . $fail; echo $lokasi . '<hr>';
 		if (file_exists($lokasi)) 
 		{
 			$myTable = substr($fail, 0, -4);  # returns "abcde"
@@ -173,9 +174,9 @@ class Test extends Kawal
 
 	}
 	
-	public function paparfail()
+	public function paparfail($folder = "*.txt")
 	{
-		$lokasi = URL_DATA;
+		$lokasi = URL_DATA . $folder; echo $lokasi . '<hr>';
 		if (file_exists($lokasi)) 
 		{
 			$dh = opendir($lokasi); //echo '<pre>';print_r($dh);echo '</pre>';
@@ -190,8 +191,8 @@ class Test extends Kawal
 					elseif (is_dir($file)==false) 
 					{ 
 						echo "\n" . $i++ . ')<a target="_blank" href="'
-							. URL . 'test/bacafail/'
-							. $file . '">' . $file 
+							. URL . 'test/bacafail/' . $folder . '/'
+							. $file . '">' . $folder . '/' . $file 
 							. '</a>: ' //. filesize($file) . ' bytes'
 							. '<br>';
 					}

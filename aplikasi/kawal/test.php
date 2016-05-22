@@ -128,14 +128,14 @@ class Test extends Kawal
 	public function bacafail($fail = "*.txt")
 	{
 		//$URL_DATA = '';
-		$lokasi = URL_DATA . $fail; echo $lokasi . '<hr>';
+		$lokasi = URL_DATA . $fail; echo $lokasi . '|' . $fail . '<hr>';
 		if (file_exists($lokasi)) 
 		{
 			$myTable = substr($fail, 0, -4);  # returns "abcde"
 			echo "The file $lokasi exists | ";
 			echo "\$myTable = $myTable | ";
 			###############################################################################
-			/*$f = fopen($lokasi, "r");
+			$f = fopen($lokasi, "r");
 			while(!feof($f)) 
 			{ 
 				$data[] = explode("|", fgets($f));
@@ -180,7 +180,7 @@ class Test extends Kawal
 		if (file_exists($lokasi)) 
 		{
 			$dh = opendir($lokasi); //echo '<pre>';print_r($dh);echo '</pre>';
-			$i=1;
+			$i  = 1;
 			while (($file = readdir($dh)) !== false) 
 			{
 				if	(!in_array(
@@ -193,7 +193,7 @@ class Test extends Kawal
 						echo "\n" . $i++ . ')<a target="_blank" href="'
 							. URL . 'test/bacafail/' . $folder . '/'
 							. $file . '">' . $folder . '/' . $file 
-							. '</a>: ' //. filesize($file) . ' bytes'
+							. '</a>: ' . filesize($file) . ' bytes'
 							. '<br>';
 					}
 				}		 

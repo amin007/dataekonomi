@@ -127,13 +127,14 @@ class Test extends Kawal
 
 	public function bacafail($fail = "*.txt")
 	{
-		$lokasi = URL_DATA . $fail;
+		$lokasi = URL_DATA . $fail; echo $lokasi;
 		if (file_exists($lokasi)) 
 		{
-			//echo "The file $lokasi exists | ";
-			$myTable = substr($fail, 0, -4);  // returns "abcde"
+			$myTable = substr($fail, 0, -4);  # returns "abcde"
+			echo "The file $lokasi exists | ";
+			echo "\$myTable = $myTable | ";
 			###############################################################################
-			$f = fopen($lokasi, "r");
+			/*$f = fopen($lokasi, "r");
 			while(!feof($f)) 
 			{ 
 				$data[] = explode("|", fgets($f));
@@ -157,7 +158,7 @@ class Test extends Kawal
 						elseif (is_numeric($papar2))
 							$cantumMedan .= 'F' .  sprintf("%04d", $key2) . " bigint(20),";
 						else
-							$cantumMedan .= 'F' .  sprintf("%04d", $key2) . " varchar(".strlen($paparan)."),"; /*$paparan*/
+							$cantumMedan .= 'F' .  sprintf("%04d", $key2) . " varchar(".strlen($paparan)."),"; #$paparan
 						$kira = $key2;
 					}
 				endforeach;
@@ -165,10 +166,10 @@ class Test extends Kawal
 				$senarai = null;
 			endforeach;
 			##################################################################################
-			$this->tanya->tambahJadual($myTable, $kira, $cantumMedan, $cantumData);
+			$this->tanya->tambahJadual($myTable, $kira, $cantumMedan, $cantumData);//*/
 		}
 		else
-			echo "The file $lokasi does not exist |";
+			echo "The file $lokasi does not exist |";//*/
 
 	}
 	

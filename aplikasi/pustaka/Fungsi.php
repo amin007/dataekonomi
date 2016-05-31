@@ -1073,9 +1073,9 @@ function kira3($kira,$n)
 
 function pilihKeyData($key,$keyData,$data)
 {
-	//echo '$key:' . $key; single key
-	//echo '$keyData:[' . $keyData[$key] . ']';
-	//echo '$data:[' . $data[$keyData[$key]]  . ']';
+	//echo '$key:' . $key; //single key
+	//echo '|$keyData:[' . $keyData[$key] . ']';
+	//echo '|$data:[' . $data[$keyData[$key]]  . ']<br>';
 	return $keyData[$key];
 }
 

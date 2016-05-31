@@ -1073,7 +1073,7 @@ function kira3($kira,$n)
 
 function pilihKeyData($key,$keyData,$data)
 {
-	//echo '$key:' . $key; //single key
+	//echo '$key:' . $key; # single key
 	//echo '|$keyData:[' . $keyData[$key] . ']';
 	//echo '|$data:[' . $data[$keyData[$key]]  . ']<br>';
 	return $keyData[$key];
@@ -1081,12 +1081,11 @@ function pilihKeyData($key,$keyData,$data)
 
 function pilihValueData($key,$keyData,$data)
 {
-	//echo '$key:' . $key; single key
+	//echo '$key:' . $key; # single key
 	//echo '$keyData:[' . $keyData[$key] . ']';
 	//echo '$data:[' . $data[$keyData[$key]]  . ']';
 	return $data[$keyData[$key]];
 }
-
 
 function huruf($jenis , $papar) 
 {

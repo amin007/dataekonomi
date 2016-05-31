@@ -485,7 +485,7 @@ class Cprosesan extends Kawal
 				}
 			endif;
 		endforeach;*/
-			$jenisPekerjaan = array(0=>'Pemilik(ROB)-1',1=>'Pekerja keluarga(ROB)-2',
+		$jenisPekerjaan = array(0=>'Pemilik(ROB)-1',1=>'Pekerja keluarga(ROB)-2',
 			2=>'Pengurusan-3.1',3=>'Juruteknik-3.2',4=>'Kerani-3.3',5=>'Pekerja Asas-3.4',
 			6=>'Pekerja Mahir-3.5.1',7=>'Pekerja XMahir-3.5.2',
 			8=>'Upah Mahir-3.5.1',9=>'Upah XMahir-3.5.2',
@@ -500,11 +500,12 @@ class Cprosesan extends Kawal
 	{
 		//echo '<pre>jadualStaf dalam fungsi semak_staf2015 ->'; print_r($jadualStaf) . '</pre>';
 		
-		$jenisPekerjaan = array(0=>'Pemilik(ROB)-1',1=>'Pekerja keluarga(ROB)-2',
-			2=>'Pengurusan-3.1',3=>'Juruteknik-3.2',4=>'Kerani-3.3',5=>'Pekerja Asas-3.4',
-			6=>'Pekerja Mahir-3.5.1',7=>'Pekerja XMahir-3.5.2',
-			8=>'Upah Mahir-3.5.1',9=>'Upah XMahir-3.5.2',
-			10=>'Pekerja sambilan-4',11=>'Jumlah pekerja-5');
+		$jenisPekerjaan = array(0  => 'Pemilik(ROB)-1',	1  => 'Pekerja keluarga(ROB)-2',
+			2 => 'Pengurusan-3.1',	3  => 'Profesional-3.2.1',	4 => 'Penyelidik-3.2.2',
+			5  => 'Juruteknik',	6  => 'Kerani-3.4',	7 => 'Servis & Jualan-3.5',
+			8 => 'Kemahiran-3.6', 9 => 'Mesin & Operator-3.7', 10  => 'Pekerja Asas-3.8',
+			11 => 'Jum Staf Bergaji-3.9',
+			12 => 'Pekerja sambilan-4', 13 => 'Jumlah pekerja-5');
 		
 		//echo '<pre>jenisPekerjaan dalam fungsi semak_staf2015 ->'; print_r($jenisPekerjaan) . '</pre>';
 		

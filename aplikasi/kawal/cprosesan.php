@@ -317,7 +317,7 @@ class Cprosesan extends Kawal
 		}
 		elseif (in_array($sv,$this->_ppt2015))
 		{
-			//$this->cari_keterangan_medan($sv, $this->papar->kesID); 
+			$this->cari_keterangan_medan($sv, $this->papar->kesID); 
 			$this->papar->kod_produk = array();
 			# bentuk soalan staf lelaki dan perempuan
 			$jadualStaf = 's'.$sv.'_q05_2015';
@@ -403,20 +403,21 @@ class Cprosesan extends Kawal
 	private function cari_keterangan_medan($sv, $kesID)
 	{
 		$senarai = Borang::cariKeterangan($kesID);
-		
-		// cari keterangan medan yang lain				
-		foreach ($senarai as $myTable => $papar)
-		{// mula ulang table
-			foreach ($papar as $namaMedan => $data)
-			{// mula ulang table
-				//echo '$namaMedan['.$data.']['.$myTable.']:'.$namaMedan.'<br>';
-				$cari[0] = array('medan' => 'kod_medan','id' => $namaMedan);
-				$cari[1] = array('medan' => 'kod_survey','id' => $sv);
-				$this->papar->keterangan[$myTable][$namaMedan] = 
-					$this->tanya->keterangan_medan('kod_sv_prosesan', $cari);
-			}// tamat ulang table
-		}// tamat ulang table
-
+		if ($sv=='fnb')	:
+			$this->papar->keterangan[][]=array();
+		else:# cari keterangan medan yang lain				
+			foreach ($senarai as $myTable => $papar)
+			{# mula ulang table
+				foreach ($papar as $namaMedan => $data)
+				{# mula ulang table
+					//echo '$namaMedan['.$data.']['.$myTable.']:'.$namaMedan.'<br>';
+					$cari[0] = array('medan' => 'kod_medan','id' => $namaMedan);
+					$cari[1] = array('medan' => 'kod_survey','id' => $sv);
+					$this->papar->keterangan[$myTable][$namaMedan] = 
+						$this->tanya->keterangan_medan('kod_sv_prosesan', $cari);
+				}# tamat ulang table
+			}# tamat ulang table
+		endif;
 	}
 
 	private function semak_aset($asetIndustri, $aset, $paparID) 

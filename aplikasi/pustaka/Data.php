@@ -612,86 +612,93 @@ class Data
 	return $pekerja;
 	}
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-	public static function dataPekerja2015($jadualStaf,$jenisKerja,$prosesID)
+	public static function dataPekerja2015($jadualStaf,$jenisKerja)
 	{		
 		$bangsaStaf = array(
 			49=>'Ma`sia', 50=>'Pati',
 			14=>'Jumlah', 18=>'Gaji',
 			51=>'Bil staf xgaji');
-		$lelaki = array(1=>'Pemilik(ROB)-1',2=>'Pekerja keluarga(ROB)-2',
-			3=>'Pengurusan-3.1',4=>'Juruteknik-3.2',
-			5=>'Kerani-3.3',6=>'Pekerja Asas-3.4',
-			7=>'-3.5',8=>'-3.6',9=>'',10=>'',
-			11=>'Pekerja sambilan-4',19=>'Jumlah pekerja-5');
-		$keyLelaki = array(0=>1,1=>2,2=>3,3=>4,4=>5,5=>6,6=>7,7=>8,8=>9,9=>10,10=>11,11=>19);
+		$lelaki = array(1  => 'Pemilik(ROB)-1',	2  => 'Pekerja keluarga(ROB)-2',
+			12 => 'Pengurusan-3.1',	3  => 'Profesional-3.2.1',	13 => 'Penyelidik-3.2.2',
+			4  => 'Juruteknik',	5  => 'Kerani-3.4',	14 => 'Servis & Jualan-3.5',
+			15 => 'Kemahiran-3.6', 16 => 'Mesin & Operator-3.7', 6  => 'Pekerja Asas-3.8',
+			17 => 'Jum Staf Bergaji-3.9',
+			11 => 'Pekerja sambilan-4', 19 => 'Jumlah pekerja-5');
+		$keyLelaki = array(0=>1,1=>2,2=>12,3=>3,4=>13,5=>4,6=>5,7=>14,8=>15,9=>16,10=>6,11=>17,12=>11,13=>19);
 		$wanita = array(21=>'Pemilik(ROB)-1',22=>'Pekerja keluarga(ROB)-2',
-			23=>'Pengurusan-3.1',24=>'Juruteknik-3.2',
-			25=>'Kerani-3.3',26=>'Pekerja Asas-3.4',
-			27=>'-3.5',	28=>'-3.6',29=>'',30=>'',
+		32 => 'Pengurusan-3.1', 23 => 'Profesional-3.2.1', 33 => 'Penyelidik-3.2.2',
+		24 => 'Juruteknik', 25 => 'Kerani-3.4', 34 => 'Servis & Jualan-3.5', 
+		35 => 'Kemahiran-3.6', 36 => 'Mesin & Operator-3.7', 26 => 'Pekerja Asas-3.8',
+		37 => 'Jum Staf Bergaji-3.9',
 			31=>'Pekerja sambilan-4',39=>'Jumlah pekerja-5');
-		$keyWanita = array(0=>21,1=>22,2=>23,3=>24,4=>25,5=>26,6=>27,7=>28,	8=>29,9=>30,10=>31,11=>39);
+		$keyWanita = array(0=>21,1=>22,2=>32,3=>23,4=>33,5=>24,6=>25,7=>34,8=>35,9=>36,10=>26,11=>37,12=>31,13=>39);
 
-	/*		
-	$lelaki:Array						|$wanita:Array
+/*	$lelaki:Array						|$wanita:Array
 	(
-		[1] => Pemilik(ROB)-1			[21] => Pemilik(ROB)-1
-		[2] => Pekerja keluarga(ROB)-2	[22] => Pekerja keluarga(ROB)-2
-		[3] => Pengurusan-3.1			[23] => Pengurusan-3.1
-		[4] => Juruteknik-3.2			[24] => Juruteknik-3.2
-		[5] => Kerani-3.3				[25] => Kerani-3.3
-		[6] => Pekerja Asas-3.4			[26] => Pekerja Asas-3.4
-		[7] => -3.5						[27] => -3.5
-		[8] => -3.6						[28] => -3.6
+		[1]  => Pemilik(ROB)-1			[21] => Pemilik(ROB)-1
+		[2]  => Pekerja keluarga(ROB)-2	[22] => Pekerja keluarga(ROB)-2
+		[12] => Pengurusan-3.1			[32] => Pengurusan-3.1
+		[3]  => Profesional-3.2.1		[23] => Profesional-3.2.1
+		[13] => Penyelidik-3.2.2		[33] => Penyelidik-3.2.2
+		[4]  => Juruteknik				[24] => Juruteknik
+		[5]  => Kerani-3.4				[25] => Kerani-3.4
+		[14] => Servis & Jualan-3.5		[34] => Servis & Jualan-3.5
+		[15] => Kemahiran-3.6			[35] => Kemahiran-3.6
+		[16] => Mesin & Operator-3.7	[36] => Mesin & Operator-3.7
+		[6]  => Pekerja Asas-3.8		[26] => Pekerja Asas-3.8
+		[7]  => -3.5					[27] => -3.5
+		[8]  => -3.6					[28] => -3.6
+		[17] => Jum Staf Bergaji-3.9	[37] => Jum Staf Bergaji-3.9
 		[11] => Pekerja sambilan-4		[31] => Pekerja sambilan-4
 		[19] => Jumlah pekerja-5		[39] => Jumlah pekerja-5
-	)
-
-	*/
+	)*/
 		$mula = 'q05';
-		foreach ($jadualStaf as $key => $myTable):
-			//echo "\$myTable = $myTable<br>"; # semak nama $myTable
-			$cari = $prosesID[$myTable][0];
-			echo '<pre>'; print_r($cari) . '</pre>';
+		foreach ($jadualStaf as $k => $k2):
+		foreach ($k2 as $padang => $nilai):
+			//echo "\$padang = $padang | \$nilai = $nilai<br>"; 
+			$cari[$padang] = $nilai;
+		endforeach;
 		endforeach;
 		$kira=0;
-		/*foreach ($jenisKerja as $key => $kategori):
+		foreach ($jenisKerja as $key => $kategori):
 			$data = null; $data2 = null;
+			//echo "<br>\$key = $key| \$kategori = $kategori";
 			$pekerja[$kira]['nama'] = $kategori;
 			foreach ($bangsaStaf as $key1 => $bangsa):
-			// set pembolehubah asas
+				//echo "<br>\$key1 = $key1 | \$bangsa = $bangsa";
+			# set pembolehubah asas
 				$lajur = kira3($key1, 2); 
 				$kunci = pilihKeyData($key,$keyLelaki,$lelaki);
 				$pekerja[$kira]['L'] = $kunci;
 				$baris = kira3($kunci, 2); 
-				$medan  = 'F' . $lajur . $baris;
-				$data = isset($cariL[$medan]) ?	$cariL[$medan] : '_';
-			// mula masuk data
+				$medan  = 'F' . $lajur . $baris; 
+				$data = isset($cari[$medan]) ?	$cari[$medan] : '&nbsp;';
+			# mula masuk data
 				$pilihBangsa = array ('Gaji');
 				$pekerja[$kira][(in_array($bangsa,$pilihBangsa) ) ?
 					"$bangsa|L$lajur": "L$lajur"] =
 					 !empty($data) ? $data : '-';
 			endforeach;
-			echo '<br>Lelaki:' . $kategori . '$kunci:' . $kunci . '->' . $data;
+			//echo 'Lelaki:' . $kategori . '$kunci:' . $kunci . '->' . $data;
 			foreach ($bangsaStaf as $key2 => $bangsa):
-			// set pembolehubah asas
+			# set pembolehubah asas
 				$lajur2 = kira3($key2, 2); 
 				$kunci2 = pilihKeyData($key,$keyWanita,$wanita);
 				$pekerja[$kira]['W'] = $kunci2;
 				$baris2 = kira3($kunci2, 2); 		
 				$medan2 = 'F' . $lajur2 . $baris2;
-				$data2  = isset($cariW[$medan2]) ?	$cariW[$medan2] : '_';
-			// mula masuk data
+				$data2  = isset($cari[$medan2]) ?	$cari[$medan2] : '&nbsp;';
+			# mula masuk data
 				$pilihBangsa = array ('Gaji');
 				$pekerja[$kira][(in_array($bangsa,$pilihBangsa) ) ?
 					"$bangsa|W$lajur2": "W$lajur2"] =
 					 !empty($data2) ? $data2 : '-';
 			endforeach;
-			echo '<br>|Wanita:' . $kategori . '$kunci:' . $kunci2 . '->' . $data2;
-			//$pekerja[$kira]['Wanita'] = $kategori;
-			//echo '<hr>';
+			//echo '|Wanita:' . $kategori . '$kunci:' . $kunci2 . '->' . $data2;
 			$kira++;
 		endforeach;//*/
 	
+		//echo '<pre>pekerja dalam fungsi dataPekerja2015 ->'; print_r($pekerja) . '</pre>';
 		return $pekerja;
 	}
 /////////////////////////////////////////////////////////////////////////////////////////////////////

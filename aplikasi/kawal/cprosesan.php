@@ -10,7 +10,8 @@ class Cprosesan extends Kawal
 		// lokasi fail PAPAR untuk survey
 		$this->papar->dataAm = 'cprosesan/'; 
 		$this->papar->kelas = 'cprosesan/'; 
-		$this->_pptAsetPenuh = array(101,301,302,303,305,306,307,308,309,312,314,316,318,325,331,'FNB');
+		$this->_pptAsetPenuh = array(101,301,302,303,305,306,307,308,309,312,314,316,318,325,331);
+		$this->_ppt2015 = array('fnb');
 		$this->papar->ppt['AsetPenuh'] = $this->_pptAsetPenuh;
 		$this->papar->ppt['BrgAm'] = array(328,334,335,890);
 		$this->_pptBrgAm = array(328,334,335);
@@ -44,19 +45,20 @@ class Cprosesan extends Kawal
 			
 		if (!empty($cari['id']) && !empty($sv)) 
 		{	
-			// mula cari $cari dalam $this->senarai_jadual(($sv)
+			# mula cari $cari dalam $this->senarai_jadual(($sv)
 			//echo '<pre>$this->senarai_jadual('.$cari['sv'].')::'; print_r($this->senarai_jadual($sv)) . '</pre>';
 			
 			foreach ($this->senarai_jadual($cari['sv']) as 
 				$key => $myTable)
-			{// mula ulang table
+			{# mula ulang table
+				//echo "\$myTable = $myTable<br>"; # semak nama $myTable
 				$nilai[$myTable] = $this->tanya->cariEstab($myTable, $medan, $cari);
-			}// tamat ulang table
+			}# tamat ulang table
 			
-			// paparkan data kesID yang ada nilai sahaja
+			# paparkan data kesID yang ada nilai sahaja
 			//echo '<pre>$nilai='; print_r($nilai);
 			$this->semakYangAda($sv, $nilai, $cari);
-			// cari kod io
+			# cari kod io
 			$this->paparIO($sv, $this->papar->kesID, $cari);
 			
 		}
@@ -64,8 +66,7 @@ class Cprosesan extends Kawal
 		{
 			$this->papar->carian='[id:0]';
 		}
-			/*
-			echo '<pre>';			
+			/*echo '<pre>';
 			//echo '<hr>$this->papar->keterangan='; print_r($this->papar->keterangan);
 			echo '<hr>$this->papar->kesID='; print_r($this->papar->kesID);
 			echo '<hr>$this->papar->kod_produk='; print_r($this->papar->kod_produk); // khas untuk survey 205
@@ -73,7 +74,7 @@ class Cprosesan extends Kawal
 			echo '<hr>$this->papar->carian: ' . $this->papar->carian . '<br>';
 			echo '</pre>';//*/
 		
-		// memilih antara papar dan cetak
+		# memilih antara papar dan cetak
 		if ($cetak == 'cetak') //echo 'cetak';
 			$this->papar->baca($this->papar->dataAm . 'cetak', 0);
 		elseif ($cetak == 'papar') //echo 'papar';
@@ -139,6 +140,17 @@ class Cprosesan extends Kawal
 			'tblDataReview','tblDataReviewTemp','tblDataReviewTemp3');
 			foreach ($jadual as $key => $data)
 				$myJadual[] = 's' . $sv . '_' . $data . '_2010';
+		}
+		elseif (in_array($sv,$this->_ppt2015))
+		{	// prosesan 2010
+			$jadual = array('q01','q02','q03','q04','q05a','q05b','q06',
+			'q07','q08','q09','q10','q11','qsa','qsb','qsc','qsd','qse','qsf',
+			/*,'tblDataReviewTemp2'*/
+			'tblDataReview','tblDataReviewTemp','tblDataReviewTemp3');
+			foreach ($jadual as $key => $data):
+				$myJadual[] = 's' . $sv . '_' . $data . '_2010';
+				$myJadual[] = 's' . $sv . '_' . $data . '_2015';
+			endforeach;
 		}
 		else
 		{	// prosesan 2010

@@ -427,10 +427,10 @@ class Cprosesan extends Kawal
 		foreach ($asetIndustri as $key => $myTable):
 			//echo ($myTable!=$aset) ? null : "myTable:$myTable | aset:$aset|<br>";
 			if ($aset==$myTable && in_array($aset,$asetIndustri) )
-				@$this->papar->kod_produk['harta_' . $myTable] = 
+				@$this->papar->kod_produk['harta'] = 
 					Borang::binaAset($paparID[$myTable][0]);
 			elseif ($aset==null)
-				@$this->papar->kod_produk['harta_' . $myTable] = 
+				@$this->papar->kod_produk['harta'] = 
 					Borang::binaAsetAm($paparID[$myTable][0]);
 		endforeach;
 

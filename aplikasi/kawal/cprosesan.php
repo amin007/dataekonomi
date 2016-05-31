@@ -74,7 +74,7 @@ class Cprosesan extends Kawal
 			echo '<hr>$this->papar->carian: ' . $this->papar->carian . '<br>';
 			echo '</pre>';//*/
 		
-		/*# memilih antara papar dan cetak
+		# memilih antara papar dan cetak
 		if ($cetak == 'cetak') //echo 'cetak';
 			$this->papar->baca($this->papar->dataAm . 'cetak', 0);
 		elseif ($cetak == 'papar') //echo 'papar';
@@ -317,13 +317,14 @@ class Cprosesan extends Kawal
 		}
 		elseif (in_array($sv,$this->_ppt2015))
 		{
-			$this->cari_keterangan_medan($sv, $this->papar->kesID); 
+			//$this->cari_keterangan_medan($sv, $this->papar->kesID); 
 			$this->papar->kod_produk = array();
 			# bentuk soalan staf lelaki dan perempuan
 			$jadualStaf = 's'.$sv.'_q05_2015';
+			//echo '$this->papar->kesID[$jadualStaf] -><pre>'; print_r($this->papar->kesID[$jadualStaf]) . '</pre><hr>';
 			$this->semak_staf2015($this->papar->kesID[$jadualStaf]);
 			# bentuk soalan 4 - aset
-			/*$this->semak_aset($senaraiAset = array('s'.$sv.'_q04_2015'),
+			$this->semak_aset($senaraiAset = array('s'.$sv.'_q04_2015'),
 					's'.$sv.'_q04_2015', $paparID);	//*/
 		}
 		else
@@ -495,16 +496,20 @@ class Cprosesan extends Kawal
 			
 	}
 	
-	private function semak_staf2015($jadualStaf, $prosesID)
+	private function semak_staf2015($jadualStaf)
 	{
+		//echo '<pre>jadualStaf dalam fungsi semak_staf2015 ->'; print_r($jadualStaf) . '</pre>';
+		
 		$jenisPekerjaan = array(0=>'Pemilik(ROB)-1',1=>'Pekerja keluarga(ROB)-2',
 			2=>'Pengurusan-3.1',3=>'Juruteknik-3.2',4=>'Kerani-3.3',5=>'Pekerja Asas-3.4',
 			6=>'Pekerja Mahir-3.5.1',7=>'Pekerja XMahir-3.5.2',
 			8=>'Upah Mahir-3.5.1',9=>'Upah XMahir-3.5.2',
 			10=>'Pekerja sambilan-4',11=>'Jumlah pekerja-5');
-
+		
+		//echo '<pre>jenisPekerjaan dalam fungsi semak_staf2015 ->'; print_r($jenisPekerjaan) . '</pre>';
+		
 		$this->papar->kod_produk['pekerjaan'] = 
-			Data::dataPekerja2015($jadualStaf,$jenisPekerjaan,$prosesID);
+			Data::dataPekerja2015($jadualStaf,$jenisPekerjaan);//*/
 			
 	}
 

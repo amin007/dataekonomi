@@ -582,7 +582,7 @@ class Borang
 	{
 		// jenis harta
 		$jenisHarta = array(71=>'Tanah',
-			72=>'Tmpt kediaman',
+			72=>'Tmpt Kediaman',
 			73=>'Bukan Tmpt Kediaman',
 			74=>'Binaan lain',
 			75=>'Pembangunan tanah',
@@ -596,8 +596,7 @@ class Borang
 			81=>'Jentera dan kelengkapan',
 			82=>'Perabut dan pemasangan',
 			70=>'Paten', 84=>'Muhibah',
-			86=>'Lain2 harta', 99=>'Jumlah harta', 
-			85=>'Kerja dlm pelaksanaan');
+			86=>'Lain2 harta', 99=>'Jumlah harta');
 
 		$nilaiBuku= array(1=>'Awal', // 'Nilai buku pada awal tahun'
 			2=>'Baru', //'Pembelian baru termasuk import',
@@ -608,15 +607,32 @@ class Borang
 			7=>'Susut nilai',
 			8=>'Akhir', // 'Nilai buku pada akhir tahun'
 			9=>'Sewa');
+		$dlmBina = array('F7285'=>'Tmpt Kediaman','F7385'=>'Bukan Tmpt Kediaman',
+			'F7485'=>'Binaan lain','F8185'=>'Jentera dan kelengkapan',
+			'F8685'=>'Lain2 harta','F9985'=>'Jumlah harta');
+			foreach ($dlmBina as $kunci => $tghBina)
+			{
+				$binaan[$tghBina] = isset($cari[$kunci]) ? $cari[$kunci] : '_';
+				//echo ($kunci=='F7285') ? ' ada jumpa' . $kunci . '=' . $binaan[$tghBina] : '';
+			}
+		$kerjaDlmBinaan = array('Tmpt Kediaman','Bukan Tmpt Kediaman',
+				'Binaan lain','Jentera dan kelengkapan','Lain2 harta','Jumlah');	
+		# semak data echo '<pre>Borang::binaAset($cari)='; print_r($cari) . '</pre><hr>';
 		
-		// semak data
-		//echo '<pre>Borang::binaAset($cari)='; print_r($cari) . '</pre><hr>';
-		
-		// mula cari 
-		$kira = 0;
+		$kira = 0; # mula cari 
+		$jumHarta = 0;
 		foreach ($jenisHarta as $key => $jenis)
 		{
 			//echo '<br>$key=' . $key;
+			if(in_array($jenis,$kerjaDlmBinaan)):
+				$aset[$kira]['Kerja Dlm Pelaksanaan'] = $binaan[$jenis] . '';
+				$jumHarta += $binaan[$jenis];
+			elseif(in_array($jenis,array('Jumlah harta'))):
+				$aset[$kira]['Kerja Dlm Pelaksanaan'] = ($binaan[$jenis]==0) ? '_'
+					: $binaan[$jenis] . '|calc=' . $jumHarta . '';
+			else: $aset[$kira]['Kerja Dlm Pelaksanaan'] = null;
+			endif;
+			
 			$aset[$kira]['nama'] = $jenis;
 			$aset[$kira]['kod'] = $key;
 			foreach ($nilaiBuku as $key2 => $modal)

@@ -633,6 +633,8 @@ class Borang
 						- $jum[$kira]['F05'.$key] 
 						+ ( $jum[$kira]['F06'.$key] 
 						) - $jum[$kira]['F07'.$key] );
+					
+					$jumlahAset = ($jumlahAset==0)? '':$jumlahAset;
 
 					$akhir = (isset($cari[$baris]) ?
 						$cari[$baris] : '_');

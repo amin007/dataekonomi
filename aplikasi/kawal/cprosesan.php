@@ -510,7 +510,7 @@ class Cprosesan extends Kawal
 		//echo '<pre>jenisPekerjaan dalam fungsi semak_staf2015 ->'; print_r($jenisPekerjaan) . '</pre>';
 		
 		$this->papar->kod_produk['pekerjaan'] = 
-			Data::dataPekerja2015($jadualStaf,$jenisPekerjaan);//*/
+			Data::dataPekerja2015($jadualStaf,$jenisPekerjaan);
 			
 	}
 

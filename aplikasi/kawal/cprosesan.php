@@ -27,8 +27,8 @@ class Cprosesan extends Kawal
 	function ubah($sv=null, $id = null, $mula = null, $akhir = null, $cetak = null)
 	{	//echo '<br>Anda berada di class Cprosesan extends Kawal:ubah($cari,$mula,$akhir,$cetak)<br>';
 		
-		// setkan semua pembolehubah
-		$medan = '*'; // senarai nama medan
+		# setkan semua pembolehubah
+		$medan = '*'; # senarai nama medan
 		$cari = array (
 			'sv' => $sv, // senarai survey
 			'medan' => ($sv!='cdt' ? 'estab' : 'sidap'), // cari dalam medan apa
@@ -74,7 +74,7 @@ class Cprosesan extends Kawal
 			echo '<hr>$this->papar->carian: ' . $this->papar->carian . '<br>';
 			echo '</pre>';//*/
 		
-		# memilih antara papar dan cetak
+		/*# memilih antara papar dan cetak
 		if ($cetak == 'cetak') //echo 'cetak';
 			$this->papar->baca($this->papar->dataAm . 'cetak', 0);
 		elseif ($cetak == 'papar') //echo 'papar';
@@ -87,19 +87,18 @@ class Cprosesan extends Kawal
 	public function ubahCetak($sv)
 	{
 		//echo '<pre>$_POST->', print_r($_POST, 1) . '</pre>';
-		// bersihkan data $_POST
+		# bersihkan data $_POST
 		$dataID = 'ubah/' . bersih($sv) . '/' . bersih($_POST['cari']);
 		
-		// paparkan ke fail 
+		# paparkan ke fail 
 		$lokasi = 'location: ' . URL . $this->papar->dataAm . $dataID . '/2010/2012';
 		header($lokasi);
 
 	}
 
-// senarai jadual
+# senarai jadual
 	private function senarai_jadual($sv)
-	{
-		// senaraikan tatasusunan jadual prosesan
+	{	# senaraikan tatasusunan jadual prosesan
 		if ($sv == null) $myJadual = array();
 		elseif ($sv=='cdt')
 		{
@@ -117,9 +116,9 @@ class Cprosesan extends Kawal
 		}
 		elseif ($sv == '205')
 		{	
-			$myJadual = array ( // prosesan sebelum 2010
+			$myJadual = array ( # prosesan sebelum 2010
 			'q01','q02','s04','s05a','s05b','s06_s07','qlain15','qlain16','qlain20','qlain21','qlain35',
-			// prosesan selepas 2010
+			# prosesan selepas 2010
 			'q01_2010','q02_2010','q03_2010','q04_2010','q05a_2010','q05b_2010','q06_2010','q07_2010',
 			'q08_2010','q09_2010','q10_2010','q11_2010','q12_2010','q13_2010','q16a_2010','q16b_2010',
 			'q17_2010');
@@ -143,12 +142,12 @@ class Cprosesan extends Kawal
 		}
 		elseif (in_array($sv,$this->_ppt2015))
 		{	// prosesan 2010
-			$jadual = array('q01','q02','q03','q04','q05a','q05b','q06',
+			$jadual = array('q01','q02','q03','q04','q05','q06',
 			'q07','q08','q09','q10','q11','qsa','qsb','qsc','qsd','qse','qsf',
 			/*,'tblDataReviewTemp2'*/
-			'tblDataReview','tblDataReviewTemp','tblDataReviewTemp3');
+			/*'tblDataReview','tblDataReviewTemp','tblDataReviewTemp3'*/);
 			foreach ($jadual as $key => $data):
-				$myJadual[] = 's' . $sv . '_' . $data . '_2010';
+				//$myJadual[] = 's' . $sv . '_' . $data . '_2010';
 				$myJadual[] = 's' . $sv . '_' . $data . '_2015';
 			endforeach;
 		}
@@ -304,7 +303,6 @@ class Cprosesan extends Kawal
 			foreach (array('asas','struktur',/*'msic',*/'aset','staf',/*'hasil','belanja',*/'stok') as $buanglah)
 				unset($this->papar->kesID['data_icdt2012_' . $buanglah]); 
 
-
 		}
 		elseif (in_array($sv,$this->_pptAsetPenuh))
 		{
@@ -316,6 +314,17 @@ class Cprosesan extends Kawal
 			// bentuk soalan 4 - aset
 			$this->semak_aset($senaraiAset = array('s'.$sv.'_q04_2010'),
 					's'.$sv.'_q04_2010', $paparID);		
+		}
+		elseif (in_array($sv,$this->_ppt2015))
+		{
+			$this->cari_keterangan_medan($sv, $this->papar->kesID); 
+			$this->papar->kod_produk = array();
+			# bentuk soalan staf lelaki dan perempuan
+			$jadualStaf = 's'.$sv.'_q05_2015';
+			$this->semak_staf2015($this->papar->kesID[$jadualStaf]);
+			# bentuk soalan 4 - aset
+			/*$this->semak_aset($senaraiAset = array('s'.$sv.'_q04_2015'),
+					's'.$sv.'_q04_2015', $paparID);	//*/
 		}
 		else
 		{
@@ -486,6 +495,19 @@ class Cprosesan extends Kawal
 			
 	}
 	
+	private function semak_staf2015($jadualStaf, $prosesID)
+	{
+		$jenisPekerjaan = array(0=>'Pemilik(ROB)-1',1=>'Pekerja keluarga(ROB)-2',
+			2=>'Pengurusan-3.1',3=>'Juruteknik-3.2',4=>'Kerani-3.3',5=>'Pekerja Asas-3.4',
+			6=>'Pekerja Mahir-3.5.1',7=>'Pekerja XMahir-3.5.2',
+			8=>'Upah Mahir-3.5.1',9=>'Upah XMahir-3.5.2',
+			10=>'Pekerja sambilan-4',11=>'Jumlah pekerja-5');
+
+		$this->papar->kod_produk['pekerjaan'] = 
+			Data::dataPekerja2015($jadualStaf,$jenisPekerjaan,$prosesID);
+			
+	}
+
 	private function cdt_pecah_soalan($Am,$A,$B,$C,$paparID)
 	{
 		if(isset($paparID[$A][0]) ):

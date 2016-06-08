@@ -197,8 +197,7 @@ foreach ($this->kod_produk as $jadual => $baris)
 	<li><a href="#<?php echo $jadual; ?>" data-toggle="tab">
 	<span class="label label-success"><?php echo $jadual ?>
 	<span class="badge"><?php echo count($baris)?></span>
-	</span></a></li>
-<?php
+	</span></a></li><?php
 	}
 }
 ?>	</ul>
@@ -233,7 +232,7 @@ for ($kira=0; $kira < count($row); $kira++)
 			$printed_headers = true; 
 		endif; echo "\r\t";
 #-----------------------------------------------------------------		
-//print the data row ?><tbody><tr>
+# print the data row ?><tbody><tr>
 	<td><?php echo $kira+1 ?></td>	
 	<?php foreach ( $row[$kira] as $key=>$data ) :?>
 	<td align="right"><?php 

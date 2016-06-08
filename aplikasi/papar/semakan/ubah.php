@@ -1,15 +1,13 @@
 <?php
 include 'ubah_fungsi.php';
-#  mula - semak pembolehubah 
-echo '<pre>';
+/*echo '<pre>';#  mula - semak pembolehubah 
 echo '<br>\$this->peratus = ' . $this->peratus;
 echo '<br>\$this->carian = ' . $this->carian;
 echo '<br>\$this->sv = ' . $this->sv;
 echo '<br>\$this->kawalID = '; print_r($this->kawalID);
 echo '<br>\$this->thn_mula =  = ' . $this->thn_mula;
 echo '<br>\$this->thn_akhir =  = ' . $this->thn_akhir;
-echo '</pre>';
-# tamat - semak pembolehubah 
+echo '</pre>';# tamat - semak pembolehubah //*/
 
 if ( !isset($this->carian) || $this->carian=='[id:0]')
 	echo '<h1><span class="badge">Prosesan: data kosong </span></h1>';

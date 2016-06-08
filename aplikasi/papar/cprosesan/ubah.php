@@ -7,8 +7,10 @@ else
 	$ID = $this->paparID; 
 	$tahun = $this->thn_mula . ' hingga ' . $this->thn_akhir;
 	$paparKesID = $ID . '/' . $this->thn_mula . '/' . $this->thn_akhir . '/cetak';
+	$paparKesID2 = $ID . '/' . $this->thn_mula . '/' . $this->thn_akhir . '';
 	$tajuk = 'Prosesan' . $this->sv . ' : Dari tahun ' . $tahun;
 	$cetak = URL . $this->kelas . 'ubah/' . $this->sv . '/' . $paparKesID;
+	$semakan = URL . 'semakan/ubah/' . $this->sv . '/' . $paparKesID2;
 	$mencari = URL . $this->kelas . 'ubahCetak/' . $this->sv;
 	$senaraiMedan = array('thn','Estab','F0002','F0014','F0015');
 	//echo '$cetak:' . $cetak . '|$mencari:' . $mencari;
@@ -17,6 +19,7 @@ else
 <div align="center"><form method="POST" action="<?php echo $mencari ?>" autocomplete="off">
 <span class="badge"><?php echo $tajuk ?></span>
 <a href="<?php echo $cetak ?>"><span class="badge"><i class="glyphicon glyphicon-print"></i>Cetak</span></a>
+<a href="<?php echo $semakan ?>"><span class="badge"><i class="glyphicon glyphicon-print"></i>Semakan</span></a>
 <input type="text" name="cari" size="40" value="<?=$ID;?>">
 <font size="5" color="red">&rarr;</font>
 <input type="submit" value="mencari">

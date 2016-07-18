@@ -87,7 +87,8 @@ class Semakan extends Kawal
 			elseif($sv=='206')
 			{
 				$this->papar->kod_produk = array();
-				$jadualStaf = array('206_q05a_2010','206_q05b_2010');
+				$kp = 's' . $sv . '_q'; //echo '111: kp ' . $kp . '<br>';
+				$jadualStaf = array($kp.'05a_2010',$kp.'05b_2010');
 				// cari sv, jumlah pendapatan dan pembelanjaan
 				$rangkaNewss = 'alamat_newss_2013';
 				$this->papar->perangkaan['sv'] = '206';
@@ -95,12 +96,12 @@ class Semakan extends Kawal
 					$this->papar->kawalID[$rangkaNewss][0]['newss'];
 				$this->papar->perangkaan['nama'] = !isset($this->papar->kawalID[$rangkaNewss][0]['nama']) ? '' :
 					$this->papar->kawalID[$rangkaNewss][0]['nama'];
-				$this->papar->perangkaan['hasil']    = $this->papar->prosesID['206_q08_2010'][0]['F2099'];
-				$this->papar->perangkaan['belanja']  = $this->papar->prosesID['206_q09_2010'][0]['F2199'];
-				$this->papar->perangkaan['gaji']     = $this->papar->prosesID['206_q09_2010'][0]['F2145'];
-				$this->papar->perangkaan['susut']    = $this->papar->prosesID['206_q04_2010'][0]['F0799'];
-				$this->papar->perangkaan['aset']     = $this->papar->prosesID['206_q04_2010'][0]['F0899'];
-				$this->papar->perangkaan['asetsewa'] = $this->papar->prosesID['206_q04_2010'][0]['F0999'];	
+				$this->papar->perangkaan['hasil']    = $this->papar->prosesID[$kp.'08_2010'][0]['F2099'];
+				$this->papar->perangkaan['belanja']  = $this->papar->prosesID[$kp.'09_2010'][0]['F2199'];
+				$this->papar->perangkaan['gaji']     = $this->papar->prosesID[$kp.'09_2010'][0]['F2145'];
+				$this->papar->perangkaan['susut']    = $this->papar->prosesID[$kp.'04_2010'][0]['F0799'];
+				$this->papar->perangkaan['aset']     = $this->papar->prosesID[$kp.'04_2010'][0]['F0899'];
+				$this->papar->perangkaan['asetsewa'] = $this->papar->prosesID[$kp.'04_2010'][0]['F0999'];	
 					
 				// bentuk soalan 4 - aset
 				$this->semak_aset($asetIndustri,$aset,$prosesID);

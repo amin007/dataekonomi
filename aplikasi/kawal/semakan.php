@@ -91,7 +91,7 @@ class Semakan extends Kawal
 				$jadualStaf = array($kp.'05a_2010',$kp.'05b_2010');
 				// cari sv, jumlah pendapatan dan pembelanjaan
 				$rangkaNewss = 'alamat_newss_2013';
-				$this->papar->perangkaan['sv'] = '206';
+				$this->papar->perangkaan['sv'] = $sv;
 				$this->papar->perangkaan['newss'] = !isset($namaJadual[$rangkaNewss]) ? '' :
 					$this->papar->kawalID[$rangkaNewss][0]['newss'];
 				$this->papar->perangkaan['nama'] = !isset($this->papar->kawalID[$rangkaNewss][0]['nama']) ? '' :
@@ -108,6 +108,30 @@ class Semakan extends Kawal
 				// bentuk soalan staf lelaki dan perempuan
 				$this->semak_staf($jadualStaf, $this->papar->prosesID, $sv);
 			}
+			elseif($sv=='101')
+			{
+				$this->papar->kod_produk = array();
+				$kp = 's' . $sv . '_q'; //echo '111: kp ' . $kp . '<br>';
+				$jadualStaf = array($kp.'05a_2010',$kp.'05b_2010');
+				// cari sv, jumlah pendapatan dan pembelanjaan
+				$rangkaNewss = 'alamat_newss_2013';
+				$this->papar->perangkaan['sv'] = $sv;
+				$this->papar->perangkaan['newss'] = !isset($namaJadual[$rangkaNewss]) ? '' :
+					$this->papar->kawalID[$rangkaNewss][0]['newss'];
+				$this->papar->perangkaan['nama'] = !isset($this->papar->kawalID[$rangkaNewss][0]['nama']) ? '' :
+					$this->papar->kawalID[$rangkaNewss][0]['nama'];
+				$this->papar->perangkaan['hasil']    = $this->papar->prosesID[$kp.'07_2010'][0]['F2099'];
+				$this->papar->perangkaan['belanja']  = $this->papar->prosesID[$kp.'08_2010'][0]['F2199'];
+				$this->papar->perangkaan['gaji']     = $this->papar->prosesID[$kp.'08_2010'][0]['F2145'];
+				$this->papar->perangkaan['susut']    = 0; //$this->papar->prosesID[$kp.'04_2010'][0]['F0799'];
+				$this->papar->perangkaan['aset']     = 0; //$this->papar->prosesID[$kp.'04_2010'][0]['F0899'];
+				$this->papar->perangkaan['asetsewa'] = 0; //$this->papar->prosesID[$kp.'04_2010'][0]['F0999'];	
+					
+				// bentuk soalan 4 - aset
+				$this->semak_aset($asetIndustri,$aset,$prosesID);
+				// bentuk soalan staf lelaki dan perempuan
+				$this->semak_staf($jadualStaf, $this->papar->prosesID, $sv);
+			}			
 			elseif(in_array($sv,$this->_pptAsetPenuh))
 			{
 				$this->papar->kod_produk = array(); 

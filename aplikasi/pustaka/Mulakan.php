@@ -89,33 +89,27 @@ class Mulakan
 				$kawal->{$url[1]}($url[2], $url[3], $url[4], $url[5], $url[6], $url[7]);
 				break;
 
-				case 7:
-				//Kawal->Kaedah(Param2, Param3, Param4, Param5, Param6)
+				case 7: # Kawal->Kaedah(Param2, Param3, Param4, Param5, Param6)
 				$kawal->{$url[1]}($url[2], $url[3], $url[4], $url[5], $url[6]);
 				break;
 
-				case 6:
-				//Kawal->Kaedah(Param2, Param3, Param4, Param5)
+				case 6: # Kawal->Kaedah(Param2, Param3, Param4, Param5)
 				$kawal->{$url[1]}($url[2], $url[3], $url[4], $url[5]);
 				break;
 	 
-				case 5:
-				//Kawal->Kaedah(Param2, Param3, Param4)
+				case 5: # Kawal->Kaedah(Param2, Param3, Param4)
 				$kawal->{$url[1]}($url[2], $url[3], $url[4]);
 				break;
 	 
-				case 4:
-				//Kawal->Kaedah(Param2, Param3)
+				case 4: # Kawal->Kaedah(Param2, Param3)
 				$kawal->{$url[1]}($url[2], $url[3]);
 				break;
 	 
-				case 3:
-				//Kawal->Kaedah(Param2)
+				case 3: # Kawal->Kaedah(Param2)
 				$kawal->{$url[1]}($url[2]);
 				break;
 	 
-				case 2:
-				//Kawal->Kaedah()
+				case 2: # Kawal->Kaedah()
 				$kawal->{$url[1]}();
 				break;
 	 

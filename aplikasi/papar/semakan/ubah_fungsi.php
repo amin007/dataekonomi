@@ -18,23 +18,18 @@ function analisis($perangkaan, $ppt, $jadual, $key, $data)
 	}
 	elseif ($sv=='101') 
 	{//untuk survey 101 sahaja
-		/*if ($jadual == $sv.'_q04_2010' && $noKey == 'F08') 
+		if ($jadual == 's'.$sv.'_q04_2010' && $noKey == 'F08') 
 			$nilai = ($sewa==0) ? 0 : (($data / $sewa) * 100);
-		elseif ($jadual == $sv.'_q04_2010' && $noKey != 'F09') 
+		elseif ($jadual == 's'.$sv.'_q04_2010' && $noKey != 'F09') 
 			$nilai = ($aset==0) ? 0 : (($data / $aset) * 100);
-		else*/if ($jadual == $sv.'_q07_2010')
+		elseif ($jadual == 's'.$sv.'_q07_2010')
 			$nilai = ($hasil==0) ? 0 : (($data / $hasil) * 100 );
-		elseif ($jadual == $sv.'_q08_2010')
+		elseif ($jadual == 's'.$sv.'_q08_2010')
 			$nilai = ($belanja==0) ? 0 : (($data / $belanja) * 100 );
 		else $nilai = 'x';
 		
 		$name = 'name="' . $jadual . '[' . $key . ']"'
 			  . ' id="' . $key . '"';
-		
-		echo "<hr>sv $sv | jadual $jadual | \$data $data |";
-		//echo "\$sewa $sewa \$aset $aset \$hasil $hasil \$belanja $belanja";
-		echo " \$hasil $hasil \$belanja $belanja";
-		echo " \$nilai $nilai";
 	}
 	elseif ($sv=='205') 
 	{//untuk survey 205 sahaja

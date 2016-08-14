@@ -13,7 +13,7 @@ right: 0px;
 if ($this->carian=='[id:0]')
 	echo '<h1><span class="badge">Prosesan' . $this->sv . ': data kosong </span></h1>';
 else
-{ // $this->carian=='sidap' - mula
+{ # $this->carian=='sidap' - mula
 	$cari = $this->carian; 
 	$ID = $this->paparID; 
 	$tahun = $this->thn_mula . ' hingga ' . $this->thn_akhir;
@@ -68,21 +68,21 @@ foreach ($this->kesID as $myTable => $row)
 	elseif ( count($row)!=0 )
 	{
 		if ($mula++%$lajur==0)
-		{ // mula kalau baki 0
+		{ # mula kalau baki 0
 			?><td valign="top" align="center">
 <span class="badge badge-success"><?php echo $myTable ?></span><?php
 			paparData($this->sv, $myTable, $row, 
 				$this->keterangan, $senaraiMedan);
 			echo "</td>\n</tr>\n<tr>";
-		} // tamat kalau baki 0
+		} # tamat kalau baki 0
 		else
-		{ // mula kalau baki bukan 0
+		{ # mula kalau baki bukan 0
 			?><td valign="top" align="center">
 <span class="badge badge-success"><?php echo $myTable ?></span><?php
 			paparData($this->sv, $myTable, $row, 
 				$this->keterangan, $senaraiMedan);
 			echo "</td>\n";
-		} // tamat kalau baki bukan 0
+		} # tamat kalau baki bukan 0
 	}
 }
 ?>
@@ -99,24 +99,24 @@ foreach ($this->kod_produk as $myTable => $row)
 	else
 	{
 		if ($mula++%$lajur==0)
-		{ // mula kalau baki 0
+		{ # mula kalau baki 0
 			?><td valign="top" align="left">
 <span class="badge badge-success"><?php echo $myTable . '-' . $ID ?></span><?php
 			paparKodProduk($this->sv, $myTable, $row);
 			echo "</td>\n</tr>\n<tr>";
-		} // tamat kalau baki 0
+		} # tamat kalau baki 0
 		else
-		{ // mula kalau baki bukan 0
+		{ # mula kalau baki bukan 0
 			?><td valign="top" align="left">
 <span class="badge badge-success"><?php echo $myTable . '-' . $ID ?></span><?php
 			paparKodProduk($this->sv, $myTable, $row);
 			echo "</td>\n";
-		} // tamat kalau baki bukan 0
+		} # tamat kalau baki bukan 0
 		
-	} // if ( count($row)==0 )
+	} # if ( count($row)==0 )
 }
 ?>
 
 </tr></table>
 
-<?php } // $this->carian=='sidap' - tamat ?>
+<?php } # $this->carian=='sidap' - tamat ?>

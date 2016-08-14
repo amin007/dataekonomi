@@ -68,7 +68,7 @@ class Cprosesan extends Kawal
 		{
 			$this->papar->carian='[id:0]';
 		}
-			echo '<pre>';
+			/*echo '<pre>'; # proses debug
 			//echo '<hr>$this->papar->keterangan='; print_r($this->papar->keterangan);
 			echo '<hr>$this->papar->kesID='; print_r($this->papar->kesID);
 			echo '<hr>$this->papar->kod_produk='; print_r($this->papar->kod_produk); // khas untuk survey 205
@@ -77,7 +77,7 @@ class Cprosesan extends Kawal
 			echo '<hr>$this->papar->namaSyarikat: ' . $this->papar->namaSyarikat . '<br>';
 			echo '</pre>';//*/
 		
-		/*# memilih antara papar dan cetak
+		# memilih antara papar dan cetak
 		if ($cetak == 'cetak') //echo 'cetak';
 			$this->papar->baca($this->papar->dataAm . 'cetak', 0);
 		elseif ($cetak == 'papar') //echo 'papar';
@@ -93,10 +93,9 @@ class Cprosesan extends Kawal
 		# bersihkan data $_POST
 		$dataID = 'ubah/' . bersih($sv) . '/' . bersih($_POST['cari']);
 		
-		# paparkan ke fail 
+		# menukar arah pautan $lokasi 
 		$lokasi = 'location: ' . URL . $this->papar->dataAm . $dataID . '/2010/2012';
 		header($lokasi);
-
 	}
 
 # senarai jadual

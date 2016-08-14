@@ -1,3 +1,14 @@
+<style>
+.floating-menu {
+padding: 5px;;
+width: 300px;
+z-index: 100;
+position: fixed;
+bottom: 0px;
+right: 0px;
+}
+</style>
+
 <?php
 if ($this->carian=='[id:0]')
 	echo '<h1><span class="badge">Prosesan' . $this->sv . ': data kosong </span></h1>';
@@ -11,6 +22,11 @@ else
 	$tajuk = 'Prosesan' . $this->sv . ' : Dari tahun ' . $tahun;
 	$mencari = URL . $this->kelas . 'ubahCetak/';
 	$senaraiMedan = array('thn','Estab','F0002','F0014','F0015');
+	//$this->namaSyarikat
+	?><nav class="floating-menu">
+	<p class="bg-primary">
+	<?php echo "\n&nbsp;" . $this->namaSyarikat ?>
+	</p></nav><?php
 	//echo '<pre>$this->kesID :'; print_r($this->kesID ) . '</pre>';
 	//echo '$cetak:' . $cetak . '|$mencari:' . $mencari;
 ?>

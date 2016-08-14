@@ -23,8 +23,9 @@ class Cprosesan extends Kawal
 		$this->papar->baca($this->papar->dataAm . 'index');
 	}
 
-	// ubah & cetak
-	function ubah($sv=null, $id = null, $mula = null, $akhir = null, $cetak = null)
+	# ubah & cetak
+	function ubah($sv=null, $id = null, $mula = null, $akhir = null, 
+	$cetak = null, $namaSyarikat = null)
 	{	//echo '<br>Anda berada di class Cprosesan extends Kawal:ubah($cari,$mula,$akhir,$cetak)<br>';
 		
 		# setkan semua pembolehubah
@@ -60,21 +61,23 @@ class Cprosesan extends Kawal
 			$this->semakYangAda($sv, $nilai, $cari);
 			# cari kod io
 			$this->paparIO($sv, $this->papar->kesID, $cari);
-			
+			# paparkan nama syarikat
+			$this->papar->namaSyarikat = $namaSyarikat;
 		}
 		else
 		{
 			$this->papar->carian='[id:0]';
 		}
-			/*echo '<pre>';
+			echo '<pre>';
 			//echo '<hr>$this->papar->keterangan='; print_r($this->papar->keterangan);
 			echo '<hr>$this->papar->kesID='; print_r($this->papar->kesID);
 			echo '<hr>$this->papar->kod_produk='; print_r($this->papar->kod_produk); // khas untuk survey 205
 			//echo '<hr>$this->papar->paparID=' . $this->papar->paparID;
 			echo '<hr>$this->papar->carian: ' . $this->papar->carian . '<br>';
+			echo '<hr>$this->papar->namaSyarikat: ' . $this->papar->namaSyarikat . '<br>';
 			echo '</pre>';//*/
 		
-		# memilih antara papar dan cetak
+		/*# memilih antara papar dan cetak
 		if ($cetak == 'cetak') //echo 'cetak';
 			$this->papar->baca($this->papar->dataAm . 'cetak', 0);
 		elseif ($cetak == 'papar') //echo 'papar';

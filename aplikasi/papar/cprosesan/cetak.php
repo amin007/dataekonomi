@@ -22,11 +22,10 @@ else
 	$tajuk = 'Prosesan' . $this->sv . ' : Dari tahun ' . $tahun;
 	$mencari = URL . $this->kelas . 'ubahCetak/';
 	$senaraiMedan = array('thn','Estab','F0002','F0014','F0015');
-	//$this->namaSyarikat
 	?><nav class="floating-menu">
-	<p class="bg-primary">
+	<span class="label label-primary">
 	<?php echo "\n&nbsp;" . $this->namaSyarikat ?>
-	</p></nav><?php
+	</span></nav><?php
 	//echo '<pre>$this->kesID :'; print_r($this->kesID ) . '</pre>';
 	//echo '$cetak:' . $cetak . '|$mencari:' . $mencari;
 ?>

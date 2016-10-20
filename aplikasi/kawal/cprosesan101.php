@@ -297,6 +297,7 @@ class Cprosesan101 extends Kawal
 					's'.$sv.'_q04_2010', $paparID, $sv);
 			# semak kod produk
 			$this->semak_produk($cari, $sv); 
+			//echo '<pre>line300 : semak_staf_aset_produk:'; print_r($this->papar->kod_produk) . '</pre><hr>';
 			# bentuk soalan 4b - aset biologi
 			$this->semak_aset_biologi($sv, $paparID);
 		}		
@@ -319,7 +320,7 @@ class Cprosesan101 extends Kawal
 			// bentuk soalan 4 - aset
 			if (isset($aset) && $aset != null)
 			{	//echo '<pre>$aset='; print_r($aset) . '</pre>';
-				$this->semak_aset($asetIndustri, $aset, $paparID);
+				$this->semak_aset($asetIndustri, $aset, $paparID, $sv);
 			}
 		}
 		elseif ($sv=='cdt')
@@ -390,7 +391,7 @@ class Cprosesan101 extends Kawal
 	private function semak_produk($cari, $kp) // khas untuk survey 205
 	{
 		$medan = '*';
-		$this->papar->kod_produk = array();
+		//$this->papar->kod_produk = array();
 		// mula cari $cariID dalam $kod_produk
 		foreach ($this->kod_produk($kp) as $key => $myTable)
 		{// mula ulang table
@@ -480,8 +481,8 @@ class Cprosesan101 extends Kawal
 			else
 			{
 				//echo '<hr>Lain2:' . $myTable . '<br>';
-				//$this->papar->kod_produk[$myTable] = 
-				//$this->tanya->cariProdukLama($myTable, $medan, $cari);
+				$this->papar->kod_produk[$myTable] = 
+				$this->tanya->cariProdukLama($myTable, $medan, $cari);
 			}
 			
 		}# tamat ulang table
@@ -529,10 +530,12 @@ class Cprosesan101 extends Kawal
 	{// khas untuk soalan aset biologi
 
 		//$jadual = 's' . $kp . '_q' . $soalan . '_2010';
-		$asetBiologi = array('04b'=>'harta_biologi', # aset biologi
+		$asetBiologi = array(
+				//'04'=>'harta_benda', # aset biologi
+				'04b'=>'harta_biologi', # aset biologi
 				'11'=>'luas_tanaman', # luas tanaman
 				'12'=>'xtvt_tani_lain2', # PENDAPATAN DARIPADA AKTIVITI PERTANIAN LAIN DALAM TAHUN 2015 (Tidak termasuk CBP)
-				//'13a'=>'luas_jualA', # P '13b'=>'luas_jualB', # P
+				'13a'=>'luas_jualA', # P '13b'=>'luas_jualB', # P
 				'14'=>'kos_bahan', # Kos bahan langsung yang digunakan
 				//'15'=>'--', # entah
 				'16'=>'cawangan', # maklumat hq/cawangan
@@ -542,6 +545,10 @@ class Cprosesan101 extends Kawal
 		
 		foreach ($asetBiologi as $key => $soalan):
 			//echo "key:$key | soalan:$soalan<br>";
+			if($key=='04')
+				@$this->papar->kod_produk[$soalan] = 
+					Borang101::binaAset($paparID['s' . $kp . '_q' . $key . '_2010'][0], $kp);
+					//Borang101::bina04b();
 			if($key=='04b')
 				@$this->papar->kod_produk[$soalan] = 
 					Borang101::bina04b($paparID['s' . $kp . '_q' . $key . '_2010'][0], $kp);
@@ -563,7 +570,8 @@ class Cprosesan101 extends Kawal
 					Borang101::bina14($paparID['s' . $kp . '_q' . $key . '_2010'][0], $kp);
 			if($key=='16')
 				@$this->papar->kod_produk[$soalan] = 
-					Borang101::bina16($paparID['s' . $kp . '_q' . $key . '_2010'][0], $kp);
+					Borang101::bina16($paparID['s' . $kp . '_q' . $key . '_2010'][0], 
+						$paparID['s' . $kp . '_q15_2010'][0], $kp);
 			
 		endforeach;
 		/*
@@ -587,7 +595,8 @@ class Cprosesan101 extends Kawal
 
 		$this->papar->kod_produk['pekerjaan'] = 
 			Data::dataPekerja($jadualStaf,$jenisPekerjaan,$prosesID);
-			
+		
+		//echo '<pre>semak_staf:'; print_r($this->papar->kod_produk['pekerjaan']) . '</pre><hr>';
 	}
 	
 	private function semak_staf2015($jadualStaf)

@@ -1215,6 +1215,190 @@ class Borang101
 		return $staf;
 	}
 /////////////////////////////////////////////////////////////////////////////////////////////////////
+##--------------------------------------------------------------------------------------------------------------------
+	public static function dataPekerja2016($cariL, $cariP, $kp, $cariSijil)
+	{		
+		$bangsaStaf = array(1=>'Melayu', 2=>'Iban',
+			3=>'Bidayuh', 4=>'Bajau',
+			5=>'Kadazan', 6=>'Bumiputra Lain',
+			7=>'Cina', 8=>'India', 9=>'WM Lain2',
+			10=>'Indonesia', 11=>'Filipina',
+			12=>'Bangladesh', 13=>'BWM Lain2',
+			14=>'Jumlah', 30=>'Purata Staf', 18=>'Gaji');
+		$wargaStaf = array(
+			31=>'M`sia', 32=>'Pati',
+			14=>'Jumlah', 18=>'Gaji',
+			51=>'Bil staf xgaji');
+		$lelaki = array(1=>'Pemilik(ROB)-1',2=>'Pekerja keluarga(ROB)-2',
+			3=>'Pengurusan-3.1',4=>'Juruteknik-3.2',
+			5=>'Kerani-3.3',6=>'Pekerja Asas-3.4',
+			7=>'Mahir-3.5.1',8=>'XMahir-3.5.1',9=>'Buruh Mahir-3.6.1',10=>'Buruh Mahir-3.6.1',
+			11=>'Pekerja sambilan-4',19=>'Jumlah pekerja-5');
+		$keyLelaki = array(0=>1,1=>2,2=>3,3=>4,4=>5,5=>6,6=>7,7=>8,8=>9,9=>10,10=>11,11=>19);
+		$wanita = array(21=>'Pemilik(ROB)-1',22=>'Pekerja keluarga(ROB)-2',
+			23=>'Pengurusan-3.1',24=>'Juruteknik-3.2',
+			25=>'Kerani-3.3',26=>'Pekerja Asas-3.4',
+			27=>'Mahir-3.5.1',28=>'XMahir-3.5.1',29=>'Buruh Mahir-3.6.1',30=>'Buruh Mahir-3.6.1',
+			31=>'Pekerja sambilan-4',39=>'Jumlah pekerja-5');
+		$keyWanita = array(0=>21,1=>22,2=>23,3=>24,4=>25,5=>26,6=>27,7=>28,	8=>29,9=>30,10=>31,11=>39);
+		$jenisKerja = array(0=>'Pemilik(ROB)-1',1=>'Pekerja keluarga(ROB)-2',
+			2=>'Pengurusan-3.1',3=>'Juruteknik-3.2',4=>'Kerani-3.3',5=>'Pekerja Asas-3.4',
+			6=>'Pekerja Mahir-3.5.1',7=>'Pekerja XMahir-3.5.2',
+			8=>'Upah Mahir-3.5.1',9=>'Upah XMahir-3.5.2',
+			10=>'Pekerja sambilan-4',11=>'Jumlah pekerja-5');
+		$sijilLama = array(
+			0=>'Pascasiswazah-06',
+			1=>'Bacelor-01',
+			2=>'Diploma-02',
+			3=>'STPM-03',
+			4=>'SPM-04',
+			5=>'Bawah SPM-05',
+			6=>'Jumlah Sijil-09'
+		);
+		$sijil = array(
+			0=>'Pascasiswazah-06',
+			1=>'Ijazah (a) Akademik-41',
+			2=>'Ijazah (b) Teknikal*-42',
+			3=>'Diploma (a) Akademik-43',
+			4=>'Diploma (b) Teknikal dan Vokasional (TVET)-44',
+			5=>'STPM-03',
+			6=>'Sijil (a) Akademik-45',
+			//'Sijil (b) Kemahiran (TVET) Skills Certificate (TVET)',
+			7=>'Sijil (b)(i) Kemahiran Malaysia Tahap 3-46',
+			8=>'Sijil (b)(ii) Kemahiran Malaysia Tahap 2-47',
+			9=>'Sijil (b)(iii) Kemahiran Malaysia Tahap 3-48',
+			10=>'SPM-04',
+			11=>'Bawah SPM-05',
+			12=>'Jumlah Sijil-09',
+		);
+/*	$lelaki:Array						|$wanita:Array
+	(
+		[1]  => Pemilik(ROB)-1			[21] => Pemilik(ROB)-1
+		[2]  => Pekerja keluarga(ROB)-2	[22] => Pekerja keluarga(ROB)-2
+		[12] => Pengurusan-3.1			[32] => Pengurusan-3.1
+		[3]  => Profesional-3.2.1		[23] => Profesional-3.2.1
+		[13] => Penyelidik-3.2.2		[33] => Penyelidik-3.2.2
+		[4]  => Juruteknik				[24] => Juruteknik
+		[5]  => Kerani-3.4				[25] => Kerani-3.4
+		[15] => Servis & Jualan-3.5		[35] => Servis & Jualan-3.5
+		[07] => Kemahiran-3.6			[27] => Kemahiran-3.6
+		[18] => XKemahiran-3.6			[38] => XKemahiran-3.6
+		[16] => Mesin & Operator-3.7	[36] => Mesin & Operator-3.7
+		[6]  => Pekerja Asas-3.8		[26] => Pekerja Asas-3.8
+		[7]  => -3.5					[27] => -3.5
+		[8]  => -3.6					[28] => -3.6
+		[17] => Jum Staf Bergaji-3.9	[37] => Jum Staf Bergaji-3.9
+		[11] => Pekerja sambilan-4		[31] => Pekerja sambilan-4
+		[19] => Jumlah pekerja-5		[39] => Jumlah pekerja-5
+	)
+		01-09 - Msia (in_array($lajur, array('01','02','03','04','05','06','07','08','09') ))
+		10-13 - Pati (in_array($lajur, array('10','11','12','13') ))
+		14 - Jumlah
+		*/
+		# sijil
+		$pekerja[0]['Sijil'] = '';
+		$pekerja[0]['L15'] = '';
+		$pekerja[0]['P16'] = '';
+		foreach ($sijil as $key3 => $senaraiSijil):
+				$baris3 = explode('-', $senaraiSijil);
+				$bariske = $baris3[1];
+				//echo "<br>\$key3 = $key3 | \$senaraiSijil = $senaraiSijil | \$bariske = $bariske";
+				$medanL = 'F15' . $bariske;
+				$dataL  = isset($cariSijil[$medanL]) ? $cariSijil[$medanL] : '&nbsp;';
+				$medanP = 'F16' . $bariske;
+				$dataP  = isset($cariSijil[$medanP]) ? $cariSijil[$medanP] : '&nbsp;';
+			$pekerja[$key3]['Sijil'] = $senaraiSijil;
+			$pekerja[$key3]['L15'] = $dataL;
+			$pekerja[$key3]['P16'] = $dataP;
+		endforeach;
+		# staf dan gaji
+		$cari = array_merge($cariL,$cariP);
+		$msia = $pati = $mengira = $kira = 0;
+		//echo '<pre>$jenisKerja ->'; print_r($jenisKerja); echo '</pre>';
+		foreach ($jenisKerja as $key => $kategori):
+			$data = null; $data2 = null;
+			//echo "<br>\$key = $key| \$kategori = $kategori";
+			$pekerja[$kira]['nama'] = $kategori;
+			$WargaL = $PatiL = $jumStafL = $gajiL = 0;
+			foreach ($bangsaStaf as $key1 => $bangsa):
+			//echo "<br>\$key1 = $key1 | \$bangsa = $bangsa";
+			# set pembolehubah asas
+				$lajur = kira3($key1, 2); 
+				$kunci = pilihKeyData($key,$keyLelaki,$lelaki);
+				$pekerja[$kira]['L'] = $kunci;
+				$baris = kira3($kunci, 2); 
+				$medan = 'F' . $lajur . $baris; 
+				$data = isset($cari[$medan]) ? $cari[$medan] : '&nbsp;';
+			# tambah jika data wujud 
+				if(in_array($lajur, array('01','02','03','04','05','06','07','08','09') )):
+					$WargaL += $data; 
+				/*elseif(in_array($lajur, array('01','02','03','04','05','06') )):
+					$pekerja[$kira]['Bumi'] += $data; 
+				elseif(in_array($lajur, array('07','08','09') )):
+					$pekerja[$kira]['XBumi'] += $data; //*/ 
+				elseif(in_array($lajur, array('10','11','12','13') )):
+					$PatiL += $data; 
+				elseif(in_array($lajur, array('14') )):
+					$jumStafL = !empty($data) ? $data : '-';
+				elseif(in_array($lajur,array('18'))):
+					$gajiL = !empty($data) ? $data : '-';
+				endif;
+				# ubahsuai data
+				$pekerja[$kira]['WargaL'] = ($WargaL==0) ? '' : $WargaL;
+				$pekerja[$kira]['PatiL'] = ($PatiL==0) ? '' : $PatiL;
+				$pekerja[$kira]['Jum|L14'] = $jumStafL;
+				$pekerja[$kira]['Gaji|L18']  = $gajiL;
+			endforeach;
+			//echo '<br>Lelaki:' . $kategori . '$kunci:' . $kunci . '->' . $data;
+			# perempuan
+			$WargaP = $PatiP = $jumStafP = $gajiP = 0;
+			foreach ($bangsaStaf as $key2 => $bangsa):
+			# set pembolehubah asas
+				$kunci2 = pilihKeyData($key,$keyWanita,$wanita);
+				$pekerja[$kira]['W'] = $kunci2;
+				$lajur2 = kira3($key2, 2); 
+				$baris2 = kira3($kunci2, 2); 		
+				$medan2 = 'F' . $lajur2 . $baris2;
+				$data2  = isset($cari[$medan2]) ? $cari[$medan2] : '&nbsp;';
+			# tambah jika data wujud 
+				if(in_array($lajur2, array('01','02','03','04','05','06','07','08','09') )):
+					$WargaP += $data2; 
+				/*elseif(in_array($lajur, array('01','02','03','04','05','06') )):
+					$pekerja[$kira]['Bumi'] += $data; 
+				elseif(in_array($lajur, array('07','08','09') )):
+					$pekerja[$kira]['XBumi'] += $data; //*/ 
+				elseif(in_array($lajur2, array('10','11','12','13') )):
+					$PatiP += $data2; 
+				elseif(in_array($lajur2, array('14') )):
+					$jumStafP = !empty($data2) ? $data2 : '-';
+				elseif(in_array($lajur2, array('18') )):
+					$gajiP = !empty($data2) ? $data2 : '-';
+				endif;
+			# ubahsuai data
+				$pekerja[$kira]['WargaP'] = ($WargaP==0) ? '' : $WargaP;
+				$pekerja[$kira]['PatiP'] = ($PatiP==0) ? '' : $PatiP;
+				$pekerja[$kira]['Jum|P14'] = $jumStafP;
+				$pekerja[$kira]['Gaji|P18'] = $gajiP;
+			endforeach;
+			//echo '|Wanita:' . $kategori . '$kunci:' . $kunci2 . '->' . $data2;
+			$kira++;
+		endforeach;//*/
+		# tambah 1 baris
+				$pekerja[$kira]['nama'] = '';
+				$pekerja[$kira]['L'] = '';
+				$pekerja[$kira]['WargaL'] = '';
+				$pekerja[$kira]['PatiL']  = '';
+				$pekerja[$kira]['Jum|L14'] = '';
+				$pekerja[$kira]['Gaji|L18'] = '';
+				$pekerja[$kira]['WargaP'] = '';
+				$pekerja[$kira]['PatiP'] = '';
+				$pekerja[$kira]['Jum|P14'] = '';
+				$pekerja[$kira]['Gaji|P18'] = '';
+		//echo '<pre>$jadualStaf ->'; print_r($jadualStaf); echo '</pre>';
+		//echo '<pre>pekerja dalam fungsi dataPekerja2015 ->'; print_r($pekerja); echo '</pre>';
+		return $pekerja;
+	}
+##--------------------------------------------------------------------------------------------------------------------
 	public static function borangStaf($info)
 	{
 		//echo '<pre>Borang::borangStaf($info)='; print_r($info) . '</pre><hr>';

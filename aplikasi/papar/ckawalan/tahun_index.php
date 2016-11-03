@@ -4,13 +4,6 @@
 Senarai Kes Untuk Kawalan
 </span></h1>
 
-<!--
-<select class="form-control" id="sejarah" name="sejarah">
-<option>Sila Pilih</option>
-<option>Sebelum 2010</option>
-<option>Selepas 2010</option>
-</select>
--->
 <table class="table"><tr><td>
 <form class="form-inline" role="form" method="post" action="ckawalan/cari" id="fnama">
 	<h2>Sebelum 2010</h2>
@@ -44,13 +37,32 @@ Senarai Kes Untuk Kawalan
 </table>
 <br>
 <form class="form-horizontal" role="form" method="post" action="ckawalan/proses">
-<h2>Untuk BE 2011 TAHUN RUJUKAN 2010</h2>
+<h2>Untuk </h2>
 	<div class="form-group">
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 		<label class="col-lg-1 control-label">SV</label>
 		<div class="col-lg-1">
 		<input type="text" class="form-control" placeholder="SV/KP" name="sv">
 		</div>
+		<label class="col-lg-1 control-label">NEWSS</label>
+		<div class="col-lg-4">
+		<input type="text" class="form-control" placeholder="NEWSS" name="newss">
+		</div>
+		<div class="col-lg-1">
+		<input type="submit" class="btn btn-default" value="Cari">
+		</div>
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+	</div>
+</form>
+<form class="form-horizontal" role="form" method="post" action="ckawalan/kp101">
+	<div class="form-group">
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+		<label class="col-lg-2 control-label">
+			<select name="sv" class="form-control">
+			<option value="101">KP 101 BE2011 TR 2010</option>
+			<option value="206">KP 206 BE2011 TR 2010</option>
+			</select>
+		</label>
 		<label class="col-lg-1 control-label">NEWSS</label>
 		<div class="col-lg-4">
 		<input type="text" class="form-control" placeholder="NEWSS" name="newss">

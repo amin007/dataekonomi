@@ -47,6 +47,29 @@ class Ckawalan extends Kawal
 		
 	}
 
+	public function kp101() 
+	{	
+		//echo '<pre>$_POST->', print_r($_POST, 1) . '</pre>';
+		/*
+		$_POST->Array
+		(
+			[sv] => 328
+			[newss] => 000002666345
+			[thnmula] => 2010
+			[thntamat] => 2012
+		)
+		*/		
+		# bersihkan data $_POST
+		$dataID = 'cprosesan101/ubah/' . bersih($_POST['sv']) 
+				. '/' . bersih($_POST['newss']);
+		
+		# paparkan ke fail 
+		$lokasi = 'location: ' . URL . $dataID . '/2010/2012';
+		//echo $lokasi;
+		header($lokasi);
+		
+	}
+
 	public function msic() # untuk cdt
 	{
 		//echo '<br>Anda berada di class Ckawalan::msic() extends Kawal <br>';

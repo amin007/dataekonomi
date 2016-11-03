@@ -445,6 +445,53 @@ class Borang206
 ##--------------------------------------------------------------------------------------------------------------------	
 	public static function soalan16($asal, $kp)
 	{
+		$cari2 = array();
+		$cari = array_merge($asal); # cantum tatasusunan
+		$calc = $kira = 0; # mula cari 
+		$binaan = array();	
+		list($jenisHarta, $nilaiBuku) = Borang206::soalan16tatasusunan();
+		
+		# bina tatasusunan
+		foreach ($jenisHarta as $key => $jenis):
+			foreach ($nilaiBuku as $key2 => $tajuk):
+				$lajur = kira3($key2, 2);
+				$baris = 'F' . $lajur . $key;
+				
+				$data = isset($cari[$baris]) ? $cari[$baris] : '0';
+				
+				if($lajur == '28'):
+					$F2899 = isset($cari['F2899']) ? $cari['F2899'] : '0';
+					$fx = ($data / $F2899) * 100;
+					$p1 = kiraPerpuluhan($fx,0);
+					$p2 = kira4($p1,4,'.');
+					$data2 = kiraPerpuluhan($data,0) . ' |&nbsp;' . $p2 . '%';
+					$t0["$tajuk - $key2"] = !empty($data) ? $data : '-';
+				else:
+					$t0["$tajuk - $key2"] = !empty($data) ? $data : '-';
+				endif;
+				
+				//$t0["$tajuk - $key2"] = !empty($data) ? $data : '';
+				$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';		
+			endforeach;
+			# buang data kosong
+			if (array_sum($jumlah[$calc]['F']) != 0)
+				$binaan[$kira++] = array_merge(
+					array('nama-bahan-binaan-yang-panjang-daa' => $jenis, 'kod' => $key), 
+					$t0);
+			else $calc++; 					
+		endforeach; // foreach ($jenisHarta as $key => $jenis):
+		//*/
+		//echo '<pre>soalan16($asal,'.$kp.')='; print_r($asal); echo '</pre><hr>';
+		//echo '<pre>soalan16($cari2,'.$kp.')='; print_r($cari2); echo '</pre><hr>';
+		//echo '<pre>soalan16($cari,'.$kp.')='; print_r($cari); echo '</pre><hr>';
+		//echo '<pre>Borang206::soalan16($binaan)='; print_r($binaan); echo '</pre><hr>';			
+
+		# pulangkan nilai
+		return (!isset($cari)) ? array() : $binaan;
+	}	
+##--------------------------------------------------------------------------------------------------------------------
+	function soalan16tatasusunan()
+	{
 		# jenis harta
 		$jenisHarta = array(
 			21=>'1.1-Besi / keluli tetulang', # Reinforcement iron / steel
@@ -529,55 +576,50 @@ class Borang206
 			75=>'9.13-Bahan lain, sila nyatakan:', # Other materials, please specify:
 			99=>'JUMLAH BAHAN BINAAN DIGUNAKAN', # TOTAL MATERIALS USED
 		);
-
+		
 		$nilaiBuku = array(
 			28=>'Nilai (RM)', # Value (RM)
 			29=>'% Bahan Tempatan', #  % Local materials				
 		);
-
+		
+		$pulangkan = array($jenisHarta, $nilaiBuku);
+		//echo '<pre>tatsusunan($pulangkan)='; print_r($pulangkan); echo '</pre><hr>';
+		
+		return $pulangkan;		
+	}
+##--------------------------------------------------------------------------------------------------------------------
+	public static function soal16salin($asal, $kp)
+	{
 		$cari2 = array();
-		
-		$cari = array_merge($asal);
-		
+		$cari = array_merge($asal); # cantum tatasusunan
 		$calc = $kira = 0; # mula cari 
-		$binaan = array();
+		$binaan2 = array();	
+		list($jenisHarta, $nilaiBuku) = Borang206::soalan16tatasusunan();
+		
 		# bina tatasusunan
 		foreach ($jenisHarta as $key => $jenis):
 			foreach ($nilaiBuku as $key2 => $tajuk):
-				$lajur = kira3($key2, 2);
-				$baris = 'F' . $lajur . $key;
-				
+				$baris = 'F' . kira3($key2, 2) . $key;
 				$data = isset($cari[$baris]) ? $cari[$baris] : '0';
-								
-				if($lajur == '28'):
-					$F2899 = isset($cari['F2899']) ? $cari['F2899'] : '0';
-					$fx = ($data / $F2899) * 100;
-					$p1 = kiraPerpuluhan($fx,0);
-					$p2 = kira4($p1,4,'.');
-					$data2 = kiraPerpuluhan($data,0) . ' |&nbsp;' . $p2 . '%';
-					$t0["$tajuk - $key2"] = !empty($data) ? $data2 : '-';
-				else:
-					$t0["$tajuk - $key2"] = !empty($data) ? $data : '-';
-				endif;
-				
-				$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';		
+				$t0["$tajuk - $key2"] = !empty($data) ? $data : '';
+				//$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';		
 			endforeach;
 			# buang data kosong
-			if (array_sum($jumlah[$calc]['F']) != 0)
-				$binaan[$kira++] = array_merge(
-					array('nama' => $jenis, 'kod' => $key), 
+			//if (array_sum($jumlah[$calc]['F']) != 0)
+				$binaan2[$kira++] = array_merge(
+					array('namaBahan' => '', 'kod' => $key), 
 					$t0);
-			else $calc++; 					
+			//else $calc++; 					
 		endforeach; // foreach ($jenisHarta as $key => $jenis):
 		//*/
 		//echo '<pre>soalan16($asal,'.$kp.')='; print_r($asal); echo '</pre><hr>';
 		//echo '<pre>soalan16($cari2,'.$kp.')='; print_r($cari2); echo '</pre><hr>';
 		//echo '<pre>soalan16($cari,'.$kp.')='; print_r($cari); echo '</pre><hr>';
 		//echo '<pre>$jum='; print_r($jum); echo '</pre><hr>';
-		//echo '<pre>Borang206::soalan16($binaan)='; print_r($binaan); echo '</pre><hr>';			
+		//echo '<pre>Borang206::soal16salin($binaan)='; print_r($binaan2); echo '</pre><hr>';			
 
 		# pulangkan nilai
-		return (!isset($cari)) ? array() : $binaan;
+		return (!isset($cari)) ? array() : $binaan2;
 	}	
 ##--------------------------------------------------------------------------------------------------------------------	
 ######################################################################################################################	

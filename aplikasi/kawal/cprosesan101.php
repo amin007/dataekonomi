@@ -597,6 +597,7 @@ class Cprosesan101 extends Kawal
 			'13'=>'ikut-daerah', # Nilai-Kerja-Pembinaan-Di
 			'15'=>'ikut-jenis', # NILAI KERJA PEMBINAAN YANG TELAH DIBUAT MENGIKUT JENIS (Tidak termasuk CBP)
 			'16'=>'kos_bahan-binaan', # Kos bahan langsung yang digunakan
+			//'16salin'=>'kos_binaan-salin', # Kos bahan langsung yang digunakan
 		); //echo '<pre>asetBinaan |'; print_r($asetBinaan); echo '</pre>';
 		
 		foreach ($asetBinaan as $key => $soalan):
@@ -619,8 +620,12 @@ class Cprosesan101 extends Kawal
 				@$this->papar->kod_produk[$soalan] = 
 					Borang206::soalan15($paparID['s' . $kp . '_q' . $key . '_2010'][0], $kp);
 			if($key=='16')
+			{
 				@$this->papar->kod_produk[$soalan] = 
 					Borang206::soalan16($paparID['s' . $kp . '_q' . $key . '_2010'][0], $kp);
+				@$this->papar->kod_produk['kos_binaan-salin'] = 
+					Borang206::soal16salin($paparID['s' . $kp . '_q16_2010'][0], $kp);
+			}
 			//*/
 		endforeach;
 		//echo '<pre>semak:'; print_r($this->papar->kod_produk) . '</pre><hr>';

@@ -71,8 +71,7 @@ class Cprosesan101 extends Kawal
 			/*echo '<pre>'; # proses debug
 			//echo '<hr>$this->papar->keterangan='; print_r($this->papar->keterangan);
 			//echo '<hr>$this->papar->kesID='; print_r($this->papar->kesID);
-			echo '<hr>$this->papar->kod_produk='; print_r($this->papar->kod_produk); // khas untuk survey 205
-			//echo '<hr>$this->papar->kod_produk2='; print_r($this->papar->kod_produk2); // khas untuk survey 101
+			//echo '<hr>$this->papar->kod_produk='; print_r($this->papar->kod_produk); // khas untuk survey 205
 			//echo '<hr>$this->papar->paparID=' . $this->papar->paparID;
 			echo '<hr>$this->papar->carian: ' . $this->papar->carian . '<br>';
 			echo '<hr>$this->papar->namaSyarikat: ' . $this->papar->namaSyarikat . '<br>';
@@ -121,7 +120,7 @@ class Cprosesan101 extends Kawal
 		}
 		elseif (in_array($sv,array('101')))
 		{	# tanaman sahaja
-			$jadual = array('q01','q02','q03','q04','q04b','q05a','q05b','q06',
+			$jadual = array('q01a','q01','q02','q03','q04','q04b','q05a','q05b','q06',
 			'q07','q08','q09','q10','q11','q12','q13a','q13b','q14','q14','q15','q16',
 			'qsa','qsb','qsc','qsd','qse','qsf',
 			/*,'tblDataReviewTemp2'*/
@@ -293,13 +292,14 @@ class Cprosesan101 extends Kawal
 			$jadualStaf = array('s'.$sv.'_q05a_2010','s'.$sv.'_q05b_2010');
 			$this->semak_staf($jadualStaf, $this->papar->kesID,$sv);
 			# bentuk soalan 4a - aset biasa
-			$this->semak_aset($senaraiAset = array('s'.$sv.'_q04_2010'),
-					's'.$sv.'_q04_2010', $paparID, $sv);
+			//$this->semak_aset($senaraiAset = array('s'.$sv.'_q04_2010'),
+			//		's'.$sv.'_q04_2010', $paparID, $sv);
 			# semak kod produk
-			$this->semak_produk($cari, $sv); 
+			//$this->semak_produk($cari, $sv); 
 			//echo '<pre>line300 : semak_staf_aset_produk:'; print_r($this->papar->kod_produk) . '</pre><hr>';
 			# bentuk soalan 4b - aset biologi
-			$this->semak_aset_biologi($sv, $paparID);
+			$this->semak_aset_biologi($sv, $paparID, $cari);
+			//echo '<pre>line303 : semak_aset_biologi:'; print_r($this->papar->kod_produk) . '</pre><hr>';
 		}		
 		// semak kod produk untuk survey 205 sahaja
 		elseif ($sv=='205')
@@ -531,12 +531,12 @@ class Cprosesan101 extends Kawal
 		endforeach;
 	}
 
-	private function semak_aset_biologi($kp, $paparID)
-	{// khas untuk soalan aset biologi
+	private function semak_aset_biologi($kp, $paparID, $cari)
+	{# khas untuk soalan aset biologi
 
-		//$jadual = 's' . $kp . '_q' . $soalan . '_2010';
+		$kira = '';
 		$asetBiologi = array(
-				//'04'=>'harta_benda', # aset biologi
+				'04'=>'harta', # aset harta biasa
 				'04b'=>'harta_biologi', # aset biologi
 				'11'=>'luas_tanaman', # luas tanaman
 				'12'=>'xtvt_tani_lain2', # PENDAPATAN DARIPADA AKTIVITI PERTANIAN LAIN DALAM TAHUN 2015 (Tidak termasuk CBP)
@@ -544,49 +544,123 @@ class Cprosesan101 extends Kawal
 				'14'=>'kos_bahan', # Kos bahan langsung yang digunakan
 				'16'=>'cawangan', # maklumat hq/cawangan
 			);
-		//echo "<pre>:asetBiologi", print_r($asetBiologi, 1) . "<br>";
+		//echo "<pre>asetBiologi:"; print_r($asetBiologi); echo "</pre><hr>";
 		
 		foreach ($asetBiologi as $key => $soalan):
-			//echo "key:$key | soalan:$soalan<br>";
 			if($key=='04')
 				@$this->papar->kod_produk[$soalan] = 
 					Borang101::binaAset($paparID['s' . $kp . '_q' . $key . '_2010'][0], $kp);
-					//Borang101::bina04b();
 			if($key=='04b')
 				@$this->papar->kod_produk[$soalan] = 
-					Borang101::bina04b($paparID['s' . $kp . '_q' . $key . '_2010'][0], $kp);
+					//Borang101::bina04b($paparID['s' . $kp . '_q' . $key . '_2010'][0], $kp);
+					Borang101::binaAsetBiologi($paparID['s' . $kp . '_q04_2010'][0], 
+					$paparID['s' . $kp . '_q04b_2010'][0], $kp);
 			if($key=='11')
+			{
 				@$this->papar->kod_produk[$soalan] = 
 					Borang101::bina11($paparID['s' . $kp . '_q' . $key . '_2010'][0], $kp);
+				$kira = count($this->papar->kod_produk[$soalan]);
+				//echo '<pre>line567:this->papar->kod_produk['.$soalan.']:'; print_r($kira); echo '</pre><hr>';
+				if ($kira != 0)
+					@$this->semak_sql_produk('kodLuasTanaman', $cari, $kp);
+			}
 			if($key=='12')
+			{
 				@$this->papar->kod_produk[$soalan] = 
 					Borang101::bina12($paparID['s' . $kp . '_q' . $key . '_2010'][0], $kp);
+				$kira = count($this->papar->kod_produk[$soalan]);
+				//echo '<pre>line567:this->papar->kod_produk['.$soalan.']:'; print_r($kira); echo '</pre><hr>';
+				if ($kira != 0)
+					@$this->semak_sql_produk('kodXtxtTaniLain', $cari, $kp);
+			}
 			if($key=='13a')
+			{# kod produk output
 				@$this->papar->kod_produk[$soalan] = 
 					Borang101::bina13($paparID['s' . $kp . '_q13a_2010'][0], 
 						$paparID['s' . $kp . '_q13b_2010'][0],$kp);
+								$this->semak_sql_produk('kodOutput', $cari, $kp);
+				$kira = count($this->papar->kod_produk[$soalan]);
+				//echo '<pre>line577:this->papar->kod_produk['.$soalan.']:'; print_r($kira); echo '</pre><hr>';
+				if ($kira != 0)
+					@$this->semak_sql_produk('kodOutput', $cari, $kp);
+			}
 			if($key=='13b')
 				@$this->papar->kod_produk[$soalan] = 
 					Borang101::bina13b($paparID['s' . $kp . '_q' . $key . '_2010'][0], $kp);
 			if($key=='14')
+			{#  kod produk input
 				@$this->papar->kod_produk[$soalan] = 
 					Borang101::bina14($paparID['s' . $kp . '_q' . $key . '_2010'][0], $kp);
+				$kira = count($this->papar->kod_produk[$soalan]);
+				//echo '<pre>line588:this->papar->kod_produk['.$soalan.']:'; print_r($kira); echo '</pre><hr>';
+				if ($kira != 0)
+					@$this->semak_sql_produk('kodInput', $cari, $kp);
+			}
 			if($key=='16')
 				@$this->papar->kod_produk[$soalan] = 
 					Borang101::bina16($paparID['s' . $kp . '_q' . $key . '_2010'][0], 
 						$paparID['s' . $kp . '_q15_2010'][0], $kp);
-			
 		endforeach;
-		/*
-		array(
-					0 => array('nama'=>'FAB00', 'kod'=>'00'),
-					1 => array('nama'=>'FAB01', 'kod'=>'01'),
-					2 => array('nama'=>'FAB02', 'kod'=>'02'),
-				);
-		*/
-		//echo '<pre>semak_aset_biologi:'; print_r($this->papar->kod_produk) . '</pre><hr>';
-//*/
+		//echo '<pre>line589:semak_aset_biologi:'; print_r($this->papar->kod_produk); echo '</pre><hr>';
 	}
+	
+	private function semak_sql_produk($soalan, $cari, $kp)
+	{
+			if ($soalan == 'kodLuasTanaman') 
+			{	
+				$myTable = 's101_q11_2010';
+				$jA = 's101_q11_2010';
+				$jB = '';
+				$mcpaA = 'kod2010_output';
+				$mcpaB = 'mcpa2009_input';
+				$mcpaC = 'mcpa2009_tr2014';
+				$sql = Borang101::bina101Output11($mcpaB, $jA, $jB, $cari);
+				//echo '<pre>$sql='; print_r(htmlentities($sql)); echo '</pre>';
+				$this->papar->kod_produk['kodLuasTanaman'] =
+					$this->tanya->cariProdukBaru($myTable, $sql);
+			}
+			elseif ($soalan == 'kodXtxtTaniLain') 
+			{	
+				$myTable = 's101_q12_2010';
+				$jA = 's101_q12_2010';
+				$jB = '';
+				$mcpaA = 'kod2010_output';
+				$mcpaB = 'mcpa2009_input';
+				$mcpaC = 'mcpa2009_tr2014';
+				$sql = Borang101::bina101Output12($mcpaB, $jA, $jB, $cari);
+				//echo '<pre>$sql='; print_r($sql); echo '</pre>';
+				$this->papar->kod_produk['kodXtxtTaniLain'] =
+					$this->tanya->cariProdukBaru($myTable, $sql);
+			}
+			elseif ($soalan == 'kodOutput') 
+			{	
+				$myTable = 's101_q13_2010';
+				$jA = 's101_q13a_2010';
+				$jB = 's101_q13b_2010';
+				$mcpaA = 'kod2010_output';
+				$mcpaB = 'mcpa2009_input';
+				$mcpaC = 'mcpa2009_tr2014';
+				$sql = Borang101::bina101Output13a($mcpaB, $jA, $jB, $cari);
+				//echo '<pre>$sql='; print_r(htmlentities($sql)); echo '</pre>';
+				$this->papar->kod_produk['kodOutput'] =
+					$this->tanya->cariProdukBaru($myTable, $sql);
+			}
+			elseif ($soalan == 'kodInput') 
+			{	
+				$myTable = 's101_q14_2010';
+				$jA = 's101_q14_2010';
+				$jB = '';
+				$mcpaA = 'kod2010_output';
+				$mcpaB = 'mcpa2009_input';
+				$mcpaC = 'mcpa2009_tr2014';				
+				$sql = Borang101::binaKodInput101($mcpaC, $jA, $jB, $cari);
+				//echo '<pre>$sql='; print_r($sql); echo '</pre>';
+				$this->papar->kod_produk['kodInput'] =
+					$this->tanya->cariProdukBaru($myTable, $sql);
+			}//*/
+		
+	}
+	
 #- untuk binaan 206
 	private function semak_produk_206($kp, $paparID)
 	{
@@ -633,19 +707,10 @@ class Cprosesan101 extends Kawal
 	
 	private function semak_staf($jadualStaf, $prosesID, $kp=null)
 	{// khas untuk soalan staf
-		$jenisPekerjaan = array(0=>'Pemilik(ROB)-1',1=>'Pekerja keluarga(ROB)-2',
-			2=>'Pengurusan-3.1',3=>'Juruteknik-3.2',4=>'Kerani-3.3',5=>'Pekerja Asas-3.4',
-			6=>'Pekerja Mahir-3.5.1',7=>'Pekerja XMahir-3.5.2',
-			8=>'Upah Mahir-3.5.1',9=>'Upah XMahir-3.5.2',
-			10=>'Pekerja sambilan-4',11=>'Jumlah pekerja-5');
-
-		//$this->papar->kod_produk['pekerjaan'] = 
-		//	Data::dataPekerja($jadualStaf,$jenisPekerjaan,$prosesID);
 			
 		$cariSijil = $prosesID['s'.$kp.'_q06_2010'][0];
 		$mula = 'q05a';
 		foreach ($jadualStaf as $key => $myTable):
-			//$cari = $prosesID[$myTable][0];
 			if (isset($prosesID[$myTable][0])):
 				$pos = strpos($myTable,$mula);
 				if ($pos !== false) 
@@ -661,12 +726,20 @@ class Cprosesan101 extends Kawal
 			endif;
 		endforeach;
 		
-		//echo '<pre>cariL:'; print_r($cariL); echo '</pre><hr>';
-		//echo '<pre>cariP:'; print_r($cariP); echo '</pre><hr>';
-		//echo '<pre>cariSijil:'; print_r($cariSijil); echo '</pre><hr>';
 		$this->papar->kod_produk['staf2016'] = 
 			Borang101::dataPekerja2016($cariL, $cariP, $kp, $cariSijil);
+
 		//echo '<pre>semak_staf:'; print_r($this->papar->kod_produk['pekerjaan']); echo '</pre><hr>';
+		
+		/*$jenisPekerjaan = array(0=>'Pemilik(ROB)-1',1=>'Pekerja keluarga(ROB)-2',
+			2=>'Pengurusan-3.1',3=>'Juruteknik-3.2',4=>'Kerani-3.3',5=>'Pekerja Asas-3.4',
+			6=>'Pekerja Mahir-3.5.1',7=>'Pekerja XMahir-3.5.2',
+			8=>'Upah Mahir-3.5.1',9=>'Upah XMahir-3.5.2',
+			10=>'Pekerja sambilan-4',11=>'Jumlah pekerja-5');
+
+		$this->papar->kod_produk['pekerjaan'] = 
+			Data::dataPekerja($jadualStaf,$jenisPekerjaan,$prosesID); //*/
+		
 	}
 	
 	private function semak_staf2015($jadualStaf, $prosesID, $kp=null)

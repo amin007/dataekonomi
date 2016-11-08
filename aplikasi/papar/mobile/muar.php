@@ -43,7 +43,7 @@ if ( in_array($this->ip2,$this->senaraiIP) )
 }
 else
 {	
-	echo 'ip anda ' . $ip . ', anda tiada kebenaran masuk sistem';
+	echo 'ip anda ' . $this->ip . ', anda tiada kebenaran masuk sistem';
 }
 
 ?>

@@ -1,4 +1,4 @@
-<!-- Footer
+<?php echo "\n"; ?><!-- Footer
 ================================================== -->
 	<div data-role="footer" style="text-align:center;">
 		<h4>&copy; Hak Cipta Terperihara 2015. </h4>
@@ -9,8 +9,6 @@ echo $theme = (isset($theme)) ? $theme : null;
 ?>	</span>
 	</div>
 </div>
-
-<?php //require 'jquery.php'; ?>
 
 </body>
 </html>

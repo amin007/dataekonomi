@@ -42,7 +42,7 @@ else
 <table><tr>
 <?php
 $mula = 1;
-$lajur = ($this->sv==205) ? 10 : 5;
+$lajur = ($this->sv==205) ? 4 : 5;
 $soalAm = array(
 	//'s'.$this->sv.'_q04_2010',
 	//'s'.$this->sv.'_q05_2010',
@@ -93,6 +93,7 @@ foreach ($this->kesID as $myTable => $row)
 <?php 
 $mula = 1;
 $lajur = 1;
+$namaSyarikat = '-' . $ID . '-' . $this->namaSyarikat;
 foreach ($this->kod_produk as $myTable => $row)
 {
 	if ( count($row)==0 ) echo '';
@@ -101,14 +102,14 @@ foreach ($this->kod_produk as $myTable => $row)
 		if ($mula++%$lajur==0)
 		{ # mula kalau baki 0
 			?><td valign="top" align="left">
-<span class="badge badge-success"><?php echo $myTable . '-' . $ID ?></span><?php
+<span class="badge badge-success"><?php echo $myTable . $namaSyarikat ?></span><?php
 			paparKodProduk($this->sv, $myTable, $row);
 			echo "</td>\n</tr>\n<tr>";
 		} # tamat kalau baki 0
 		else
 		{ # mula kalau baki bukan 0
 			?><td valign="top" align="left">
-<span class="badge badge-success"><?php echo $myTable . '-' . $ID ?></span><?php
+<span class="badge badge-success"><?php echo $myTable . $namaSyarikat ?></span><?php
 			paparKodProduk($this->sv, $myTable, $row);
 			echo "</td>\n";
 		} # tamat kalau baki bukan 0

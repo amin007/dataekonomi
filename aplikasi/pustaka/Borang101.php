@@ -571,114 +571,41 @@ class Borang101
 /////////////////////////////////////////////////////////////////////////////////////////////////////	
 	public static function binaAset($cari, $kp)
 	{
-		# jenis harta
-		$jenisHartaBenda = array(71=>'Tanah',
-			72=>'Tmpt Kediaman',
-			73=>'Bukan Tmpt Kediaman',
-			74=>'Binaan lain',
-			75=>'Pembangunan tanah',
-			76=>'Kereta penumpang',
-			88=>'Bas',
-			89=>'Ambulan',
-			77=>'Kereta perdagangan',
-			78=>'Kenderaan lain',
-			79=>'Perkakasan komputer',
-			80=>'Perisian komputer',
-			81=>'Jentera dan kelengkapan',
-			82=>'Perabut dan pemasangan',
-			70=>'Paten', 84=>'Muhibah',
-			86=>'Lain2 harta', 99=>'Jumlah harta');
-		$jenisHartaTanaman = array(71=>'Tanah',
-			72=>'Tmpt Kediaman',
-			73=>'Bukan Tmpt Kediaman',
-			74=>'Binaan lain',
-			75=>'Pembangunan tanah',
-			76=>'Kereta penumpang',
-			89=>'Ambulan',
-			77=>'Kereta perdagangan',
-			78=>'Kenderaan lain',
-			79=>'Perkakasan komputer',
-			80=>'Perisian komputer',
-			81=>'Jentera dan kelengkapan',
-			82=>'Perabut dan pemasangan',
-			70=>'Paten', 84=>'Muhibah',
-			86=>'Lain2 harta', 88=>'Jumlah harta');
+		# setkan tatasusunan
+		list($jenisHartaBenda, $jenisHartaTanaman, $jenisHartaPokok,
+			$nilaiBuku, $nilaiBukuTanaman,
+			$dlmBina, $kerjaDlmBinaan) = Borang101::tatasusunanAsetBiologi();
 		$jenisHarta = ($kp=='101') ? $jenisHartaTanaman : $jenisHartaBenda;
 		
-		$nilaiBuku= array(1=>'Awal', # 'Nilai buku pada awal tahun'
-			2=>'Baru', # 'Pembelian baru termasuk import',
-			3=>'Terpakai', # 'Pembelian aset terpakai',
-			4=>'DIY', # 'Membuat/membina sendiri',
-			5=>'Jual|tamat', # 'Aset dijual/ditamat'
-			6=>'+/- jual', # 'Untung/Rugi drpd jualan harta'
-			7=>'Susut nilai',
-			8=>'Akhir', # 'Nilai buku pada akhir tahun'
-			9=>'Sewa');
-		$dlmBina = array('F7285'=>'Tmpt Kediaman','F7385'=>'Bukan Tmpt Kediaman',
-			'F7485'=>'Binaan lain','F8185'=>'Jentera dan kelengkapan',
-			'F8685'=>'Lain2 harta','F9985'=>'Jumlah harta');
-			foreach ($dlmBina as $kunci => $tghBina)
-			{
-				$binaan[$tghBina] = isset($cari[$kunci]) ? $cari[$kunci] : '_';
-				//echo ($kunci=='F7285') ? ' ada jumpa' . $kunci . '=' . $binaan[$tghBina] : '';
-			}
-		$kerjaDlmBinaan = array('Tmpt Kediaman','Bukan Tmpt Kediaman',
-				'Binaan lain','Jentera dan kelengkapan','Lain2 harta','Jumlah');	
-		# semak data echo '<pre>Borang::binaAset($cari)='; print_r($cari) . '</pre><hr>';
-		
-		# mula cari 
-		$kira = 0; 	$jumHarta = 0;
-		foreach ($jenisHarta as $key => $jenis)
+		$kira = $calc = 0; 	
+		foreach ($dlmBina as $kunci => $tghBina)
 		{
-			//echo '<br>$key=' . $key;
-			if(in_array($jenis,$kerjaDlmBinaan)):
-				$aset[$kira]['Kerja Dlm Pelaksanaan'] = $binaan[$jenis] . '';
-				$jumHarta += $binaan[$jenis];
-			elseif(in_array($jenis,array('Jumlah harta'))):
-				$aset[$kira]['Kerja Dlm Pelaksanaan'] = ($binaan[$jenis]==0) ? '_'
-					: $binaan[$jenis] . '|calc=' . $jumHarta . '';
-			else: $aset[$kira]['Kerja Dlm Pelaksanaan'] = null;
-			endif;
-			
-			$aset[$kira]['nama'] = $jenis;
-			$aset[$kira]['kod'] = $key;
-			foreach ($nilaiBuku as $key2 => $modal)
-			{
+			$binaan[$tghBina] = isset($cari[$kunci]) ? $cari[$kunci] : '_';
+		}
+		# mula cari 
+		foreach ($jenisHarta as $key => $jenis):
+			foreach ($nilaiBuku as $key2 => $tajuk):
 				$lajur = kira3($key2, 2);
 				$baris = 'F' . $lajur . $key;
+				
 				if ($lajur=='08')
-				{
-					$jumlahAset = 
-						( $jum[$kira]['F01'.$key] 
-						+ $jum[$kira]['F02'.$key]
-						+ $jum[$kira]['F03'.$key] 
-						+ $jum[$kira]['F04'.$key]
-						- $jum[$kira]['F05'.$key] 
-						+ ( $jum[$kira]['F06'.$key] 
-						) - $jum[$kira]['F07'.$key] );
-					
-					$jumlahAset = ($jumlahAset==0)? '':$jumlahAset;
-
-					$akhir = (isset($cari[$baris]) ?
-						$cari[$baris] : '_');
-						
-					$aset[$kira]["$modal - 0$key2"] = 
-						($akhir != $jumlahAset) ? $jumlahAset : $akhir;
-				}
+					$data = Borang101::kiraHarta04b($jum, $kira, $key, $cari, $baris);
 				else
-				{
-					$data = isset($cari[$baris]) ? $cari[$baris] : '_';
-
-					$aset[$kira]["$modal - 0$key2"] =  !empty($data) ? $data : '-';
+					$data = isset($cari[$baris]) ? $cari[$baris] : '0';
+				# buat tatasusunan
+					$t0["$tajuk - $key2"] =  !empty($data) ? $data : '';
 					$jum[$kira][$baris] = !empty($data) ? $data : '-';
-				}
-			}
-			$kira++;
-		}
-		
-		//echo '<pre>$jum='; print_r($jum) . '</pre><hr>';
-		//echo '<pre>$cari='; print_r($cari) . '</pre><hr>';
-		//echo '<pre>Borang::binaAset($aset)='; print_r($aset) . '</pre><hr>';
+					$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';
+			endforeach;
+			//if (array_sum($jumlah[$calc]['F']) != 0) # buang data kosong
+				$aset[$kira++] = array_merge(
+					array('Kerja Dlm Pelaksanaan' => Borang101::kiraKerjaDlmPelaksanaan($jenis,$kerjaDlmBinaan,$binaan),
+					'nama' => $jenis, 'kod' => $key), $t0);
+			//else $calc++;
+		endforeach; // foreach ($jenisHartaBiologi as $key => $jenis):
+		//echo '<pre>$cari='; print_r($cari); echo '</pre><hr>';
+		//echo '<pre>line 608:$kp('.$kp.')|$jenisHarta='; print_r($jenisHarta); echo '</pre><hr>';
+		//echo '<pre>Borang::binaAset($aset)='; print_r($aset); echo '</pre><hr>';
 		return $aset;	 
 	}
 /////////////////////////////////////////////////////////////////////////////////////////////////////	
@@ -1261,17 +1188,16 @@ class Borang101
 			2=>'Ijazah (b) Teknikal-42',
 			3=>'Diploma (a) Akademik-43',
 			4=>'Diploma (b) Teknikal dan Vokasional (TVET)-44',
-			5=>'STPM-03',
-			6=>'Sijil (a) Akademik-45',
-			//'Sijil (b) Kemahiran (TVET) Skills Certificate (TVET)',
-			7=>'Sijil (b)(i) SKM Tahap 3-46',
-			8=>'Sijil (b)(ii) SKM Tahap 1&2-47',
-			9=>'Sijil (b)(iii) Kemahiran Lain2-48',
-			10=>'SPM-04',
-			11=>'Bawah SPM-05',
-			12=>'Jumlah Sijil-09',
+			5=>'Bacelor-01', 6=>'Diploma-02', 7=>'STPM-03',
+			8=>'Sijil (a) Akademik-45', //'Sijil (b) Kemahiran (TVET) Skills Certificate (TVET)',
+			9=>'Sijil (b)(i) SKM Tahap 3-46',
+			10=>'Sijil (b)(ii) SKM Tahap 1&2-47',
+			11=>'Sijil (b)(iii) Kemahiran Lain2-48',
+			12=>'SPM-04',
+			13=>'Bawah SPM-05',
+			14=>'Jumlah Sijil-09',
 		);
-/*	$lelaki:Array						|$wanita:Array
+/*		$lelaki:Array					|$wanita:Array
 	(
 		[1]  => Pemilik(ROB)-1			[21] => Pemilik(ROB)-1
 		[2]  => Pekerja keluarga(ROB)-2	[22] => Pekerja keluarga(ROB)-2
@@ -1295,6 +1221,10 @@ class Borang101
 		10-13 - Pati (in_array($lajur, array('10','11','12','13') ))
 		14 - Jumlah
 		*/
+		# semak tatasusunan
+		/*echo '<pre>$cariL=>'; print_r($cariL);
+		echo ' | $cariP=>'; print_r($cariP);
+		echo ' | $cariSijil=>'; print_r($cariSijil); echo '</pre><br>';//*/
 		# sijil
 		$pekerja[0]['Sijil'] = '';
 		$pekerja[0]['L15'] = '';
@@ -1325,7 +1255,6 @@ class Borang101
 			# set pembolehubah asas
 				$lajur = kira3($key1, 2); 
 				$kunci = pilihKeyData($key,$keyLelaki,$lelaki);
-				$pekerja[$kira]['L'] = $kunci;
 				$baris = kira3($kunci, 2); 
 				$medan = 'F' . $lajur . $baris; 
 				$data = isset($cari[$medan]) ? $cari[$medan] : '&nbsp;';
@@ -1343,11 +1272,12 @@ class Borang101
 				elseif(in_array($lajur,array('18'))):
 					$gajiL = !empty($data) ? $data : '-';
 				endif;
-				# ubahsuai data
+			# ubahsuai data
+				$pekerja[$kira]['L'] = $kunci;
 				$pekerja[$kira]['WargaL'] = ($WargaL==0) ? '' : $WargaL;
 				$pekerja[$kira]['PatiL'] = ($PatiL==0) ? '' : $PatiL;
 				$pekerja[$kira]['Jum|L14'] = $jumStafL;
-				$pekerja[$kira]['Gaji|L18']  = $gajiL;
+				$pekerja[$kira]['Gaji|L18'] = $gajiL;
 			endforeach;
 			//echo '<br>Lelaki:' . $kategori . '$kunci:' . $kunci . '->' . $data;
 			# perempuan
@@ -1355,7 +1285,6 @@ class Borang101
 			foreach ($bangsaStaf as $key2 => $bangsa):
 			# set pembolehubah asas
 				$kunci2 = pilihKeyData($key,$keyWanita,$wanita);
-				$pekerja[$kira]['W'] = $kunci2;
 				$lajur2 = kira3($key2, 2); 
 				$baris2 = kira3($kunci2, 2); 		
 				$medan2 = 'F' . $lajur2 . $baris2;
@@ -1375,6 +1304,7 @@ class Borang101
 					$gajiP = !empty($data2) ? $data2 : '-';
 				endif;
 			# ubahsuai data
+				$pekerja[$kira]['W'] = $kunci2;
 				$pekerja[$kira]['WargaP'] = ($WargaP==0) ? '' : $WargaP;
 				$pekerja[$kira]['PatiP'] = ($PatiP==0) ? '' : $PatiP;
 				$pekerja[$kira]['Jum|P14'] = $jumStafP;
@@ -1383,18 +1313,12 @@ class Borang101
 			//echo '|Wanita:' . $kategori . '$kunci:' . $kunci2 . '->' . $data2;
 			$kira++;
 		endforeach;//*/
-		# tambah 1 baris
-				$pekerja[$kira]['nama'] = '';
-				$pekerja[$kira]['L'] = '';
-				$pekerja[$kira]['WargaL'] = '';
-				$pekerja[$kira]['PatiL']  = '';
-				$pekerja[$kira]['Jum|L14'] = '';
-				$pekerja[$kira]['Gaji|L18'] = '';
-				$pekerja[$kira]['W'] = '';
-				$pekerja[$kira]['WargaP'] = '';
-				$pekerja[$kira]['PatiP'] = '';
-				$pekerja[$kira]['Jum|P14'] = '';
-				$pekerja[$kira]['Gaji|P18'] = '';
+		# tambah 2 baris
+		for($ulang = $kira; $ulang <=3; $ulang++):
+			$pekerja[$ulang] = array('nama' => '&nbsp;', 
+				'L' => '', 'WargaL' => '', 'PatiL' => '', 'Jum|L14' => '', 'Gaji|L18' => '',
+				'W' => '', 'WargaP' => '', 'PatiP' => '', 'Jum|P14' => '', 'Gaji|P18' => '');
+		endfor;
 		//echo '<pre>$jadualStaf ->'; print_r($jadualStaf); echo '</pre>';
 		//echo '<pre>pekerja dalam fungsi dataPekerja2015 ->'; print_r($pekerja); echo '</pre>';
 		return $pekerja;
@@ -1467,16 +1391,23 @@ class Borang101
 	public static function binaAsetBiologi($cariA, $cariB, $kp)
 	{
 		# setkan tatasusunan
-		list($jenisHarta, $nilaiBuku, $binaan, $kerjaDlmBinaan, $tajukBuku2) = Borang101::tatasusunanAsetBiologi();
+		list($jenisHartaBenda, $jenisHartaTanaman, $jenisHartaPokok,
+			$nilaiBuku, $nilaiBukuTanaman,
+			$dlmBina, $kerjaDlmBinaan) = Borang101::tatasusunanAsetBiologi();
 		$hartaTanaman = $jum = $jumlah = array();
 		$kodProduk = array(61,62,63,64,65,66,67,90,91);
-		$cari2 = array_merge($cariA, $tajukBuku2);
-		$cari = array_merge($cari2, $cariB);
+		//$cari2 = array_merge($cariA, $tajukBuku2);
+		//$cari = array_merge($cari2, $cariB);
 		//echo '<pre>$cari='; print_r($cari); echo '</pre><hr>';
 		# setkan pembolehubah
 		$calc = $kira = 0;
 		# mula cari
-		foreach ($jenisHarta as $key => $jenis):
+		foreach ($dlmBina as $kunci => $tghBina)
+		{
+			$binaan[$tghBina] = isset($cariA[$kunci]) ? $cariA[$kunci] : '_';
+			//echo ($kunci=='F7285') ? ' ada jumpa' . $kunci . '=' . $binaan[$tghBina] : '';
+		}
+		foreach ($jenisHartaTanaman as $key => $jenis):
 			foreach ($nilaiBuku as $key2 => $tajuk):
 				$lajur = kira3($key2, 2);
 				$baris = 'F' . $lajur . $key;
@@ -1484,29 +1415,58 @@ class Borang101
 				if ($lajur=='08')
 					$data = Borang101::kiraHarta04b($jum, $kira, $key, $cari, $baris);
 				else
-					$data = isset($cari[$baris]) ? $cari[$baris] : '0';
+					$data = isset($cariA[$baris]) ? $cariA[$baris] : '0';
 				# buat tatasusunan
 					$t0["$tajuk - $key2"] =  !empty($data) ? $data : '';
-					//$jum[$kira][$baris] = !empty($data) ? $data : '';
+					$jum[$kira][$baris] = !empty($data) ? $data : '-';
 					$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';
-				
 			endforeach;
-			# buang data kosong
-			if (array_sum($jumlah[$calc]['F']) != 0)
-			{
+			if (array_sum($jumlah[$calc]['F']) != 0) # buang data kosong
 				$hartaTanaman[$kira++] = array_merge(
 					array('Kerja Dlm Pelaksanaan' => Borang101::kiraKerjaDlmPelaksanaan($jenis,$kerjaDlmBinaan,$binaan),
 					'nama' => $jenis, 'kod' => $key), $t0);
-			}
-			/*elseif ($calc == '18')
-			{
+			else $calc++;
+		endforeach; // foreach ($jenisHartaBiologi as $key => $jenis):
+		//echo '<pre>$jenisHartaBenda='; print_r($hartaTanaman); echo '</pre><hr>';
+		# bina tatasusunan
+		//echo '<pre>$cariA = '.count($cariA).'| $cariB '.count($cariB).'</pre><hr>';
+		if ( count($cariA) != '0' || count($cariB) != '0' ):
+			$hartaTanaman[$kira++] = array(
+				'Kerja Dlm Pelaksanaan' => '',
+				'nama' => 'Aset Biologi', 
+				'kod' => 'XX',
+				'Awal - 1' => 'Awal - 1',
+				'Baru - 2' => 'Baru - 2',
+				'Terpakai - 3' => '',
+				'DIY - 4' => 'Tanam jangka panjang - 4', # 'Belanja pembangunan tanaman jangka panjang',
+				'Jual|tamat - 5' => 'Jual|Tebang|Rosak - 5', # 'Aset dijual/ditamat'
+				'+/- jual - 6' => '+/- jual - 6',
+				'Susut nilai - 7' => 'Susut nilai - 7',
+				'Akhir - 8' => 'Akhir - 8',
+				'Sewa - 9' => 'Kod Produk - 9');
+		endif;
+		# mula cari
+		foreach ($jenisHartaPokok as $key => $jenis):
+			//foreach ($nilaiBukuTanaman as $key2 => $tajuk):
+			foreach ($nilaiBuku as $key2 => $tajuk):
+				$lajur = kira3($key2, 2);
+				$baris = 'F' . $lajur . $key;
+				
+				if ($lajur=='08')
+					$data = Borang101::kiraHarta04b($jum, $kira, $key, $cari, $baris);
+				else
+					$data = isset($cariB[$baris]) ? $cariB[$baris] : '0';
+				# buat tatasusunan
+					$t0["$tajuk - $key2"] =  !empty($data) ? $data : '';
+					$jum[$kira][$baris] = !empty($data) ? $data : '-';
+					$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';
+			endforeach;
+			if (array_sum($jumlah[$calc]['F']) != 0) # buang data kosong
 				$hartaTanaman[$kira++] = array_merge(
 					array('Kerja Dlm Pelaksanaan' => '',
 					'nama' => $jenis, 'kod' => $key), $t0);
-			}//*/
 			else $calc++;
 		endforeach; // foreach ($jenisHartaBiologi as $key => $jenis):
-		
 		//echo '<pre>$hartaTanaman='; print_r($hartaTanaman); echo '</pre><hr>';
 		
 		return $hartaTanaman;
@@ -1528,6 +1488,25 @@ class Borang101
 	
 	public static function tatasusunanAsetBiologi()
 	{
+		$jenisHartaBenda = array(
+			71=>'Tanah',
+			72=>'Tmpt Kediaman',
+			73=>'Bukan Tmpt Kediaman',
+			74=>'Binaan lain',
+			75=>'Pembangunan tanah',
+			76=>'Kereta penumpang',
+			89=>'Ambulan',
+			77=>'Kereta perdagangan',
+			78=>'Kenderaan lain',
+			79=>'Perkakasan komputer',
+			80=>'Perisian komputer',
+			81=>'Jentera dan kelengkapan',
+			82=>'Perabut dan pemasangan',
+			70=>'Paten', 
+			84=>'Muhibah',
+			86=>'Lain2 harta', 
+			99=>'Jumlah harta');
+			
 		$jenisHartaTanaman = array(
 			71=>'Tanah',
 			72=>'Tmpt Kediaman',
@@ -1545,8 +1524,9 @@ class Borang101
 			70=>'Paten', 
 			84=>'Muhibah',
 			86=>'Lain2 harta', 
-			88=>'Jumlah harta',
-			//89=>'Tajuk Aset Biologi',
+			88=>'Jumlah harta tanaman');
+			
+		$jenisHartaPokok = array(	
 			60=>'4.3 Kelapa Sawit Matang - 60', # 6 0 1 2 6 1 0 1 0 0 1
 			61=>'4.3 Kelapa Sawit Tak Matang - 61', # 6 0 1 2 6 1 0 1 0 0 1
 			62=>'4.4 Getah Matang - 62', # 0 8 - 5 0 1 2 9 1 0 1 0 0 1
@@ -1564,8 +1544,7 @@ class Borang101
 			98=>'4.9 Jumlah Tanaman',
 			99=>'Jumlah harta semua');
 		
-		
-		$nilaiBuku= array(1=>'Awal', # 'Nilai buku pada awal tahun'
+		$nilaiBuku = array(1=>'Awal', # 'Nilai buku pada awal tahun'
 			2=>'Baru', # 'Pembelian baru termasuk import',
 			3=>'Terpakai', # 'Pembelian aset terpakai',
 			4=>'DIY', # 'Membuat/membina sendiri',
@@ -1574,30 +1553,25 @@ class Borang101
 			7=>'Susut nilai',
 			8=>'Akhir', # 'Nilai buku pada akhir tahun'
 			9=>'Sewa');
+		$nilaiBukuTanaman = array(1=>'Awal', # 'Nilai buku pada awal tahun'
+			2=>'Baru', # 'Pembelian baru termasuk import',
+			3=>'-',
+			4=>'Belanja tanaman jangka panjang', # 'Belanja pembangunan tanaman jangka panjang',
+			5=>'Jual|Tebang|Rosak', # 'Aset dijual/ditamat'
+			6=>'+/- jual', # 'Untung/Rugi drpd jualan harta'
+			7=>'Susut nilai',
+			8=>'Akhir', # 'Nilai buku pada akhir tahun'
+			9=>'Kod Produk');
 		
 		$dlmBina = array('F7285'=>'Tmpt Kediaman','F7385'=>'Bukan Tmpt Kediaman',
 			'F7485'=>'Binaan lain','F8185'=>'Jentera dan kelengkapan',
 			'F8685'=>'Lain2 harta','F9985'=>'Jumlah harta');
-			foreach ($dlmBina as $kunci => $tghBina)
-			{
-				$binaan[$tghBina] = isset($cari[$kunci]) ? $cari[$kunci] : '_';
-				//echo ($kunci=='F7285') ? ' ada jumpa' . $kunci . '=' . $binaan[$tghBina] : '';
-			}
 		$kerjaDlmBinaan = array('Tmpt Kediaman','Bukan Tmpt Kediaman',
-				'Binaan lain','Jentera dan kelengkapan','Lain2 harta','Jumlah');	
-		# semak data echo '<pre>Borang::binaAset($cari)='; print_r($cari) . '</pre><hr>';
-		
-		$tajukBuku2 = array('F0189'=>'Awal - 1', # 'Nilai buku pada awal tahun'
-			'F0289'=>'Baru 2', # 'Pembelian baru termasuk import',
-			'F0389'=>'- 3',
-			'F0489'=>'Belanja tanaman jangka panjang - 4', # 'Belanja pembangunan tanaman jangka panjang',
-			'F0589'=>'Jual|Tebang|Rosak - 5', # 'Aset dijual/ditamat'
-			'F0689'=>'+/- jual - 6', # 'Untung/Rugi drpd jualan harta'
-			'F0789'=>'Susut nilai - 7',
-			'F0889'=>'Akhir - 8', # 'Nilai buku pada akhir tahun'
-			'F0989'=>'Kod Produk - 9');
-		
-		return array($jenisHartaTanaman, $nilaiBuku, $binaan, $kerjaDlmBinaan, $tajukBuku2);
+				'Binaan lain','Jentera dan kelengkapan','Lain2 harta','Jumlah');
+				
+		return array($jenisHartaBenda, $jenisHartaTanaman, $jenisHartaPokok,
+			$nilaiBuku, $nilaiBukuTanaman,
+			$dlmBina, $kerjaDlmBinaan);
 	}
 ##////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static function bina04b($cari, $kp)

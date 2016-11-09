@@ -307,7 +307,7 @@ class Cprosesan101 extends Kawal
 			$this->semak_produk($cari, $sv); 
 			# bentuk soalan staf lelaki dan perempuan
 			$jadualStaf = array('s05a','s05b','q05a_2010','q05b_2010');
-			$this->semak_staf($jadualStaf, $this->papar->kesID);
+			$this->semak_staf($jadualStaf, $this->papar->kesID,$sv);
 			# cari keterangan medan
 			$this->cari_keterangan_medan($sv, $this->papar->kesID); 
 			# bentuk soalan 4 - aset
@@ -357,7 +357,7 @@ class Cprosesan101 extends Kawal
 			$this->papar->kod_produk = array();
 			// bentuk soalan staf lelaki dan perempuan
 			$jadualStaf = array('s'.$sv.'_q05a_2010','s'.$sv.'_q05b_2010');
-			$this->semak_staf($jadualStaf, $this->papar->kesID);
+			$this->semak_staf($jadualStaf, $this->papar->kesID,$sv);
 			// bentuk soalan 4 - aset
 			$this->semak_aset($senaraiAset = array('s'.$sv.'_q04_2010'),
 					's'.$sv.'_q04_2010', $paparID, $sv);		
@@ -369,7 +369,7 @@ class Cprosesan101 extends Kawal
 			# bentuk soalan staf lelaki dan perempuan
 			$jadualStaf = 's'.$sv.'_q05_2015';
 			//echo '$this->papar->kesID[$jadualStaf] -><pre>'; print_r($this->papar->kesID[$jadualStaf]) . '</pre><hr>';
-			$this->semak_staf2015($this->papar->kesID[$jadualStaf]);
+			$this->semak_staf($jadualStaf, $this->papar->kesID,$sv);
 			# bentuk soalan 4 - aset
 			$this->semak_aset($senaraiAset = array('s'.$sv.'_q04_2015'),
 					's'.$sv.'_q04_2015', $paparID, $sv);	//*/
@@ -396,8 +396,7 @@ class Cprosesan101 extends Kawal
 	private function semak_produk($cari, $kp) // khas untuk survey 205
 	{
 		$medan = '*';
-		//$this->papar->kod_produk = array();
-		// mula cari $cariID dalam $kod_produk
+		# mula cari $cariID dalam $kod_produk
 		foreach ($this->kod_produk($kp) as $key => $myTable)
 		{// mula ulang table
 			
@@ -406,22 +405,20 @@ class Cprosesan101 extends Kawal
 				//echo $myTable . '<br>';
 				$sql = Borang101::binaKodOutput('kod2010_output', $myTable, $cari);
 				$this->papar->kod_produk[$myTable] = 
-				$this->tanya->cariProdukBaru($myTable, $sql);
+					$this->tanya->cariProdukBaru($myTable, $sql);
 				/* ubahsuai tatasusunan $info
 				$info = $this->tanya->cariProdukLama($myTable, $medan, $cari);
 				$this->papar->kod_produk['kodOutput'] = Data::kodOutput($info);*/
-				$baris = $this->papar->kod_produk['kodOutput']; 
-			}
+							}
 			elseif ($myTable=='q15_2010')
 			{
 				//echo $myTable . '<br>';
 				$sql = Borang101::binaKodInput('kod2010_input', $myTable, $cari);
 				$this->papar->kod_produk[$myTable] = 
-				$this->tanya->cariProdukBaru($myTable, $sql);
+					$this->tanya->cariProdukBaru($myTable, $sql);
 				/* ubahsuai tatasusunan $info
 				$info = $this->tanya->cariProdukLama($myTable, $medan, $cari);
 				$this->papar->kod_produk['kodInput'] = Data::kodInput($info);*/
-				$baris = $this->papar->kod_produk['kodInput'];			
 				//echo '<pre>($baris Input)='; print_r($baris) . '</pre><hr>';				
 			}
 			elseif ($myTable == 's14') 
@@ -517,8 +514,8 @@ class Cprosesan101 extends Kawal
 
 	private function semak_aset($asetIndustri, $aset, $paparID, $kp) 
 	{// khas untuk soalan aset
-		//echo "<pre>senaraiAset:", print_r($asetIndustri, 1) 
-		//	. '| jadual:', print_r($aset, 1) . "<br>";
+		//echo "<pre>senaraiAset:"; print_r($asetIndustri); 
+		//echo'| jadual:'; print_r($aset); echo '</pre><br>';
 		
 		foreach ($asetIndustri as $key => $myTable):
 			//echo ($myTable!=$aset) ? null : "myTable:$myTable | aset:$aset|<br>";
@@ -706,40 +703,31 @@ class Cprosesan101 extends Kawal
 	}
 	
 	private function semak_staf($jadualStaf, $prosesID, $kp=null)
-	{// khas untuk soalan staf
-			
-		$cariSijil = $prosesID['s'.$kp.'_q06_2010'][0];
+	{# khas untuk soalan staf
 		$mula = 'q05a';
 		foreach ($jadualStaf as $key => $myTable):
 			if (isset($prosesID[$myTable][0])):
 				$pos = strpos($myTable,$mula);
 				if ($pos !== false) 
-				{
 					//echo "<br>The string '$mula' was found in the string '$myTable' and exists at position $pos";
-					$cariL = $prosesID[$myTable][0];
-				} 
-				else 
-				{
-					//echo "<br>The string '$mula' was not found in the string '$myTable'";
+					$cariL = $prosesID[$myTable][0];	
+				else //echo "<br>The string '$mula' was not found in the string '$myTable'";
 					$cariP = $prosesID[$myTable][0];
-				}
+			else:
+				$cariL = $cariP = array();
 			endif;
 		endforeach;
 		
-		$this->papar->kod_produk['staf2016'] = 
-			Borang101::dataPekerja2016($cariL, $cariP, $kp, $cariSijil);
-
-		//echo '<pre>semak_staf:'; print_r($this->papar->kod_produk['pekerjaan']); echo '</pre><hr>';
+		$q06 = ($kp!='205') ? 's' . $kp . '_q06_2010' : 'q06_2010';
+		$cariSijil = (!isset($prosesID[$q06][0])) ? array() : $prosesID[$q06][0];
 		
-		/*$jenisPekerjaan = array(0=>'Pemilik(ROB)-1',1=>'Pekerja keluarga(ROB)-2',
-			2=>'Pengurusan-3.1',3=>'Juruteknik-3.2',4=>'Kerani-3.3',5=>'Pekerja Asas-3.4',
-			6=>'Pekerja Mahir-3.5.1',7=>'Pekerja XMahir-3.5.2',
-			8=>'Upah Mahir-3.5.1',9=>'Upah XMahir-3.5.2',
-			10=>'Pekerja sambilan-4',11=>'Jumlah pekerja-5');
+		//echo '$cariL = '.count($cariL).' | $cariP = '.count($cariP).' | $cariSijil  = '.count($cariSijil).' <br>';
+		if(count($cariL) != '0' && count($cariP) != '0' && count($cariSijil) != '0'):
+			$this->papar->kod_produk['staf2016'] = 
+				Borang101::dataPekerja2016($cariL, $cariP, $kp, $cariSijil);
+		endif;
 
-		$this->papar->kod_produk['pekerjaan'] = 
-			Data::dataPekerja($jadualStaf,$jenisPekerjaan,$prosesID); //*/
-		
+		//echo '<pre>semak_staf:'; print_r($this->papar->kod_produk['pekerjaan']); echo '</pre><hr>';	
 	}
 	
 	private function semak_staf2015($jadualStaf, $prosesID, $kp=null)

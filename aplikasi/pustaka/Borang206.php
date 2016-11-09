@@ -148,6 +148,7 @@ class Borang206
 		14 - Jumlah
 		30 - Purata
 		*/
+		# staf dan gaji
 		$cari = array_merge($cariL,$cariP);
 		$msia = $pati = $mengira = $kira = 0;
 		//echo '<pre>$jenisKerja ->'; print_r($jenisKerja); echo '</pre>';
@@ -155,36 +156,39 @@ class Borang206
 			$data = null; $data2 = null;
 			//echo "<br>\$key = $key| \$kategori = $kategori";
 			$pekerja[$kira]['nama'] = $kategori;
+			$WargaL = $PatiL = $jumStafL = $gajiL = 0;
 			foreach ($bangsaStaf as $key1 => $bangsa):
-				//echo "<br>\$key1 = $key1 | \$bangsa = $bangsa";
+			//echo "<br>\$key1 = $key1 | \$bangsa = $bangsa";
 			# set pembolehubah asas
 				$lajur = kira3($key1, 2); 
 				$kunci = pilihKeyData($key,$keyLelaki,$lelaki);
 				$pekerja[$kira]['L'] = $kunci;
 				$baris = kira3($kunci, 2); 
-				$medan  = 'F' . $lajur . $baris; 
+				$medan = 'F' . $lajur . $baris; 
 				$data = isset($cari[$medan]) ? $cari[$medan] : '&nbsp;';
 			# tambah jika data wujud 
 				if(in_array($lajur, array('01','02','03','04','05','06','07','08','09') )):
-					$pekerja[$kira]['WargaL'] += $data; 
+					$WargaL += $data; 
 				/*elseif(in_array($lajur, array('01','02','03','04','05','06') )):
 					$pekerja[$kira]['Bumi'] += $data; 
 				elseif(in_array($lajur, array('07','08','09') )):
 					$pekerja[$kira]['XBumi'] += $data; //*/ 
 				elseif(in_array($lajur, array('10','11','12','13') )):
-					$pekerja[$kira]['PatiL'] += $data; 
+					$PatiL += $data; 
 				elseif(in_array($lajur, array('14') )):
-					$pekerja[$kira]['Jum|L14'] = !empty($data) ? $data : '-';
+					$jumStafL = !empty($data) ? $data : '-';
 				elseif(in_array($lajur,array('18'))):
-					$pekerja[$kira]["Gaji|L$lajur"] = !empty($data) ? $data : '-';
+					$gajiL = !empty($data) ? $data : '-';
 				endif;
-			# ubahsuai data
-				if($pekerja[$kira]['WargaL']==0)
-					$pekerja[$kira]['WargaL'] = '';
-				if($pekerja[$kira]['PatiL']==0)
-					$pekerja[$kira]['PatiL'] = '';
+				# ubahsuai data
+				$pekerja[$kira]['WargaL'] = ($WargaL==0) ? '' : $WargaL;
+				$pekerja[$kira]['PatiL'] = ($PatiL==0) ? '' : $PatiL;
+				$pekerja[$kira]['Jum|L14'] = $jumStafL;
+				$pekerja[$kira]['Gaji|L18']  = $gajiL;
 			endforeach;
 			//echo '<br>Lelaki:' . $kategori . '$kunci:' . $kunci . '->' . $data;
+			# perempuan
+			$WargaP = $PatiP = $jumStafP = $gajiP = 0;
 			foreach ($bangsaStaf as $key2 => $bangsa):
 			# set pembolehubah asas
 				$kunci2 = pilihKeyData($key,$keyWanita,$wanita);
@@ -195,27 +199,23 @@ class Borang206
 				$data2  = isset($cari[$medan2]) ? $cari[$medan2] : '&nbsp;';
 			# tambah jika data wujud 
 				if(in_array($lajur2, array('01','02','03','04','05','06','07','08','09') )):
-					$pekerja[$kira]['WargaP'] += $data2; 
+					$WargaP += $data2; 
 				/*elseif(in_array($lajur, array('01','02','03','04','05','06') )):
 					$pekerja[$kira]['Bumi'] += $data; 
 				elseif(in_array($lajur, array('07','08','09') )):
 					$pekerja[$kira]['XBumi'] += $data; //*/ 
 				elseif(in_array($lajur2, array('10','11','12','13') )):
-					$pekerja[$kira]['PatiP'] += $data2; 
+					$PatiP += $data2; 
 				elseif(in_array($lajur2, array('14') )):
-					$pekerja[$kira]['Jum|P14'] = !empty($data2) ? $data2 : '-';
+					$jumStafP = !empty($data2) ? $data2 : '-';
+				elseif(in_array($lajur2, array('18') )):
+					$gajiP = !empty($data2) ? $data2 : '-';
 				endif;
 			# ubahsuai data
-				if($pekerja[$kira]['WargaP']==0)
-					$pekerja[$kira]['WargaP'] = '';
-				if($pekerja[$kira]['PatiP']==0)
-					$pekerja[$kira]['PatiP'] = '';
-			/*# koding asal
-				$pilihBangsa = array ('Gaji');
-				$pekerja[$kira][(in_array($bangsa,$pilihBangsa) ) ?
-					"$bangsa|W$lajur2": "W$lajur2"] =
-					 !empty($data2) ? $data2 : '-'; //*/
-				
+				$pekerja[$kira]['WargaP'] = ($WargaP==0) ? '' : $WargaP;
+				$pekerja[$kira]['PatiP'] = ($PatiP==0) ? '' : $PatiP;
+				$pekerja[$kira]['Jum|P14'] = $jumStafP;
+				$pekerja[$kira]['Gaji|P18'] = $gajiP;
 			endforeach;
 			//echo '|Wanita:' . $kategori . '$kunci:' . $kunci2 . '->' . $data2;
 			$kira++;

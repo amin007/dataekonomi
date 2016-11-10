@@ -10,7 +10,7 @@ class Cprosesan extends Kawal
 		// lokasi fail PAPAR untuk survey
 		$this->papar->dataAm = 'cprosesan/'; 
 		$this->papar->kelas = 'cprosesan/'; 
-		$this->_pptAsetPenuh = array(101,301,302,303,305,306,307,308,309,312,314,316,318,325,331);
+		$this->_pptAsetPenuh = array(101,202,301,302,303,305,306,307,308,309,312,314,316,318,325,331);
 		$this->_ppt2015 = array('fnb');
 		$this->papar->ppt['AsetPenuh'] = $this->_pptAsetPenuh;
 		$this->papar->ppt['BrgAm'] = array(328,334,335,890);
@@ -115,6 +115,15 @@ class Cprosesan extends Kawal
 			'hasil','belanja','stok','cawangan');
 			foreach ($jadual as $key => $data)
 				$myJadual[] = 'data_' . $sv . '2012_' . $data . '';
+		}
+		elseif ($sv=='202')
+		{
+			$jadual = array('q01','q02','q03','q04','q05a','q05b','q06',
+			'q07','q08','q09','q10','q11','q12','q13','q14',
+			'qsa','qsb','qsc','qsd','qse','qsf',/*,'tblDataReviewTemp2'*/
+			'tblDataReview','tblDataReviewTemp','tblDataReviewTemp3');
+			foreach ($jadual as $key => $data)
+				$myJadual[] = 's' . $sv . '_' . $data . '_2010';
 		}
 		elseif ($sv == '205')
 		{	

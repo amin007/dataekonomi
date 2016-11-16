@@ -5,7 +5,7 @@ class Borang206
 ######################################################################################################################
 ##--------------------------------------------------------------------------------------------------------------------
 	public static function dataPekerja($cariL, $cariW, $kp)
-	{		
+	{
 		$bangsaStaf = array(1=>'Melayu', 2=>'Iban',
 			3=>'Bidayuh', 4=>'Bajau',
 			5=>'Kadazan', 6=>'Bumiputra Lain',
@@ -162,7 +162,6 @@ class Borang206
 			# set pembolehubah asas
 				$lajur = kira3($key1, 2); 
 				$kunci = pilihKeyData($key,$keyLelaki,$lelaki);
-				$pekerja[$kira]['L'] = $kunci;
 				$baris = kira3($kunci, 2); 
 				$medan = 'F' . $lajur . $baris; 
 				$data = isset($cari[$medan]) ? $cari[$medan] : '&nbsp;';
@@ -181,6 +180,7 @@ class Borang206
 					$gajiL = !empty($data) ? $data : '-';
 				endif;
 				# ubahsuai data
+				$pekerja[$kira]['L'] = $kunci;
 				$pekerja[$kira]['WargaL'] = ($WargaL==0) ? '' : $WargaL;
 				$pekerja[$kira]['PatiL'] = ($PatiL==0) ? '' : $PatiL;
 				$pekerja[$kira]['Jum|L14'] = $jumStafL;
@@ -192,7 +192,6 @@ class Borang206
 			foreach ($bangsaStaf as $key2 => $bangsa):
 			# set pembolehubah asas
 				$kunci2 = pilihKeyData($key,$keyWanita,$wanita);
-				$pekerja[$kira]['W'] = $kunci2;
 				$lajur2 = kira3($key2, 2); 
 				$baris2 = kira3($kunci2, 2); 		
 				$medan2 = 'F' . $lajur2 . $baris2;
@@ -212,6 +211,7 @@ class Borang206
 					$gajiP = !empty($data2) ? $data2 : '-';
 				endif;
 			# ubahsuai data
+				$pekerja[$kira]['W'] = $kunci2;
 				$pekerja[$kira]['WargaP'] = ($WargaP==0) ? '' : $WargaP;
 				$pekerja[$kira]['PatiP'] = ($PatiP==0) ? '' : $PatiP;
 				$pekerja[$kira]['Jum|P14'] = $jumStafP;

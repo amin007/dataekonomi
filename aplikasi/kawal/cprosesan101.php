@@ -2,7 +2,7 @@
 
 class Cprosesan101 extends Kawal 
 {
-
+#----------------------------------------------------------------------------------------------------------------------------#
 	public function __construct() 
 	{
 		parent::__construct();
@@ -97,7 +97,7 @@ class Cprosesan101 extends Kawal
 		$lokasi = 'location: ' . URL . $this->papar->dataAm . $dataID . '/2010/2012';
 		header($lokasi);
 	}
-
+#----------------------------------------------------------------------------------------------------------------------------#
 # senarai jadual
 	private function senarai_jadual($sv)
 	{	# senaraikan tatasusunan jadual prosesan
@@ -661,6 +661,10 @@ class Cprosesan101 extends Kawal
 #- untuk binaan 206
 	private function semak_produk_206($kp, $paparID)
 	{
+		# set data pekerja
+		$cariL = 's' . $kp . '_q05a_2010';
+		$cariP = 's' . $kp . '_q05b_2010';
+
 		$asetBinaan = array(
 			'staf2010'=>'pekerjaan',  
 			'staf2016'=>'staf2016',  
@@ -675,12 +679,16 @@ class Cprosesan101 extends Kawal
 			//echo "key:$key | soalan:$soalan<br>";
 			if($key=='staf2010')
 				@$this->papar->kod_produk[$soalan] = 
-					Borang206::dataPekerja($paparID['s' . $kp . '_q05a_2010'][0], 
-					$paparID['s' . $kp . '_q05b_2010'][0], $kp);
+					(!isset($paparID[$cariL][0])) ? array():
+					Borang206::dataPekerja($paparID[$cariL][0], 
+					$paparID[$cariP][0], $kp);
 			if($key=='staf2016')
+			{
 				@$this->papar->kod_produk[$soalan] = 
-					Borang206::dataPekerja2016($paparID['s' . $kp . '_q05a_2010'][0], 
-					$paparID['s' . $kp . '_q05b_2010'][0], $kp);
+					(!isset($paparID[$cariL][0])) ? array():
+					Borang206::dataPekerja2016($paparID[$cariL][0], 
+					$paparID[$cariP][0], $kp);
+			}
 			if($key=='11')
 				@$this->papar->kod_produk[$soalan] = 
 					Borang206::soalan11($paparID['s' . $kp . '_q' . $key . '_2010'][0], $kp);
@@ -796,4 +804,5 @@ class Cprosesan101 extends Kawal
 		. "\r" . 'RENAME TABLE `pom_dataekonomi`.`'.$sv.'_tbldatareviewtemp3_2010` TO `pom_dataekonomi`.`s'.$sv.'_tbldatareviewtemp3_2010`;';
 
 	}
+#----------------------------------------------------------------------------------------------------------------------------#	
 }

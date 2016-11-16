@@ -2,9 +2,9 @@
 
 class Data
 {
-	
+
 	private $_postData = array();
-	
+
 	public function __construct() {}
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static function cariKeterangan($kesID)
@@ -528,7 +528,7 @@ class Data
 			7=>'Cina', 8=>'India', 9=>'WM Lain2',
 			10=>'Indonesia', 11=>'Filipina',
 			12=>'Bangladesh', 13=>'BWM Lain2',
-			14=>'Jumlah', 18=>'Gaji');
+			14=>'Jumlah', 30=>'Purata Staf', 18=>'Gaji');
 		$lelaki = array(1=>'Pemilik(ROB)-1',2=>'Pekerja keluarga(ROB)-2',
 			3=>'Pengurusan-3.1',4=>'Juruteknik-3.2',
 			5=>'Kerani-3.3',6=>'Pekerja Asas-3.4',
@@ -609,10 +609,11 @@ class Data
 			$kira++;
 		endforeach;
 	
-	return $pekerja;
+		//echo '<pre>pekerja ->'; print_r($pekerja); echo '</pre>';
+		return $pekerja;
 	}
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-	public static function dataPekerja2015($jadualStaf,$jenisKerja)
+	public static function dataPekerja2015($jadualStaf,$jenisKerja,$pandangID)
 	{		
 		$bangsaStaf = array(
 			49=>'Ma`sia', 50=>'Pati',
@@ -630,7 +631,7 @@ class Data
 		24 => 'Juruteknik', 25 => 'Kerani-3.4', 34 => 'Servis & Jualan-3.5', 
 		35 => 'Kemahiran-3.6', 36 => 'Mesin & Operator-3.7', 26 => 'Pekerja Asas-3.8',
 		37 => 'Jum Staf Bergaji-3.9',
-			31=>'Pekerja sambilan-4',39=>'Jumlah pekerja-5');
+		31=>'Pekerja sambilan-4',39=>'Jumlah pekerja-5');
 		$keyWanita = array(0=>21,1=>22,2=>32,3=>23,4=>33,5=>24,6=>25,7=>34,8=>35,9=>36,10=>26,11=>37,12=>31,13=>39);
 
 /*	$lelaki:Array						|$wanita:Array
@@ -652,14 +653,16 @@ class Data
 		[11] => Pekerja sambilan-4		[31] => Pekerja sambilan-4
 		[19] => Jumlah pekerja-5		[39] => Jumlah pekerja-5
 	)*/
+		
+		//echo '<pre>$jadualStaf ->'; print_r($jadualStaf); echo '</pre>';
 		$mula = 'q05';
 		foreach ($jadualStaf as $k => $k2):
 		foreach ($k2 as $padang => $nilai):
 			//echo "\$padang = $padang | \$nilai = $nilai<br>"; 
 			$cari[$padang] = $nilai;
-		endforeach;
-		endforeach;
+		endforeach;endforeach;
 		$kira=0;
+		//echo '<pre>$jenisKerja ->'; print_r($jenisKerja); echo '</pre>';
 		foreach ($jenisKerja as $key => $kategori):
 			$data = null; $data2 = null;
 			//echo "<br>\$key = $key| \$kategori = $kategori";
@@ -672,14 +675,14 @@ class Data
 				$pekerja[$kira]['L'] = $kunci;
 				$baris = kira3($kunci, 2); 
 				$medan  = 'F' . $lajur . $baris; 
-				$data = isset($cari[$medan]) ?	$cari[$medan] : '&nbsp;';
+				$data = isset($cari[$medan]) ? $cari[$medan] : '&nbsp;';
 			# mula masuk data
 				$pilihBangsa = array ('Gaji');
 				$pekerja[$kira][(in_array($bangsa,$pilihBangsa) ) ?
 					"$bangsa|L$lajur": "L$lajur"] =
 					 !empty($data) ? $data : '-';
 			endforeach;
-			//echo 'Lelaki:' . $kategori . '$kunci:' . $kunci . '->' . $data;
+			//echo '<br>Lelaki:' . $kategori . '$kunci:' . $kunci . '->' . $data;
 			foreach ($bangsaStaf as $key2 => $bangsa):
 			# set pembolehubah asas
 				$lajur2 = kira3($key2, 2); 
@@ -698,7 +701,8 @@ class Data
 			$kira++;
 		endforeach;//*/
 	
-		//echo '<pre>pekerja dalam fungsi dataPekerja2015 ->'; print_r($pekerja) . '</pre>';
+		//echo '<pre>$jadualStaf ->'; print_r($jadualStaf); echo '</pre>';
+		//echo '<pre>pekerja dalam fungsi dataPekerja2015 ->'; print_r($pekerja); echo '</pre>';
 		return $pekerja;
 	}
 /////////////////////////////////////////////////////////////////////////////////////////////////////

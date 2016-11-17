@@ -29,8 +29,8 @@ class Borang206
 			2=>'Pengurusan-3.1',3=>'Juruteknik-3.2',4=>'Kerani-3.3',5=>'Pekerja Asas-3.4',
 			6=>'Pekerja Mahir-3.5.1',7=>'Pekerja XMahir-3.5.2',
 			8=>'Upah Mahir-3.5.1',9=>'Upah XMahir-3.5.2',
-			10=>'Pekerja sambilan-4',11=>'Jumlah pekerja-5');		
-	/*		
+			10=>'Pekerja sambilan-4',11=>'Jumlah pekerja-5');
+	/*
 	$lelaki:Array						|$wanita:Array
 	(
 		[1] => Pemilik(ROB)-1			[21] => Pemilik(ROB)-1
@@ -73,7 +73,7 @@ class Borang206
 				$kunci2 = pilihKeyData($key,$keyWanita,$wanita);
 				$pekerja[$kira]['W'] = $kunci2;
 				$lajur2 = kira3($key2, 2); 
-				$baris2 = kira3($kunci2, 2); 		
+				$baris2 = kira3($kunci2, 2);
 				$medan2 = 'F' . $lajur2 . $baris2;
 				$data2  = isset($cariW[$medan2]) ?	$cariW[$medan2] : '_';
 			// mula masuk data
@@ -121,7 +121,7 @@ class Borang206
 			2=>'Pengurusan-3.1',3=>'Juruteknik-3.2',4=>'Kerani-3.3',5=>'Pekerja Asas-3.4',
 			6=>'Pekerja Mahir-3.5.1',7=>'Pekerja XMahir-3.5.2',
 			8=>'Upah Mahir-3.5.1',9=>'Upah XMahir-3.5.2',
-			10=>'Pekerja sambilan-4',11=>'Jumlah pekerja-5');		
+			10=>'Pekerja sambilan-4',11=>'Jumlah pekerja-5');
 
 /*	$lelaki:Array						|$wanita:Array
 	(
@@ -270,9 +270,9 @@ class Borang206
 			'F15X1'=>'-',
 			'F16X1'=>'-',
 		);
-		
+
 		$cari = array_merge($asal,$cari2);
-		
+
 		$calc = $kira = 0; # mula cari 
 		$binaan = array();
 		# bina tatasusunan
@@ -280,18 +280,18 @@ class Borang206
 			foreach ($nilaiBuku as $key2 => $tajuk):
 				$lajur = kira3($key2, 2);
 				$baris = 'F' . $lajur . $key;
-				
+
 				$data = isset($cari[$baris]) ? $cari[$baris] : '0';
-				
-				$t0["$tajuk - $key2"] =  !empty($data) ? $data : '-';				
-				$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';		
+
+				$t0["$tajuk - $key2"] =  !empty($data) ? $data : '-';
+				$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';
 			endforeach;
 			# buang data kosong
 			if (array_sum($jumlah[$calc]['F']) != 0)
 				$binaan[$kira++] = array_merge(
 					array('nama' => $jenis, 'kod' => $key), 
 					$t0);
-			else $calc++; 					
+			else $calc++;
 		endforeach; // foreach ($jenisHarta as $key => $jenis):
 		//*/
 		//echo '<pre>soalan11($cariAsal,'.$kp.')='; print_r($cariAsa1); echo '</pre><hr>';
@@ -337,9 +337,9 @@ class Borang206
 		);
 
 		$cari2 = array();
-		
+
 		$cari = array_merge($asal);
-		
+
 		$calc = $kira = 0; # mula cari 
 		$binaan = array();
 		# bina tatasusunan
@@ -347,18 +347,18 @@ class Borang206
 			foreach ($nilaiBuku as $key2 => $tajuk):
 				$lajur = kira3($key2, 2);
 				$baris = 'F' . $lajur . $key;
-				
+
 				$data = isset($cari[$baris]) ? $cari[$baris] : '0';
-				
-				$t0["$tajuk - $key2"] =  !empty($data) ? $data : '-';				
-				$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';		
+
+				$t0["$tajuk - $key2"] =  !empty($data) ? $data : '-';
+				$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';
 			endforeach;
 			# buang data kosong
 			if (array_sum($jumlah[$calc]['F']) != 0)
 				$binaan[$kira++] = array_merge(
 					array('nama' => $jenis, 'kod' => $key), 
 					$t0);
-			else $calc++; 					
+			else $calc++;
 		endforeach; // foreach ($jenisHarta as $key => $jenis):
 		//*/
 		//echo '<pre>soalan11($asal,'.$kp.')='; print_r($asal); echo '</pre><hr>';
@@ -375,21 +375,21 @@ class Borang206
 	{
 		# jenis harta
 		$jenisHarta = array(
-			1=>'Bangunan kediaman', # Residential buildings									
-			2=>'Bangunan perindustrian', # Industrial buildings									
-			3=>'Pejabat dan bangunan perniagaan', # Office and commercial buildings									
-			4=>'Sekolah dan bangunan pelajaran lain', # Schools and other educational buildings									
-			5=>'Hospital dan bangunan lain untuk perkhidmatan kesihatan', # Hospitals and other buildings for health services								
-			6=>'Bangunan lain', # Other buildings									
+			1=>'Bangunan kediaman', # Residential buildings
+			2=>'Bangunan perindustrian', # Industrial buildings
+			3=>'Pejabat dan bangunan perniagaan', # Office and commercial buildings
+			4=>'Sekolah dan bangunan pelajaran lain', # Schools and other educational buildings
+			5=>'Hospital dan bangunan lain untuk perkhidmatan kesihatan', # Hospitals and other buildings for health services
+			6=>'Bangunan lain', # Other buildings
 			7=>'Pembinaan jalan, jambatan, terowong, jejambat, lebuh raya, lebuh raya bertingkat, landasan keretapi, lapangan terbang, dsb',
 			//Construction of roads, bridges, tunnels, viaducts, highways, elevated highways, railways, airfields, etc.
 			8=>'Pembinaan empangan, sistem perairan, sistem saliran dan kumbahan, saluran paip, pelabuhan dan projek air lain dsb.',
-			//Construction of dam, irrigation system, drainage and sewage system, pipelines, harbours and other water projects, etc.									
-			9=>'Komunikasi dan talian kuasa', # Communication and power lines									
+			//Construction of dam, irrigation system, drainage and sewage system, pipelines, harbours and other water projects, etc.
+			9=>'Komunikasi dan talian kuasa', # Communication and power lines
 			10=>'Kemudahan sukan termasuk stadium, padang golf dsb', # Sports facilities including stadiums, golf courses, etc.
-			15=>'Kejuruteraan awam lain', # Other civil engineering								
+			15=>'Kejuruteraan awam lain', # Other civil engineering
 			16=>'Pertukangan khas', //Special trades
-			19=>'JUMLAH BESAR', //GRAND TOTAL		
+			19=>'JUMLAH BESAR', //GRAND TOTAL
 		);
 
 		$nilaiBuku = array(
@@ -409,9 +409,9 @@ class Borang206
 		);
 
 		$cari2 = array();
-		
+
 		$cari = array_merge($asal);
-		
+
 		$calc = $kira = 0; # mula cari 
 		$binaan = array();
 		# bina tatasusunan
@@ -419,25 +419,25 @@ class Borang206
 			foreach ($nilaiBuku as $key2 => $tajuk):
 				$lajur = kira3($key2, 2);
 				$baris = 'F' . $lajur . $key;
-				
+
 				$data = isset($cari[$baris]) ? $cari[$baris] : '0';
-				
-				$t0["$tajuk - $key2"] =  !empty($data) ? $data : '-';				
-				$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';		
+
+				$t0["$tajuk - $key2"] =  !empty($data) ? $data : '-';
+				$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';
 			endforeach;
 			# buang data kosong
 			if (array_sum($jumlah[$calc]['F']) != 0)
 				$binaan[$kira++] = array_merge(
 					array('nama' => $jenis, 'kod' => $key), 
 					$t0);
-			else $calc++; 					
+			else $calc++;
 		endforeach; // foreach ($jenisHarta as $key => $jenis):
 		//*/
 		//echo '<pre>soalan15($asal,'.$kp.')='; print_r($asal); echo '</pre><hr>';
 		//echo '<pre>soalan11($cari2,'.$kp.')='; print_r($cari2); echo '</pre><hr>';
 		//echo '<pre>soalan11($cari,'.$kp.')='; print_r($cari); echo '</pre><hr>';
 		//echo '<pre>$jum='; print_r($jum); echo '</pre><hr>';
-		//echo '<pre>Borang206::soalan15($binaan)='; print_r($binaan); echo '</pre><hr>';			
+		//echo '<pre>Borang206::soalan15($binaan)='; print_r($binaan); echo '</pre><hr>';
 
 		# pulangkan nilai
 		return (!isset($cari)) ? array() : $binaan;
@@ -450,15 +450,15 @@ class Borang206
 		$calc = $kira = 0; # mula cari 
 		$binaan = array();	
 		list($jenisHarta, $nilaiBuku) = Borang206::soalan16tatasusunan();
-		
+
 		# bina tatasusunan
 		foreach ($jenisHarta as $key => $jenis):
 			foreach ($nilaiBuku as $key2 => $tajuk):
 				$lajur = kira3($key2, 2);
 				$baris = 'F' . $lajur . $key;
-				
+
 				$data = isset($cari[$baris]) ? $cari[$baris] : '0';
-				
+
 				if($lajur == '28'):
 					$F2899 = isset($cari['F2899']) ? $cari['F2899'] : '0';
 					$fx = ($data / $F2899) * 100;
@@ -469,22 +469,22 @@ class Borang206
 				else:
 					$t0["$tajuk - $key2"] = !empty($data) ? $data : '-';
 				endif;
-				
+
 				//$t0["$tajuk - $key2"] = !empty($data) ? $data : '';
-				$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';		
+				$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';
 			endforeach;
 			# buang data kosong
 			if (array_sum($jumlah[$calc]['F']) != 0)
 				$binaan[$kira++] = array_merge(
-					array('nama-bahan-binaan-yang-panjang-daa' => $jenis, 'kod' => $key), 
+					array('nama-bahan-binaan-yang-panjang-daa' => $jenis, 'kod' => $key),
 					$t0);
-			else $calc++; 					
+			else $calc++;
 		endforeach; // foreach ($jenisHarta as $key => $jenis):
 		//*/
 		//echo '<pre>soalan16($asal,'.$kp.')='; print_r($asal); echo '</pre><hr>';
 		//echo '<pre>soalan16($cari2,'.$kp.')='; print_r($cari2); echo '</pre><hr>';
 		//echo '<pre>soalan16($cari,'.$kp.')='; print_r($cari); echo '</pre><hr>';
-		//echo '<pre>Borang206::soalan16($binaan)='; print_r($binaan); echo '</pre><hr>';			
+		//echo '<pre>Borang206::soalan16($binaan)='; print_r($binaan); echo '</pre><hr>';
 
 		# pulangkan nilai
 		return (!isset($cari)) ? array() : $binaan;
@@ -576,15 +576,15 @@ class Borang206
 			75=>'9.13-Bahan lain, sila nyatakan:', # Other materials, please specify:
 			99=>'JUMLAH BAHAN BINAAN DIGUNAKAN', # TOTAL MATERIALS USED
 		);
-		
+
 		$nilaiBuku = array(
 			28=>'Nilai (RM)', # Value (RM)
-			29=>'% Bahan Tempatan', #  % Local materials				
+			29=>'% Bahan Tempatan', #  % Local materials
 		);
-		
+
 		$pulangkan = array($jenisHarta, $nilaiBuku);
 		//echo '<pre>tatsusunan($pulangkan)='; print_r($pulangkan); echo '</pre><hr>';
-		
+
 		return $pulangkan;		
 	}
 ##--------------------------------------------------------------------------------------------------------------------
@@ -595,21 +595,21 @@ class Borang206
 		$calc = $kira = 0; # mula cari 
 		$binaan2 = array();	
 		list($jenisHarta, $nilaiBuku) = Borang206::soalan16tatasusunan();
-		
+
 		# bina tatasusunan
 		foreach ($jenisHarta as $key => $jenis):
 			foreach ($nilaiBuku as $key2 => $tajuk):
 				$baris = 'F' . kira3($key2, 2) . $key;
 				$data = isset($cari[$baris]) ? $cari[$baris] : '0';
 				$t0["$tajuk - $key2"] = !empty($data) ? $data : '';
-				//$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';		
+				//$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';
 			endforeach;
 			# buang data kosong
 			//if (array_sum($jumlah[$calc]['F']) != 0)
 				$binaan2[$kira++] = array_merge(
 					array('namaBahan' => '', 'kod' => $key), 
 					$t0);
-			//else $calc++; 					
+			//else $calc++;
 		endforeach; // foreach ($jenisHarta as $key => $jenis):
 		//*/
 		//echo '<pre>soalan16($asal,'.$kp.')='; print_r($asal); echo '</pre><hr>';

@@ -234,7 +234,7 @@ class Borang206
 				$pekerja[$kira]['PatiL'] = ($patiL==0) ? '' : $patiL;
 				$pekerja[$kira]['Jum|L14'] = $jumStafL;
 				$pekerja[$kira]['Gaji|L18']  = $gajiL;
-			# ubahsuai data Perempuan
+			# ubahsuai data Wanita
 				$pekerja[$kira]['W'] = $kunci2;
 				$pekerja[$kira]['WargaW'] = ($wargaW==0) ? '' : $wargaW;
 				$pekerja[$kira]['PatiW'] = ($patiW==0) ? '' : $patiW;

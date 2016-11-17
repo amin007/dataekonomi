@@ -1839,13 +1839,9 @@ class Borang101
 ##////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static function bina101Output13a($kodProduk, $myTableA, $myTableB, $cari)
 	{	# $ulangJadual = array('s101_q13a_2010','s101_q13b_2010');
-		# set pembolehubah
-		$cariMedan = ( !isset($cari['medan']) ) ? '' : $cari['medan'];
-		$cariID = ( !isset($cari['id']) ) ? '' : $cari['id'];
-		$thnMula = ( !isset($cari['thn_mula']) ) ? '' : $cari['thn_mula'];
-		$thnAkhir = ( !isset($cari['thn_akhir']) ) ? '' : $cari['thn_akhir'];
+		# set tatasusunan
 		$jenisTanaman = array(//Tanaman	
-			/*'01'=>'Kelapa Sawit/Oil Palm - FFB',
+			'01'=>'Kelapa Sawit/Oil Palm - FFB',
 			'02'=>'Getah - Susu getah / Rubber - latex',
 			'03'=>'Getah - Skrap / Rubber - scrap',
 			'04'=>'Koko',
@@ -1864,8 +1860,23 @@ class Borang101
 			//22=>'',23=>'',24=>'',25=>'',26=>'',27=>'',28=>'',29=>'',30=>'',31=>'',32=>'',
 			33=>'JUMLAH **' //*/
 		);
+		# set pembolehubah
+		$cariMedan = ( !isset($cari['medan']) ) ? '' : $cari['medan'];
+		$cariID = ( !isset($cari['id']) ) ? '' : $cari['id'];
+		$thnMula = ( !isset($cari['thn_mula']) ) ? '' : $cari['thn_mula'];
+		$thnAkhir = ( !isset($cari['thn_akhir']) ) ? '' : $cari['thn_akhir'];
+		$F3001 = 'Luas(hektar) - 30';
+		$F3101 = 'Kuantiti Kutipan - 31';
+		$F3301 = 'Kuantiti Jualan - 33';
+		$F3401 = 'Nilai Jualan - 34';
+		$F3601 = 'Kerosakan - 36';
+		$F3701 = 'Stok Awal - 37';
+		$F3801 = 'Stok Akhir - 38';
+		$F2901 = 'kod unit - 29';
+		$F3901 = 'kod produk - 39';
+		
 		# mula cari A
-		$SELECT = 'SELECT Batch,' . $cariMedan;
+		$SELECT = 'SELECT Batch';
 		$WHERE = "\r FROM `$myTableA` "
 			. "WHERE $cariMedan like '$cariID%' "
 			//. "AND thn BETWEEN $thnMula and $thnAkhir"
@@ -1874,23 +1885,21 @@ class Borang101
 		{
 			$baris = kira3($kira, 2);
 			$namaTanaman = (isset($jenisTanaman[$baris])) ? $jenisTanaman[$baris] : '';
-			$medan[] = "\r(" . $SELECT . ',"' . $namaTanaman . '" as Jenis '
-				. ',F30' . $baris . ' as F3001,F31' . $baris . ' as F3101,F33' . $baris . ' as F3301'
-				. "\r " . ',F34' . $baris . ' as `F3401(RM)`,F36' . $baris . ' as `F3601(RM)`'
-				. "\r " . ',F37' . $baris . ' as `F3701(RM)`,F38' . $baris . ' as `F3801(RM)`'
-				. "\r " . ',F29' . $baris . ' as `F2901`'
-				. "\r " . ',concat_ws("<br>",F39' . $baris . ',SUBSTRING(F39' . $baris . ',-10)) as F3901' 
-				//. "\r " . ',concat_ws("",F39' . $baris . ',SUBSTRING(F39' . $baris . ',-10)) as F3901' 
+			$pokok = ", IF(F34$baris = 0, null , \"$namaTanaman - $baris\") as Jenis";
+			$medan[] = "\r (" . $SELECT . $pokok
+				. ",\r F30$baris as `$F3001`,F31$baris as `$F3101`,F33$baris as `$F3301`"
+				. ",\r F34$baris as `$F3401(RM)`,F36$baris as `$F3601(RM)`"
+				. ",\r F37$baris as `$F3701(RM)`,F38$baris as `$F3801(RM)`"
+				. ",\r F29$baris as `$F2901`"
+				. ",\r concat_ws(\"<br>\",F39$baris,SUBSTRING(F39$baris,-10)) as F3901"
 				. ',( SELECT concat_ws("-",keterangan,kod_produk) '
 				//. ', (SELECT CONCAT("<abbr title=\"", keterangan, "\">", kod_produk, "</abbr>") '
 				. 'FROM ' . $kodProduk . ' b WHERE b.kod_produk='
 				. 'SUBSTRING(F39' . $baris . ',-10) LIMIT 1) as nama_produk'
 				. $WHERE . ')';
-		}// tamat ulang $kira:$cariID dalam kod_produk['q14_2010']
-		//*/
+		}# tamat ulang $kira:$cariID dalam kod_produk['q14_2010']
 		
 		# mula cari B
-		$SELECT = 'SELECT Batch,' . $cariMedan;
 		$WHERE = "\r FROM `$myTableB` "
 			. "WHERE $cariMedan like '$cariID%' "
 			//. "AND thn BETWEEN $thnMula and $thnAkhir"
@@ -1899,30 +1908,30 @@ class Borang101
 		{
 			$baris = kira3($kira, 2);
 			$namaTanaman = (isset($jenisTanaman[$baris])) ? $jenisTanaman[$baris] : '';
-			$medan[] = "\r(" . $SELECT . ',"' . $namaTanaman . '" as Jenis '
-				. ',F30' . $baris . ' as F3001,F31' . $baris . ' as F3101,F33' . $baris . ' as F3301'
-				. "\r " . ',F34' . $baris . ' as `F3401(RM)`,F36' . $baris . ' as `F3601(RM)`'
-				. "\r " . ',F37' . $baris . ' as `F3701(RM)`,F38' . $baris . ' as `F3801(RM)`'
-				. "\r " . ',F29' . $baris . ' as `F2901`'
-				. "\r " . ',concat_ws("<br>",F39' . $baris . ',SUBSTRING(F39' . $baris . ',-10)) as F3901' 
-				//. "\r " . ',concat_ws("",F39' . $baris . ',SUBSTRING(F39' . $baris . ',-10)) as F3901' 
+			$pokok = ", IF(F34$baris = 0, null , \"$namaTanaman - $baris\") as Jenis";
+			$medan[] = "\r (" . $SELECT . $pokok
+				. ",\r F30$baris as `$F3001`,F31$baris as `$F3101`,F33$baris as `$F3301`"
+				. ",\r F34$baris as `$F3401(RM)`,F36$baris as `$F3601(RM)`"
+				. ",\r F37$baris as `$F3701(RM)`,F38$baris as `$F3801(RM)`"
+				. ",\r F29$baris as `$F2901`"
+				. ",\r concat_ws(\"<br>\",F39$baris,SUBSTRING(F39$baris,-10)) as F3901"
 				. ',( SELECT concat_ws("-",keterangan,kod_produk) '
 				//. ', (SELECT CONCAT("<abbr title=\"", keterangan, "\">", kod_produk, "</abbr>") '
 				. 'FROM ' . $kodProduk . ' b WHERE b.kod_produk='
 				. 'SUBSTRING(F39' . $baris . ',-10) LIMIT 1) as nama_produk'
 				. $WHERE . ')';
-		}// tamat ulang $kira:$cariID dalam kod_produk['q14_2010']
+		}# tamat ulang $kira:$cariID dalam kod_produk['q14_2010']
 
 		# mula cari B-Jumlah
 			$baris = $baris + 1;
 			$namaTanaman = (isset($jenisTanaman[$baris])) ? $jenisTanaman[$baris] : '';
-			$medan[] = "\r(" . $SELECT . ',"' . $namaTanaman . '" as Jenis '
-				. ',"" as F3001,"" as F3101,"Jumlah" as F3301'
-				. "\r " . ',F3433 as `F3401(RM)`,F3633 as `F3601(RM)`'
-				. "\r " . ',F3733 as `F3701(RM)`,F3833 as `F3801(RM)`'
-				. "\r " . ',"" as `F2901`, "" as `F3101`, "" as nama_produk '
-				. $WHERE . ')';
-		//*/
+			$pokok = ", IF(F34$baris = 0, null , \"$namaTanaman - $baris\") as Jenis";
+			$medan[] = "\r (" . $SELECT . $pokok
+				. ',"" as `'.$F3001.'`,"" as `'.$F3101.'`,"" as `'.$F3301.'`'
+				. ",\r F34$baris as `$F3401(RM)`,F36$baris as `$F3601(RM)`"
+				. ",\r F37$baris as `$F3701(RM)`,F38$baris as `$F3801(RM)`"
+				. ",\r " . '"" as `$F2901`, "" as `F3101`, "" as nama_produk '
+				. $WHERE . ')'; //*/
 		
 		# papar sql
 		$query = implode("\rUNION\r",$medan);

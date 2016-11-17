@@ -298,7 +298,7 @@ class Borang206
 		//echo '<pre>soalan11($cari2,'.$kp.')='; print_r($cari2); echo '</pre><hr>';
 		//echo '<pre>soalan11($cari,'.$kp.')='; print_r($cari); echo '</pre><hr>';
 		//echo '<pre>$jum='; print_r($jum); echo '</pre><hr>';
-		//echo '<pre>Borang206::soalan11($binaan)='; print_r($binaan); echo '</pre><hr>';			
+		//echo '<pre>Borang206::soalan11($binaan)='; print_r($binaan); echo '</pre><hr>';
 
 		# pulangkan nilai
 		return (!isset($cari)) ? array() : $binaan;
@@ -365,12 +365,12 @@ class Borang206
 		//echo '<pre>soalan11($cari2,'.$kp.')='; print_r($cari2); echo '</pre><hr>';
 		//echo '<pre>soalan11($cari,'.$kp.')='; print_r($cari); echo '</pre><hr>';
 		//echo '<pre>$jum='; print_r($jum); echo '</pre><hr>';
-		//echo '<pre>Borang206::soalan13($binaan)='; print_r($binaan); echo '</pre><hr>';			
+		//echo '<pre>Borang206::soalan13($binaan)='; print_r($binaan); echo '</pre><hr>';
 
 		# pulangkan nilai
 		return (!isset($cari)) ? array() : $binaan;
 	}
-##--------------------------------------------------------------------------------------------------------------------	
+##--------------------------------------------------------------------------------------------------------------------
 	public static function soalan15($asal, $kp)
 	{
 		# jenis harta
@@ -442,7 +442,7 @@ class Borang206
 		# pulangkan nilai
 		return (!isset($cari)) ? array() : $binaan;
 	}	
-##--------------------------------------------------------------------------------------------------------------------	
+##--------------------------------------------------------------------------------------------------------------------
 	public static function soalan16($asal, $kp)
 	{
 		$cari2 = array();
@@ -616,11 +616,11 @@ class Borang206
 		//echo '<pre>soalan16($cari2,'.$kp.')='; print_r($cari2); echo '</pre><hr>';
 		//echo '<pre>soalan16($cari,'.$kp.')='; print_r($cari); echo '</pre><hr>';
 		//echo '<pre>$jum='; print_r($jum); echo '</pre><hr>';
-		//echo '<pre>Borang206::soal16salin($binaan)='; print_r($binaan2); echo '</pre><hr>';			
+		//echo '<pre>Borang206::soal16salin($binaan)='; print_r($binaan2); echo '</pre><hr>';
 
 		# pulangkan nilai
 		return (!isset($cari)) ? array() : $binaan2;
-	}	
-##--------------------------------------------------------------------------------------------------------------------	
-######################################################################################################################	
+	}
+##--------------------------------------------------------------------------------------------------------------------
+######################################################################################################################
 }

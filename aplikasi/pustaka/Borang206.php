@@ -87,13 +87,13 @@ class Borang206
 			//echo '<hr>';
 			$kira++;
 		endforeach;
-	
+
 		//echo '<pre>pekerja ->'; print_r($pekerja); echo '</pre>';
 		return $pekerja;
 	}
 ##--------------------------------------------------------------------------------------------------------------------
 	public static function dataPekerja2016($cariL, $cariP, $kp)
-	{		
+	{
 		$bangsaStaf = array(1=>'Melayu', 2=>'Iban',
 			3=>'Bidayuh', 4=>'Bajau',
 			5=>'Kadazan', 6=>'Bumiputra Lain',
@@ -154,8 +154,6 @@ class Borang206
 		//echo '<pre>$jenisKerja ->'; print_r($jenisKerja); echo '</pre>';
 		foreach ($jenisKerja as $key => $kategori):
 			$data = null; $data2 = null;
-			//echo "<br>\$key = $key| \$kategori = $kategori";
-			$pekerja[$kira]['nama'] = $kategori;
 			$WargaL = $PatiL = $jumStafL = $gajiL = 0;
 			foreach ($bangsaStaf as $key1 => $bangsa):
 			//echo "<br>\$key1 = $key1 | \$bangsa = $bangsa";
@@ -180,6 +178,8 @@ class Borang206
 					$gajiL = !empty($data) ? $data : '-';
 				endif;
 				# ubahsuai data
+				//echo "<br>\$key = $key| \$kategori = $kategori";
+				$pekerja[$kira]['nama'] = $kategori;
 				$pekerja[$kira]['L'] = $kunci;
 				$pekerja[$kira]['WargaL'] = ($WargaL==0) ? '' : $WargaL;
 				$pekerja[$kira]['PatiL'] = ($PatiL==0) ? '' : $PatiL;
@@ -217,10 +217,9 @@ class Borang206
 				$pekerja[$kira]['Jum|P14'] = $jumStafP;
 				$pekerja[$kira]['Gaji|P18'] = $gajiP;
 			endforeach;
-			//echo '|Wanita:' . $kategori . '$kunci:' . $kunci2 . '->' . $data2;
 			$kira++;
 		endforeach;//*/
-	
+
 		//echo '<pre>$jadualStaf ->'; print_r($jadualStaf); echo '</pre>';
 		//echo '<pre>pekerja dalam fungsi dataPekerja2015 ->'; print_r($pekerja); echo '</pre>';
 		return $pekerja;
@@ -233,7 +232,7 @@ class Borang206
 			41=>'Air yang dibeli', # -Meter padu
 			51=>'Air yang diabstrak',
 			42=>'Pelincir',
-			//'X1'=>'Bahan Pembakar',
+			## 'X1'=>'Bahan Pembakar',
 			43=>'Minyak diesel', # -Liter
 			44=>'Petrol', # -Liter
 			45=>'Minyak relau / Minyak pembakar', # Liter',
@@ -272,9 +271,9 @@ class Borang206
 		);
 
 		$cari = array_merge($asal,$cari2);
-
 		$calc = $kira = 0; # mula cari 
 		$binaan = array();
+
 		# bina tatasusunan
 		foreach ($jenisHarta as $key => $jenis):
 			foreach ($nilaiBuku as $key2 => $tajuk):
@@ -292,8 +291,8 @@ class Borang206
 					array('nama' => $jenis, 'kod' => $key), 
 					$t0);
 			else $calc++;
-		endforeach; // foreach ($jenisHarta as $key => $jenis):
-		//*/
+		endforeach; //*/ # foreach ($jenisHarta as $key => $jenis):
+
 		//echo '<pre>soalan11($cariAsal,'.$kp.')='; print_r($cariAsa1); echo '</pre><hr>';
 		//echo '<pre>soalan11($cari2,'.$kp.')='; print_r($cari2); echo '</pre><hr>';
 		//echo '<pre>soalan11($cari,'.$kp.')='; print_r($cari); echo '</pre><hr>';
@@ -302,11 +301,10 @@ class Borang206
 
 		# pulangkan nilai
 		return (!isset($cari)) ? array() : $binaan;
-	}	
+	}
 ##--------------------------------------------------------------------------------------------------------------------
 	public static function soalan13($asal, $kp)
 	{
-
 		# jenis harta
 		$jenisHarta = array(
 			21=>'1.1-',  22=>'1.2-',  23=>'1.3-',  24=>'1.4 JOHOR',
@@ -315,7 +313,7 @@ class Borang206
 			33=>'4.1-',  34=>'4.2-',  35=>'4.3-',  36=>'4.4 MELAKA',
 			37=>'5.1-',  38=>'5.2-',  39=>'5.3-',  40=>'5.4 NEGERI SEMBILAN',
 			41=>'6.1-',  42=>'6.2-',  43=>'6.3-',  44=>'6.4 PAHANG',
-			////
+			# Muka 2
 			45=>'7.1-',  46=>'7.2-',  47=>'7.3-',  48=>'7.4 PULAU PINANG',
 			49=>'8.1-',  50=>'8.2-',  51=>'8.3-',  52=>'8.4 PERAK',
 			53=>'9.1 PERLIS',
@@ -324,24 +322,23 @@ class Borang206
 			62=>'12.1 WILAYAH PERSEKUTUAN KUALA LUMPUR',
 			63=>'12.2 WILAYAH PERSEKUTUAN LABUAN',
 			80=>'12.3 WILAYAH PERSEKUTUAN PUTRAJAYA',
-			///
+			# Muka 3
 			64=>'13.1-', 65=>'13.2-', 66=>'13.3-', 67=>'13.4-', 68=>'13.5-', 69=>'13.6 SABAH',
 			70=>'14.1-', 71=>'14.2-', 72=>'14.3-', 73=>'14.4-', 74=>'14.5-', 75=>'14.6-',
 			76=>'14.7-', 77=>'14.8-', 78=>'14.9-', 79=>'14.10 SARAWAK',
 			89=>'Jumlah Besar',
 		);
-		// $dp = 'Jumlah Nilai Kerja Pembinaan Di';
+		
 		$nilaiBuku = array(
 			24=>'Nilai',
 			25=>'Kod Daerah',
 		);
 
 		$cari2 = array();
-
 		$cari = array_merge($asal);
-
 		$calc = $kira = 0; # mula cari 
 		$binaan = array();
+		
 		# bina tatasusunan
 		foreach ($jenisHarta as $key => $jenis):
 			foreach ($nilaiBuku as $key2 => $tajuk):
@@ -359,8 +356,8 @@ class Borang206
 					array('nama' => $jenis, 'kod' => $key), 
 					$t0);
 			else $calc++;
-		endforeach; // foreach ($jenisHarta as $key => $jenis):
-		//*/
+		endforeach; //*/ # foreach ($jenisHarta as $key => $jenis):
+
 		//echo '<pre>soalan11($asal,'.$kp.')='; print_r($asal); echo '</pre><hr>';
 		//echo '<pre>soalan11($cari2,'.$kp.')='; print_r($cari2); echo '</pre><hr>';
 		//echo '<pre>soalan11($cari,'.$kp.')='; print_r($cari); echo '</pre><hr>';
@@ -382,38 +379,37 @@ class Borang206
 			5=>'Hospital dan bangunan lain untuk perkhidmatan kesihatan', # Hospitals and other buildings for health services
 			6=>'Bangunan lain', # Other buildings
 			7=>'Pembinaan jalan, jambatan, terowong, jejambat, lebuh raya, lebuh raya bertingkat, landasan keretapi, lapangan terbang, dsb',
-			//Construction of roads, bridges, tunnels, viaducts, highways, elevated highways, railways, airfields, etc.
+			# Construction of roads, bridges, tunnels, viaducts, highways, elevated highways, railways, airfields, etc.
 			8=>'Pembinaan empangan, sistem perairan, sistem saliran dan kumbahan, saluran paip, pelabuhan dan projek air lain dsb.',
-			//Construction of dam, irrigation system, drainage and sewage system, pipelines, harbours and other water projects, etc.
+			# Construction of dam, irrigation system, drainage and sewage system, pipelines, harbours and other water projects, etc.
 			9=>'Komunikasi dan talian kuasa', # Communication and power lines
 			10=>'Kemudahan sukan termasuk stadium, padang golf dsb', # Sports facilities including stadiums, golf courses, etc.
 			15=>'Kejuruteraan awam lain', # Other civil engineering
-			16=>'Pertukangan khas', //Special trades
-			19=>'JUMLAH BESAR', //GRAND TOTAL
+			16=>'Pertukangan khas', # Special trades
+			19=>'JUMLAH BESAR', # GRAND TOTAL
 		);
 
 		$nilaiBuku = array(
 			22=>'binabaru/ membaikpulih (Kerajaan)',
-			//New construction and major renovation (Government)
+			# New construction and major renovation (Government)
 			23=>'membaiki/ menyelenggara (Kerajaan)',
-			//Repairs and maintenance (Government)
+			# Repairs and maintenance (Government)
 			24=>'binabaru/ membaikpulih (Sendiri)',
-			//New construction and major renovation (Persendirian)(Private)
+			# New construction and major renovation (Persendirian)(Private)
 			25=>'membaiki/ menyelenggara (Sendiri)',
-			//Repairs and maintenance (Private)
+			# Repairs and maintenance (Private)
 			26=>'Jumlah binabaru/ membaikpulih (Kerajaan + Sendiri)',
-			//New construction and major renovation
+			# New construction and major renovation
 			27=>'Jumlah membaiki/ menyelenggara (Kerajaan + Sendiri)',
-			//Repairs and maintenance
+			# Repairs and maintenance
 			28=>'Jumlah (binabaru/membaikpulih + membaiki/menyelenggara)',
 		);
 
 		$cari2 = array();
-
 		$cari = array_merge($asal);
-
-		$calc = $kira = 0; # mula cari 
+		$calc = $kira = 0; # mula cari
 		$binaan = array();
+
 		# bina tatasusunan
 		foreach ($jenisHarta as $key => $jenis):
 			foreach ($nilaiBuku as $key2 => $tajuk):
@@ -431,8 +427,8 @@ class Borang206
 					array('nama' => $jenis, 'kod' => $key), 
 					$t0);
 			else $calc++;
-		endforeach; // foreach ($jenisHarta as $key => $jenis):
-		//*/
+		endforeach; //*/ # foreach ($jenisHarta as $key => $jenis):
+
 		//echo '<pre>soalan15($asal,'.$kp.')='; print_r($asal); echo '</pre><hr>';
 		//echo '<pre>soalan11($cari2,'.$kp.')='; print_r($cari2); echo '</pre><hr>';
 		//echo '<pre>soalan11($cari,'.$kp.')='; print_r($cari); echo '</pre><hr>';
@@ -441,7 +437,7 @@ class Borang206
 
 		# pulangkan nilai
 		return (!isset($cari)) ? array() : $binaan;
-	}	
+	}
 ##--------------------------------------------------------------------------------------------------------------------
 	public static function soalan16($asal, $kp)
 	{
@@ -479,8 +475,8 @@ class Borang206
 					array('nama-bahan-binaan-yang-panjang-daa' => $jenis, 'kod' => $key),
 					$t0);
 			else $calc++;
-		endforeach; // foreach ($jenisHarta as $key => $jenis):
-		//*/
+		endforeach; //*/ # foreach ($jenisHarta as $key => $jenis):
+
 		//echo '<pre>soalan16($asal,'.$kp.')='; print_r($asal); echo '</pre><hr>';
 		//echo '<pre>soalan16($cari2,'.$kp.')='; print_r($cari2); echo '</pre><hr>';
 		//echo '<pre>soalan16($cari,'.$kp.')='; print_r($cari); echo '</pre><hr>';
@@ -488,7 +484,7 @@ class Borang206
 
 		# pulangkan nilai
 		return (!isset($cari)) ? array() : $binaan;
-	}	
+	}
 ##--------------------------------------------------------------------------------------------------------------------
 	function soalan16tatasusunan()
 	{
@@ -501,58 +497,58 @@ class Borang206
 			25=>'1.5-Bahan pagar dan jaring daripada kawat, besi dan keluli', # Fensing and netting materials of wire, iron and steel
 			26=>'1.6-Paku, bot nat dan barangan besi lain', # Nails, bolts, nuts and other hardware
 			27=>'1.7-Bahan-bahan besi dan keluli lain', # Other iron and steel materials
-			#Simen dan bahan konkrit : Cement and concrete materials:
+			# Simen dan bahan konkrit : Cement and concrete materials:
 			28=>'2.1-Simen (OPC)', # Cement (OPC)
 			29=>'2.2-Pasir', # Sand
 			30=>'2.3-Agregat (batu baur)', # Aggregate
 			31=>'2.4-Konkrit siap bancuh', # Ready mix concrete
-			32=>'2.5-Bahan-bahan simen dan konkrit lain', #Other cement and concrete materials
+			32=>'2.5-Bahan-bahan simen dan konkrit lain', # Other cement and concrete materials
 			# Bahan-bahan batu bata :	Brickwork materials:
-			33=>'3.1-Batu bata tanah liat', #Common clay bricks
-			34=>'3.2-Batu bata pasir', #Common sand bricks
-			35=>'3.3-Blok konkrit berlubang pra tuang', #Precast concrete vent blocks
-			36=>'3.4-Blok berlubang bertetulang', #Autoclaved aerated blocks
-			37=>'3.5-Blok berongga', #Hollow blocks
-			38=>'3.6-Bahan-bahan batu bata yang lain', #Other brickwork materials
-			#Kayu dan keluaran kayu: Timber and timber products:
+			33=>'3.1-Batu bata tanah liat', # Common clay bricks
+			34=>'3.2-Batu bata pasir', # Common sand bricks
+			35=>'3.3-Blok konkrit berlubang pra tuang', # Precast concrete vent blocks
+			36=>'3.4-Blok berlubang bertetulang', # Autoclaved aerated blocks
+			37=>'3.5-Blok berongga', # Hollow blocks
+			38=>'3.6-Bahan-bahan batu bata yang lain', # Other brickwork materials
+			# Kayu dan keluaran kayu: Timber and timber products:
 			39=>'4.1-Kayu gergaji', # Sawn timber
 			40=>'4.2-Papan lapis', # Plywood
 			41=>'4.3-Papan plaster gypsum', # Gypsum plaster boards
 			42=>'4.4-Rangka pintu kayu & bingkai tingkap', # Timber doors and window frames
 			43=>'4.5-Bahan kayu yang lain', # Other timber materials
-			///
+			# Muka 2
 			# Bahan-bahan bumbung | Roofing materials :
 			44=>'5.1-Jubin bumbung tanah liat', # Clay roof tiles
 			45=>'5.2-Jubin bumbung konkrit', # Concrete roof tiles
 			46=>'5.3-Jubin bumbung logam ', # Metal roof tiles
 			47=>'5.4-Kepingan bumbung logam ', # Metal profiled roof sheets
 			48=>'5.5-Bahan bumbung lain ', # Other roofing materials
-			#Jubin | Tiles :
-			49=>'6.1.0-Jubin lantai', #  Floor tiles
-			50=>'6.2.0-Jubin dinding', #  Wall tiles
-			#6.3-Batu penyudah | Stone finishes :
-			52=>'6.3.1-Granit hitam', #  Black granite
-			53=>'6.3.2-Marmar hitam', #  Black marble
-			54=>'6.3.3-Marmar putih', #  White marble
+			# Jubin | Tiles :
+			49=>'6.1.0-Jubin lantai', # Floor tiles
+			50=>'6.2.0-Jubin dinding', # Wall tiles
+			# 6.3-Batu penyudah | Stone finishes :
+			52=>'6.3.1-Granit hitam', # Black granite
+			53=>'6.3.2-Marmar hitam', # Black marble
+			54=>'6.3.3-Marmar putih', # White marble
 			55=>'6.4.0-Bahan-bahan jubin lain', # Other floor tiles
-			#Pemasangan mekanikal dan elektrik | Mechanical and electrical materials :
-			56=>'7.1-Loji penyamanan udara', #  Air conditioning plants
-			57=>'7.2-Loji pendinginan', #  Refrigerating plants
-			58=>'7.3-Alat pemanas', #  Heating equipment
-			59=>'7.4-Lif, eskalator dan travelator', #  Lifts, escalators travelators
-			60=>'7.5-Jentera lain', #  Other machinery
-			61=>'7.6-Alat kelengkapan & aksesori elektrik', #  Electrical fitting and accessories
+			# Pemasangan mekanikal dan elektrik | Mechanical and electrical materials :
+			56=>'7.1-Loji penyamanan udara', # Air conditioning plants
+			57=>'7.2-Loji pendinginan', # Refrigerating plants
+			58=>'7.3-Alat pemanas', # Heating equipment
+			59=>'7.4-Lif, eskalator dan travelator', # Lifts, escalators travelators
+			60=>'7.5-Jentera lain', # Other machinery
+			61=>'7.6-Alat kelengkapan & aksesori elektrik', # Electrical fitting and accessories
 			62=>'7.7-Bahan-bahan jentera & elektrik lain', # Other machinery and electrical materials
-			#Bahan-bahan IBS | IBS building materials :
+			# Bahan-bahan IBS | IBS building materials :
 			76=>'8.1-Sistem kerangka, panel dan kekotak konkrit pratuang (tiang, rasuk,'
 				. 'lantai pratuang, komponen 3D, contohnya balkoni, tangga, tandas, lif)', 
 				# Pre-cast concrete framing, panel and box system (pre-cast columns,
 				# beams, slabs, 3D components e.g. balconies, staircases, toilets, lifts)
 			77=>'8.2-Sistem kerangka keluli (Tiang dan rasuk keluli kerangka portal,kerangka bumbung)', 
 				# Steel framing system (Steel columns and beams, portal frames, roof trusses)
-			78=>'8.3-Sistem acuan keluli [bentuk terowong, acuan rasuk dan tiang, acuan keluli tetap (pelantar logam)] ',
+			78=>'8.3-Sistem acuan keluli [bentuk terowong, acuan rasuk dan tiang, acuan keluli tetap (pelantar logam)]',
 				# Steel formworks {tunnel forms, beams and columns, moulding forms, permanent steel formworks (metal deck)}
-			79=>'8.4-Sistem kerangka kayu pra-siap (Tiang dan rasuk kayu pra-siap dan kerangka bumbung) ',
+			79=>'8.4-Sistem kerangka kayu pra-siap (Tiang dan rasuk kayu pra-siap dan kerangka bumbung)',
 				# Prefabricated timber frames (Prefebricated timber, beams and columns)
 			80=>'8.5-Sistem blok (interlocking concrete masonry units (MMU), blok konkrit ringan]',
 				# Block work systems (interlocking concrete masonry units (MMU),lightweight concrete blocks]
@@ -560,7 +556,7 @@ class Borang206
 				. 'panel dinding bio-komposit, unit bilik mandi, panel duralite, cemboard dry wall',
 				# Other innovative system modular house, dry wall-gypsum board, concrete panel, 
 				# sandwich panel, bio-composite wall panel, bathroom unit, duralite panel and cemboard dry wall.
-			///
+			# Muka 3
 			63=>'9.1-Pintu, pintu pagar, dsb. daripada aluminium', # Aluminium doors, gates etc.
 			64=>'9.2-Kajang, bidai, dsb. daripada aluminium', # Aluminium awnings, venetian blinds etc.
 			65=>'9.3-Bahan lain daripada aluminium, loyang tembaga, dsb.', # Other materials of aluminium, brass, copper etc.
@@ -579,7 +575,7 @@ class Borang206
 
 		$nilaiBuku = array(
 			28=>'Nilai (RM)', # Value (RM)
-			29=>'% Bahan Tempatan', #  % Local materials
+			29=>'% Bahan Tempatan', # % Local materials
 		);
 
 		$pulangkan = array($jenisHarta, $nilaiBuku);
@@ -610,8 +606,8 @@ class Borang206
 					array('namaBahan' => '', 'kod' => $key), 
 					$t0);
 			//else $calc++;
-		endforeach; // foreach ($jenisHarta as $key => $jenis):
-		//*/
+		endforeach; //*/ # foreach ($jenisHarta as $key => $jenis):
+
 		//echo '<pre>soalan16($asal,'.$kp.')='; print_r($asal); echo '</pre><hr>';
 		//echo '<pre>soalan16($cari2,'.$kp.')='; print_r($cari2); echo '</pre><hr>';
 		//echo '<pre>soalan16($cari,'.$kp.')='; print_r($cari); echo '</pre><hr>';

@@ -53,14 +53,14 @@ class Borang206
 	{
 		//echo '<pre>cariL ->'; print_r($cariL); echo '</pre>';
 		//echo '<pre>cariW ->'; print_r($cariW); echo '</pre>';
-		//echo '<pre>jenisKerja ->'; print_r($jenisKerja); echo '</pre>';
 		# setkan tatasusunan 
 		list($bangsaStaf, $jenisKerja, $lelaki,$keyLelaki, 
 		$wanita, $keyWanita) = Borang206::tatasusunanPekerja();
 		$pilihBangsa = array (/*'Melayu','Cina',*/'Gaji');
-		$kira=0;
+		$kira = 0;
 		
 		# bina tatasusunan
+		//echo '<pre>jenisKerja ->'; print_r($jenisKerja); echo '</pre>';
 		foreach ($jenisKerja as $kerja => $kategori):
 			$pekerja[$kira]['nama'] = $kategori;
 			$data = null; $data2 = null;

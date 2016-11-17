@@ -575,9 +575,8 @@ class Cprosesan101 extends Kawal
 				@$this->papar->kod_produk[$soalan] = 
 					Borang101::bina13($paparID['s' . $kp . '_q13a_2010'][0], 
 						$paparID['s' . $kp . '_q13b_2010'][0],$kp);
-								$this->semak_sql_produk('kodOutput', $cari, $kp);
-				$kira = count($this->papar->kod_produk[$soalan]);
 				//echo '<pre>line577:this->papar->kod_produk['.$soalan.']:'; print_r($kira); echo '</pre><hr>';
+				$kira = count($this->papar->kod_produk[$soalan]);
 				if ($kira != 0)
 					@$this->semak_sql_produk('kodOutput', $cari, $kp);
 			}
@@ -616,7 +615,7 @@ class Cprosesan101 extends Kawal
 				$this->papar->kod_produk['kodLuasTanaman'] =
 					$this->tanya->cariProdukBaru($myTable, $sql);
 			}
-			elseif ($soalan == 'kodXtxtTaniLain') 
+			elseif ($soalan == 'kodXtxtTaniLain')
 			{	
 				$myTable = 's101_q12_2010';
 				$jA = 's101_q12_2010';

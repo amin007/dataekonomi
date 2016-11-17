@@ -2,12 +2,13 @@
 
 class Borang101
 {
-
+####################################################################################################################################
+#----------------------------------------------------------------------------------------------------------------------
 	public static function tambahBaru($paparMedan)
 	{
 		# dapatkan nama_medan,jenis_medan,input_medan dlm class Borang
 		# Borang::tambahBaru($paparMedan);
-		###################################################################################
+		
 		//echo '$paparMedan:'; print_r($paparMedan) . '';
 		foreach ($paparMedan as $myTable => $row):
 		#-----------------------------------------------------------------
@@ -48,12 +49,12 @@ class Borang101
 		return $inputBorang;
 		###################################################################################
 	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////
+#----------------------------------------------------------------------------------------------------------------------
 	public static function tambah($paparMedan)
 	{
 		# dapatkan nama_medan,jenis_medan,input_medan dlm class Borang
 		# Borang::tambah($paparMedan);
-		###################################################################################
+		
 		//echo '$paparMedan:'; print_r($paparMedan) . '';
 		foreach ($paparMedan as $myTable => $row):
 		#-----------------------------------------------------------------
@@ -95,7 +96,7 @@ class Borang101
 		###################################################################################
 
 	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////
+#----------------------------------------------------------------------------------------------------------------------
 	public static function tambahSimpan($jadual)
 	{
 		# semak $_POST dalam class Borang
@@ -111,13 +112,13 @@ class Borang101
 				endforeach;
 			}
 		endforeach;
-		
+
 		//echo '<pre>$_POST:'; print_r($_POST) . '</pre>';
 		//echo '<pre>$data:'; print_r($data) . '</pre>';
 
 		return $data;
 	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////
+#----------------------------------------------------------------------------------------------------------------------
 	public static function ubah($noAhli, $paparMedan, $pilihMedan)
 	{
 		# dapatkan nama_medan,jenis_medan,input_medan 
@@ -128,7 +129,7 @@ class Borang101
 		foreach ($noAhli as $key => $data):
 			$input_data[] = $data;
 		endforeach; // tamat $row
-		//echo '<pre>$this->input_data:'; print_r($input_data) . '</pre>';		
+		//echo '<pre>$this->input_data:'; print_r($input_data) . '</pre>';
 		###################################################################################
 		foreach ($paparMedan as $myTable => $row):
 		#-----------------------------------------------------------------
@@ -144,7 +145,7 @@ class Borang101
 						$input = ubahMedanSesi($myTable, $nama_medan[$kira], 
 						$jenis_medan[$kira], $input_data[$kira]);
 						//$input_medan[$kira] = htmlentities($input);
-						$input_medan[$kira] = $input;				
+						$input_medan[$kira] = $input;
 					}
 				endforeach;
 			}
@@ -167,7 +168,7 @@ class Borang101
 		return $inputBorang;
 		###################################################################################
 	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////
+#----------------------------------------------------------------------------------------------------------------------
 	public static function ubahSimpan($jadual)
 	{
 		# semak $_POST dalam class Borang::ubahSimpan($this->_jadual)
@@ -189,7 +190,7 @@ class Borang101
 
 		return $data;
 	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////
+#----------------------------------------------------------------------------------------------------------------------
 	public static function cariKeterangan($kesID)
 	{
 		$senarai = array(); // setkan pembolehubah dulu
@@ -204,7 +205,7 @@ class Borang101
 		
 		return $senarai;
 	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////
+#----------------------------------------------------------------------------------------------------------------------
 	public static function binaKodOutput($kodProduk, $myTable, $cari)
 	{
 		# set pembolehubah
@@ -230,7 +231,7 @@ class Borang101
 				. ',( SELECT concat_ws("-",keterangan,kod_produk) '
 				//. ', (SELECT CONCAT("<abbr title=\"", keterangan, "\">", kod_produk, "</abbr>") '
 				. 'FROM ' . $kodProduk . ' b WHERE b.kod_produk='
-				. 'SUBSTRING(F30' . $baris . ',-10) LIMIT 1) as nama_produk'	
+				. 'SUBSTRING(F30' . $baris . ',-10) LIMIT 1) as nama_produk'
 				. $WHERE . ')';
 		}# tamat ulang $kira:$cariID dalam kod_produk['q14_2010']
 
@@ -263,7 +264,7 @@ class Borang101
 		return $query;
 
 	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////
+#----------------------------------------------------------------------------------------------------------------------
 	public static function binaKodInput($kodProduk, $myTable, $cari)
 	{
 		# set pembolehubah
@@ -275,7 +276,7 @@ class Borang101
 		$WHERE = " FROM `$myTable` "
 			. "WHERE $cariMedan like '$cariID%' "
 			. "AND thn BETWEEN $thnMula and $thnAkhir";
-			 
+
 		# mula cari $kira:$cariID dalam kod_produk['q15_2010']
 		for ($kira = 51;$kira < 68; $kira++)
 		{	$baris = kira3($kira, 2);
@@ -298,20 +299,20 @@ class Borang101
 			. 'F2381 as `F23(RM)`,"" as F24'
 			. ',F2581 as Commodity,"" as nama_produk'
 			. $WHERE . ')';
-		
+
 		# item F2282 dalam jadual q15_2010
 		$medan[] = '(' . $SELECT
 			. ',"Jumlah" as F22,F2382 as `F23(RM)`,"" as F24'
 			. ',"" as Commodity,"" as nama_produk'
 			. $WHERE . ')';
-		
+
 		# papar sql
 		$query = implode("\rUNION\r",$medan);
 		//echo '<hr><pre>$sql input='; print_r($query) . '</pre>';
 		return $query;
-			 
+
 	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////	
+#----------------------------------------------------------------------------------------------------------------------
 # borang Output
 	public static function borangOutput($kodProduk, $myTable, $cari)
 	{
@@ -369,14 +370,14 @@ class Borang101
 				. ',"" as `kodProduk`,"" as produk'
 				. $WHERE . ')';
 		//*/
-		
+
 		# papar sql
 		$query = implode("\rUNION\r",$medan);
 		//echo '<hr><pre>$sql output='; print_r($query) . '</pre><hr>';
 		return $query;
 
 	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////
+#----------------------------------------------------------------------------------------------------------------------
 	public static function borangInput($kodProduk, $myTable, $cari)
 	{
 		# set pembolehubah
@@ -388,7 +389,7 @@ class Borang101
 		$WHERE = " FROM `$myTable` "
 			. "WHERE $cariMedan like '$cariID%' "
 			. "AND thn BETWEEN $thnMula and $thnAkhir";
-			 
+
 		# mula cari $kira:$cariID dalam kod_produk['q15_2010']
 		for ($kira = 51;$kira < 68; $kira++)
 		{	$baris = kira3($kira, 2);
@@ -412,21 +413,21 @@ class Borang101
 			. 'concat_ws("-",F2381,F2382) as `F23`,"" as `kodUnit`'
 			. ',F2581 as kodProduk,"" as nama_produk'
 			. $WHERE . ')';
-		
+
 		/* item F2282 dalam jadual q15_2010
 		$medan[] = '(' . $SELECT
 			. '"Jumlah" as F22,F2382 as `F23`,"" as Jum,"" as `kodUnit`'
 			. ',"" as kodProduk,"" as nama_produk'
 			. $WHERE . ')';
 		//*/
-		
+
 		# papar sql
 		$query = implode("\rUNION\r",$medan);
 		//echo '<hr><pre>$sql input='; print_r($query) . '</pre>';
 		return $query;
-			 
+
 	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////	
+#----------------------------------------------------------------------------------------------------------------------
 	public static function inputAset($cari)
 	{
 		# jenis harta
@@ -457,10 +458,10 @@ class Borang101
 			7=>'Susut nilai',
 			8=>'Akhir', # 'Nilai buku pada akhir tahun'
 			9=>'Sewa');
-		
+
 		# semak data
 		//echo '<pre>Borang::binaAset($cari)='; print_r($cari) . '</pre><hr>';
-		
+
 		# mula cari 
 		$kira = 0;
 		foreach ($jenisHarta as $key => $jenis)
@@ -499,14 +500,14 @@ class Borang101
 			}
 			$kira++;
 		}
-		
+
 		//echo '<pre>$jum='; print_r($jum) . '</pre><hr>';
 		//echo '<pre>Borang::binaAset($aset)='; print_r($aset) . '</pre><hr>';
 		return $aset;
 	 
 	
 	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////	
+#----------------------------------------------------------------------------------------------------------------------
 	public static function inputAsetAm($cari)
 	{
 		# jenis harta
@@ -527,11 +528,11 @@ class Borang101
 			86=>'Rizab(F0032/M0086)');
 
 		$nilaiBuku= array(6=>'Pelupusan',7=>'Pembelian');
-			
+
 		# set pembolehubah awal
 		$jumAset_dulu = $jum['aset_dulu'];
 		$jumAset_kini = $jum['aset_kini'];
-		
+
 		# mula cari 
 		$kira = 0;
 		foreach ($jenisHarta as $key => $jenis)
@@ -562,13 +563,13 @@ class Borang101
 				}
 			}
 			$kira++;
-		}		
+		}
 		//echo '<pre>$jum='; print_r($jum) . '</pre><hr>';
 		//echo '<pre>Borang::binaAsetAm($aset)='; print_r($aset) . '</pre><hr>';
 		return $aset;
 		
 	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////	
+#----------------------------------------------------------------------------------------------------------------------
 	public static function binaAset($cari, $kp)
 	{
 		# setkan tatasusunan
@@ -608,7 +609,7 @@ class Borang101
 		//echo '<pre>Borang::binaAset($aset)='; print_r($aset); echo '</pre><hr>';
 		return $aset;	 
 	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////	
+#----------------------------------------------------------------------------------------------------------------------
 	public static function binaAsetAm($cari, $jum)
 	{
 		# jenis harta
@@ -629,7 +630,7 @@ class Borang101
 			86=>'Rizab(F0032/M0086)');
 
 		$nilaiBuku= array(6=>'Pelupusan',7=>'Pembelian');
-			
+
 		# set pembolehubah awal
 		$jumAset_dulu = $jum['aset_dulu'];
 		$jumAset_kini = $jum['aset_kini'];
@@ -664,13 +665,13 @@ class Borang101
 				}
 			}
 			$kira++;
-		}		
+		}
 		//echo '<pre>$jum='; print_r($jum) . '</pre><hr>';
 		//echo '<pre>Borang::binaAsetAm($aset)='; print_r($aset) . '</pre><hr>';
 		return $aset;
 
 	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////	
+#----------------------------------------------------------------------------------------------------------------------
 	public static function analisaAset($cari, $jum)
 	{
 		# jenis harta
@@ -701,7 +702,7 @@ class Borang101
 			7=>'Susut nilai',
 			8=>'Akhir', # 'Nilai buku pada akhir tahun'
 			9=>'Sewa');
-		
+
 		//$cari['F7285'] = '123456'; $cari['F9985'] = '123456';
 		//echo '<pre>Borang::binaAsetAm($aset)='; print_r($cari) . '</pre><hr>';
 		# set pembolehubah awal
@@ -771,7 +772,7 @@ class Borang101
 					$jumlahAset =	
 						($jum[$kira]['F01'.$key] 
 						+ $jum[$kira]['F02'.$key]
-						+ $jum[$kira]['F03'.$key] 
+						+ $jum[$kira]['F03'.$key]
 						+ $jum[$kira]['F04'.$key]
 						- $jum[$kira]['F05'.$key] 
 						+( $jum[$kira]['F06'.$key]
@@ -798,7 +799,7 @@ class Borang101
 					# mula kiraan bandingan antara 2 tahun
 					$harta = isset($cari[$baris]) ?	$cari[$baris] : 0;
 					//echo '<hr>' . $baris . '=' . $harta . '|' . $modal;
-					$kiraHarta = ($harta==0)? 0 : number_format($harta,0,'.',',');				
+					$kiraHarta = ($harta==0)? 0 : number_format($harta,0,'.',',');
 					$peratusHarta = ($dulu==0)? 0 : number_format(
 						(($harta / $dulu) * 100),4,'.',',') . '%';
 					$anggaran = ($dulu==0)? 0 : number_format(
@@ -818,7 +819,7 @@ class Borang101
 		return $aset;
 	 
 	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////	
+#----------------------------------------------------------------------------------------------------------------------
 	public static function analisaAsetAm($cari, $jum)
 	{
 		# jenis harta
@@ -888,10 +889,10 @@ class Borang101
 							isset($cari[$baris]) ?	$cari[$baris] : 0;
 					else:
 						$aset[$kira]['05:Lupus_Dulu'] = 
-							isset($cari[$baris]) ?	$cari[$baris] : 0;				
+							isset($cari[$baris]) ?	$cari[$baris] : 0;
 						$aset[$kira]['05:Lupus_Anggar'] = 'x';
 						$aset[$kira]['02:Beli_Anggar']  = 'x';
-					endif;					
+					endif;
 				}
 			}
 			$kira++;
@@ -910,7 +911,7 @@ class Borang101
 		return $aset;
 
 	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////
+#----------------------------------------------------------------------------------------------------------------------
 	public static function binaStaf($jadual, $staf, $cari, $jum = null)
 	{		
 		$bangsaStaf = array(1=>'Melayu', 2=>'Iban',
@@ -946,9 +947,9 @@ class Borang101
 		
 		return $pekerja;
 	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////
+#----------------------------------------------------------------------------------------------------------------------
 	public static function dataStaf($keyJantina, $jadual, $staf, $cari)
-	{		
+	{
 		$bangsaStaf = array(1=>'Melayu', 2=>'Iban',
 			3=>'Bidayuh', 4=>'Bajau',
 			5=>'Kadazan', 6=>'Bumiputra Lain',
@@ -983,9 +984,9 @@ class Borang101
 		
 		return $pekerja;
 	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////
+#----------------------------------------------------------------------------------------------------------------------
 	public static function dataPekerja2($jadualStaf,$jenisKerja,$prosesID)
-	{		
+	{
 		$bangsaStaf = array(1=>'Melayu', 2=>'Iban',
 			3=>'Bidayuh', 4=>'Bajau',
 			5=>'Kadazan', 6=>'Bumiputra Lain',
@@ -1075,7 +1076,7 @@ class Borang101
 	
 	return $pekerja;
 	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////
+#----------------------------------------------------------------------------------------------------------------------
 	public static function borangAmStaf($prosesID)
 	{
 		//echo '1121:<pre>Borang::borangAmStaf($prosesID)='; print_r($prosesID) . '</pre><hr>';
@@ -1112,7 +1113,7 @@ class Borang101
 		$sijil[] = 'Lain-lain';
 		$sijil[] = 'Pati';
 		$sijil[] = 'Jumlah Bangsa';
-		
+
 		for ($kira = 1; $kira <= 18; $kira++):
 			$kiraan = kira3($kira,2);
 			#L	Msia|L	Pati|L	JumL|L14	Gaji|L18	W	Msia|W	Pati|W	JumW|W14	Gaji|W18
@@ -1120,7 +1121,7 @@ class Borang101
 				$L = $kiraan;
 				$P = $kiraan+1;
 				$staf[] = array(
-					'kategori' => ($kategori[$kira-1]), 
+					'kategori' => ($kategori[$kira-1]),
 					'L' => $kiraan,
 					'Msia|L' => (isset($prosesID[0]['F10'.$L]) ? $prosesID[0]['F10'.$L] : null),
 					'Pati|L' => (isset($prosesID[0]['F11'.$L]) ? $prosesID[0]['F11'.$L] : null),
@@ -1141,10 +1142,9 @@ class Borang101
 		//echo '<pre>$staf:'; print_r($staf) . '</pre>';
 		return $staf;
 	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////
 ##--------------------------------------------------------------------------------------------------------------------
 	public static function dataPekerja2016($cariL, $cariP, $kp, $cariSijil)
-	{		
+	{
 		$bangsaStaf = array(1=>'Melayu', 2=>'Iban',
 			3=>'Bidayuh', 4=>'Bajau',
 			5=>'Kadazan', 6=>'Bumiputra Lain',
@@ -1382,9 +1382,8 @@ class Borang101
 		
 		//echo '<pre>Borang::borangStaf($pekerja)='; print_r($pekerja) . '</pre><hr>';
 		return $pekerja;
-		
+
 	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////
 #####################################################################################################
 ## soalan tambahan kp101-tanaman
 ##////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1411,7 +1410,7 @@ class Borang101
 			foreach ($nilaiBuku as $key2 => $tajuk):
 				$lajur = kira3($key2, 2);
 				$baris = 'F' . $lajur . $key;
-				
+
 				if ($lajur=='08')
 					$data = Borang101::kiraHarta04b($jum, $kira, $key, $cari, $baris);
 				else
@@ -1451,7 +1450,7 @@ class Borang101
 			foreach ($nilaiBuku as $key2 => $tajuk):
 				$lajur = kira3($key2, 2);
 				$baris = 'F' . $lajur . $key;
-				
+
 				if ($lajur=='08')
 					$data = Borang101::kiraHarta04b($jum, $kira, $key, $cari, $baris);
 				else
@@ -1468,7 +1467,7 @@ class Borang101
 			else $calc++;
 		endforeach; // foreach ($jenisHartaBiologi as $key => $jenis):
 		//echo '<pre>$hartaTanaman='; print_r($hartaTanaman); echo '</pre><hr>';
-		
+
 		return $hartaTanaman;
 	}
 	
@@ -1506,7 +1505,7 @@ class Borang101
 			84=>'Muhibah',
 			86=>'Lain2 harta', 
 			99=>'Jumlah harta');
-			
+
 		$jenisHartaTanaman = array(
 			71=>'Tanah',
 			72=>'Tmpt Kediaman',
@@ -1525,7 +1524,7 @@ class Borang101
 			84=>'Muhibah',
 			86=>'Lain2 harta', 
 			88=>'Jumlah harta tanaman');
-			
+
 		$jenisHartaPokok = array(	
 			60=>'4.3 Kelapa Sawit Matang - 60', # 6 0 1 2 6 1 0 1 0 0 1
 			61=>'4.3 Kelapa Sawit Tak Matang - 61', # 6 0 1 2 6 1 0 1 0 0 1
@@ -1543,7 +1542,7 @@ class Borang101
 			95=>'4.8 Tanaman Lain2 Tak Matang - 95',
 			98=>'4.9 Jumlah Tanaman',
 			99=>'Jumlah harta semua');
-		
+
 		$nilaiBuku = array(1=>'Awal', # 'Nilai buku pada awal tahun'
 			2=>'Baru', # 'Pembelian baru termasuk import',
 			3=>'Terpakai', # 'Pembelian aset terpakai',
@@ -1562,13 +1561,13 @@ class Borang101
 			7=>'Susut nilai',
 			8=>'Akhir', # 'Nilai buku pada akhir tahun'
 			9=>'Kod Produk');
-		
+
 		$dlmBina = array('F7285'=>'Tmpt Kediaman','F7385'=>'Bukan Tmpt Kediaman',
 			'F7485'=>'Binaan lain','F8185'=>'Jentera dan kelengkapan',
 			'F8685'=>'Lain2 harta','F9985'=>'Jumlah harta');
 		$kerjaDlmBinaan = array('Tmpt Kediaman','Bukan Tmpt Kediaman',
 				'Binaan lain','Jentera dan kelengkapan','Lain2 harta','Jumlah');
-				
+
 		return array($jenisHartaBenda, $jenisHartaTanaman, $jenisHartaPokok,
 			$nilaiBuku, $nilaiBukuTanaman,
 			$dlmBina, $kerjaDlmBinaan);
@@ -1603,7 +1602,7 @@ class Borang101
 			7=>'Susut nilai',
 			8=>'Akhir', # 'Nilai buku pada akhir tahun'
 			9=>'Kod Produk');
-		
+
 		# mula cari
 		$calc = $kira = 0;
 		$hartaTanaman = $jum = $jumlah = array();
@@ -1611,7 +1610,7 @@ class Borang101
 			foreach ($nilaiBuku as $key2 => $tajuk):
 				$lajur = kira3($key2, 2);
 				$baris = 'F' . $lajur . $key;
-				
+
 				if ($lajur=='08')
 					$data = Borang101::kiraHarta04b($jum, $kira, $key, $cari, $baris);
 				else
@@ -1620,14 +1619,14 @@ class Borang101
 					$t0["$tajuk - $key2"] =  !empty($data) ? $data : '-';
 					$jum[$kira][$baris] = !empty($data) ? $data : '-';
 					$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';
-				
+
 			endforeach;
 			# buang data kosong
 			if (array_sum($jumlah[$calc]['F']) != 0)
 				$hartaTanaman[$kira++] = array_merge(
 					array('Kerja Dlm Pelaksanaan' => '','nama' => $jenis, 'kod' => $key), 
 					$t0);
-			else $calc++; 					
+			else $calc++;
 		endforeach; // foreach ($jenisHartaBiologi as $key => $jenis):
 		
 		//echo '<pre>$hartaTanaman='; print_r($hartaTanaman); echo '</pre><hr>';
@@ -1645,7 +1644,7 @@ class Borang101
 				- $jum[$kira]['F05'.$key] 
 				+ ( $jum[$kira]['F06'.$key] 
 				) - $jum[$kira]['F07'.$key] );
-					
+
 			$akhir = (isset($cari[$baris]) ? $cari[$baris] : '0');
 			$data = ($akhir != $jumlahAset) ? $jumlahAset : $akhir; //*/
 		
@@ -1681,9 +1680,9 @@ class Borang101
 			foreach ($nilaiBuku as $key2 => $tajuk):
 				$lajur = kira3($key2, 2);
 				$baris = 'F' . $lajur . $key;
-				
+
 				$data = isset($cari[$baris]) ? $cari[$baris] : '0';
-				
+
 				$t0["$tajuk - $key2"] =  !empty($data) ? $data : '-';				
 				$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';		
 			endforeach;
@@ -1692,12 +1691,12 @@ class Borang101
 				$tanaman[$kira++] = array_merge(
 					array('nama' => $jenis, 'kod' => $key), 
 					$t0);
-			else $calc++; 					
+			else $calc++;
 		endforeach; // foreach ($jenisTanaman as $key => $jenis):
-					
+
 		//echo '<pre>$jum='; print_r($jum) . '</pre><hr>';
 		//echo '<pre>Borang::binaTanaman($tanaman)='; print_r($tanaman) . '</pre><hr>';
-		return $tanaman;		
+		return $tanaman;
 	}
 ##////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static function bina12($cari, $kp)
@@ -1715,7 +1714,7 @@ class Borang101
 			32=>'Nilai',
 			33=>'Kod unit',
 			34=>'Kod produk');
-		
+
 		# mula cari 
 		$calc = $kira = 0; 
 		$tanaman = array();
@@ -1724,9 +1723,9 @@ class Borang101
 			foreach ($nilaiBuku as $key2 => $tajuk):
 				$lajur = kira3($key2, 2);
 				$baris = 'F' . $lajur . $key;
-				
+
 				$data = isset($cari[$baris]) ? $cari[$baris] : '0';
-				
+
 				$t0["$tajuk - $key2"] =  !empty($data) ? $data : '-';				
 				$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';		
 			endforeach;
@@ -1735,9 +1734,9 @@ class Borang101
 				$tanaman[$kira++] = array_merge(
 					array('nama' => $jenis, 'kod' => $key), 
 					$t0);
-			else $calc++; 					
+			else $calc++;
 		endforeach; // foreach ($jenisTanaman as $key => $jenis):
-		
+
 		//echo '<pre>$jum='; print_r($jum) . '</pre><hr>';
 		//echo '<pre>Borang::binaTanaman($tanaman)='; print_r($tanaman) . '</pre><hr>';
 		return $tanaman;		
@@ -1774,7 +1773,7 @@ class Borang101
 				. $WHERE . ')';
 		}// tamat ulang $kira:$cariID dalam kod_produk['q14_2010']
 		//*/
-		
+
 		# mula cari A-Jumlah
 			$baris = 47;
 			$medan[] = "\r(" . $SELECT 
@@ -1782,7 +1781,7 @@ class Borang101
 				. ",\r " . '"Jumlah" as `kodProduk`, "" as nama_produk '
 				. $WHERE . ')';
 		//*/
-		
+
 		# papar sql
 		$query = implode("\rUNION\r",$medan);
 		//echo '<hr><pre>$sql output='; print_r(htmlentities($query)); echo '</pre><hr>';
@@ -1932,7 +1931,7 @@ class Borang101
 				. ",\r F37$baris as `$F3701(RM)`,F38$baris as `$F3801(RM)`"
 				. ",\r " . '"" as `$F2901`, "" as `F3101`, "" as nama_produk '
 				. $WHERE . ')'; //*/
-		
+
 		# papar sql
 		$query = implode("\rUNION\r",$medan);
 		//echo '<hr><pre>$sql output='; print_r(htmlentities($query)); echo '</pre><hr>';
@@ -2023,7 +2022,7 @@ class Borang101
 			22=>'',23=>'',24=>'',25=>'',26=>'',27=>'',28=>'',29=>'',30=>'',31=>'',32=>'',
 			33=>'JUMLAH **'
 		);
-			
+
 		$nilaiBuku = array(
 			30=>'Luas(hektar)',
 			//=>'Unit',
@@ -2050,7 +2049,7 @@ class Borang101
 					(isset($cariB[$baris]) ? $cariB[$baris] : '0')
 					:(isset($cariA[$baris]) ? $cariA[$baris] : '0');//*/
 				$data = !empty($data) ? $data : '0';
-				
+
 				$t0["$tajuk - $key2"] =  !empty($data) ? $data : '-';				
 				$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';		
 			endforeach;
@@ -2059,7 +2058,7 @@ class Borang101
 				$tanaman[$kira++] = array_merge(
 					array('nama' => $jenis, 'kod' => $key), 
 					$t0);
-			else $calc++; 					
+			else $calc++;
 		endforeach; // foreach ($jenisTanaman as $key => $jenis):
 
 		//echo '<pre>$jum='; print_r($jum); echo '</pre><hr>';
@@ -2069,7 +2068,7 @@ class Borang101
 		
 		# pulangkan nilai
 		//return (!isset($cariA) && !isset($cariB)) ? array() : $tanaman;
-		return $tanaman;		
+		return $tanaman;
 	}
 ##////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static function bina13a($cari, $kp)
@@ -2113,7 +2112,7 @@ class Borang101
 			{
 				$lajur = kira3($key2, 2);
 				$baris = 'F' . $lajur . $key;
-				
+
 				$data = isset($cari[$baris]) ? $cari[$baris] : '_';
 
 				$tanaman[$kira]["$modal - $key2"] =  !empty($data) ? $data : '-';
@@ -2168,7 +2167,7 @@ class Borang101
 			{
 				$lajur = kira3($key2, 2);
 				$baris = 'F' . $lajur . $key;
-				
+
 				$data = isset($cari[$baris]) ? $cari[$baris] : '_';
 
 				$tanaman[$kira]["$modal - $key2"] =  !empty($data) ? $data : '-';
@@ -2190,17 +2189,17 @@ class Borang101
 	{
 		# jenis harta
 		$jenisTanaman = array(
-			'01'=>'Baja Urea / Fertilizer Urea- Tan Metrik', //	7	7 2 0 1 2 1 0 2 0 0 1
-			'02'=>'Amonia sulfat / Ammonium sulphate - Tan Metrik', // 7	2 0 1 2 1 0 3 0 0 1
-			'03'=>'Kalsium nitrat - amonia nitrat - Kg', // 7	6 2 0 1 2 1 0 5 0 0 1 
-			'04'=>'Racun (rumpai, serangga / kulat, kimia dsb)', // 4	4  2 0 2 1 0 0 6 0 0 1
-			'05'=>'Lain-lain (nyatakan)', // 
-			'06'=>'', // 
-			'07'=>'NK MXXTURE - 10.5 ml/ton', // 
-			'08'=>'PMG - ml/ton', // 
-			'09'=>'ORGANIC - ml/ton', // 
+			'01'=>'Baja Urea / Fertilizer Urea- Tan Metrik', #	7	7 2 0 1 2 1 0 2 0 0 1
+			'02'=>'Amonia sulfat / Ammonium sulphate - Tan Metrik', # 7	2 0 1 2 1 0 3 0 0 1
+			'03'=>'Kalsium nitrat - amonia nitrat - Kg', # 7	6 2 0 1 2 1 0 5 0 0 1 
+			'04'=>'Racun (rumpai, serangga / kulat, kimia dsb)', # 4	4  2 0 2 1 0 0 6 0 0 1
+			'05'=>'', # 'Lain-lain (nyatakan)', 
+			'06'=>'',
+			'07'=>'NK MXXTURE - 10.5 ml/ton', 
+			'08'=>'PMG - ml/ton',
+			'09'=>'ORGANIC - ml/ton',
 			'10'=>'',11=>'',12=>'',13=>'',14=>'',
-			'15'=>'Nilai bahan lain yang digunakan ', //9 9 9 9 8
+			'15'=>'Nilai bahan lain yang digunakan ', # 9 9 9 9 8
 			'20'=>'Jumlah nilai bahan yang digunakan ',
 		);
 
@@ -2222,20 +2221,20 @@ class Borang101
 				
 				$data = isset($cari[$baris]) ? $cari[$baris] : '0';
 				
-				$t0["$tajuk - $key2"] =  !empty($data) ? $data : '-';				
-				$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';		
+				$t0["$tajuk - $key2"] =  !empty($data) ? $data : '-';
+				$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';
 			endforeach;
 			# buang data kosong
 			if (array_sum($jumlah[$calc]['F']) != 0)
 				$tanaman[$kira++] = array_merge(
 					array('nama' => $jenis, 'kod' => $key), 
 					$t0);
-			else $calc++; 					
+			else $calc++;
 		endforeach; // foreach ($jenisTanaman as $key => $jenis):
 		
 		//echo '<pre>bina14($cari,'.$kp.')='; print_r($cari); echo '</pre><hr>';
 		//echo '<pre>$jum='; print_r($jum); echo '</pre><hr>';
-		//echo '<pre>Borang::binaTanaman($tanaman)='; print_r($tanaman) . '</pre><hr>';			
+		//echo '<pre>Borang::binaTanaman($tanaman)='; print_r($tanaman) . '</pre><hr>';
 
 		# pulangkan nilai
 		return (!isset($cari)) ? array() : $tanaman;
@@ -2284,15 +2283,15 @@ class Borang101
 				
 				$data = isset($cari[$baris]) ? $cari[$baris] : '0';
 				
-				$t0["$tajuk - $key2"] =  !empty($data) ? $data : '-';				
-				$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';		
+				$t0["$tajuk - $key2"] =  !empty($data) ? $data : '-';
+				$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';
 			endforeach;
 			# buang data kosong
 			if (array_sum($jumlah[$calc]['F']) != 0)
 				$tanaman[$kira++] = array_merge(
 					array('nama' => $jenis, 'kod' => $key), 
 					$t0);
-			else $calc++; 					
+			else $calc++;
 		endforeach; // foreach ($jenisTanaman as $key => $jenis):
 		
 		//echo '<pre>$jum='; print_r($jum) . '</pre><hr>';
@@ -2303,5 +2302,5 @@ class Borang101
 		return (!isset($cari)) ? array() : $tanaman;
 	}
 ##////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#####################################################################################################
+####################################################################################################################################
 }

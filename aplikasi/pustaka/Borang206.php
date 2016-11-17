@@ -61,29 +61,23 @@ class Borang206
 		$kira=0;
 		
 		# bina tatasusunan
-		foreach ($jenisKerja as $key => $kategori):
+		foreach ($jenisKerja as $kerja => $kategori):
 			$pekerja[$kira]['nama'] = $kategori;
 			$data = null; $data2 = null;
-			foreach ($bangsaStaf as $key1 => $bangsa):
+			foreach ($bangsaStaf as $keyL => $bangsa):
 			# set pembolehubah asas lelaki
-				$kunci = pilihKeyData($key,$keyLelaki,$lelaki);
-				$lajur = kira3($key1, 2); 
-				$baris = kira3($kunci, 2); 
-				$medan  = 'F' . $lajur . $baris;
-				$data = isset($cariL[$medan]) ?	$cariL[$medan] : '_';
+				list($kunci,$lajur,$data) = 
+					Borang206::cariLajurData($kerja,$keyL,$keyLelaki,$lelaki,$cariL,'_');
 			# mula masuk data				
 				$pekerja[$kira]['L'] = $kunci;
 				$pekerja[$kira][(in_array($bangsa,$pilihBangsa) ) ?
 					"$bangsa|L$lajur": "L$lajur"] =
 					 !empty($data) ? $data : '-';
 			endforeach;
-			foreach ($bangsaStaf as $key2 => $bangsa):
-			# set pembolehubah asas perempuan
-				$kunci2 = pilihKeyData($key,$keyWanita,$wanita);
-				$lajur2 = kira3($key2, 2); 
-				$baris2 = kira3($kunci2, 2);
-				$medan2 = 'F' . $lajur2 . $baris2;
-				$data2  = isset($cariW[$medan2]) ?	$cariW[$medan2] : '_';
+			foreach ($bangsaStaf as $keyW => $bangsa):
+			# set pembolehubah asas wanita	
+				list($kunci2,$lajur2,$data2) = 
+					Borang206::cariLajurData($kerja,$keyW,$keyWanita,$wanita,$cariW,'_');
 			# mula masuk data
 				$pekerja[$kira]['W'] = $kunci2;
 				$pekerja[$kira][(in_array($bangsa,$pilihBangsa) ) ?
@@ -96,6 +90,52 @@ class Borang206
 
 		//echo '<pre>pekerja ->'; print_r($pekerja); echo '</pre>';
 		return $pekerja; # pulangkan nilai
+	}
+##--------------------------------------------------------------------------------------------------------------------
+	public static function cariLajurData($kerja,$keyJ,$keyJantina,$jantina,$cari,$ruang='_')
+	{
+		# set pembolehubah asas lelaki
+		$kunci = pilihKeyData($kerja,$keyJantina,$jantina);
+		$lajur = kira3($keyJ, 2); 
+		$baris = kira3($kunci, 2); 
+		$medan  = 'F' . $lajur . $baris;
+		$data = isset($cari[$medan]) ?	$cari[$medan] : $ruang;
+
+		# debug
+		/* contoh panggil fungsi untuk tatasusunan
+				list($kunci,$lajur,$data) = 
+					Borang206::cariLajurData($kerja,$keyL,$keyLelaki,$lelaki,$cariL);
+				list($kunci2,$lajur2,$data2) = 
+					Borang206::cariLajurData($kerja,$keyW,$keyWanita,$wanita,$cariW);
+		*/
+
+		return array($kunci,$lajur,$data); # pulangkan nilai
+	}
+##--------------------------------------------------------------------------------------------------------------------
+	public static function kiraDataStaf($lajur,$data,$Warga,$Pati,$jumStaf,$Gaji)
+	{
+			if(in_array($lajur, array('01','02','03','04','05','06','07','08','09') )):
+				$Warga += $data; 
+			elseif(in_array($lajur, array('10','11','12','13') )):
+				$Pati += $data; 
+			elseif(in_array($lajur, array('14') )):
+				$jumStaf = !empty($data) ? $data : '-';
+			elseif(in_array($lajur,array('18'))):
+				$Gaji = !empty($data) ? $data : '-';
+			endif;
+
+		// $pekerja[$kira]['Bumi'] => array('01','02','03','04','05','06')
+		// $pekerja[$kira]['XBumi'] => array('07','08','09') 
+
+		# debug
+		/* contoh panggil fungsi untuk tatasusunan
+				list($WargaL,$PatiL,$jumStafL,$GajiL) = 
+					Borang206::kiraDataStaf($lajur,$data,$WargaL,$PatiL,$jumStafL,$GajiL)
+				list($WargaW,$PatiW,$jumStafW,$GajiW) = 
+					Borang206::kiraDataStaf($lajur2,$data2,$WargaW,$PatiW,$jumStafW,$GajiW);
+		*/
+
+		return array($Warga,$Pati,$jumStaf,$Gaji); # pulangkan nilai
 	}
 ##--------------------------------------------------------------------------------------------------------------------
 	public static function tatasusunanPekerja()
@@ -149,7 +189,7 @@ class Borang206
 		10-13 - Pati (in_array($lajur, array('10','11','12','13') ))
 		14 - Jumlah
 		30 - Purata
-		
+
 		list($bangsaStaf, $jenisKerja, 
 		$lelaki,$keyLelaki, 
 		$wanita, $keyWanita) = Borang206::tatasusunanPekerja();
@@ -160,77 +200,49 @@ class Borang206
 		$lelaki,$keyLelaki, $wanita, $keyWanita);
 	}
 ##--------------------------------------------------------------------------------------------------------------------
-	public static function dataPekerja2016($cariL, $cariP, $kp)
+	public static function dataPekerja2016($cariL, $cariW, $kp)
 	{
 		# setkan tatasusunan 
 		list($bangsaStaf, $jenisKerja, $lelaki,$keyLelaki, 
 		$wanita, $keyWanita) = Borang206::tatasusunanPekerja();
 
-		# staf dan gaji
-		$cari = array_merge($cariL,$cariP);
-		$msia = $pati = $mengira = $kira = 0;
-		//echo '<pre>$jenisKerja ->'; print_r($jenisKerja); echo '</pre>';
-		foreach ($jenisKerja as $key => $kategori):
+		$kira = 0; //echo '<pre>$jenisKerja ->'; print_r($jenisKerja); echo '</pre>';
+		
+		# bina tatasusunan
+		foreach ($jenisKerja as $kerja => $kategori):
 			$data = null; $data2 = null;
-			$WargaL = $PatiL = $jumStafL = $gajiL = 0;
-			foreach ($bangsaStaf as $key1 => $bangsa):
-			//echo "<br>\$key1 = $key1 | \$bangsa = $bangsa";
-			# set pembolehubah asas
-				$lajur = kira3($key1, 2); 
-				$kunci = pilihKeyData($key,$keyLelaki,$lelaki);
-				$baris = kira3($kunci, 2); 
-				$medan = 'F' . $lajur . $baris; 
-				$data = isset($cari[$medan]) ? $cari[$medan] : '&nbsp;';
-			# tambah jika data wujud 
-				if(in_array($lajur, array('01','02','03','04','05','06','07','08','09') )):
-					$WargaL += $data; 
-				elseif(in_array($lajur, array('10','11','12','13') )):
-					$PatiL += $data; 
-				elseif(in_array($lajur, array('14') )):
-					$jumStafL = !empty($data) ? $data : '-';
-				elseif(in_array($lajur,array('18'))):
-					$gajiL = !empty($data) ? $data : '-';
-				endif;
+			# set pembolehubah asas lelaki
+			$wargaL = $patiL = $jumStafL = $gajiL = 0;
+			foreach ($bangsaStaf as $keyL => $bangsa):
+				list($kunci,$lajur,$data) = 
+					Borang206::cariLajurData($kerja,$keyL,$keyLelaki,$lelaki,$cariL,'&nbsp;');
+				list($wargaL,$patiL,$jumStafL,$gajiL) = # tambah jika data wujud 
+					Borang206::kiraDataStaf($lajur,$data,$wargaL,$patiL,$jumStafL,$gajiL);
 			endforeach;
-			# perempuan
-			$WargaP = $PatiP = $jumStafP = $gajiP = 0;
-			foreach ($bangsaStaf as $key2 => $bangsa):
-			# set pembolehubah asas
-				$kunci2 = pilihKeyData($key,$keyWanita,$wanita);
-				$lajur2 = kira3($key2, 2); 
-				$baris2 = kira3($kunci2, 2); 		
-				$medan2 = 'F' . $lajur2 . $baris2;
-				$data2  = isset($cari[$medan2]) ? $cari[$medan2] : '&nbsp;';
-			# tambah jika data wujud 
-				if(in_array($lajur2, array('01','02','03','04','05','06','07','08','09') )):
-					$WargaP += $data2; 
-				elseif(in_array($lajur2, array('10','11','12','13') )):
-					$PatiP += $data2; 
-				elseif(in_array($lajur2, array('14') )):
-					$jumStafP = !empty($data2) ? $data2 : '-';
-				elseif(in_array($lajur2, array('18') )):
-					$gajiP = !empty($data2) ? $data2 : '-';
-				endif;
+			# set pembolehubah asas wanita
+			$wargaW = $patiW = $jumStafW = $gajiW = 0;
+			foreach ($bangsaStaf as $keyW => $bangsa):
+				list($kunci2,$lajur2,$data2) = 
+					Borang206::cariLajurData($kerja,$keyW,$keyWanita,$wanita,$cariW,'&nbsp;');
+				list($wargaW,$patiW,$jumStafW,$gajiW) = # tambah jika data wujud 
+					Borang206::kiraDataStaf($lajur2,$data2,$wargaW,$patiW,$jumStafW,$gajiW);			
 			endforeach;
 			# ubahsuai data Lelaki
-				//echo "<br>\$key = $key| \$kategori = $kategori";
 				$pekerja[$kira]['nama'] = $kategori;
 				$pekerja[$kira]['L'] = $kunci;
-				$pekerja[$kira]['WargaL'] = ($WargaL==0) ? '' : $WargaL;
-				$pekerja[$kira]['PatiL'] = ($PatiL==0) ? '' : $PatiL;
+				$pekerja[$kira]['WargaL'] = ($wargaL==0) ? '' : $wargaL;
+				$pekerja[$kira]['PatiL'] = ($patiL==0) ? '' : $patiL;
 				$pekerja[$kira]['Jum|L14'] = $jumStafL;
 				$pekerja[$kira]['Gaji|L18']  = $gajiL;
 			# ubahsuai data Perempuan
 				$pekerja[$kira]['W'] = $kunci2;
-				$pekerja[$kira]['WargaP'] = ($WargaP==0) ? '' : $WargaP;
-				$pekerja[$kira]['PatiP'] = ($PatiP==0) ? '' : $PatiP;
-				$pekerja[$kira]['Jum|P14'] = $jumStafP;
-				$pekerja[$kira]['Gaji|P18'] = $gajiP;
+				$pekerja[$kira]['WargaW'] = ($wargaW==0) ? '' : $wargaW;
+				$pekerja[$kira]['PatiW'] = ($patiW==0) ? '' : $patiW;
+				$pekerja[$kira]['Jum|P14'] = $jumStafW;
+				$pekerja[$kira]['Gaji|P18'] = $gajiW;
 			$kira++; # tambah 
 		endforeach; //*/
 
-		// $pekerja[$kira]['Bumi'] => array('01','02','03','04','05','06')
-		// $pekerja[$kira]['XBumi'] => array('07','08','09') 
 		//echo '<pre>$jadualStaf ->'; print_r($jadualStaf); echo '</pre>';
 		//echo '<pre>pekerja dalam fungsi dataPekerja2015 ->'; print_r($pekerja); echo '</pre>';
 		return $pekerja; # pulangkan nilai

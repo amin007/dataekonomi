@@ -1,3 +1,7 @@
+<style type="text/css">
+.highlight { background-color: #cccccc; }
+</style>
+
 <pre>
 <h1 bgcolor="#ffffff">Senarai MISC</h1>Anda mencari <?php 
 //echo '$this->carian:'; print_r($this->carian);
@@ -7,13 +11,14 @@ foreach ($this->carian as $kunci => $nilai)
 	$cari .= ( count($nilai)==0 ) ?
 	$nilai : $nilai . ' | </font>';
 }
+$cari = substr_replace($cari, "<span class=\"highlight\">$nilai</span>", 0);
 echo "$cari\rJadual\r";
 //echo "\r" . '$this->cariNama:'; print_r($this->cariNama);
-foreach ($this->cariNama as $key => $value)
+/*foreach ($this->cariNama as $key => $value)
 {
 	echo ( count($value)==0 ) ?	$key . ' Kosong<br>' 
 	: $key . ' Ada <span class="badge">' . count($value) . '</span><br>';
-}
+}//*/
 ?>
 </pre>
 
@@ -39,14 +44,11 @@ for ($kira=0; $kira < count($row); $kira++)
 <th>#</th>
 <?php	foreach ( array_keys($row[$kira]) as $tajuk ) 
 		{ 
-			if ( !is_int($tajuk) ) 
-			{
 				if ($tajuk=='keterangan'):
 				?><th><?php echo $tajuk . '-' . $myTable ?></th>
 <?php			else:
 				?><th><?php echo $tajuk ?></th>
 <?php			endif;
-			} 
 		}
 ?></tr></thead>
 <?php	$printed_headers = true; 
@@ -56,7 +58,9 @@ for ($kira=0; $kira < count($row); $kira++)
 <td><?php echo $kira+1 ?></td>	
 <?php
 	foreach ( $row[$kira] as $key=>$data ) 
-	{	?><td><?php echo $data ?></td>
+	{	
+		//$papardata = ''; //strtr($data, $nilai, "<span class=\"highlight\">$nilai</span>|");
+		?><td><?php echo $data ?></td>
 <?php
 	} 
 ?>
@@ -136,8 +140,9 @@ for ($kira=0; $kira < count($row); $kira++)
 <td><?php echo $kira+1 ?></td>	
 <?php
 	foreach ( $row[$kira] as $key=>$data ) 
-	{		
-		?><td><?php echo $data ?></td>
+	{
+		$papardata = highlightTerms($data, $nilai);
+		?><td><?php echo $papardata ?></td>
 <?php
 	} 
 	?></tr></tbody>
@@ -157,4 +162,13 @@ for ($kira=0; $kira < count($row); $kira++)
 
 <?php
 }// if ($papar!='bawah')
-?>
+?><?php
+function highlightTerms($teks_panjang, $cari)
+{
+	## use preg_quote 
+	$cari = preg_quote($cari);
+	## Now we can  highlight the terms 
+	$teks_panjang = preg_replace("/\b($cari)\b/i", '<span class="highlight">' . $cari . '</span>', $teks_panjang);
+	## lastly, return text string with highlighted term in it
+	return $teks_panjang;
+}

@@ -42,7 +42,7 @@ class BorangPapar
 			<tr><td><?php //echo keterangan($key, $data, $myTable, $dataKeterangan) // <abbr title="">?>
 			<?php echo "\n" . $key; // </abbr>?></td>
 			<td align="right"><?php echo (in_array($key, $senaraiMedan)) ? 
-				$data : semakJenis($sv, $key, $data) ?></td>
+				$data : BorangPapar::semakJenis($sv, $key, $data) ?></td>
 			</tr><?php endforeach ?>
 			</table>
 			</td><?php
@@ -58,10 +58,10 @@ class BorangPapar
 			<td valign="top">
 			<table border="1" class="excel" id="example"><?php 
 			foreach ( $row[$kira] as $key=>$data ) : ?>
-			<tr><td><?php echo '<abbr title="' . keterangan($key, $data, $myTable, $dataKeterangan) . '">'; // <abbr title=""> ?>
+			<tr><td><?php echo '<abbr title="' . BorangPapar::keterangan($key, $data, $myTable, $dataKeterangan) . '">'; // <abbr title=""> ?>
 			<?php echo "\n" . $key . '</abbr>'; ?></td>
 			<td align="right"><?php echo (in_array($key, $senaraiMedan)) ? 
-				$data : semakJenis($sv, $key, $data) ?></td>
+				$data : BorangPapar::semakJenis($sv, $key, $data) ?></td>
 			</tr><?php endforeach ?>
 			</table>
 			</td><?php
@@ -87,7 +87,7 @@ class BorangPapar
 		<?php foreach ( $row[$kira] as $key=>$data ) :?>
 		<td align="right"><?php echo (in_array($key, 
 			array('thn','Estab','F3001','nama_produk','Commodity'))) ? 
-			$data : semakJenis($sv, $key, $data) ?></td>
+			$data : BorangPapar::semakJenis($sv, $key, $data) ?></td>
 		<?php endforeach ?>
 		</tr></tbody>
 		<?php 

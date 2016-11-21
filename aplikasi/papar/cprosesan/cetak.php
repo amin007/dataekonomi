@@ -71,7 +71,7 @@ foreach ($this->kesID as $myTable => $row)
 		{ # mula kalau baki 0
 			?><td valign="top" align="center">
 <span class="badge badge-success"><?php echo $myTable ?></span><?php
-			paparData($this->sv, $myTable, $row, 
+			BorangPapar::paparData($this->sv, $myTable, $row, 
 				$this->keterangan, $senaraiMedan);
 			echo "</td>\n</tr>\n<tr>";
 		} # tamat kalau baki 0
@@ -79,7 +79,7 @@ foreach ($this->kesID as $myTable => $row)
 		{ # mula kalau baki bukan 0
 			?><td valign="top" align="center">
 <span class="badge badge-success"><?php echo $myTable ?></span><?php
-			paparData($this->sv, $myTable, $row, 
+			BorangPapar::paparData($this->sv, $myTable, $row, 
 				$this->keterangan, $senaraiMedan);
 			echo "</td>\n";
 		} # tamat kalau baki bukan 0
@@ -103,14 +103,14 @@ foreach ($this->kod_produk as $myTable => $row)
 		{ # mula kalau baki 0
 			?><td valign="top" align="left">
 <span class="badge badge-success"><?php echo $myTable . $namaSyarikat ?></span><?php
-			paparKodProduk($this->sv, $myTable, $row);
+			BorangPapar::paparKodProduk($this->sv, $myTable, $row);
 			echo "</td>\n</tr>\n<tr>";
 		} # tamat kalau baki 0
 		else
 		{ # mula kalau baki bukan 0
 			?><td valign="top" align="left">
 <span class="badge badge-success"><?php echo $myTable . $namaSyarikat ?></span><?php
-			paparKodProduk($this->sv, $myTable, $row);
+			BorangPapar::paparKodProduk($this->sv, $myTable, $row);
 			echo "</td>\n";
 		} # tamat kalau baki bukan 0
 		

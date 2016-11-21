@@ -166,10 +166,39 @@ function highlightTerms($teks_panjang, $cari)
 {
 	## use preg_quote 
 	$cari = preg_quote($cari);
-	## Now we can  highlight the terms 
+	$label = pilihLabel('badge');
+	$button = pilihButton('Success');
+	## Now we can highlight the terms
 	$teks_panjang = preg_replace("/\b($cari)\b/i",
-		'<span class="highlight">' . $cari . '</span>',
+		'<span class="' . $label . '">' . $cari . '</span>',
+		//'<a href="#" class="' . $button . '">' . $cari . '</a>',
 		$teks_panjang);
 	## lastly, return text string with highlighted term in it
 	return $teks_panjang;
+}
+function pilihLabel($p)
+{
+	if($p=='highlight') $c = 'highlight';
+	if($p=='badge') $c = 'badge';
+	if($p=='Default') $c = 'label label-default';
+	if($p=='Primary') $c = 'label label-primary';
+	if($p=='Success') $c = 'label label-success';
+	if($p=='Warning') $c = 'label label-warning';
+	if($p=='Danger') $c = 'label label-danger';
+	if($p=='Info') $c = 'label label-info';
+
+	return $c;
+}
+function pilihButton($p)
+{
+	if($p=='highlight') $c = 'highlight';
+	if($p=='Default') $c = 'btn btn-default';
+	if($p=='Primary') $c = 'btn btn-primary';
+	if($p=='Success') $c = 'btn btn-success';
+	if($p=='Warning') $c = 'btn btn-warning';
+	if($p=='Danger') $c = 'btn btn-danger';
+	if($p=='Info') $c = 'btn btn-info';
+	if($p=='Link') $c = 'btn btn-link';
+
+	return $c;
 }

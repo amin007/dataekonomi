@@ -87,8 +87,8 @@ foreach ($this->kawalID as $myTable => $row)
 			?><tr>
 		<td><abbr title="<?php echo  $keterangan ?>"><?php echo $key ?></abbr></td>
 		<td align="right"><?php echo (in_array($key, $senaraiMedan)) ? 
-			$data : semakJenis($this->sv, $key, $data) ?></td>
-		<?php echo inputText('kawal', $key, $data) ?>
+			$data : BorangPapar::semakJenis($this->sv, $key, $data) ?></td>
+		<?php echo BorangPapar::inputText('kawal', $key, $data) ?>
 		</tr><?php endforeach ?>
 		</table>
 		</td><?php
@@ -157,7 +157,7 @@ foreach ($this->prosesID as $myTable => $row)
 			else:echo "\r\t\t";?><tr>
 		<td><abbr title="<?php echo  $keterangan ?>"><?php echo $key ?></abbr></td>
 		<td align="right"><?php echo (in_array($key, $senaraiMedan)) ? 
-			$data : semakJenis($this->sv, $key, $data) ?></td>
+			$data : BorangPapar::semakJenis($this->sv, $key, $data) ?></td>
 		<?php $jadualAnalisa = array('q04_2010','q08_2010','q09_2010',
 			's'.$this->sv.'_q02_2010','s'.$this->sv.'_q03_2010',
 			'206_q08_2010','206_q09_2010','s'.$this->sv.'_q04_2010',
@@ -165,7 +165,7 @@ foreach ($this->prosesID as $myTable => $row)
 			
 			echo (in_array($myTable, $jadualAnalisa ) ) ?
 				analisis($this->perangkaan, $this->ppt, $myTable, $key, $data)
-				: inputText('proses', $key, $data); ?>
+				: BorangPapar::inputText('proses', $key, $data); ?>
 		</tr><?php endif; endforeach; ?></table>
 	</td><?php
 	}#-----------------------------------------------------------------?>
@@ -226,7 +226,7 @@ for ($kira=0; $kira < count($row); $kira++)
 		if ( !$printed_headers ):?><thead><tr><th>#</th><?php
 		foreach ( array_keys($row[$kira]) as $tajuk ) : 
 			if ( !is_int($tajuk) ) ?><th><?php 
-			echo pilihTajuk($tajuk, $myTable); ?></th><?php
+			echo BorangPapar::pilihTajuk($tajuk, $myTable); ?></th><?php
 		endforeach ?></tr></thead><?php
 			$printed_headers = true; 
 		endif; echo "\r\t";
@@ -236,13 +236,13 @@ for ($kira=0; $kira < count($row); $kira++)
 	<?php foreach ( $row[$kira] as $key=>$data ) :?>
 	<td align="right"><?php 
 	$papar = (in_array($key, $io)) ? 
-		$data : semakJenis($this->sv, $key, $data);
+		$data : BorangPapar::semakJenis($this->sv, $key, $data);
 	list($f25,$jum) = ($myTable=='output') ? 
 		explode('-',$row[$kira]['F25']): array('x','x');
 	if (in_array($myTable, $jadual)):
 		echo $papar;
 	else:
-		echo inputText2($kira, $jum, $io, $myTable, $key, $data); 
+		echo BorangPapar::inputText2($kira, $jum, $io, $myTable, $key, $data); 
 	endif;
 
 		//echo (in_array($myTable, $jadual)) ? $papar : 

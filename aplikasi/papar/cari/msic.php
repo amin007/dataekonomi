@@ -3,13 +3,13 @@
 </style>
 
 <pre>
-<h1 bgcolor="#ffffff">Senarai MISC</h1>Anda mencari <?php 
+<h1 bgcolor="#ffffff">Senarai MISC</h1>Anda mencari <?php
 //echo '$this->carian:'; print_r($this->carian);
-$cari = ' <font color="red">';
+$cari = '';
 foreach ($this->carian as $kunci => $nilai)
 {
 	$cari .= ( count($nilai)==0 ) ?
-	$nilai : $nilai . ' | </font>';
+	$nilai : $nilai . ' | ';
 }
 $cari = highlightTerms($cari, $nilai);
 echo "$cari\rJadual\r";
@@ -27,11 +27,11 @@ foreach ($this->cariNama as $key => $value)
 $papar = 'lintang';
 
 if ($papar=='bawah')
-{// if ($papar=='bawah')?>
+{# if ($papar=='bawah')?>
 
 <?php
 foreach ($this->cariNama as $myTable => $row)
-{// mula ulang $row
+{# mula ulang $row
 /////////////////////////////////////////////////////////////////?>
 <table border="1" class="excel" id="example">
 <?php
@@ -71,13 +71,13 @@ for ($kira=0; $kira < count($row); $kira++)
 
 <?php
 ////////////////////////////////////////////////////////////////////
-}// tamat ulang $row
+}# tamat ulang $row
 ?>
 
 <?php
-}// if ($papar=='bawah')
+}# if ($papar=='bawah')
 else 
-{// if ($papar!='bawah')	
+{# if ($papar!='bawah')
 ?>
 <div class="tabbable tabs-top">
 	<ul class="nav nav-tabs">
@@ -112,12 +112,12 @@ foreach ($this->cariNama as $myTable => $row)
 	<div class="tab-pane" id="<?php echo $myTable ?>">
 	<p>Anda berada di <?php echo $myTable ?></p>
 <!-- Jadual <?php echo $myTable ?> ########################################### -->
-<table  border="1" class="excel" id="example">
+<table border="1" class="excel" id="example">
 <?php
 $printed_headers = false; # mula bina jadual
 #-----------------------------------------------------------------
 for ($kira=0; $kira < count($row); $kira++)
-{	#print the headers once:
+{	# print the headers once:
 	if ( !$printed_headers )
 	{	?><thead><tr>
 <th>#</th>
@@ -135,8 +135,7 @@ for ($kira=0; $kira < count($row); $kira++)
 		?></tr></thead>
 <?php	$printed_headers = true;
 	} 
-#---//print the data row---------------------------------------------
-<?php
+#---// print the data row ----------------------------------------
 	foreach ( $row[$kira] as $key=>$data ) 
 	{
 		$papardata = highlightTerms($data, $nilai);
@@ -152,21 +151,21 @@ for ($kira=0; $kira < count($row); $kira++)
 <!-- Jadual <?php echo $myTable ?> ########################################### -->
 	</div>
 <?php
-	} // if ( count($row)==0 )
+	} # if ( count($row)==0 )
 }
 ?>
 </div>
 </div> <!-- /tabbable -->
 
 <?php
-}// if ($papar!='bawah')
+}# if ($papar!='bawah')
 ?><?php
 function highlightTerms($teks_panjang, $cari)
 {
 	## use preg_quote 
 	$cari = preg_quote($cari);
 	## Now we can  highlight the terms 
-	$teks_panjang = preg_replace("/\b($cari)\b/i", 
+	$teks_panjang = preg_replace("/\b($cari)\b/i",
 		'<span class="highlight">' . $cari . '</span>',
 		$teks_panjang);
 	## lastly, return text string with highlighted term in it

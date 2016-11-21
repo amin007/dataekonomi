@@ -1093,6 +1093,20 @@ function huruf($jenis , $papar)
 	return $papar;
 }
 
+function highlightTeks($data)
+{
+	# set pembolehubah
+	$label = pilihLabel('badge');
+	$button = pilihButton('Success');
+	# Now we can highlight the terms
+	$teks_panjang = ''
+		. '<span class="' . $label . '">' . $data . '</span>'
+		//. '<a href="#" class="' . $button . '">' . $cari . '</a>'
+		. '';
+	# lastly, return text string with highlighted term in it
+	return $teks_panjang;
+}
+
 function highlightTerms($teks_panjang, $cari)
 {
 	## use preg_quote 

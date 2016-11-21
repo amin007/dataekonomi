@@ -31,7 +31,7 @@ class Borang101
 		#-----------------------------------------------------------------
 		endforeach; // tamat $row
 
-		###################################################################################	
+		###################################################################################
 		/*echo '<pre>';
 		//echo '$this->paparMedan:'; print_r($paparMedan) . '';
 		//echo '$sesi:'; print_r($sesi);
@@ -67,7 +67,7 @@ class Borang101
 						$jenis_medan[$kira] = $data;
 					else
 					{
-						$input = paparMedanDaftarSesi($myTable, $nama_medan[$kira], 
+						$input = paparMedanDaftarSesi($myTable, $nama_medan[$kira],
 							$jenis_medan[$kira], null, $sesi);
 						$inputMedan[$kira] = htmlentities($input);
 						$input_medan[$kira] = $input;
@@ -120,7 +120,7 @@ class Borang101
 #----------------------------------------------------------------------------------------------------------------------
 	public static function ubah($noAhli, $paparMedan, $pilihMedan)
 	{
-		# dapatkan nama_medan,jenis_medan,input_medan 
+		# dapatkan nama_medan,jenis_medan,input_medan
 		# dlm class Borang::ubah()
 		# pembolehubah : $noAhli, $paparMedan
 		###################################################################################
@@ -151,7 +151,7 @@ class Borang101
 		#-----------------------------------------------------------------
 		endforeach; // tamat $row
 
-		###################################################################################	
+		###################################################################################
 		/*echo '<pre>';
 		//echo '$this->paparMedan:'; print_r($paparMedan) . '';
 		//echo '$this->jenis_medan:'; print_r($jenis_medan) . '';
@@ -546,7 +546,6 @@ class Borang101
 				}
 				elseif (in_array($key,array(81,82,83,84,85,86)) )
 				{
-					//$aset[$kira]['F00'.$key] = 
 					$aset[$kira]['F00'.$key] = 
 						isset($cari['F00'.$key]) ? $cari['F00'.$key] : 0;
 				}
@@ -569,7 +568,7 @@ class Borang101
 			$nilaiBuku, $nilaiBukuTanaman,
 			$dlmBina, $kerjaDlmBinaan) = Borang101::tatasusunanAsetBiologi();
 		$jenisHarta = ($kp=='101') ? $jenisHartaTanaman : $jenisHartaBenda;
-		
+
 		$kira = $calc = 0; 	
 		foreach ($dlmBina as $kunci => $tghBina)
 		{
@@ -590,16 +589,16 @@ class Borang101
 					$jum[$kira][$baris] = !empty($data) ? $data : '-';
 					$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';
 			endforeach;
-			//if (array_sum($jumlah[$calc]['F']) != 0) # buang data kosong
+			if (array_sum($jumlah[$calc]['F']) != 0) # buang data kosong
 				$aset[$kira++] = array_merge(
 					array('Kerja Dlm Pelaksanaan' => Borang101::kiraKerjaDlmPelaksanaan($jenis,$kerjaDlmBinaan,$binaan),
 					'nama' => $jenis, 'kod' => $key), $t0);
-			//else $calc++;
-		endforeach; // foreach ($jenisHartaBiologi as $key => $jenis):
+			else $calc++;
+		endforeach; # foreach ($jenisHartaBiologi as $key => $jenis):
 		//echo '<pre>$cari='; print_r($cari); echo '</pre><hr>';
 		//echo '<pre>line 608:$kp('.$kp.')|$jenisHarta='; print_r($jenisHarta); echo '</pre><hr>';
 		//echo '<pre>Borang::binaAset($aset)='; print_r($aset); echo '</pre><hr>';
-		return $aset;	 
+		return $aset;
 	}
 #----------------------------------------------------------------------------------------------------------------------
 	public static function binaAsetAm($cari, $jum)
@@ -753,7 +752,7 @@ class Borang101
 					'D:' . $kiraHarta . 
 					'<br>H:' . $peratusHarta .
 					'<br>A:' . $anggaran;
-					
+
 					$aset[$kira]["% Susutnilai"] = $peratusSusut;
 
 				}
@@ -805,7 +804,7 @@ class Borang101
 			}
 			$kira++;
 		}
-		
+
 		return $aset;
 	}
 #----------------------------------------------------------------------------------------------------------------------
@@ -820,7 +819,7 @@ class Borang101
 			6=>'Jentera dan kelengkapan(X81)',
 			7=>'Perabut dan pemasangan(X82)',
 			8=>'Muhibah dsb(X84),Paten(X70),',
-			9=>'Lain2 harta(X86)', 0=>'Jumlah harta(X99)', 
+			9=>'Lain2 harta(X86)', 0=>'Jumlah harta(X99)',
 			81=>'Harta tetap dibuat/dibina sendiri(F04X)',
 			82=>'Harta awal tahun(F0199)',
 			83=>'Harta akhir tahun(F0899)',
@@ -829,10 +828,10 @@ class Borang101
 			86=>'Rizab');
 
 		$nilaiBuku= array(6=>'Pelupusan',7=>'Pembelian');
-		# mula cari 
+		# mula cari
 		$kira = 0;
 		foreach ($jenisHarta as $key => $jenis)
-		{	
+		{
 			$aset[$kira]['nama'] = $jenis;
 			//$aset[$kira]['kod'] = $key;
 			foreach ($nilaiBuku as $key2 => $modal)
@@ -855,7 +854,7 @@ class Borang101
 					$aset[$kira]['02:Beli_Dulu'] = 
 						isset($cari['F00'.$key]) ? $cari['F00'.$key] : 0;
 					$aset[$kira]['05:Lupus_Anggar'] = '-';
-					
+
 					if ($key==82): 
 						$aset[$kira]['02:Beli_Anggar'] = $jum['aset_dulu'];
 					elseif ($key==83): 
@@ -885,8 +884,8 @@ class Borang101
 				}
 			}
 			$kira++;
-		}		
-		
+		}
+
 /*		$aset[$kira]['nama'] = 'susutNilai';
 		$aset[$kira]['Pelupusan'] = 0;
 		$aset[$kira]['Pembelian'] = $susut['F0049'];
@@ -908,7 +907,7 @@ class Borang101
 			10=>'Indonesia', 11=>'Filipina',
 			12=>'Bangladesh', 13=>'BWM Lain2',
 			14=>'Jumlah', 18=>'Gaji');
-		
+
 		//print_r($cari);
 		$kira = 0;
 		foreach ($staf as $key => $kategori)
@@ -927,11 +926,11 @@ class Borang101
 				$pilih = (in_array($bangsa,$pilihBangsa) ) ?
 					"$bangsa - 0$key2": "0$key2";
 				$pekerja[$kira][$pilih] =
-					 isset($cari[$data]) ?	$cari[$data] : '-';
+					isset($cari[$data]) ?	$cari[$data] : '-';
 			}
 			$kira++;
 		}
-		
+
 		return $pekerja;
 	}
 #----------------------------------------------------------------------------------------------------------------------
@@ -948,10 +947,10 @@ class Borang101
 		//print_r($cari);
 		$kira = 0;
 		foreach ($staf as $key => $kategori)
-		{	
+		{
 			if(in_array($key,$buang) ): null;
 			else:
-				//echo '<hr>' . $key .'**'. $kategori ;
+				//echo '<hr>' . $key . '**' . $kategori ;
 				$pekerja[$kira]['nama'] = $kategori;
 				$pekerja[$kira]['kod'] = $key;
 				foreach ($bangsaStaf as $key2 => $bangsa)
@@ -959,16 +958,14 @@ class Borang101
 					$lajur = kira3($key2, 2);
 					$baris = kira3($key, 2);
 					$data = 'F' . $lajur . $baris;
-					//if (isset($cari[$data])){
-						//echo $data.'='.$cari[$data].'|';
-						//echo ($key2==18) ? '<br>':'';}
+
 					$pekerja[$kira][$data] =
-						 isset($cari[$data]) ?	$cari[$data] : '-';
+						isset($cari[$data]) ? $cari[$data] : '-';
 				}
 				$kira++;
 			endif;
 		}
-		
+
 		return $pekerja;
 	}
 #----------------------------------------------------------------------------------------------------------------------
@@ -1456,7 +1453,7 @@ class Borang101
 
 		return $hartaTanaman;
 	}
-	
+
 	public static function kiraKerjaDlmPelaksanaan($jenis,$kerjaDlmBinaan,$binaan)
 	{
 			if(in_array($jenis,$kerjaDlmBinaan)):
@@ -1470,7 +1467,7 @@ class Borang101
 		
 		return $nilai;
 	}
-	
+
 	public static function tatasusunanAsetBiologi()
 	{
 		$jenisHartaBenda = array(
@@ -1659,7 +1656,7 @@ class Borang101
 			33=>'kod produk');
 
 		# mula cari 
-		$calc = $kira = 0; 
+		$calc = $kira = 0;
 		$tanaman = array();
 		# bina tatasusunan
 		foreach ($jenisTanaman as $key => $jenis):
@@ -1669,8 +1666,8 @@ class Borang101
 
 				$data = isset($cari[$baris]) ? $cari[$baris] : '0';
 
-				$t0["$tajuk - $key2"] =  !empty($data) ? $data : '-';				
-				$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';		
+				$t0["$tajuk - $key2"] =  !empty($data) ? $data : '-';
+				$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';
 			endforeach;
 			# buang data kosong
 			if (array_sum($jumlah[$calc]['F']) != 0)
@@ -1712,8 +1709,8 @@ class Borang101
 
 				$data = isset($cari[$baris]) ? $cari[$baris] : '0';
 
-				$t0["$tajuk - $key2"] =  !empty($data) ? $data : '-';				
-				$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';		
+				$t0["$tajuk - $key2"] =  !empty($data) ? $data : '-';
+				$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';
 			endforeach;
 			# buang data kosong
 			if (array_sum($jumlah[$calc]['F']) != 0)
@@ -1750,7 +1747,7 @@ class Borang101
 				. ',F32' . $baris . ' as `XMatang`'
 				. ',F34' . $baris . ' as `TanamSemula`'
 				. ',F35' . $baris . ' as `TanamBaru`'
-				. ",\r " . 'concat_ws("<br>",F33' . $baris . ',SUBSTRING(F33' . $baris . ',-10)) as `kodProduk`' 
+				. ",\r " . 'concat_ws("<br>",F33' . $baris . ',SUBSTRING(F33' . $baris . ',-10)) as `kodProduk`'
 				. ",\r " . '( SELECT concat_ws("-",keterangan,kod_produk) '
 				//. ', (SELECT CONCAT("<abbr title=\"", keterangan, "\">", kod_produk, "</abbr>") '
 				. 'FROM ' . $kodProduk . ' b WHERE b.kod_produk ='
@@ -1796,7 +1793,7 @@ class Borang101
 				. "\r " . ',F32' . $baris . ' as `F3201(RM)`'
 				. "\r " . ',F33' . $baris . ' as `F3301`'
 				. "\r " . ',concat_ws("<br>",F34' . $baris . ',SUBSTRING(F34' . $baris . ',-10)) as F3401' 
-				//. "\r " . ',concat_ws("",F34' . $baris . ',SUBSTRING(F34' . $baris . ',-10)) as F3401' 
+				//. "\r " . ',concat_ws("",F34' . $baris . ',SUBSTRING(F34' . $baris . ',-10)) as F3401'
 				. "\r " . ',( SELECT concat_ws("-",keterangan,kod_produk) '
 				//. ', (SELECT CONCAT("<abbr title=\"", keterangan, "\">", kod_produk, "</abbr>") '
 				. 'FROM ' . $kodProduk . ' b WHERE b.kod_produk like '
@@ -1958,7 +1955,7 @@ class Borang101
 				. ',"Nilai bahan lain yang digunakan" as F4001'
 				. ',F41' . $baris . ' as `F4101(RM)`,F42' . $baris . ' as `F4201(RM)`'
 				. "\r " . ',"" as `F4301`'
-				. "\r " . ',concat_ws("<br>99998",F44' . $baris . ',SUBSTRING(F44' . $baris . ',-10)) as F4401' 
+				. "\r " . ',concat_ws("<br>99998",F44' . $baris . ',SUBSTRING(F44' . $baris . ',-10)) as F4401'
 				//. "\r " . ',concat_ws("",F44' . $baris . ',SUBSTRING(F44' . $baris . ',-10)) as F4401' 
 				. ',( SELECT concat_ws("-",keterangan,kod_produk) '
 				//. ', (SELECT CONCAT("<abbr title=\"", keterangan, "\">", kod_produk, "</abbr>") '
@@ -2031,8 +2028,8 @@ class Borang101
 					:(isset($cariA[$baris]) ? $cariA[$baris] : '0');//*/
 				$data = !empty($data) ? $data : '0';
 
-				$t0["$tajuk - $key2"] =  !empty($data) ? $data : '-';				
-				$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';		
+				$t0["$tajuk - $key2"] =  !empty($data) ? $data : '-';
+				$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';
 			endforeach;
 			# buang data kosong
 			if (array_sum($jumlah[$calc]['F']) != 0)

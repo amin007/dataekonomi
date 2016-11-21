@@ -121,7 +121,7 @@ for ($kira=0; $kira < count($row); $kira++)
 	if ( !$printed_headers )
 	{	?><thead><tr>
 <th>#</th>
-<?php	foreach ( array_keys($row[$kira]) as $tajuk ) 
+<?php	foreach ( array_keys($row[$kira]) as $tajuk )
 		{ 	# anda mempunyai kunci integer serta kunci rentetan
 			# kerana cara PHP mengendalikan tatasusunan.
 			if ( !is_int($tajuk) ) 
@@ -135,7 +135,9 @@ for ($kira=0; $kira < count($row); $kira++)
 		?></tr></thead>
 <?php	$printed_headers = true;
 	} 
-#---// print the data row ----------------------------------------
+#---// print the data row ----------------------------------------?>
+<td><?php echo $kira+1 ?></td>
+<?php
 	foreach ( $row[$kira] as $key=>$data ) 
 	{
 		$papardata = highlightTerms($data, $nilai);

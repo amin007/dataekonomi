@@ -8,12 +8,12 @@ class Borang101
 	{
 		# dapatkan nama_medan,jenis_medan,input_medan dlm class Borang
 		# Borang::tambahBaru($paparMedan);
-		
-		//echo '$paparMedan:'; print_r($paparMedan) . '';
+
+		//echo '$paparMedan:'; print_r($paparMedan);
 		foreach ($paparMedan as $myTable => $row):
 		#-----------------------------------------------------------------
 			for ($kira=0; $kira < count($row); $kira++)
-			{		 
+			{
 				foreach ( $row[$kira] as $key=>$data ) :
 					if ($key=='Field')
 						$nama_medan[$kira] = $data;
@@ -29,16 +29,16 @@ class Borang101
 				endforeach;
 			}
 		#-----------------------------------------------------------------
-		endforeach; // tamat $row
+		endforeach; # tamat $row
 
 		###################################################################################
 		/*echo '<pre>';
-		//echo '$this->paparMedan:'; print_r($paparMedan) . '';
+		//echo '$this->paparMedan:'; print_r($paparMedan);
 		//echo '$sesi:'; print_r($sesi);
-		echo '$this->jenis_medan:'; print_r($jenis_medan) . '';
-		echo '$this->nama_medan:'; print_r($nama_medan) . '';
-		//echo '$this->input_data:'; print_r($input_data) . '';
-		echo '$this->input_medan:'; print_r($input_medan) . '';
+		echo '$this->jenis_medan:'; print_r($jenis_medan);
+		echo '$this->nama_medan:'; print_r($nama_medan);
+		//echo '$this->input_data:'; print_r($input_data);
+		echo '$this->input_medan:'; print_r($input_medan);
 		echo '</pre>';*/
 		###################################################################################
 		// masukkan dalam tatasusunan dan pulangkan ke class KAWAL
@@ -54,12 +54,12 @@ class Borang101
 	{
 		# dapatkan nama_medan,jenis_medan,input_medan dlm class Borang
 		# Borang::tambah($paparMedan);
-		
-		//echo '$paparMedan:'; print_r($paparMedan) . '';
+
+		//echo '$paparMedan:'; print_r($paparMedan);
 		foreach ($paparMedan as $myTable => $row):
 		#-----------------------------------------------------------------
 			for ($kira=0; $kira < count($row); $kira++)
-			{		 
+			{
 				foreach ( $row[$kira] as $key=>$data ) :
 					if ($key=='Field')
 						$nama_medan[$kira] = $data;
@@ -75,19 +75,19 @@ class Borang101
 				endforeach;
 			}
 		#-----------------------------------------------------------------
-		endforeach; // tamat $row
+		endforeach; # tamat $row
 
 		###################################################################################	
 		/*echo '<pre>';
-		//echo '$this->paparMedan:'; print_r($paparMedan) . '';
+		//echo '$this->paparMedan:'; print_r($paparMedan);
 		//echo '$sesi:'; print_r($sesi);
-		echo '$this->jenis_medan:'; print_r($jenis_medan) . '';
-		echo '$this->nama_medan:'; print_r($nama_medan) . '';
-		echo '$this->input_data:'; print_r($input_data) . '';
-		echo '$this->input_medan:'; print_r($input_medan) . '';
+		echo '$this->jenis_medan:'; print_r($jenis_medan);
+		echo '$this->nama_medan:'; print_r($nama_medan);
+		echo '$this->input_data:'; print_r($input_data);
+		echo '$this->input_medan:'; print_r($input_medan);
 		echo '</pre>';//*/
 		###################################################################################
-		// masukkan dalam tatasusunan dan pulangkan ke class KAWAL
+		# masukkan dalam tatasusunan dan pulangkan ke class KAWAL
 		$inputBorang['jenis_medan'] = $jenis_medan;
 		$inputBorang['nama_medan'] = $nama_medan;
 		$inputBorang['input_data'] = $input_data;
@@ -149,14 +149,14 @@ class Borang101
 				endforeach;
 			}
 		#-----------------------------------------------------------------
-		endforeach; // tamat $row
+		endforeach; # tamat $row
 
 		###################################################################################
 		/*echo '<pre>';
-		//echo '$this->paparMedan:'; print_r($paparMedan) . '';
-		//echo '$this->jenis_medan:'; print_r($jenis_medan) . '';
-		echo '$this->nama_medan:'; print_r($nama_medan) . '';
-		echo '$this->input_medan:'; print_r($input_medan) . '';
+		//echo '$this->paparMedan:'; print_r($paparMedan);
+		//echo '$this->jenis_medan:'; print_r($jenis_medan);
+		echo '$this->nama_medan:'; print_r($nama_medan);
+		echo '$this->input_medan:'; print_r($input_medan);
 		echo '</pre>';//*/
 		###################################################################################
 		// masukkan dalam tatasusunan dan pulangkan ke class KAWAL
@@ -174,7 +174,7 @@ class Borang101
 		//$data = Borang::ubahSimpan($thid->_jadual);
 		//echo '<pre>$_POST:'; print_r($_POST) . '</pre>';
 		$data = array();
-	
+
 		foreach ($_POST as $key => $value):
 			if ($key==$jadual)
 			{
@@ -201,7 +201,7 @@ class Borang101
 				endforeach;
 			endforeach;
 		endforeach;
-		
+
 		return $senarai;
 	}
 #----------------------------------------------------------------------------------------------------------------------
@@ -287,7 +287,7 @@ class Borang101
 				. ',( SELECT concat_ws("-",keterangan,kod_produk) '
 				//. ', (SELECT CONCAT("<abbr title=\"", keterangan, "\">", kod_produk, "</abbr>") '
 				. 'FROM ' . $kodProduk . ' b WHERE b.kod_produk = '
-				. 'SUBSTRING(F25' . $baris . ',-10) LIMIT 1) as nama_produk'	
+				. 'SUBSTRING(F25' . $baris . ',-10) LIMIT 1) as nama_produk'
 				. $WHERE . ')';
 		}# tamat ulang $kira:$cariID dalam kod_produk['q15_2010']
 
@@ -340,7 +340,7 @@ class Borang101
 				//. ', (SELECT CONCAT("<abbr title=\"", keterangan, "\">", kod_produk, "</abbr>") '
 				. 'FROM ' . $kodProduk . ' b WHERE b.kod_produk='
 				. 'SUBSTRING(F30' . $baris . ',-10) LIMIT 1)'
-				. ',"kosong")) as nama_produk'	
+				. ',"kosong")) as nama_produk'
 				. $WHERE . ')';
 		}# tamat ulang $kira:$cariID dalam kod_produk['q14_2010']
 
@@ -395,11 +395,11 @@ class Borang101
 				. ',F24' . $baris . ' as `kodUnit`'
 				//. ',LPAD(F25' . $baris . ', 11, "0") as Commodity'
 				. ',concat_ws("-",LPAD(F25' . $baris . ', 11, "0")'
-				. ',SUBSTRING(F25' . $baris . ',-10)) as kodProduk' 
+				. ',SUBSTRING(F25' . $baris . ',-10)) as kodProduk'
 				. ',( SELECT concat_ws("-",keterangan,kod_produk) '
 				//. ', (SELECT CONCAT("<abbr title=\"", keterangan, "\">", kod_produk, "</abbr>") '
 				. 'FROM ' . $kodProduk . ' b WHERE b.kod_produk = '
-				. 'SUBSTRING(F25' . $baris . ',-10) LIMIT 1) as nama_produk'	
+				. 'SUBSTRING(F25' . $baris . ',-10) LIMIT 1) as nama_produk'
 				. $WHERE . ')';
 		}# tamat ulang $kira:$cariID dalam kod_produk['q15_2010']
 
@@ -441,7 +441,7 @@ class Borang101
 			81=>'Jentera dan kelengkapan',
 			82=>'Perabut dan pemasangan',
 			70=>'Paten', 84=>'Muhibah',
-			86=>'Lain2 harta', 99=>'Jumlah harta', 
+			86=>'Lain2 harta', 99=>'Jumlah harta',
 			85=>'Kerja dlm pelaksanaan');
 
 		$nilaiBuku= array(1=>'Awal', # 'Nilai buku pada awal tahun'
@@ -529,7 +529,7 @@ class Borang101
 		# mula cari 
 		$kira = 0;
 		foreach ($jenisHarta as $key => $jenis)
-		{	
+		{
 			$aset[$kira]['nama'] = $jenis;
 			//$aset[$kira]['kod'] = $key;
 			foreach ($nilaiBuku as $key2 => $modal)
@@ -551,7 +551,7 @@ class Borang101
 				}
 				else
 				{// mula kiraan bandingan antara 2 tahun
-					$aset[$kira][$baris] = isset($cari[$baris]) ?	$cari[$baris] : 0;
+					$aset[$kira][$baris] = isset($cari[$baris]) ? $cari[$baris] : 0;
 				}
 			}
 			$kira++;
@@ -574,12 +574,12 @@ class Borang101
 		{
 			$binaan[$tghBina] = isset($cari[$kunci]) ? $cari[$kunci] : '_';
 		}
-		# mula cari 
+		# mula cari
 		foreach ($jenisHarta as $key => $jenis):
 			foreach ($nilaiBuku as $key2 => $tajuk):
 				$lajur = kira3($key2, 2);
 				$baris = 'F' . $lajur . $key;
-				
+
 				if ($lajur=='08')
 					$data = Borang101::kiraHarta04b($jum, $kira, $key, $cari, $baris);
 				else
@@ -589,11 +589,11 @@ class Borang101
 					$jum[$kira][$baris] = !empty($data) ? $data : '-';
 					$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';
 			endforeach;
-			if (array_sum($jumlah[$calc]['F']) != 0) # buang data kosong
+			//if (array_sum($jumlah[$calc]['F']) != 0) # buang data kosong
 				$aset[$kira++] = array_merge(
 					array('Kerja Dlm Pelaksanaan' => Borang101::kiraKerjaDlmPelaksanaan($jenis,$kerjaDlmBinaan,$binaan),
 					'nama' => $jenis, 'kod' => $key), $t0);
-			else $calc++;
+			//else $calc++;
 		endforeach; # foreach ($jenisHartaBiologi as $key => $jenis):
 		//echo '<pre>$cari='; print_r($cari); echo '</pre><hr>';
 		//echo '<pre>line 608:$kp('.$kp.')|$jenisHarta='; print_r($jenisHarta); echo '</pre><hr>';
@@ -650,8 +650,8 @@ class Borang101
 						isset($cari['F00'.$key]) ? $cari['F00'.$key] : 0;
 				}
 				else
-				{// mula kiraan bandingan antara 2 tahun
-					$aset[$kira]["$modal"] = 
+				{# mula kiraan bandingan antara 2 tahun
+					$aset[$kira]["$modal"] =
 						isset($cari[$baris]) ?	$cari[$baris] : 0;
 				}
 			}
@@ -760,11 +760,11 @@ class Borang101
 				{
 					$akhir = (isset($cari[$baris]) ? $cari[$baris] : '-');
 					$jumlahAset =	
-						($jum[$kira]['F01'.$key] 
+						($jum[$kira]['F01'.$key]
 						+ $jum[$kira]['F02'.$key]
 						+ $jum[$kira]['F03'.$key]
 						+ $jum[$kira]['F04'.$key]
-						- $jum[$kira]['F05'.$key] 
+						- $jum[$kira]['F05'.$key]
 						+( $jum[$kira]['F06'.$key]
 						)- $jum[$kira]['F07'.$key]);
 					# setkan pembolehubah awal
@@ -926,7 +926,7 @@ class Borang101
 				$pilih = (in_array($bangsa,$pilihBangsa) ) ?
 					"$bangsa - 0$key2": "0$key2";
 				$pekerja[$kira][$pilih] =
-					isset($cari[$data]) ?	$cari[$data] : '-';
+					isset($cari[$data]) ? $cari[$data] : '-';
 			}
 			$kira++;
 		}
@@ -1009,13 +1009,10 @@ class Borang101
 	*/
 		$mula = 'q05a';
 		foreach ($jadualStaf as $key => $myTable):
-			//$cari = $prosesID[$myTable][0];
 			if (isset($prosesID[$myTable][0])):
 				if(strpos($myTable,$mula) !== false)
-					//echo 'lelaki';
 					$cariL = $prosesID[$myTable][0];
 				else
-					//echo 'perempuan';
 					$cariW = $prosesID[$myTable][0];
 			endif;
 		endforeach;
@@ -1028,7 +1025,7 @@ class Borang101
 				$lajur = kira3($key1, 2); 
 				$kunci = pilihKeyData($key,$keyLelaki,$lelaki);
 				$pekerja[$kira]['L'] = $kunci;
-				$baris = kira3($kunci, 2); 
+				$baris = kira3($kunci, 2);
 				$medan  = 'F' . $lajur . $baris;
 				$data = isset($cariL[$medan]) ?	$cariL[$medan] : '_';
 			# mula masuk data
@@ -1043,7 +1040,7 @@ class Borang101
 				$lajur2 = kira3($key2, 2); 
 				$kunci2 = pilihKeyData($key,$keyWanita,$wanita);
 				$pekerja[$kira]['W'] = $kunci2;
-				$baris2 = kira3($kunci2, 2); 		
+				$baris2 = kira3($kunci2, 2);
 				$medan2 = 'F' . $lajur2 . $baris2;
 				$data2  = isset($cariW[$medan2]) ?	$cariW[$medan2] : '_';
 			# mula masuk data
@@ -1675,7 +1672,7 @@ class Borang101
 					array('nama' => $jenis, 'kod' => $key), 
 					$t0);
 			else $calc++;
-		endforeach; // foreach ($jenisTanaman as $key => $jenis):
+		endforeach; # foreach ($jenisTanaman as $key => $jenis):
 
 		//echo '<pre>$jum='; print_r($jum) . '</pre><hr>';
 		//echo '<pre>Borang::binaTanaman($tanaman)='; print_r($tanaman) . '</pre><hr>';
@@ -1718,7 +1715,7 @@ class Borang101
 					array('nama' => $jenis, 'kod' => $key), 
 					$t0);
 			else $calc++;
-		endforeach; // foreach ($jenisTanaman as $key => $jenis):
+		endforeach; # foreach ($jenisTanaman as $key => $jenis):
 
 		//echo '<pre>$jum='; print_r($jum) . '</pre><hr>';
 		//echo '<pre>Borang::binaTanaman($tanaman)='; print_r($tanaman) . '</pre><hr>';
@@ -1754,7 +1751,7 @@ class Borang101
 				//. '"%SUBSTRING(F33' . $baris . ',-10)%" LIMIT 1) as nama_produk'
 				. 'SUBSTRING(F33' . $baris . ',-10) LIMIT 1) as nama_produk'
 				. $WHERE . ')';
-		}// tamat ulang $kira:$cariID dalam kod_produk['q14_2010']
+		}# tamat ulang $kira:$cariID dalam kod_produk['q14_2010']
 		//*/
 
 		# mula cari A-Jumlah
@@ -1799,7 +1796,7 @@ class Borang101
 				. 'FROM ' . $kodProduk . ' b WHERE b.kod_produk like '
 				. '"%SUBSTRING(F34' . $baris . ',-10)%" LIMIT 1) as nama_produk'
 				. $WHERE . ')';
-		}// tamat ulang $kira:$cariID dalam kod_produk['q14_2010']
+		}# tamat ulang $kira:$cariID dalam kod_produk['q14_2010']
 		//*/
 
 		# mula cari A-Jumlah
@@ -1925,7 +1922,7 @@ class Borang101
 		$cariID = ( !isset($cari['id']) ) ? '' : $cari['id'];
 		$thnMula = ( !isset($cari['thn_mula']) ) ? '' : $cari['thn_mula'];
 		$thnAkhir = ( !isset($cari['thn_akhir']) ) ? '' : $cari['thn_akhir'];
-		//  `kod unit-43` 
+
 		# mula cari A
 		$SELECT = 'SELECT "" as `Jenis`';
 		$WHERE = "\r FROM `$myTableA` "
@@ -1940,13 +1937,12 @@ class Borang101
 				. "\r " . ',F41' . $baris . ' as `Tempatan-41(RM)`,F42' . $baris . ' as `Import-42(RM2)`'
 				. "\r " . ',F43' . $baris . ' as `F4301`'
 				. "\r " . ',concat_ws("<br>",F44' . $baris . ',SUBSTRING(F44' . $baris . ',-10)) as F4401' 
-				//. "\r " . ',concat_ws("",F44' . $baris . ',SUBSTRING(F44' . $baris . ',-10)) as F4401' 
 				. ',( SELECT concat_ws("-",keterangan,kod_produk) '
 				//. ', (SELECT CONCAT("<abbr title=\"", keterangan, "\">", kod_produk, "</abbr>") '
 				. 'FROM ' . $kodProduk . ' b WHERE b.kod_produk='
 				. 'SUBSTRING(F44' . $baris . ',-10) LIMIT 1) as nama_produk'
 				. $WHERE . ')';
-		}// tamat ulang $kira:$cariID dalam kod_produk['q14_2010']
+		}# tamat ulang $kira:$cariID dalam kod_produk['q14_2010']
 		//*/
 
 		# mula cari A-Nilai bahan lain yang digunakan
@@ -1956,7 +1952,6 @@ class Borang101
 				. ',F41' . $baris . ' as `F4101(RM)`,F42' . $baris . ' as `F4201(RM)`'
 				. "\r " . ',"" as `F4301`'
 				. "\r " . ',concat_ws("<br>99998",F44' . $baris . ',SUBSTRING(F44' . $baris . ',-10)) as F4401'
-				//. "\r " . ',concat_ws("",F44' . $baris . ',SUBSTRING(F44' . $baris . ',-10)) as F4401' 
 				. ',( SELECT concat_ws("-",keterangan,kod_produk) '
 				//. ', (SELECT CONCAT("<abbr title=\"", keterangan, "\">", kod_produk, "</abbr>") '
 				. 'FROM ' . $kodProduk . ' b WHERE b.kod_produk='
@@ -2037,7 +2032,7 @@ class Borang101
 					array('nama' => $jenis, 'kod' => $key), 
 					$t0);
 			else $calc++;
-		endforeach; // foreach ($jenisTanaman as $key => $jenis):
+		endforeach; # foreach ($jenisTanaman as $key => $jenis):
 
 		//echo '<pre>$jum='; print_r($jum); echo '</pre><hr>';
 		//echo '<pre>Borang::binaTanaman($tanaman)='; print_r($tanaman); echo '</pre><hr>';
@@ -2268,7 +2263,7 @@ class Borang101
 					array('nama' => $jenis, 'kod' => $key),
 					$t0);
 			else $calc++;
-		endforeach; // foreach ($jenisTanaman as $key => $jenis):
+		endforeach; # foreach ($jenisTanaman as $key => $jenis):
 
 		//echo '<pre>$jum='; print_r($jum) . '</pre><hr>';
 		//echo '<pre>Borang::binaTanaman($tanaman)='; print_r($tanaman) . '</pre><hr>';

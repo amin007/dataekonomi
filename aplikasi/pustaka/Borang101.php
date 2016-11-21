@@ -1384,7 +1384,6 @@ class Borang101
 		foreach ($dlmBina as $kunci => $tghBina)
 		{
 			$binaan[$tghBina] = isset($cariA[$kunci]) ? $cariA[$kunci] : '_';
-			//echo ($kunci=='F7285') ? ' ada jumpa' . $kunci . '=' . $binaan[$tghBina] : '';
 		}
 		foreach ($jenisHartaTanaman as $key => $jenis):
 			foreach ($nilaiBuku as $key2 => $tajuk):
@@ -1405,28 +1404,27 @@ class Borang101
 					array('Kerja Dlm Pelaksanaan' => Borang101::kiraKerjaDlmPelaksanaan($jenis,$kerjaDlmBinaan,$binaan),
 					'nama' => $jenis, 'kod' => $key), $t0);
 			else $calc++;
-		endforeach; // foreach ($jenisHartaBiologi as $key => $jenis):
+		endforeach; # foreach ($jenisHartaBiologi as $key => $jenis):
 		//echo '<pre>$jenisHartaBenda='; print_r($hartaTanaman); echo '</pre><hr>';
 		# bina tatasusunan
-		//echo '<pre>$cariA = '.count($cariA).'| $cariB '.count($cariB).'</pre><hr>';
-		if ( count($cariA) != '0' || count($cariB) != '0' ):
+		//echo '<pre>$cariA = ' . count($cariA) . '| $cariB = ' . count($cariB) . '</pre><hr>';
+		if ( count($cariB) != '0' ):
 			$hartaTanaman[$kira++] = array(
 				'Kerja Dlm Pelaksanaan' => '',
-				'nama' => 'Aset Biologi', 
-				'kod' => 'XX',
-				'Awal - 1' => 'Awal - 1',
-				'Baru - 2' => 'Baru - 2',
+				'nama' => highlightTeks('Aset Biologi'), 
+				'kod' => highlightTeks('XX'),
+				'Awal - 1' => highlightTeks('Awal - 1'),
+				'Baru - 2' => highlightTeks('Baru - 2'),
 				'Terpakai - 3' => '',
-				'DIY - 4' => 'Tanam jangka panjang - 4', # 'Belanja pembangunan tanaman jangka panjang',
-				'Jual|tamat - 5' => 'Jual|Tebang|Rosak - 5', # 'Aset dijual/ditamat'
-				'+/- jual - 6' => '+/- jual - 6',
-				'Susut nilai - 7' => 'Susut nilai - 7',
-				'Akhir - 8' => 'Akhir - 8',
-				'Sewa - 9' => 'Kod Produk - 9');
+				'DIY - 4' => highlightTeks('Tanam jangka panjang - 4'), # 'Belanja pembangunan tanaman jangka panjang',
+				'Jual|tamat - 5' => highlightTeks('Jual|Tebang|Rosak - 5'), # 'Aset dijual/ditamat'
+				'+/- jual - 6' => highlightTeks('+/- jual - 6'),
+				'Susut nilai - 7' => highlightTeks('Susut nilai - 7'),
+				'Akhir - 8' => highlightTeks('Akhir - 8'),
+				'Sewa - 9' => highlightTeks('Kod Produk - 9') );
 		endif;
 		# mula cari
 		foreach ($jenisHartaPokok as $key => $jenis):
-			//foreach ($nilaiBukuTanaman as $key2 => $tajuk):
 			foreach ($nilaiBuku as $key2 => $tajuk):
 				$lajur = kira3($key2, 2);
 				$baris = 'F' . $lajur . $key;
@@ -1445,7 +1443,7 @@ class Borang101
 					array('Kerja Dlm Pelaksanaan' => '',
 					'nama' => $jenis, 'kod' => $key), $t0);
 			else $calc++;
-		endforeach; // foreach ($jenisHartaBiologi as $key => $jenis):
+		endforeach; # foreach ($jenisHartaPokok as $key => $jenis):
 		//echo '<pre>$hartaTanaman='; print_r($hartaTanaman); echo '</pre><hr>';
 
 		return $hartaTanaman;

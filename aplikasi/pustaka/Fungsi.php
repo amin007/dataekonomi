@@ -1068,9 +1068,9 @@ function pilihValueData($key,$keyData,$data)
 function huruf($jenis , $papar) 
 {
 	/*
-	$_POST=strtoupper($_POST['mdt_rangka']['respon']);
-	$_POST=strtolower($_POST['mdt_rangka']['fe']);
-	$_POST=mb_convert_case($_POST, MB_CASE_TITLE);
+	$_POST=strtoupper($_POST['']['']);
+	$_POST=strtolower($_POST['']['']);
+	$_POST=mb_convert_case($_POST[''][''], MB_CASE_TITLE);
 	ucfirst
 	*/
 	

@@ -35,7 +35,7 @@ function pecah_url($ulang)
 			[5] => 3
 		)
 	//*/
-	
+
 	return $papar;
 }
 
@@ -43,7 +43,7 @@ function dpt_ip()
 {
 	# define('ALAMAT_IP', serialize (array()) );
 	$IP = unserialize(ALAMAT_IP);
-	
+
 	return $IP;
 }
 
@@ -51,7 +51,7 @@ function senarai_kakitangan()
 {
 	# define('PEGAWAI', serialize (array()) );
 	$pegawai = unserialize(PEGAWAI);
-    
+
     return $pegawai;
 }
 
@@ -137,19 +137,19 @@ function harga_unit_purata()
 <hr>
 <div class="row">
 	<div class="span4">
-	<!-- ======================================================================= -->	
+	<!-- ======================================================================= -->
 		<table border="1" class="excel">
 		<tr><td colspan="2">PANDUAN PENYUNTINGAN DAN PENGEKODAN.</td>
 			<td colspan="2">KP 205 2013</td></tr>
-		<tr><td colspan="4">HARGA UNIT PURATA (AUP)<br>				
-		(AIR, PELINCIR, BAHAN PEMBAKAR DAN TENAGA ELEKTRIK)	
+		<tr><td colspan="4">HARGA UNIT PURATA (AUP)<br>
+		(AIR, PELINCIR, BAHAN PEMBAKAR DAN TENAGA ELEKTRIK)
 		</td></tr>
 		<tr><th>Butiran</th><th>Unit Kuantiti</th><th>Min</th><th>Max</th></tr>
 		<tr><td>Air</td><td>Meter Padu</td><td>0.90</td><td>2.20</td></tr>
 		<tr><td>Minyak Diesel</td><td>Liter</td><td>1.40</td><td>3.00</td></tr>
 		<tr><td>Petrol</td><td>Liter</td><td>1.90</td><td>4.00</td></tr>
 		<tr><td>Minyak Relau / Pembakar</td><td>Liter</td><td>0.50</td><td>2.00</td></tr>
-		<tr><td>Gas Petroleum Cecair (L.P.G)</td><td>Tonne</td><td>1,200</td><td>1,800</td></tr> 		
+		<tr><td>Gas Petroleum Cecair (L.P.G)</td><td>Tonne</td><td>1,200</td><td>1,800</td></tr>
 		<tr><td>Gas asli untuk kenderaan (NGV)</td><td>Tonne</td><td>1,000</td><td>1,400</td></tr>
 		<tr><td>Kuasa Elektrik Yang Dibeli</td><td>k.w.j</td><td>0.20</td><td>0.60</td></tr>
 		</table>
@@ -160,7 +160,7 @@ function harga_unit_purata()
 		<table border="1" class="excel">
 		<tr><td colspan="3">Jika pertubuhan mengeluarkan kuasa elektrik sendiri tetapi tidak menyimpan <br>
 		rekod bagi nilai kuasa elektrik yang digunakan/dijual, keterangan berikut adalah <br>
-		dikehendaki untuk mendapatkan jumlah kuasa elektrik yang dijanakeluarkan :-						
+		dikehendaki untuk mendapatkan jumlah kuasa elektrik yang dijanakeluarkan :-
 		</td></tr>
 		<tr><td>(i)</td><td>Kuasa kuda generator</td><td>(h.p. = n1)</td></tr>
 		<tr><td>(ii)</td><td>Bil.Jam sehari generator bergerak</td><td>(jam = M)</td></tr>
@@ -170,7 +170,7 @@ function harga_unit_purata()
 			Jika n2 KVA (kilo-volt amphere) diberi,	menggantikan kuasa kuda iaitu<br>
 			(n1 h.p.), k.w.j. = n2 x 0.8 x Y x M
 		</td></tr>
-		</table>				
+		</table>
 	<!-- ======================================================================= -->
 	</div>
 </div>
@@ -197,7 +197,7 @@ function semakJenis($sv, $kunci, $var)
 {    
 	$senaraiMedan = array('F0003','F0004','F0005');
 	if (in_array($kunci, $senaraiMedan) 
-		&& in_array($sv, array(205,206) )  ) 
+		&& in_array($sv, array(205,206) )  )
 	{
 		$data = preg_replace('/(\d{1,2})(\d{2})(\d{4})$/', 
 			'$3-$2-$1', $var).PHP_EOL;
@@ -216,32 +216,8 @@ function keterangan($key, $data, $myTable, $dataKeterangan)
 	$thn = ($key=='thn') ? $data : 2010; 
 	$keterangan = !isset($dataKeterangan[$myTable][$key][$thn]) ?
 		'' : $dataKeterangan[$myTable][$key][$thn];
-/*		
-		switch ($key) 
-		{// mula - pilih key
-		
-		case 'THN': case 'thn':
-			$papar = 'Tahun Kes Terpilih';
-			break;
-		case 'Batch': case 'batch':
-			$papar = 'Batch Prosesan Kes Terpilih';
-			break;
-		case 'Estab': case 'estab':
-			$papar = 'Kod Sidap/Newss Kes Terpilih';
-			break;
-		case 'Newss': case 'newss':
-			$papar = 'Kod Newss';
-			break;
-		case 'Nama': case 'nama':
-			$papar = 'Nama Syarikat';
-			break;
-		default: 
-			$papar = $keterangan;
-			break;
-		}// tamat - pilih key
-*/
-		$papar = $keterangan;
-		return $papar;
+
+	return $keterangan;
 }
 
 function paparDataBrgAm($sv, $myTable, $row, $dataKeterangan, $senaraiMedan)
@@ -374,9 +350,9 @@ function cariMedanInput($ubah,$f,$row,$nama)
 	$nama = nama medan
 	
 	senarai nama medan
-	0-nota,1-respon,2-fe,3-tel,4-fax,		
+	0-nota,1-respon,2-fe,3-tel,4-fax,
 	5-responden,6-email,7-msic,8-msic08,
-	9-`id U M`,10-nama,11-sidap,12-status 
+	9-`id U M`,10-nama,11-sidap,12-status
  */// papar medan yang terlibat
  
 	$cariMedan = array(0,1,2,3,4,5,6,8);
@@ -417,8 +393,8 @@ function inputText($jadual, $key, $data)
 		  . ' id="' . $key . '"';
 	$medanApa = $jadual . '[' . $key . ']';
 	$input = '<div class="input-prepend">' . $jadual
-		   //. '<span class="add-on">' . $medanApa . '</span>' 
-		   . '<input type="text" ' . $name . ' value="' 
+		   //. '<span class="add-on">' . $medanApa . '</span>'
+		   . '<input type="text" ' . $name . ' value="'
 		   . $data . '" class="input-medium"></div>';
 
 	return '<td>' . $input . '</td>';
@@ -446,7 +422,7 @@ function inputText2($kira, $jum, $io, $jadual, $key, $data)
 		//$pilihKey = array('F7285','F7385','F7485','F8185','F8685','F9985');
 		$pilihKey = array('F7185','F7585','F7685','F7785','F7885','F7985',
 			'F8085','F8285','F7085','F8485');
-					
+
 		$kiraHarta[$key] = $data;
 			//$lajur = kira3($kira+1, 2);
 			//$baris = ($akhir==1) ? 'F3041' : 'F30' . $lajur;
@@ -458,9 +434,7 @@ function inputText2($kira, $jum, $io, $jadual, $key, $data)
 				'<span class="add-on">' . $data . '</span>' : null;
 
 		if (in_array($key, $pilihKey)) 
-		{
 			$input = $data;
-		}
 		else
 			$input = '<div class="input-prepend">'
 				   //. '<span class="add-on">' . $baris . '</span>' 
@@ -503,7 +477,7 @@ function inputText2($kira, $jum, $io, $jadual, $key, $data)
 		$input = '<div class="input-prepend">'
 			   //. '<span class="add-on">' . $baris . '</span>' 
 			   . '<input type="text" ' . $name . ' value="' 
-			   . $data . '" class="input-medium"></div>';		
+			   . $data . '" class="input-medium"></div>';
 	}
 	// jika $key adalah jumlah besar dan nilai lain2
 	elseif ( ($akhir==1 || $akhir==0) 
@@ -515,9 +489,9 @@ function inputText2($kira, $jum, $io, $jadual, $key, $data)
 		$data = ($data=='-' || $data=='_' || $data=='0' ) ? null : $data;
 		$input = (in_array($key,$buangOutput)) ? 
 				$data : '<div class="input-prepend">'
-			   //. '<span class="add-on">' . $baris . '</span>' 
-			   . '<input type="text" ' . $name . ' value="' 
-			   . $data . '" class="input-mini"></div>';			
+			   //. '<span class="add-on">' . $baris . '</span>'
+			   . '<input type="text" ' . $name . ' value="'
+			   . $data . '" class="input-mini"></div>';
 	}
 	elseif ( ($akhir==1 || $akhir==0) 
 		&& $jadual == 'kodInput')
@@ -555,7 +529,7 @@ function inputText2($kira, $jum, $io, $jadual, $key, $data)
 			   . '<input type="text" ' . $name . ' value="' 
 			   . $data . '" class="input-mini"></div>';
 	}
-	
+
 	//return $input . "|$akhir\r";
 	//return $input . "|$key\r";
 	return $input;
@@ -583,8 +557,8 @@ function inputTextInputOutput($kira, $jum, $io, $jadual, $key, $data)
 		$input = (in_array($key,$buangOutput)) ? 
 				$data : '<div class="input-prepend">'
 			   //. '<span class="add-on">' . $baris . '</span>' 
-			   . '<input type="text" ' . $name . ' value="' 
-			   . $data . '" class="input-mini"></div>';			
+			   . '<input type="text" ' . $name . ' value="'
+			   . $data . '" class="input-mini"></div>';
 	}
 	elseif ( ($akhir==1 || $akhir==0) 
 		&& $jadual == 'kodInput')
@@ -607,7 +581,7 @@ function inputTextInputOutput($kira, $jum, $io, $jadual, $key, $data)
 			: 'name="' . $jadual . '[F30' . $lajur . ']" id="' . $baris . '"';
 		$input = '<div class="input-prepend">'
 			   //. '<span class="add-on">produk-' . $lajur . '</span>' 
-			   . '<input type="text" ' . $name . ' value="' 
+			   . '<input type="text" ' . $name . ' value="'
 			   . $data . '" class="input-medium"></div>';
 	}
 	else
@@ -620,11 +594,10 @@ function inputTextInputOutput($kira, $jum, $io, $jadual, $key, $data)
 			   . '<input type="text" ' . $name . ' value="' 
 			   . $data . '" class="input-mini"></div>';
 	}
-	
+
 	//return $input . "|$akhir\r";
 	return $input . "\r";
 }
-
 
 function semakMedanDaftar($myTable, $nama, $jenis, $data) 
 {
@@ -872,11 +845,11 @@ function semakDataPOST($semua)
 							unset($posmen[$myTable][$kekunci]);
 						else 
 							$posmen[$myTable][$kekunci] = bersih($papar);
-						
+
 					endforeach;
 				endif;
 			}
-	
+
 	return $posmen;
 }
 // mula untuk kod php+html 
@@ -900,7 +873,7 @@ function papar_jadual($row, $myTable, $pilih)
 		</tr></thead>
 		<?php	$printed_headers = true; 
 			endif;
-		#-----------------------------------------------------------------		 
+		#-----------------------------------------------------------------
 		//print the data row ?>
 		<tbody><tr>
 		<td><?php echo $kira+1 ?></td>	
@@ -927,7 +900,7 @@ function papar_jadual($row, $myTable, $pilih)
 			if ( !$printed_headers ) : ?>
 		<thead><tr>
 		<th>#</th><?php
-				foreach ( array_keys($row[$kira]) AS $tajuk ) 
+				foreach ( array_keys($row[$kira]) AS $tajuk )
 				{ 	if ( !is_int($tajuk) ) :
 						$paparTajuk = ($tajuk=='nama') ?
 						$tajuk . '(jadual:' . $myTable . ')'
@@ -938,7 +911,7 @@ function papar_jadual($row, $myTable, $pilih)
 		?></tr></thead><?php
 				$printed_headers = true; 
 			endif; 
-		#-----------------------------------------------------------------		 
+		#-----------------------------------------------------------------
 		//print the data row ?>
 		<tbody><tr>
 		<td><?php echo $kira+1 ?></td>	
@@ -953,7 +926,7 @@ function papar_jadual($row, $myTable, $pilih)
 				endif;
 				?><td><?php echo $data ?></td>
 		<?php
-			} 
+			}
 			?></tr></tbody>
 		<?php
 		}
@@ -1011,7 +984,7 @@ function papar_jadual($row, $myTable, $pilih)
 			##=============================================================
 				$printed_headers = true; 
 			} 
-		#-----------------------------------------------------------------		 
+		#-----------------------------------------------------------------
 			//print the data row 
 			$output .= "\r\t<tbody><tr>\r\t<td>" . ($kira+1) . '</td>';
 			foreach ( $row[$kira] as $key=>$data ) :
@@ -1043,7 +1016,7 @@ function pencamSqlLimit($bilSemua, $item, $ms)
     $jum['muka_surat'] = ceil($jum['bil_semua'] / $jum['max']);
     // nak tentukan berapa bil jumlah dlm satu muka surat
     $jum['bil'] = $jum['dari']+1; 
-    
+
     return $jum;
 }
 // format perpuluhan
@@ -1051,13 +1024,13 @@ function kiraPerpuluhan($kiraan, $perpuluhan = 1)
 {
 	// pecahan kepada ratus
 	return number_format($kiraan,$perpuluhan,'.',',');
-} 
+}
 
 function kira($kiraan)
 {
 	// pecahan kepada ratus
 	return number_format($kiraan,0,'.',',');
-} 
+}
 
 function kira2($dulu,$kini)
 {
@@ -1066,9 +1039,14 @@ function kira2($dulu,$kini)
 	//@$kiraan=(($kini-$dulu)/$dulu)*100;
 }
 
-function kira3($kira,$n) 
+function kira3($kira,$no) 
 {
-	return str_pad($kira,$n,"0",STR_PAD_LEFT);
+	return str_pad($kira,$no,"0",STR_PAD_LEFT);
+}
+
+function kira4($kira,$no,$jenis='&nbsp') 
+{
+	return str_pad($kira,$no,$jenis,STR_PAD_LEFT);
 }
 
 function pilihKeyData($key,$keyData,$data)
@@ -1111,12 +1089,54 @@ function huruf($jenis , $papar)
 		$papar = mb_convert_case($papar, MB_CASE_TITLE);
 		break;
 	}// tamat - pilih $jenis
-	
-	return $papar;
 
+	return $papar;
 }
 
-function bersih($papar) 
+function highlightTerms($teks_panjang, $cari)
+{
+	## use preg_quote 
+	$cari = preg_quote($cari);
+	$label = pilihLabel('badge');
+	$button = pilihButton('Success');
+	## Now we can highlight the terms
+	$teks_panjang = preg_replace("/\b($cari)\b/i",
+		'<span class="' . $label . '">' . $cari . '</span>',
+		//'<a href="#" class="' . $button . '">' . $cari . '</a>',
+		$teks_panjang);
+	## lastly, return text string with highlighted term in it
+	return $teks_panjang;
+}
+
+function pilihLabel($p)
+{
+	if($p=='highlight') $c = 'highlight';
+	if($p=='badge') $c = 'badge';
+	if($p=='Default') $c = 'label label-default';
+	if($p=='Primary') $c = 'label label-primary';
+	if($p=='Success') $c = 'label label-success';
+	if($p=='Warning') $c = 'label label-warning';
+	if($p=='Danger') $c = 'label label-danger';
+	if($p=='Info') $c = 'label label-info';
+
+	return $c;
+}
+
+function pilihButton($p)
+{
+	if($p=='highlight') $c = 'highlight';
+	if($p=='Default') $c = 'btn btn-default';
+	if($p=='Primary') $c = 'btn btn-primary';
+	if($p=='Success') $c = 'btn btn-success';
+	if($p=='Warning') $c = 'btn btn-warning';
+	if($p=='Danger') $c = 'btn btn-danger';
+	if($p=='Info') $c = 'btn btn-info';
+	if($p=='Link') $c = 'btn btn-link';
+
+	return $c;
+}
+
+function bersih($papar)
 {
 	# lepas lari aksara khas dalam SQL
 	//$papar = mysql_real_escape_string($papar);
@@ -1148,7 +1168,7 @@ function gambar_latarbelakang($lokasi)
             { 
                 //echo "\n" . $i++ . ")" . $file . "<br>";
                 $gambar = $file;
-                if (substr($gambar,-3) == 'jpg') 
+                if (substr($gambar,-3) == 'jpg')
                     $papar[]=$gambar;
             }
         }
@@ -1157,13 +1177,13 @@ function gambar_latarbelakang($lokasi)
     closedir($dh);
  
     /*
-    foreach(scandir($tmpt) as $gambar) 
+    foreach(scandir($tmpt) as $gambar)
     {
-        if (substr($gambar,-3) == 'jpg') 
+        if (substr($gambar,-3) == 'jpg')
             $papar[]=$gambar;
     }
     */
-     
+
     $today = rand(0, count($papar)-1); 
     return $papar[$today];
 }
@@ -1186,7 +1206,7 @@ function cari_imej($ssm,$strDir)
 		//echo '<br> Fungsi.php -> $strDir=' . $strDir;
 		$cariImej = GetMatchingFiles(GetContents($strDir),$pattern);
 	}
-	
+
 	//print_r($cariImej);
 	return $cariImej;
 }
@@ -1203,41 +1223,41 @@ function GetMatchingFiles($files, $search)
 	{ 
 		$baseexp=$search;
 		$typeexp="";
-	} 
-		
+	}
+
 	// Escape all regexp Characters 
 	$baseexp=preg_quote($baseexp); 
 	$typeexp=preg_quote($typeexp); 
-		
+
 	// Allow ? and *
 	$baseexp=str_replace(array("\*","\?"), array(".*","."), $baseexp);
 	$typeexp=str_replace(array("\*","\?"), array(".*","."), $typeexp);
-		   
+
 	// Search for Matches
 	$i=0;
 	$matches=null; // $matches adalah array()
 	foreach($files as $file) 
 	{
 		$filename=basename($file);
-			  
-		if(strpos($filename,".")) 
+
+		if(strpos($filename,"."))
 		{
 			$base=substr($filename,0,strpos($filename,"."));
 			$type=substr($filename,strpos($filename,".")+1,strlen($filename));
 		} 
-		else 
+		else
 		{ 
 			$base=$filename;
 			$type="";
 		}
 
-		if(preg_match("/^".$baseexp."$/i",$base) && preg_match("/^".$typeexp."$/i",$type))  
+		if(preg_match("/^".$baseexp."$/i",$base) && preg_match("/^".$typeexp."$/i",$type))
 		{
 			$matches[$i]=$file;
 			$i++;
 		}
 	}
-	
+
 	return $matches;
 }
 
@@ -1250,7 +1270,7 @@ function GetContents($dir,$files=array())
 			if(is_dir("$dir/$file")) 
 				$files=GetContents("$dir/$file",$files);
 			else array_push($files,"$dir/$file");
-		 
+
 	closedir($res);
 	return $files;
 }

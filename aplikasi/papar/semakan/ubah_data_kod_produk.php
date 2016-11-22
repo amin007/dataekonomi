@@ -51,9 +51,9 @@ for ($kira=0; $kira < count($row); $kira++)
 		endif; echo "\r\t";
 #-print the data row----------------------------------------------
 ?><tbody><tr>
-	<td><?php echo $kira+1 ?></td>	
+	<td><?php echo $kira+1 ?></td>
 	<?php foreach ( $row[$kira] as $key=>$data ) :?>
-	<td align="right"><?php 
+	<td align="right"><?php
 	$papar = (in_array($key, $io)) ? 
 		$data : BorangPapar::semakJenis($this->sv, $key, $data);
 	list($f25,$jum) = ($myTable=='output') ? 
@@ -83,4 +83,4 @@ for ($kira=0; $kira < count($row); $kira++)
 ?>
 </div>
 </div> <!-- /tab-content -->
-<?php endif; ?>
+<?php endif; # if (isset($this->kod_produk)) :?>

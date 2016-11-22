@@ -1,3 +1,4 @@
+<?php if (count($this->kawalID)!='0') : ?>
 <span class="badge">Jadual Kawalan</span>
 <div class="tabbable tabs-top">
 	<ul class="nav nav-tabs">
@@ -55,3 +56,4 @@ foreach ($this->kawalID as $myTable => $row)
 ?>
 </div>
 </div> <!-- /tab-content -->
+<?php endif; # if (count($this->kawalID)) :?>

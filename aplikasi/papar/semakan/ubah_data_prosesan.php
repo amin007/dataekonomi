@@ -1,10 +1,11 @@
-<hr><?php $cari = 'data_proses'; ?>
+<hr><?php $cari = 'data_proses'; 
+if (count($this->prosesID)!='0') : ?>
 <span class="badge">Jadual Prosesan</span>
 <div class="tabbable tabs-top">
 	<ul class="nav nav-tabs">
 	<li class="active"><a href="#<?php echo $cari ?>" data-toggle="tab">
 	<span class="badge badge-success">Cari...</span></a></li>
-<?php 
+<?php
 	foreach ($this->prosesID as $jadual => $baris):
 		if ( count($baris)==0 ): echo '';
 		elseif (in_array($jadual,$buangJadual)): echo '';
@@ -37,11 +38,11 @@ foreach ($this->prosesID as $myTable => $row)
 	<div class="tab-pane" id="<?php echo $myTable ?>">
 	<span class="badge badge-success">Anda berada di <?php echo $myTable ?></span>
 	<!-- Jadual <?php echo $myTable ?> ########################################### -->
-	<table><tr><?php // mula bina jadual
+	<table><tr><?php # mula bina jadual
 	#-----------------------------------------------------------------
-	for ($kira=0; $kira < count($row); $kira++) //print the data row 
+	for ($kira=0; $kira < count($row); $kira++) # print the data row
 	{ echo "\r\t";?><td valign="top">
-		<table border="1" class="excel" <?php echo $kiraJumlah ?>><?php 
+		<table border="1" class="excel" <?php echo $kiraJumlah ?>><?php
 		foreach ( $row[$kira] as $key=>$data ) : 
 			$thn = ($key=='thn') ? $data : 2010; 
 			$keterangan = !isset($this->keterangan[$myTable][$key][$thn]) ?
@@ -55,7 +56,7 @@ foreach ($this->prosesID as $myTable => $row)
 			's'.$this->sv.'_q02_2010','s'.$this->sv.'_q03_2010',
 			'206_q08_2010','206_q09_2010','s'.$this->sv.'_q04_2010',
 			's'.$this->sv.'_q07_2010','s'.$this->sv.'_q08_2010','s'.$this->sv.'_q09_2010');
-			
+
 			echo (in_array($myTable, $jadualAnalisa ) ) ?
 				analisis($this->perangkaan, $this->ppt, $myTable, $key, $data)
 				: BorangPapar::inputText('proses', $key, $data); ?>
@@ -71,3 +72,4 @@ foreach ($this->prosesID as $myTable => $row)
 ?>
 </div>  <!-- /tab-content line:168-->
 </div> <!-- /tabbable tabs-top line:154-->
+<?php endif; # if (count($this->prosesID)) :?>

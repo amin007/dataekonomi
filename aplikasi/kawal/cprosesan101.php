@@ -120,7 +120,7 @@ class Cprosesan101 extends Kawal
 		}
 		elseif (in_array($sv,array('101')))
 		{	# tanaman sahaja
-			$jadual = array('q01a','q01','q02','q03','q04','q04b','q05a','q05b','q06',
+			$jadual = array('q01','q01a','q02','q03','q04','q04b','q05a','q05b','q06',
 			'q07','q08','q09','q10','q11','q12','q13a','q13b','q14','q14','q15','q16',
 			'qsa','qsb','qsc','qsd','qse','qsf',
 			/*,'tblDataReviewTemp2'*/

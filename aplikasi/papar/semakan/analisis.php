@@ -10,7 +10,7 @@ function analisis($perangkaan, $ppt, $jadual, $key, $data)
 	$belanja_kini = $perangkaan['belanja']['kini'];
 	$susut_dulu = $perangkaan['susut']['dulu'];
 	$susut_kini = $perangkaan['susut']['kini'];
-	
+
 	if (in_array($key, array('F3501','F3502','F3503','F3509','F1539') ) )
 	{
 		$value = $data;
@@ -25,7 +25,6 @@ function analisis($perangkaan, $ppt, $jadual, $key, $data)
 		$anggar = ($key=='F2149') ? $susut : $gaji;
 		$anggaran = number_format($anggar,0,'.',',');
 		$anggaran = '<span style="font: italic bold 12px arial, serif;">' . $anggaran . '</span>';
-		
 	}
 	elseif ($jadual == $sv . '_q08_2010' && $sv='205')
 	{// hasil
@@ -33,7 +32,6 @@ function analisis($perangkaan, $ppt, $jadual, $key, $data)
 		$value = number_format($nilai_dulu,4,'.',',') . '%';
 		$anggar = ($hasil_dulu==0 || $data==0) ? 0 : (($data / $hasil_dulu) * $hasil_kini);
 		$anggaran = number_format($anggar,0,'.',',');
-		
 	}
 	elseif ($jadual == 's206_q08_2010' && $sv='206')
 	{// hasil
@@ -66,7 +64,6 @@ function analisis($perangkaan, $ppt, $jadual, $key, $data)
 			$anggar = ($data / $belanja_dulu) * $belanja_kini;
 			$anggaran = number_format($anggar,0,'.',',');
 		endif;
-	
 	}
 	elseif ($jadual == 's206_q09_2010' && $sv='206')
 	{// belanja
@@ -209,11 +206,11 @@ foreach ($this->kesID as $myTable => $row)
 		$tajuk = ' |' . dataSyarikat($perangkaan)
 			. ' | Dulu:' . kira($perangkaan['hasil']['dulu']) 
 			. ' | Kini:' . kira($perangkaan['hasil']['kini']);
-	
+
 	?>	
 	<span class="badge badge-success">Analisis data <?php 
 	echo $myTable . $tajuk ?></span>
-	<!-- Jadual <?php echo $myTable ?> ########################################### -->	
+	<!-- Jadual <?php echo $myTable ?> ########################################### -->
 	<table><tr>
 	<?php
 	// mula bina jadual
@@ -227,7 +224,7 @@ foreach ($this->kesID as $myTable => $row)
 		$senaraiJadual = array($sv . '_q08_2010','s' . $sv . '_q08_2010',
 			$sv . '_q09_2010', 's' . $sv . '_q09_2010');
 		$senaraiJadual2 = array('s' . $sv . '_q02_2010','s' . $sv . '_q03_2010');
-		
+
 		if (in_array($myTable, $senaraiJadual )):
 			$tajukMedan = array('keterangan','kod','data dulu','data kini','% dulu');
 		elseif (in_array($myTable, $senaraiJadual2 ) && $sv != '206'):
@@ -247,13 +244,13 @@ foreach ($this->kesID as $myTable => $row)
 			$thn = ($key=='thn') ? $data : 2010; 
 			$keterangan = !isset($this->keterangan[$myTable][$key][$thn]) ?
 				'tiada maklumat' : $this->keterangan[$myTable][$key][$thn];
-		
+
 		if ($this->paparNilai == '-' && $data == 0): echo '';
 		else:?><tr>
 		<td><?php echo $keterangan ?></td>
 		<td><?php echo $key ?></td>
 		<td align="right"><?php echo (in_array($key, $senaraiMedan)) ? 
-			$data : semakJenis($sv, $key, $data) ?></td>
+			$data : BorangPapar::semakJenis($sv, $key, $data) ?></td>
 		<?php 
 			if ($myTable==$sv . '_q08_2010' || $myTable=='s' . $sv . '_q08_2010'
 				|| $myTable==$sv .'_q09_2010' || $myTable=='s' . $sv . '_q09_2010'): 
@@ -282,7 +279,7 @@ foreach ($this->kesID as $myTable => $row)
 	}
 	#-----------------------------------------------------------------?>
 	</tr></table>
-	<!-- Jadual <?php echo $myTable ?> ########################################### -->		
+	<!-- Jadual <?php echo $myTable ?> ########################################### -->
 <?php
 	} // if ( count($row)==0 )
 }
@@ -296,7 +293,7 @@ function dataProdukKodbahan($perangkaan, $kesID)
 	$hasil_kini = $perangkaan['hasil']['kini'];
 	$belanja_dulu = $perangkaan['belanja']['dulu'];
 	$belanja_kini = $perangkaan['belanja']['kini'];
-	
+
 	foreach ($kesID as $myTable => $row):
 		foreach ($row[0] as $key=>$data):
 			if (in_array($key, array('F2001') ) )
@@ -312,7 +309,7 @@ function dataProdukKodbahan($perangkaan, $kesID)
 				$kosBahan = ($belanja_dulu==0 || $data==0) ? 0 :(($data / $belanja_dulu) * $belanja_kini);
 			}
 	endforeach;endforeach;
-	
+
 	return array('produk'=>$hasilProduk, 'kosBahan'=>$kosBahan);
 }
 function tajukMedan($kira,$row)
@@ -344,7 +341,7 @@ function analisisProdukKodBahan($borang, $p, $jadual, $row, $kiraBil)
 	*/
 	$kiniP = (int)$p['produk'];
 	$kiniK = (int)$p['kosBahan'];
-	
+
 	foreach ($row[$kiraBil] as $key => $data):
 		if ($jadual=='output' && in_array($key,array('F25'))):
 			list($dulu,$jum) = explode('-',$data);
@@ -353,7 +350,7 @@ function analisisProdukKodBahan($borang, $p, $jadual, $row, $kiraBil)
 			$value = number_format($nisbah2,2,'.',',') . '%';
 			$anggar = ($jum==0 || $dulu==0) ? 0 : (($dulu / $jum) * $kiniP);
 			$nilai_kini = floor($anggar * 1) / 1;
-					
+
 			$papar = ($data==0) ? 0: "dulu = $dulu |  $value<br>"
 				. " kini = ($dulu / $jum) x $kiniP = " . $nilai_kini 
 				. " ";
@@ -371,7 +368,7 @@ function analisisProdukKodBahan($borang, $p, $jadual, $row, $kiraBil)
 			$aup2 = number_format($aup,2,'.',',') . '';
 			$kini = ($data==0) ? 0: $nilai_kini / $aup2;
 			$kuantiti_kini = number_format($kini,0,'.',',') . '';
-			
+
 			$papar = ($kuantiti_dulu==0) ? 0 : " dulu = $kuantiti_dulu | aup " . $aup2 . '<br>'
 				. " kini = $nilai_kini / $aup2 = " . ($kuantiti_kini)
 				. "";
@@ -400,7 +397,7 @@ function analisisProdukKodBahan($borang, $p, $jadual, $row, $kiraBil)
 			$aup2 = number_format($aup,2,'.',',') . '';
 			$kini = ($nilai_kini==0 || $aup==0) ? 0 : $nilai_kini / $aup;
 			$kuantiti_kini = number_format($kini,0,'.',',') . '';
-			
+
 			$papar = ($kuantiti_dulu==0) ? 0 : " dulu = $kuantiti_dulu | aup " . $aup2 . '<br>'
 				. " kini = $nilai_kini / $aup2 = " . ($kuantiti_kini)
 				. "";
@@ -527,7 +524,7 @@ foreach ($this->kod_aset as $myTable => $row)
 <?php 	foreach ( $row[$kira] as $key=>$data ) :?>
 <td align="right"><?php echo (in_array($key, 
 			array('thn','Estab','F3001','Commodity'))) ? 
-			$data : semakJenis($sv, $key, $data) ?></td>
+			$data : BorangPapar::semakJenis($sv, $key, $data) ?></td>
 <?php 	endforeach ?>
 </tr></tbody>
 <?php

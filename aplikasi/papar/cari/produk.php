@@ -106,8 +106,8 @@ foreach ($this->cariNama as $jadual => $baris)
 ?>	</ul>
 <div class="tab-content">
 	<div class="tab-pane active" id="cari">
-	<p>Mencari <?php echo $cari ?> ya</p>
-	<?php echo harga_unit_purata(); ?>
+		<p>Mencari <?php echo $cari ?> ya</p>
+		<?php echo harga_unit_purata(); ?>
 	</div>
 	<?php 
 foreach ($this->cariNama as $myTable => $row)
@@ -168,8 +168,7 @@ for ($kira=0; $kira < count($row); $kira++)
 		{
 			$syarikat = $data;
 		}
-		else
-			{}
+		else{}
 		?><td><?php echo $data ?></td>
 <?php
 	} 
@@ -179,7 +178,7 @@ for ($kira=0; $kira < count($row); $kira++)
 #-----------------------------------------------------------------
 ?>
 </table>
-<!-- Jadual <?php echo $myTable ?> ########################################### -->		
+<!-- Jadual <?php echo $myTable ?> ########################################### -->
 	</div>
 <?php
 	} // if ( count($row)==0 )

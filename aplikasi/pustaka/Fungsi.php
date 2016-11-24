@@ -131,12 +131,8 @@ function dpt_senarai($namajadual)
 }
 
 function harga_unit_purata()
-{
-?>
-<!-- Example row of columns -->
-<hr>
-<div class="row">
-	<div class="span4">
+{?>
+	<table><tr><td>
 	<!-- ======================================================================= -->
 		<table border="1" class="excel">
 		<tr><td colspan="2">PANDUAN PENYUNTINGAN DAN PENGEKODAN.</td>
@@ -154,8 +150,7 @@ function harga_unit_purata()
 		<tr><td>Kuasa Elektrik Yang Dibeli</td><td>k.w.j</td><td>0.20</td><td>0.60</td></tr>
 		</table>
 	<!-- ======================================================================= -->
-	</div>
-	<div class="span5">
+	</td><td valign="top">
 	<!-- ======================================================================= -->
 		<table border="1" class="excel">
 		<tr><td colspan="3">Jika pertubuhan mengeluarkan kuasa elektrik sendiri tetapi tidak menyimpan <br>
@@ -165,15 +160,14 @@ function harga_unit_purata()
 		<tr><td>(i)</td><td>Kuasa kuda generator</td><td>(h.p. = n1)</td></tr>
 		<tr><td>(ii)</td><td>Bil.Jam sehari generator bergerak</td><td>(jam = M)</td></tr>
 		<tr><td>(iii)</td><td>Bil. Hari pertubuhan beroperasi</td><td>(hari = Y)</td></tr>
-		<tr><td>&nbsp;</td><td colspan="2">
+		<tr><td colspan="3">
 			1 h.p. = 0.746 k.w.j.<br>k.w.j. = n1 x 0.746 x M x Y<br>
 			Jika n2 KVA (kilo-volt amphere) diberi,	menggantikan kuasa kuda iaitu<br>
 			(n1 h.p.), k.w.j. = n2 x 0.8 x Y x M
 		</td></tr>
 		</table>
 	<!-- ======================================================================= -->
-	</div>
-</div>
+	</td></tr></table>
 <?php
 }
 

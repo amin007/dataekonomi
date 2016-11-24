@@ -187,7 +187,7 @@ function pecah_post()
 	//echo '<pre>'; print_r($kira) . '</pre>';
 }
 
-// semak data
+# semak data
 function semakDataPOST($semua)
 {
 			foreach ($_POST as $myTable => $value)
@@ -216,7 +216,7 @@ function semakDataPOST($semua)
 
 	return $posmen;
 }
-// mula untuk kod php+html 
+# mula untuk kod php+html 
 function papar_jadual($row, $myTable, $pilih)
 {
 	if ($pilih == 1) 
@@ -228,7 +228,7 @@ function papar_jadual($row, $myTable, $pilih)
 		$printed_headers = false; 
 		#-----------------------------------------------------------------
 		for ($kira=0; $kira < count($row); $kira++)
-		{	//print the headers once: 	
+		{	#print the headers once: 	
 			if ( !$printed_headers ) : ?>
 		<thead><tr>
 		<th>#</th><?php foreach ( array_keys($row[$kira]) as $tajuk ) :
@@ -238,7 +238,7 @@ function papar_jadual($row, $myTable, $pilih)
 		<?php	$printed_headers = true; 
 			endif;
 		#-----------------------------------------------------------------
-		//print the data row ?>
+		#print the data row ?>
 		<tbody><tr>
 		<td><?php echo $kira+1 ?></td>	
 		<?php foreach ( $row[$kira] as $key=>$data ) : 
@@ -256,11 +256,11 @@ function papar_jadual($row, $myTable, $pilih)
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 		?><!-- Jadual <?php echo $myTable ?> -->	
 		<table  border="1" class="excel" id="example"><?php
-		// mula bina jadual
+		# mula bina jadual
 		$printed_headers = false; 
 		#-----------------------------------------------------------------
 		for ($kira=0; $kira < count($row); $kira++)
-		{	//print the headers once: 	
+		{	#print the headers once: 	
 			if ( !$printed_headers ) : ?>
 		<thead><tr>
 		<th>#</th><?php
@@ -276,7 +276,7 @@ function papar_jadual($row, $myTable, $pilih)
 				$printed_headers = true; 
 			endif; 
 		#-----------------------------------------------------------------
-		//print the data row ?>
+		#print the data row ?>
 		<tbody><tr>
 		<td><?php echo $kira+1 ?></td>	
 		<?php
@@ -303,7 +303,7 @@ function papar_jadual($row, $myTable, $pilih)
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 		?><!-- Jadual <?php echo $myTable ?>  --><?php
 		for ($kira=0; $kira < count($row); $kira++)
-		{// ulang untuk $kira++ ?>
+		{# ulang untuk $kira++ ?>
 		<table border="1" class="excel" id="example">
 		<tbody><?php foreach ( $row[$kira] as $key=>$data ):?>
 		<tr>
@@ -313,13 +313,13 @@ function papar_jadual($row, $myTable, $pilih)
 		<?php endforeach; ?></tbody>
 		</table>
 		<?php
-		}// ulang untuk $kira++ ?>
+		}# ulang untuk $kira++ ?>
 		<!-- Jadual <?php echo $myTable ?> --><?php
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-	} // tamat if (jadual ==3
+	} # tamat if (jadual ==3
 	elseif ($jadual == 4)
-	{ // mula if (jadual==4
-		$bil_tajuk = $row['bil_tajuk'];// => 8
+	{ # mula if (jadual==4
+		$bil_tajuk = $row['bil_tajuk'];# => 8
 		$bil_baris = $row['bil_baris']; 
 
 		$output  = null; 
@@ -332,12 +332,12 @@ function papar_jadual($row, $myTable, $pilih)
 		</strong></th>
 		</tr></thead>';
 
-		// mula bina jadual
+		# mula bina jadual
 		$printed_headers = false; 
 		#-----------------------------------------------------------------
 		for ($kira=0; $kira < $bil_baris; $kira++)
 		{
-			//print the headers once: 	
+			#print the headers once: 	
 			if ( !$printed_headers ) 
 			{##============================================================
 			$output .= "\r\t<thead><tr>\r\t<th>#</th>";
@@ -349,7 +349,7 @@ function papar_jadual($row, $myTable, $pilih)
 				$printed_headers = true; 
 			} 
 		#-----------------------------------------------------------------
-			//print the data row 
+			#print the data row 
 			$output .= "\r\t<tbody><tr>\r\t<td>" . ($kira+1) . '</td>';
 			foreach ( $row[$kira] as $key=>$data ) :
 				$output .= "\r\t" . '<td>' . $data . '</td>';
@@ -361,44 +361,44 @@ function papar_jadual($row, $myTable, $pilih)
 
 		return $output;
 
-	} // tamat if ($jadual == 4
+	} # tamat if ($jadual == 4
 }
-// tamat untuk kod php+html 
-// sql limit
+# tamat untuk kod php+html 
+# sql limit
 function pencamSqlLimit($bilSemua, $item, $ms)
 {
-    // Tentukan bilangan jumlah dalam DB:
+    # Tentukan bilangan jumlah dalam DB:
     $jum['bil_semua'] = $bilSemua;
-    // ambil halaman semasa, jika tiada, cipta satu! 
-    $jum['page'] = ( !isset($ms) ) ? 1 : $ms; // mukasurat
-    // berapa item dalam satu halaman
-    $jum['max'] = ( !isset($item) ) ? 30 : $item; // item
-    // Tentukan had query berasaskan nombor halaman semasa.
+    # ambil halaman semasa, jika tiada, cipta satu! 
+    $jum['page'] = ( !isset($ms) ) ? 1 : $ms; # mukasurat
+    # berapa item dalam satu halaman
+    $jum['max'] = ( !isset($item) ) ? 30 : $item; # item
+    # Tentukan had query berasaskan nombor halaman semasa.
     $dari = (($jum['page'] * $jum['max']) - $jum['max']); 
-    $jum['dari'] = ( !isset($dari) ) ? 0 : $dari; // dari
-    // Tentukan bilangan halaman. 
+    $jum['dari'] = ( !isset($dari) ) ? 0 : $dari; # dari
+    # Tentukan bilangan halaman. 
     $jum['muka_surat'] = ceil($jum['bil_semua'] / $jum['max']);
-    // nak tentukan berapa bil jumlah dlm satu muka surat
+    # nak tentukan berapa bil jumlah dlm satu muka surat
     $jum['bil'] = $jum['dari']+1; 
 
     return $jum;
 }
-// format perpuluhan
+# format perpuluhan
 function kiraPerpuluhan($kiraan, $perpuluhan = 1)
 {
-	// pecahan kepada ratus
+	# pecahan kepada ratus
 	return number_format($kiraan,$perpuluhan,'.',',');
 }
 
 function kira($kiraan)
 {
-	// pecahan kepada ratus
+	# pecahan kepada ratus
 	return number_format($kiraan,0,'.',',');
 }
 
 function kira2($dulu,$kini)
 {
-	// buat bandingan dan pecahan kepada ratus
+	# buat bandingan dan pecahan kepada ratus
 	return @number_format((($kini-$dulu)/$dulu)*100,0,'.',',');
 	//@$kiraan=(($kini-$dulu)/$dulu)*100;
 }
@@ -439,7 +439,7 @@ function huruf($jenis , $papar)
 	*/
 	
 	switch ($jenis) 
-	{// mula - pilih $jenis
+	{# mula - pilih $jenis
 	case "BESAR":
 		$papar = strtoupper($papar);
 		break;
@@ -452,7 +452,7 @@ function huruf($jenis , $papar)
 	case "Besar_Depan":
 		$papar = mb_convert_case($papar, MB_CASE_TITLE);
 		break;
-	}// tamat - pilih $jenis
+	}# tamat - pilih $jenis
 
 	return $papar;
 }
@@ -527,9 +527,9 @@ function bersih($papar)
 function gambar_latarbelakang($lokasi)
 {
 	// '$lokasi=' . $lokasi;
-    $tmpt1 = '../private_html/bg/bg'; // utk localhost
-	//$tmpt1 = '../../../private_html/bg/bg'; // utk localhost
-    //$tmpt2 = '../../../../bssu/bg/bg'; // utk website amin007
+    $tmpt1 = '../private_html/bg/bg'; # utk localhost
+	//$tmpt1 = '../../../private_html/bg/bg'; # utk localhost
+    //$tmpt2 = '../../../../bssu/bg/bg'; # utk website amin007
 	//$tmpt = ($lokasi=='localhost') ? $tmpt1 : $tmpt2;
     $dh = opendir($tmpt1);
     $i=1;
@@ -568,7 +568,7 @@ function gambar_latarbelakang($lokasi)
 
 function cari_imej($ssm,$strDir)
 {
-	//require_once ('public/skrip/listfiles2/dir_functions.php');
+	#require_once ('public/skrip/listfiles2/dir_functions.php');
 
 	if ( isset($ssm) && empty($ssm) )
 	{
@@ -576,22 +576,22 @@ function cari_imej($ssm,$strDir)
 	}
 	else
 	{
-		// You can modify this in case you need a different extension
+		# You can modify this in case you need a different extension
 		$strExt = "tif";
 
-		// This is the full match pattern based upon your selections above
+		# This is the full match pattern based upon your selections above
 		$pattern = "*" . $ssm . "*." . $strExt;
-		//echo '<br> Fungsi.php -> $strDir=' . $strDir;
+		#echo '<br> Fungsi.php -> $strDir=' . $strDir;
 		$cariImej = GetMatchingFiles(GetContents($strDir),$pattern);
 	}
 
 	//print_r($cariImej);
 	return $cariImej;
 }
-// lisfile2 - mula
+# lisfile2 - mula
 function GetMatchingFiles($files, $search) 
 {
-	// Split to name and filetype
+	# Split to name and filetype
 	if(strpos($search,".")) 
 	{
 		$baseexp=substr($search,0,strpos($search,"."));
@@ -603,17 +603,17 @@ function GetMatchingFiles($files, $search)
 		$typeexp="";
 	}
 
-	// Escape all regexp Characters 
+	# Escape all regexp Characters 
 	$baseexp=preg_quote($baseexp); 
 	$typeexp=preg_quote($typeexp); 
 
-	// Allow ? and *
+	# Allow ? and *
 	$baseexp=str_replace(array("\*","\?"), array(".*","."), $baseexp);
 	$typeexp=str_replace(array("\*","\?"), array(".*","."), $typeexp);
 
-	// Search for Matches
+	# Search for Matches
 	$i=0;
-	$matches=null; // $matches adalah array()
+	$matches=null; # $matches adalah array()
 	foreach($files as $file) 
 	{
 		$filename=basename($file);
@@ -639,7 +639,7 @@ function GetMatchingFiles($files, $search)
 	return $matches;
 }
 
-// Returns all Files contained in given dir, including subdirs
+# Returns all Files contained in given dir, including subdirs
 function GetContents($dir,$files=array()) 
 {
 	if(!($res=opendir($dir))) exit("$dir doesn't exist!");
@@ -652,4 +652,4 @@ function GetContents($dir,$files=array())
 	closedir($res);
 	return $files;
 }
-// listfile2 - tamat
+# listfile2 - tamat

@@ -177,14 +177,13 @@ function pecah_post()
 	$papar['cari'] = isset($_POST['cari']) ? $_POST['cari'] : null;
 	$papar['fix'] = isset($_POST['fix']) ? $_POST['fix'] : null;
 	$papar['atau'] = isset($_POST['atau']) ? $_POST['atau'] : null;
-	
+
 	$kira['pilih'] = count($papar['pilih']);
 	$kira['cari'] = count($papar['cari']);
 	$kira['fix'] = count($papar['fix']);
 	$kira['atau'] = count($papar['atau']);
-	
+
 	return $kira;
-	//echo '<pre>'; print_r($kira) . '</pre>';
 }
 
 # semak data
@@ -224,11 +223,10 @@ function papar_jadual($row, $myTable, $pilih)
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 		?><!-- Jadual <?php echo $myTable ?> -->	
 		<table  border="1" class="excel" id="example"><?php
-		// mula bina jadual
-		$printed_headers = false; 
+		$printed_headers = false; # mula bina jadual
 		#-----------------------------------------------------------------
 		for ($kira=0; $kira < count($row); $kira++)
-		{	#print the headers once: 	
+		{	#print the headers once:
 			if ( !$printed_headers ) : ?>
 		<thead><tr>
 		<th>#</th><?php foreach ( array_keys($row[$kira]) as $tajuk ) :
@@ -237,13 +235,13 @@ function papar_jadual($row, $myTable, $pilih)
 		</tr></thead>
 		<?php	$printed_headers = true; 
 			endif;
-		#-----------------------------------------------------------------
-		#print the data row ?>
+		# print the data row ----------------------------------------------
+		?>
 		<tbody><tr>
 		<td><?php echo $kira+1 ?></td>	
 		<?php foreach ( $row[$kira] as $key=>$data ) : 
 		?><td><?php echo $data ?></td>
-		<?php endforeach; ?>  
+		<?php endforeach; ?>
 		</tr></tbody>
 		<?php
 		}
@@ -256,8 +254,7 @@ function papar_jadual($row, $myTable, $pilih)
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 		?><!-- Jadual <?php echo $myTable ?> -->	
 		<table  border="1" class="excel" id="example"><?php
-		# mula bina jadual
-		$printed_headers = false; 
+		$printed_headers = false; # mula bina jadual
 		#-----------------------------------------------------------------
 		for ($kira=0; $kira < count($row); $kira++)
 		{	#print the headers once: 	
@@ -275,8 +272,8 @@ function papar_jadual($row, $myTable, $pilih)
 		?></tr></thead><?php
 				$printed_headers = true; 
 			endif; 
-		#-----------------------------------------------------------------
-		#print the data row ?>
+		# print the data row ----------------------------------------------
+		?>
 		<tbody><tr>
 		<td><?php echo $kira+1 ?></td>	
 		<?php
@@ -332,8 +329,7 @@ function papar_jadual($row, $myTable, $pilih)
 		</strong></th>
 		</tr></thead>';
 
-		# mula bina jadual
-		$printed_headers = false; 
+		$printed_headers = false; # mula bina jadual
 		#-----------------------------------------------------------------
 		for ($kira=0; $kira < $bil_baris; $kira++)
 		{
@@ -347,9 +343,8 @@ function papar_jadual($row, $myTable, $pilih)
 			$output .= "\r\t" . '</tr></thead>';
 			##=============================================================
 				$printed_headers = true; 
-			} 
-		#-----------------------------------------------------------------
-			#print the data row 
+			}
+		#--- print the data row ------------------------------------------
 			$output .= "\r\t<tbody><tr>\r\t<td>" . ($kira+1) . '</td>';
 			foreach ( $row[$kira] as $key=>$data ) :
 				$output .= "\r\t" . '<td>' . $data . '</td>';
@@ -643,9 +638,9 @@ function GetMatchingFiles($files, $search)
 function GetContents($dir,$files=array()) 
 {
 	if(!($res=opendir($dir))) exit("$dir doesn't exist!");
-		while(($file=readdir($res))==TRUE) 
+		while(($file=readdir($res))==TRUE)
 		if($file!="." && $file!="..")
-			if(is_dir("$dir/$file")) 
+			if(is_dir("$dir/$file"))
 				$files=GetContents("$dir/$file",$files);
 			else array_push($files,"$dir/$file");
 

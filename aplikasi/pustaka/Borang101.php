@@ -1847,7 +1847,7 @@ class Borang101
 		$F3701 = 'Stok Awal - 37';
 		$F3801 = 'Stok Akhir - 38';
 		$F2901 = 'kod unit - 29';
-		$F3901 = 'kod produk - 39';
+		$namaProduk = 'nama produk - 39';
 
 		# mula cari A
 		$SELECT = 'SELECT Batch';
@@ -1865,11 +1865,11 @@ class Borang101
 				. ",\r F34$baris as `$F3401(RM)`,F36$baris as `$F3601(RM)`"
 				. ",\r F37$baris as `$F3701(RM)`,F38$baris as `$F3801(RM)`"
 				. ",\r F29$baris as `$F2901`"
-				. ",\r concat_ws(\"<br>\",F39$baris,SUBSTRING(F39$baris,-10)) as F3901"
-				. ',( SELECT concat_ws("-",keterangan,kod_produk) '
+				//. ",\r concat_ws(\"<br>\",F39$baris,SUBSTRING(F39$baris,-10)) as F3901"
+				. ',( SELECT concat_ws(" ",F39' . $baris . ',"<br>",keterangan,kod_produk) '
 				//. ', (SELECT CONCAT("<abbr title=\"", keterangan, "\">", kod_produk, "</abbr>") '
 				. 'FROM ' . $kodProduk . ' b WHERE b.kod_produk='
-				. 'SUBSTRING(F39' . $baris . ',-10) LIMIT 1) as nama_produk'
+				. 'SUBSTRING(F39' . $baris . ',-10) LIMIT 1) as `' . $namaProduk . '`'
 				. $WHERE . ')';
 		}# tamat ulang $kira:$cariID dalam kod_produk['q14_2010']
 
@@ -1888,11 +1888,11 @@ class Borang101
 				. ",\r F34$baris as `$F3401(RM)`,F36$baris as `$F3601(RM)`"
 				. ",\r F37$baris as `$F3701(RM)`,F38$baris as `$F3801(RM)`"
 				. ",\r F29$baris as `$F2901`"
-				. ",\r concat_ws(\"<br>\",F39$baris,SUBSTRING(F39$baris,-10)) as F3901"
-				. ',( SELECT concat_ws("-",keterangan,kod_produk) '
+				//. ",\r concat_ws(\"<br>\",F39$baris,SUBSTRING(F39$baris,-10)) as F3901"
+				. ',( SELECT concat_ws(" ",F39' . $baris . ',"<br>",keterangan,kod_produk) '
 				//. ', (SELECT CONCAT("<abbr title=\"", keterangan, "\">", kod_produk, "</abbr>") '
 				. 'FROM ' . $kodProduk . ' b WHERE b.kod_produk='
-				. 'SUBSTRING(F39' . $baris . ',-10) LIMIT 1) as nama_produk'
+				. 'SUBSTRING(F39' . $baris . ',-10) LIMIT 1) as `' . $namaProduk . '`'
 				. $WHERE . ')';
 		}# tamat ulang $kira:$cariID dalam kod_produk['q14_2010']
 
@@ -1904,7 +1904,8 @@ class Borang101
 				. ',"" as `'.$F3001.'`,"" as `'.$F3101.'`,"" as `'.$F3301.'`'
 				. ",\r F34$baris as `$F3401(RM)`,F36$baris as `$F3601(RM)`"
 				. ",\r F37$baris as `$F3701(RM)`,F38$baris as `$F3801(RM)`"
-				. ",\r " . '"" as `$F2901`, "" as `F3101`, "" as nama_produk '
+				//. ",\r " . '"" as `$F2901`, "" as `F3901`, "" as nama_produk '
+				. ",\r " . '"" as `$F2901`, "" as `' . $namaProduk . '`'
 				. $WHERE . ')'; //*/
 
 		# papar sql
@@ -1920,6 +1921,7 @@ class Borang101
 		$cariID = ( !isset($cari['id']) ) ? '' : $cari['id'];
 		$thnMula = ( !isset($cari['thn_mula']) ) ? '' : $cari['thn_mula'];
 		$thnAkhir = ( !isset($cari['thn_akhir']) ) ? '' : $cari['thn_akhir'];
+		$namaProduk = 'namaProduk - 44';
 
 		# mula cari A
 		$SELECT = 'SELECT "" as `Jenis`';
@@ -1932,13 +1934,13 @@ class Borang101
 			$baris = kira3($kira, 2);
 			$medan[] = "\r(" . $SELECT
 				. ',F40' . $baris . ' as `Kuantiti-40`'
-				. "\r " . ',F41' . $baris . ' as `Tempatan-41(RM)`,F42' . $baris . ' as `Import-42(RM2)`'
-				. "\r " . ',F43' . $baris . ' as `F4301`'
-				. "\r " . ',concat_ws("<br>",F44' . $baris . ',SUBSTRING(F44' . $baris . ',-10)) as F4401' 
-				. ',( SELECT concat_ws("-",keterangan,kod_produk) '
+				. "\r " . ',F41' . $baris . ' as `Tempatan(RM)-41`,F42' . $baris . ' as `Import(RM)-42`'
+				. "\r " . ',F43' . $baris . ' as `KodUnit-43`'
+				//. "\r " . ',concat_ws("<br>",F44' . $baris . ',SUBSTRING(F44' . $baris . ',-10)) as F4401' 		
+				. ',( SELECT concat_ws(" ",F44' . $baris . ',"<br>",keterangan,kod_produk) '
 				//. ', (SELECT CONCAT("<abbr title=\"", keterangan, "\">", kod_produk, "</abbr>") '
 				. 'FROM ' . $kodProduk . ' b WHERE b.kod_produk='
-				. 'SUBSTRING(F44' . $baris . ',-10) LIMIT 1) as nama_produk'
+				. 'SUBSTRING(F44' . $baris . ',-10) LIMIT 1) as `' . $namaProduk . '`'
 				. $WHERE . ')';
 		}# tamat ulang $kira:$cariID dalam kod_produk['q14_2010']
 		//*/
@@ -1947,20 +1949,22 @@ class Borang101
 			$baris = 15;
 			$medan[] = "\r(" . $SELECT 
 				. ',"Nilai bahan lain yang digunakan" as F4001'
-				. ',F41' . $baris . ' as `F4101(RM)`,F42' . $baris . ' as `F4201(RM)`'
-				. "\r " . ',"" as `F4301`'
-				. "\r " . ',concat_ws("<br>99998",F44' . $baris . ',SUBSTRING(F44' . $baris . ',-10)) as F4401'
-				. ',( SELECT concat_ws("-",keterangan,kod_produk) '
+				. "\r " . ',F41' . $baris . ' as `Tempatan(RM)-41`,F42' . $baris . ' as `Import(RM)-42`'
+				. "\r " . ',"" as `KodUnit-43`'
+				//. "\r " . ',concat_ws("<br>99998",F44' . $baris . ',SUBSTRING(F44' . $baris . ',-10)) as F4401'
+				. ',( SELECT concat_ws(" ",F44' . $baris . ',"|99998<br>",keterangan,kod_produk) '
 				//. ', (SELECT CONCAT("<abbr title=\"", keterangan, "\">", kod_produk, "</abbr>") '
 				. 'FROM ' . $kodProduk . ' b WHERE b.kod_produk='
-				. 'SUBSTRING(F44' . $baris . ',-10) LIMIT 1) as nama_produk'
+				. 'SUBSTRING(F44' . $baris . ',-10) LIMIT 1) as `' . $namaProduk . '`'
 				. $WHERE . ')';
 
 		# mula cari A-Jumlah
 			$baris = 20;
 			$medan[] = "\r(" . $SELECT 
-				. ',"Jumlah" as F4001,F4120 as `F4101(RM)`,F4220 as `F4201(RM)`'
-				. "\r " . ',"" as `F4301`, "" as `F4401`, "" as nama_produk '
+				. ',"Jumlah" as F4001'
+				. "\r " . ',F41' . $baris . ' as `Tempatan(RM)-41`,F42' . $baris . ' as `Import(RM)-42`'
+				//. "\r " . ',"" as `F4301`, "" as `F4401`, "" as `' . $namaProduk . '`'
+				. "\r " . ',"" as `KodUnit-43`, "" as `' . $namaProduk . '`'
 				. $WHERE . ')';
 		//*/
 

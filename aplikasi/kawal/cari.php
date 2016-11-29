@@ -2,15 +2,15 @@
 
 class Cari extends Kawal 
 {
-
+#****************************************************************************************
 	public function __construct() 
 	{
 		parent::__construct();
-        Kebenaran::kawalKeluar();		
+        Kebenaran::kawalKeluar();
 	}
-	
-	public function index() 
-	{	
+
+	public function index()
+	{
 		//echo '<br>public function index() class Cari extends Kawal ';
 		$this->papar->medan = null;
 		# Set pemboleubah utama
@@ -19,20 +19,20 @@ class Cari extends Kawal
 		# pergi papar kandungan
 		$this->papar->baca('cari/index');
 	}
-	
+
 	public function semua($borang, $bil=1, $mesej=null) 
-	{	
+	{
 		/* fungsi ini memaparkan borang
 		 * untuk carian msic & produk sahaja
 		  echo 'mana ko pergi daa ' . $borang . '<br>';
 		 */
-		
+
 		$this->papar->medan = ($borang=='msic') ?
 			$this->tanya->paparMedan('msic2000')
 			: # jika $borang!='msic'
 			$this->tanya->paparMedan('kodproduk_mei2011');
 		//echo '<pre>$this->papar->medan:<br>'; print_r($this->papar->medan); 
-		
+
 		# Set pemboleubah utama
 		$this->papar->url = dpt_url();
 		$this->papar->mesej = $mesej;
@@ -42,12 +42,12 @@ class Cari extends Kawal
 	}
 
 	public function lokaliti($negeri, $bil=1, $mesej=null) 
-	{	
+	{
 		/* fungsi ini memaparkan borang
 		 * untuk carian lokaliti($negeri) sahaja
 		   echo 'mana ko pergi daa lokaliti($negeri)<br>';
 		 */
-		
+
 		$this->papar->medan = $this->tanya->paparMedan('pom_lokaliti.'.$negeri);
 		//echo '<pre>$this->papar->medan:<br>'; print_r($this->papar->medan); 
 
@@ -56,21 +56,21 @@ class Cari extends Kawal
 		$this->papar->mesej = $mesej;
 
 		# pergi papar kandungan
-		$this->papar->baca('cari/index');	
+		$this->papar->baca('cari/index');
 	}
-	
+
 	public function prosesan() 
 	{	
 		/* fungsi ini memaparkan borang
 		 * untuk carian syarikat sahaja
 		 */
-		
+
 		$this->papar->medan = $this->tanya->paparMedan('data_mm_prosesan');
 		//echo '<pre>$this->papar->medan:<br>'; print_r($this->papar->medan); 
-		$url = dpt_url();
+
 		# Set pemboleubah utama
-		$this->papar->url = $url;
-			
+		$this->papar->url = dpt_url();
+
 		# pergi papar kandungan
 		$this->papar->baca('cari/index', 0);
 	}
@@ -89,7 +89,7 @@ class Cari extends Kawal
 		/* fungsi ini memaparkan hasil carian
 		 * untuk jadual msic2000 dan msic2008
 		 */
-		
+
 		$had = '0, ' . $bil; # setkan $had untuk sql
 		$kira = pecah_post($_POST); //echo '<pre>$kira->'; print_r($kira); echo '</pre>';
 		# setkan pembolehubah dulu
@@ -104,7 +104,7 @@ class Cari extends Kawal
 		//echo '<pre>$_POST->', print_r($_POST, 1) . '</pre>';
 		//echo '$bil=' . $bil. '<br>$muka=' . $muka. '<br>';
 		//echo '$pilih=' . $pilih. '<br>$semak=' . $semak. '<br>';
-		
+
 		if (!isset($_POST['atau']) && isset($_POST['pilih'][2]))
 		{
 			$mesej = 'tak isi atau-dan pada carian';
@@ -131,7 +131,7 @@ class Cari extends Kawal
 				$this->papar->cariNama[$myTable] = $this->tanya
 				->cariBanyakMedan($myTable, $medan, $kira, $had);
 			}# tamat ulang table
-			
+
 			$this->papar->carian=$carian;
 			$mesej = null; $lokasi = null;
 		}
@@ -149,12 +149,12 @@ class Cari extends Kawal
 				$this->papar->cariNama[$myTable] = $this->tanya
 				->cariBanyakMedan($myTable, $medan, $kira, $had);
 			}# tamat ulang table
-			
+
 			# papar jadual kod unit
 			$unit = 'kodproduk_unitkuantiti';
 				$this->papar->cariNama[$unit] = $this->tanya
 					->paparSemuaJadual($unit, '*');
-			
+
 			$this->papar->carian=$carian;
 			$mesej = null; $lokasi = null;
 		}
@@ -169,7 +169,7 @@ class Cari extends Kawal
 				$this->papar->cariNama[$myTable] = $this->tanya
 				->cariBanyakMedan($myTable, $medan, $kira, $had);
 			}# tamat ulang table
-			
+
 			$this->papar->carian=$carian;
 			$mesej = null; $lokasi = null;
 		}
@@ -194,7 +194,7 @@ class Cari extends Kawal
 				"\r" . ' concat(`KodPBT`,"-",`PBT`) as PBT,' .
 				"\r" . ' `catatan`, `kawasan`,' .
 				"\r" . ' `LOKALITI UNTUK INDEKS`'; 
-				
+
 			# mula cari $cariID dalam $jadual
 			$jadual = dpt_senarai('johor');
 			foreach ($jadual as $key => $myTable)
@@ -206,7 +206,7 @@ class Cari extends Kawal
 				$this->papar->cariNama[$myJadual] = $this->tanya
 					->cariBanyakMedan($myTable, $medan, $kira, $had);
 			}# tamat ulang table
-			
+
 			$this->papar->carian=$carian;
 			$mesej = null; $lokasi = null;
 		}
@@ -223,7 +223,7 @@ class Cari extends Kawal
 				//->cariSql('pom_lokaliti.'.$myTable, $medan, $kira, $had);
 				->cariBanyakMedan('pom_lokaliti.'.$myTable, $medan, $kira, $had);
 			}# tamat ulang table
-			
+
 			$this->papar->carian=$carian;
 			$mesej = null; $lokasi = null;
 		}
@@ -239,33 +239,32 @@ class Cari extends Kawal
 				$this->papar->cariNama[$myTable] = $this->tanya
 				->cariBanyakMedan($myTable, $medan, $kira, $had);
 			}# tamat ulang table
-			
+
 			$this->papar->carian = $carian;
 			$mesej = null; $lokasi = null;
 		}
-		
+
 		# semak output
 		/*echo '<pre>';
 		echo '$this->papar->cariNama:'; print_r($this->papar->cariNama);
 		//echo '$this->papar->carian : ' . $this->papar->carian . '<br>';
 		//echo '$this->papar->apa : ' . $this->papar->apa . '<br>';
-		echo '</pre>';
-		//*/
-		
+		echo '</pre>'; //*/
+
 		# paparkan ke fail cari/$namajadual.php
-		if ($mesej != null ) 
+		if ($mesej != null )
 		{
 			$_SESSION['mesej'] = $mesej;
-			
+
 			//echo 'Patah balik ke ' . $lokasi . $mesej . '<hr>' . $data;
 			header('location:' . URL . 'cari/' . $lokasi . $namajadual . '/2');
 		}
-		else 
+		else
 		{
 			//echo 'Tak patah balik';
-			$this->papar->baca('cari/' . $namajadual, 0);	
-		}
-		//*/
-	}
+			$this->papar->baca('cari/' . $namajadual, 0);
+		} //*/
 
+	}
+#****************************************************************************************
 }

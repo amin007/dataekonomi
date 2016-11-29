@@ -6,7 +6,7 @@ class Anggaran extends Kawal
 	function __construct() 
 	{
 		parent::__construct();
-        Kebenaran::kawalKeluar();
+		Kebenaran::kawalKeluar();
 		#lokasi fail PAPAR untuk survey
 		$this->papar->dataAm = 'cprosesan/'; 
 		$this->papar->kelas = 'cprosesan/'; 

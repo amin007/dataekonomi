@@ -6,7 +6,7 @@ class Cari extends Kawal
 	public function __construct() 
 	{
 		parent::__construct();
-        Kebenaran::kawalKeluar();
+		Kebenaran::kawalKeluar();
 	}
 
 	public function index()

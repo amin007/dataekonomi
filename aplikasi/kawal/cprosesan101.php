@@ -19,7 +19,7 @@ class Cprosesan101 extends Kawal
 	}
 
 	public function index() 
-	{	
+	{
 		$this->papar->baca($this->papar->dataAm . 'index');
 	}
 

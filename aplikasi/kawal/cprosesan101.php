@@ -27,7 +27,7 @@ class Cprosesan101 extends Kawal
 	function ubah($sv=null, $id = null, $mula = null, $akhir = null, 
 	$cetak = null, $namaSyarikat = null)
 	{	//echo '<br>Anda berada di class Cprosesan extends Kawal:ubah($cari,$mula,$akhir,$cetak)<br>';
-		
+
 		# setkan semua pembolehubah
 		$medan = '*'; # senarai nama medan
 		$cari = array (
@@ -338,7 +338,6 @@ class Cprosesan101 extends Kawal
 			# buang jadual 'data_icdt2012_aset/ data_icdt2012_staf/data_icdt2012_stok'
 			foreach (array('asas','struktur',/*'msic',*/'aset','staf',/*'hasil','belanja',*/'stok') as $buanglah)
 				unset($this->papar->kesID['data_icdt2012_' . $buanglah]); 
-
 		}
 		elseif (in_array($sv,$this->_pptAsetPenuh))
 		{
@@ -377,7 +376,6 @@ class Cprosesan101 extends Kawal
 					Data::dataPekerjaBrgAm($this->papar->kesID[$jadualStaf]);
 			//echo '<hr>'.$jadualStaf.'<pre>semak data $this->papar->kod_produk[pekerjaan]:'; 
 			//print_r($this->papar->kod_produk['pekerjaan']); echo '</pre>';
-
 		}
 
 	}
@@ -468,7 +466,7 @@ class Cprosesan101 extends Kawal
 					$this->tanya->cariProdukBaru($myTable, $sql);
 				//$baris = $this->papar->kod_produk['kodInput'];
 				//echo '<pre>($baris Input)='; print_r($baris); echo '</pre><hr>';
-			}//*/
+			}
 			else
 			{
 				//echo '<hr>Lain2:' . $myTable . '<br>';

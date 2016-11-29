@@ -16,7 +16,7 @@ class Anggaran extends Kawal
 		$this->_pptBrgAm = array(328,334,335);
 		$this->_pptBrgAm2 = array(890);
 	}
-	
+
 	public function index($cetak = null) 
 	{
 		# setkan semua pembolehubah
@@ -754,11 +754,14 @@ class Anggaran extends Kawal
 			echo "\r".'RENAME TABLE `pom_dataekonomi`.`'.$j.'` TO `pom_dataekonomi`.`s'.$j.'`;';
 		}# tamat ulang table
 
+		$db = 'pom_dataekonomi';
+		$jadual = 'tbldatareview';
+
 		echo ''
-		. "\r" . 'RENAME TABLE `pom_dataekonomi`.`'.$sv.'_tbldatareview_2010` TO `pom_dataekonomi`.`s'.$sv.'_tbldatareview_2010`;'
-		. "\r" . 'RENAME TABLE `pom_dataekonomi`.`'.$sv.'_tbldatareviewtemp_2010` TO `pom_dataekonomi`.`s'.$sv.'_tbldatareviewtemp_2010`;'
-		. "\r" . 'RENAME TABLE `pom_dataekonomi`.`'.$sv.'_tbldatareviewtemp2_2010` TO `pom_dataekonomi`.`s'.$sv.'_tbldatareviewtemp2_2010`;'
-		. "\r" . 'RENAME TABLE `pom_dataekonomi`.`'.$sv.'_tbldatareviewtemp3_2010` TO `pom_dataekonomi`.`s'.$sv.'_tbldatareviewtemp3_2010`;';
+		. "\r" . 'RENAME TABLE `'.$db.'`.`'.$sv.'_'.$jadual.'_2010` TO `'.$db.'`.`s'.$sv.'_'.$jadual.'_2010`;'
+		. "\r" . 'RENAME TABLE `'.$db.'`.`'.$sv.'_'.$jadual.'temp_2010` TO `'.$db.'`.`s'.$sv.'_'.$jadual.'temp_2010`;'
+		. "\r" . 'RENAME TABLE `'.$db.'`.`'.$sv.'_'.$jadual.'temp2_2010` TO `'.$db.'`.`s'.$sv.'_'.$jadual.'temp2_2010`;'
+		. "\r" . 'RENAME TABLE `'.$db.'`.`'.$sv.'_'.$jadual.'temp3_2010` TO `'.$db.'`.`s'.$sv.'_'.$jadual.'temp3_2010`;';
 
 	}
 #*********************************************************************************************************************************************

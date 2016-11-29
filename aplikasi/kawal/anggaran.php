@@ -7,7 +7,7 @@ class Anggaran extends Kawal
 	{
 		parent::__construct();
         Kebenaran::kawalKeluar();
-		// lokasi fail PAPAR untuk survey
+		#lokasi fail PAPAR untuk survey
 		$this->papar->dataAm = 'cprosesan/'; 
 		$this->papar->kelas = 'cprosesan/'; 
 		$this->_pptAsetPenuh = array(101,301,302,303,305,306,307,308,309,312,314,316,318,325,331);
@@ -19,20 +19,20 @@ class Anggaran extends Kawal
 	
 	public function index($cetak = null) 
 	{
-		// setkan semua pembolehubah
+		# setkan semua pembolehubah
 		$this->papar->carian = 'Data';
 		$this->papar->apa = 'semua';
-		$myJadual = array('data_anggaran'); // senarai jadual
-		$medan = 'newss,nama'; // senarai nama medan
-		// mula cari dalam database
+		$myJadual = array('data_anggaran'); # senarai jadual
+		$medan = 'newss,nama'; # senarai nama medan
+		# mula cari dalam database
 			foreach ($myJadual as $key => $myTable)
-			{// mula ulang table
+			{# mula ulang table
 				$this->papar->cariNama[$myTable] = 
 				$this->tanya->paparjadual($myTable, $medan);
-			}// tamat ulang table
-		// tamat cari dalam database
+			}# tamat ulang table
+		# tamat cari dalam database
 
-		// memilih antara papar dan cetak
+		# memilih antara papar dan cetak
 		if ($cetak == 'index') //echo 'index';
 			$this->papar->baca($this->papar->_folder . 'index', 0);
 		elseif ($cetak == 'papar') //echo 'papar';
@@ -53,49 +53,49 @@ class Anggaran extends Kawal
 	public function semak($id, $cetak = null) 
 	{
 		//echo "semak($id,$mula,$tamat,$cetak)<br>";
-		// setkan semua pembolehubah
-		$myJadual = array('data_anggaran'); // senarai jadual
-		$medan = '*'; // senarai nama medan
+		# setkan semua pembolehubah
+		$myJadual = array('data_anggaran'); # senarai jadual
+		$medan = '*'; # senarai nama medan
 		$cari = array (
-			'medan' => 'newss', // cari dalam medan apa
-			'id' => (isset($id) ? $id : null) , // benda yang dicari
+			'medan' => 'newss', # cari dalam medan apa
+			'id' => (isset($id) ? $id : null) , # benda yang dicari
 			);
 		$this->papar->kesID = array();
 		$this->papar->paparID = null;
 
 		if (!empty($cari['id'])) 
 		{	
-			// mula cari $cariID dalam $myJadual
+			# mula cari $cariID dalam $myJadual
 			foreach ($myJadual as $key => $myTable)
-			{// mula ulang table
+			{# mula ulang table
 				$papar[$myTable] = 
 				$this->tanya->cariEstab($myTable, $cari);
-			}// tamat ulang table
+			}# tamat ulang table
 
-			// paparkan data kesID yang ada nilai sahaja
+			# paparkan data kesID yang ada nilai sahaja
 			$this->papar->carian = $cari['medan'];
-			// jika data anggaran wujud		
+			# jika data anggaran wujud		
 			if ( isset($papar['data_anggaran'][0]['data']) )
 			{
-				// masukkan nombor bewss
+				# masukkan nombor bewss
 				$this->papar->paparID = $papar['data_anggaran'][0]['newss'];
-				// dari json kepada array
+				# dari json kepada array
 				$data_anggaran = $papar['data_anggaran'][0]['data'];
 				$paparID = json_decode($data_anggaran, true);
-				// set survey apa
+				# set survey apa
 				$sv = isset($paparID['semasa']['sv']) ?
 					$paparID['semasa']['sv'] : null;
 				$this->papar->sv = $sv;
-				// buat tatasusunan yang ada nilai
+				# buat tatasusunan yang ada nilai
 				$this->semakYangAda($sv, $paparID, $cari);
-				// tambah nama syarikat
+				# tambah nama syarikat
 				$this->papar->kesID['semasa'][0]['nama'] = isset($papar['data_anggaran'][0]['nama']) ?
 					$papar['data_anggaran'][0]['nama'] : null;
-				// cari kod io
+				# cari kod io
 				$this->paparIO($sv, $this->papar->kesID, $cari);
 			}
 			else
-			{// jika data anggaran tidak wujud
+			{# jika data anggaran tidak wujud
 				$this->papar->sv = null;
 				$this->papar->kod_produk = array();
 			}
@@ -104,7 +104,7 @@ class Anggaran extends Kawal
 		{
 			$this->papar->carian='[id:0]';
 		}
-			// set pemboleh ubah		
+			# set pemboleh ubah		
 			$this->papar->thn_mula = 2010;
 			$this->papar->thn_akhir = 2012;
 			$this->papar->kelas = null;
@@ -121,7 +121,7 @@ class Anggaran extends Kawal
 			echo '</pre>';//*/
 
 		$this->papar->_folder = 'cprosesan/';
-		// memilih antara papar dan cetak
+		# memilih antara papar dan cetak
 		if ($cetak == 'cetak') //echo 'cetak';
 			$this->papar->baca($this->papar->_folder . 'cetak', 0);
 		elseif ($cetak == 'papar') //echo 'papar';
@@ -135,50 +135,50 @@ class Anggaran extends Kawal
 	public function kemaskini($id, $cetak = null) 
 	{
 		//echo "semak($id,$mula,$tamat,$cetak)<br>";
-		// setkan semua pembolehubah
-		$myJadual = array('data_anggaran'); // senarai jadual
-		$medan = '*'; // senarai nama medan
+		# setkan semua pembolehubah
+		$myJadual = array('data_anggaran'); # senarai jadual
+		$medan = '*'; # senarai nama medan
 		$cari = array (
-			'medan' => 'newss', // cari dalam medan apa
-			'id' => (isset($id) ? $id : null) , // benda yang dicari
+			'medan' => 'newss', # cari dalam medan apa
+			'id' => (isset($id) ? $id : null) , # benda yang dicari
 			);
 		$this->papar->kesID = array();
 		$this->papar->paparID = null;
 
 		if (!empty($cari['id'])) 
 		{
-			// mula cari $cariID dalam $myJadual
+			# mula cari $cariID dalam $myJadual
 			foreach ($myJadual as $key => $myTable)
-			{// mula ulang table
+			{# mula ulang table
 				$papar[$myTable] = 
 				$this->tanya->cariEstab($myTable, $cari);
-			}// tamat ulang table
+			}# tamat ulang table
 
-			// paparkan data kesID yang ada nilai sahaja
+			# paparkan data kesID yang ada nilai sahaja
 			$this->papar->carian = $cari['medan'];
-			// paparkan data kesID yang ada nilai sahaja
+			# paparkan data kesID yang ada nilai sahaja
 			$this->papar->carian = $cari['medan'];
-			// jika data anggaran wujud		
+			# jika data anggaran wujud		
 			if ( isset($papar['data_anggaran'][0]['data']) )
 			{
-				// masukkan nombor bewss
+				# masukkan nombor bewss
 				$this->papar->paparID = $papar['data_anggaran'][0]['newss'];
-				// dari json kepada array
+				# dari json kepada array
 				$data_anggaran = $papar['data_anggaran'][0]['data'];
 				$paparID = json_decode($data_anggaran, true);
-				// set survey apa
+				# set survey apa
 				$sv = isset($paparID['semasa']['sv']) ?
 					$paparID['semasa']['sv'] : null;
 				$this->papar->sv = $sv;
-				// buat tatasusunan yang ada nilai
+				# buat tatasusunan yang ada nilai
 				$this->semakYangAda($sv, $paparID, $cari);
-				// tambah nama syarikat
+				# tambah nama syarikat
 				$this->papar->kesID['semasa'][0]['nama'] = 
 					isset($papar['data_anggaran'][0]['nama']) ?
 					$papar['data_anggaran'][0]['nama'] : null;
 			}
 			else
-			{// jika data anggaran tidak wujud
+			{# jika data anggaran tidak wujud
 				$this->papar->sv = null;
 				$this->papar->kod_produk = array();
 			}
@@ -187,7 +187,7 @@ class Anggaran extends Kawal
 		{
 			$this->papar->carian='[id:0]';
 		}
-			// set pemboleh ubah
+			# set pemboleh ubah
 			$this->papar->thn_mula = 2010;
 			$this->papar->thn_akhir = 2012;
 			$this->papar->kelas = null;
@@ -203,9 +203,9 @@ class Anggaran extends Kawal
 			//echo '<hr>$this->papar->carian: ' . $this->papar->carian;
 			echo '</pre>';//*/
 
-		// dalam function kemaskini($id, $cetak = null) 
+		# dalam function kemaskini($id, $cetak = null) 
 		$this->papar->_folder = 'semakan/';
-		// memilih antara papar dan cetak
+		# memilih antara papar dan cetak
 		if ($cetak == 'cetak') //echo 'cetak';
 			$this->papar->baca($this->papar->_folder . 'cetak', 0);
 		elseif ($cetak == 'papar') //echo 'papar';
@@ -219,7 +219,7 @@ class Anggaran extends Kawal
     {
 		$sv = bersih($_POST['semasa']['sv']);
 		$semak = bersih($_POST['Simpan']);
-		// semak untuk Kira atau Simpan
+		# semak untuk Kira atau Simpan
 		if ($semak == 'Ubah')
 		{
 			$semua = array($sv . '_q04_2010',
@@ -233,11 +233,11 @@ class Anggaran extends Kawal
 			//echo '<pre>$_POST->'; print_r($_POST) . '</pre>';
 			$posmen = semakDataPOST($semua);
 
-			// paparkan newss dan nama syarikat
+			# paparkan newss dan nama syarikat
 			$this->_newss = $posmen['semasa']['newss'];
 			$posmen['semasa']['nama'] = $_POST['semasa']['nama'];	
 			$this->_nama = $posmen['semasa']['nama'];	
-			// json_encode() untuk $posmen 
+			# json_encode() untuk $posmen 
 			$posLaju = json_encode($posmen);
 
 			/*echo '<pre>';
@@ -255,7 +255,7 @@ class Anggaran extends Kawal
 			$jadual = 'data_anggaran';
 			$this->tanya->ubahSimpan($data, $jadual);
 
-			// pergi ke lokasi lain
+			# pergi ke lokasi lain
 			$lokasi = 'location:' . URL . 'anggaran/simpan/berjaya';
 			//$lokasi = 'location:' . URL . 'anggaran/semak/' . $this->_newss . '/berjaya';
 			header($lokasi);//*/
@@ -282,10 +282,10 @@ class Anggaran extends Kawal
 				}
 			}
 
-			// cari keterangan medan
+			# cari keterangan medan
 			$this->cari_keterangan_medan($sv, $this->papar->kesID); 
 
-			// cari perbandingan aset dulu dan kini
+			# cari perbandingan aset dulu dan kini
 			$this->papar->kod_produk['harta'] = ($jadualHarta=='205_q04_2010' 
 				|| $jadualHarta=='s206_q04_2010') ?
 			Borang::analisaAset($cariHarta, 
@@ -294,14 +294,14 @@ class Anggaran extends Kawal
 				'aset_kini' => $this->papar->kesID['semasa'][0]['aset_kini'],
 				'asetsewa_dulu' => $this->papar->kesID['semasa'][0]['asetsewa_dulu'],
 				'asetsewa_kini' => $this->papar->kesID['semasa'][0]['asetsewa_kini'],
-			)) : // 
+			)) : 
 			Borang::analisaAsetAm($cariHarta, 
 			array(
 				'aset_dulu' => $this->papar->kesID['semasa'][0]['aset_dulu'],
 				'aset_kini' => $this->papar->kesID['semasa'][0]['aset_kini'],
 			));
 
-			// untuk pastikan tiada orang hack
+			# untuk pastikan tiada orang hack
 			$this->papar->paparID = $this->papar->kesID['semasa'][0]['newss'];
 			$this->papar->carian = 'newss';
 
@@ -315,25 +315,25 @@ class Anggaran extends Kawal
 			//echo '<hr>$this->papar->keterangan->', print_r($this->papar->keterangan, 1);
 			echo '</pre>';//*/
 
-			// pergi ke fail analisis di PAPAR
+			# pergi ke fail analisis di PAPAR
 			$this->papar->baca('semakan/analisis', 0);
 
 		}
 
     }
 # ikut sama di class Cprosesan
-	// ubah & cetak
+	# ubah & cetak
 	function ubah($sv=null, $id = null, $mula = null, $akhir = null, $cetak = null)
 	{	//echo '<br>Anda berada di class Cprosesan extends Kawal:ubah($cari,$mula,$akhir,$cetak)<br>';
 
-		// setkan semua pembolehubah
-		$medan = '*'; // senarai nama medan
+		# setkan semua pembolehubah
+		$medan = '*'; # senarai nama medan
 		$cari = array (
-			'sv' => $sv, // senarai survey
-			'medan' => ($sv!='cdt' ? 'estab' : 'sidap'), // cari dalam medan apa
-			'id' => (isset($id) ? $id : null) , // benda yang dicari
-			'thn_mula' => $mula, // tahun mula
-			'thn_akhir' => $akhir // tahun akhir
+			'sv' => $sv, # senarai survey
+			'medan' => ($sv!='cdt' ? 'estab' : 'sidap'), # cari dalam medan apa
+			'id' => (isset($id) ? $id : null) , # benda yang dicari
+			'thn_mula' => $mula, # tahun mula
+			'thn_akhir' => $akhir # tahun akhir
 			);//echo '<pre>$cari::'; print_r($cari) . '</pre>';
 		$this->papar->sv = $sv;
 		$this->papar->carian = (!empty($cari['id'])) ? $cari['medan'] : '[id:0]';
@@ -344,19 +344,19 @@ class Anggaran extends Kawal
 
 		if (!empty($cari['id']) && !empty($sv)) 
 		{
-			// mula cari $cari dalam $this->senarai_jadual(($sv)
+			# mula cari $cari dalam $this->senarai_jadual(($sv)
 			//echo '<pre>$this->senarai_jadual('.$cari['sv'].')::'; print_r($this->senarai_jadual($sv)) . '</pre>';
 
 			foreach ($this->senarai_jadual($cari['sv']) as 
 				$key => $myTable)
-			{// mula ulang table
+			{# mula ulang table
 				$nilai[$myTable] = $this->tanya->cariEstab($myTable, $medan, $cari);
-			}// tamat ulang table
+			}# tamat ulang table
 
-			// paparkan data kesID yang ada nilai sahaja
+			# paparkan data kesID yang ada nilai sahaja
 			//echo '<pre>$nilai='; print_r($nilai);
 			$this->semakYangAda($sv, $nilai, $cari);
-			// cari kod io
+			# cari kod io
 			$this->paparIO($sv, $this->papar->kesID, $cari);
 
 		}
@@ -367,12 +367,12 @@ class Anggaran extends Kawal
 			/*echo '<pre>';
 			//echo '<hr>$this->papar->keterangan='; print_r($this->papar->keterangan);
 			echo '<hr>$this->papar->kesID='; print_r($this->papar->kesID);
-			echo '<hr>$this->papar->kod_produk='; print_r($this->papar->kod_produk); // khas untuk survey 205
+			echo '<hr>$this->papar->kod_produk='; print_r($this->papar->kod_produk); # khas untuk survey 205
 			//echo '<hr>$this->papar->paparID=' . $this->papar->paparID;
 			echo '<hr>$this->papar->carian: ' . $this->papar->carian . '<br>';
 			echo '</pre>';//*/
 
-		// memilih antara papar dan cetak
+		# memilih antara papar dan cetak
 		if ($cetak == 'cetak') //echo 'cetak';
 			$this->papar->baca($this->papar->dataAm . 'cetak', 0);
 		elseif ($cetak == 'papar') //echo 'papar';
@@ -385,10 +385,10 @@ class Anggaran extends Kawal
 	public function ubahCetak($sv)
 	{
 		//echo '<pre>$_POST->', print_r($_POST, 1) . '</pre>';
-		// bersihkan data $_POST
+		# bersihkan data $_POST
 		$dataID = 'ubah/' . bersih($sv) . '/' . bersih($_POST['cari']);
 
-		// paparkan ke fail 
+		# paparkan ke fail 
 		$lokasi = 'location: ' . URL . $this->papar->dataAm . $dataID . '/2010/2012';
 		header($lokasi);
 
@@ -397,7 +397,7 @@ class Anggaran extends Kawal
 # senarai jadual
 	private function senarai_jadual($sv)
 	{
-		// senaraikan tatasusunan jadual prosesan
+		# senaraikan tatasusunan jadual prosesan
 		if ($sv == null) $myJadual = array();
 		elseif ($sv=='cdt')
 		{
@@ -415,9 +415,9 @@ class Anggaran extends Kawal
 		}
 		elseif ($sv == '205')
 		{	
-			$myJadual = array ( // prosesan sebelum 2010
+			$myJadual = array ( # prosesan sebelum 2010
 			'q01','q02','s04','s05a','s05b','s06_s07','qlain15','qlain16','qlain20','qlain21','qlain35',
-			// prosesan selepas 2010
+			# prosesan selepas 2010
 			'q01_2010','q02_2010','q03_2010','q04_2010','q05a_2010','q05b_2010','q06_2010','q07_2010',
 			'q08_2010','q09_2010','q10_2010','q11_2010','q12_2010','q13_2010','q16a_2010','q16b_2010',
 			'q17_2010');
@@ -431,7 +431,7 @@ class Anggaran extends Kawal
 				$myJadual[] = 's' . $sv . '_' . $data . '_2010';
 		}
 		elseif (in_array($sv,$this->_pptAsetPenuh))
-		{	// prosesan 2010
+		{	# prosesan 2010
 			$jadual = array('q01','q02','q03','q04','q05a','q05b','q06',
 			'q07','q08','q09','q10','q11','qsa','qsb','qsc','qsd','qse','qsf',
 			/*,'tblDataReviewTemp2'*/
@@ -440,7 +440,7 @@ class Anggaran extends Kawal
 				$myJadual[] = 's' . $sv . '_' . $data . '_2010';
 		}
 		else
-		{	// prosesan 2010
+		{	# prosesan 2010
 			$jadual = array('q01','q02','q03','q04','q05','q06','q07',
 			'qsa','qsb','qsc','qsd','qse','qsf','tblDataReview');
 			/*,'tblDataReviewTemp','tblDataReviewTemp2','tblDataReviewTemp3'*/
@@ -451,10 +451,9 @@ class Anggaran extends Kawal
 		return $myJadual;
 	}
 
-	private function kod_produk() // khas untuk survey 205
+	private function kod_produk() # khas untuk survey 205
 	{
-		// senaraikan tatasusunan jadual
-		// prosesan
+		# senaraikan tatasusunan jadual prosesan
 		$myJadual[]='s14';
 		$myJadual[]='s15';
 		$myJadual[]='q14_2010';
@@ -463,7 +462,7 @@ class Anggaran extends Kawal
 		return $myJadual;
 	}
 
-	// semak IO
+	# semak IO
 	private function paparIO($sv, $paparID, $cari) 
 	{
 		if ($sv=='205') 
@@ -495,25 +494,25 @@ class Anggaran extends Kawal
 			$harta = array('s04','q04_2010','s'.$sv.'_q04_2010');
 			$stok = array('s10','q10_2010');
 			$no = 1; 
-			// + DIY (0499)
+			# + DIY (0499)
 			$F0499 = isset($paparID[$harta[$no]][0]['F0499']) ? $paparID[$harta[$no]][0]['F0499'] : 0;
-			// + Stok akhir barangan dalam proses (1622)	
+			# + Stok akhir barangan dalam proses (1622)	
 			$F1622 = isset($paparID[$stok[$no]][0]['F1622']) ? $paparID[$stok[$no]][0]['F1622'] : 0; 
-			// + Stok akhir barangan siap (pembuatan sendiri) (1623)
+			# + Stok akhir barangan siap (pembuatan sendiri) (1623)
 			$F1623 = isset($paparID[$stok[$no]][0]['F1623']) ? $paparID[$stok[$no]][0]['F1623'] : 0; 
 			$outputTambah = $jumlahHasil + $F0499 + $F1622 + $F1623;
 
-			// - Kos barang yang dijual (barang/bahan yang dibeli untuk dijual semula tanpa proses selanjutnya)
+			# - Kos barang yang dijual (barang/bahan yang dibeli untuk dijual semula tanpa proses selanjutnya)
 			$F2109 = isset($paparID[$Belanja][0]['F2109']) ? $paparID[$Belanja][0]['F2109'] : 0; 
-			// - Stok awal barangan dalam proses (1522)
+			# - Stok awal barangan dalam proses (1522)
 			$F1522 = isset($paparID[$stok[$no]][0]['F1522']) ? $paparID[$stok[$no]][0]['F1522'] : 0; 
-			// - Stok awal barangan siap (pembuatan sendiri) (1523)
+			# - Stok awal barangan siap (pembuatan sendiri) (1523)
 			$F1523 = isset($paparID[$stok[$no]][0]['F1523']) ? $paparID[$stok[$no]][0]['F1523'] : 0; 
 			$outputTolak =  $F2109 + $F1522 + $F1523;
 
-			// muka kiraan
+			# mula kiraan
 			$output = $outputTambah - $outputTolak;
-			// isytihar pada PAPAR
+			# isytihar pada PAPAR
 			$this->papar->output = $output;
 			$this->papar->input = $input; 
 
@@ -528,7 +527,7 @@ class Anggaran extends Kawal
 	{
 		$this->papar->paparID = $cari['id'];
 		//echo '<pre>'; //echo '$nilai='; print_r($paparID);
-		// senarai aset untuk 205/206
+		# senarai aset untuk 205/206
 		$asetIndustri = array('s04','q04_2010','s206_q04_2010');
 		foreach ($paparID as $jadual => $key):
 			foreach ($key as $key2 => $data):
@@ -542,7 +541,7 @@ class Anggaran extends Kawal
 		   endforeach;
 		endforeach;
 
-		// semak kod produk untuk survey 205 sahaja
+		# semak kod produk untuk survey 205 sahaja
 		if ($sv=='205' || $sv=='206')
 		{	if ($sv=='205') 
 			{
@@ -554,11 +553,11 @@ class Anggaran extends Kawal
 				$this->papar->kod_produk = array();
 				$jadualStaf = array('s206_q05a_2010','s206_q05b_2010');
 			}
-			// bentuk soalan staf lelaki dan perempuan
+			# bentuk soalan staf lelaki dan perempuan
 			$this->semak_staf($jadualStaf, $this->papar->kesID);
-			// cari keterangan medan
+			# cari keterangan medan
 			$this->cari_keterangan_medan($sv, $this->papar->kesID); 
-			// bentuk soalan 4 - aset
+			# bentuk soalan 4 - aset
 			if (isset($aset) && $aset != null)
 			{	//echo '<pre>$aset='; print_r($aset) . '</pre>';
 				$this->semak_aset($asetIndustri, $aset, $paparID);
@@ -571,18 +570,18 @@ class Anggaran extends Kawal
 				'data_cdt2009', 'data_cdt2009_a', 
 				'data_cdt2009_b', 'data_cdt2009_c', 
 				$this->papar->kesID);
-			// cari keterangan medan
+			# cari keterangan medan
 			$this->cari_keterangan_medan($sv, $this->papar->kesID); 
-			// buang jadual 'data_cdt2009_b'
+			# buang jadual 'data_cdt2009_b'
 			unset($this->papar->kesID['data_cdt2009_b']);
 		}
 		elseif ($sv=='icdt')
 		{
 			$this->papar->kod_produk = array();
 			$this->icdt_pecah_soalan($this->papar->kesID);
-			// cari keterangan medan
+			# cari keterangan medan
 			$this->cari_keterangan_medan($sv, $this->papar->kesID); 
-			// buang jadual 'data_icdt2012_aset/ data_icdt2012_staf/data_icdt2012_stok'
+			# buang jadual 'data_icdt2012_aset/ data_icdt2012_staf/data_icdt2012_stok'
 			foreach (array('asas','struktur',/*'msic',*/'aset','staf',/*'hasil','belanja',*/'stok') as $buanglah)
 				unset($this->papar->kesID['data_icdt2012_' . $buanglah]); 
 		}
@@ -590,21 +589,21 @@ class Anggaran extends Kawal
 		{
 			$this->cari_keterangan_medan($sv, $this->papar->kesID); 
 			$this->papar->kod_produk = array();
-			// bentuk soalan staf lelaki dan perempuan
+			# bentuk soalan staf lelaki dan perempuan
 			$jadualStaf = array('s'.$sv.'_q05a_2010','s'.$sv.'_q05b_2010');
 			$this->semak_staf($jadualStaf, $this->papar->kesID);
-			// bentuk soalan 4 - aset
+			# bentuk soalan 4 - aset
 			$this->semak_aset($senaraiAset = array('s'.$sv.'_q04_2010'),
 					's'.$sv.'_q04_2010', $paparID);
 		}
 		else
 		{
-			// cari keterangan medan
+			# cari keterangan medan
 			$this->cari_keterangan_medan($sv, $this->papar->kesID); 
 			$this->papar->kod_produk = array();
 			$this->semak_aset($senaraiAset = array('s'.$sv.'_q04_2010'),
 					null, $paparID);
-			// bentuk soalan staf lelaki dan perempuan
+			# bentuk soalan staf lelaki dan perempuan
 			$jadualStaf = 's'.$sv.'_q06_2010';
 			if( isset($this->papar->kesID[$jadualStaf]) )
 				$this->papar->kod_produk['pekerjaan'] = 
@@ -614,13 +613,13 @@ class Anggaran extends Kawal
 		}
 
 	}
-	
-	private function semak_produk($cari) // khas untuk survey 205
+
+	private function semak_produk($cari) # khas untuk survey 205
 	{
 		$medan = '*';
-		// mula cari $cariID dalam $kod_produk
+		# mula cari $cariID dalam $kod_produk
 		foreach ($this->kod_produk() as $key => $myTable)
-		{// mula ulang table
+		{# mula ulang table
 			if ($myTable=='q14_2010')
 			{
 				$sql = Borang::binaKodOutput('kod2010_output', $myTable, $cari);
@@ -662,7 +661,7 @@ class Anggaran extends Kawal
 				$this->tanya->cariProdukLama($myTable, $medan, $cari);
 			}
 
-		}// tamat ulang table
+		}# tamat ulang table
 
 		//echo '<pre>$this->papar->kod_produk='; print_r($this->papar->kod_produk) . '<pre>';
 	}
@@ -671,23 +670,23 @@ class Anggaran extends Kawal
 	{
 		$senarai = Borang::cariKeterangan($kesID);
 
-		// cari keterangan medan yang lain
+		# cari keterangan medan yang lain
 		foreach ($senarai as $myTable => $papar)
-		{// mula ulang table
+		{# mula ulang table
 			foreach ($papar as $namaMedan => $data)
-			{// mula ulang table
+			{# mula ulang table
 				//echo '$namaMedan['.$data.']['.$myTable.']:'.$namaMedan.'<br>';
 				$cari[0] = array('medan' => 'kod_medan','id' => $namaMedan);
 				$cari[1] = array('medan' => 'kod_survey','id' => $sv);
 				$this->papar->keterangan[$myTable][$namaMedan] = 
 					$this->tanya->keterangan_medan('kod_sv_prosesan', $cari);
-			}// tamat ulang table
-		}// tamat ulang table
+			}# tamat ulang table
+		}# tamat ulang table
 
 	}
 
 	private function semak_aset($asetIndustri, $aset, $paparID) 
-	{// khas untuk soalan aset
+	{# khas untuk soalan aset
 		//echo "<pre>senaraiAset:", print_r($asetIndustri, 1) 
 		//	. '| jadual:', print_r($aset, 1) . "<br>";
 
@@ -704,7 +703,7 @@ class Anggaran extends Kawal
 	}
 
 	private function semak_staf($jadualStaf, $prosesID)
-	{// khas untuk soalan staf
+	{# khas untuk soalan staf
 			$jenisPekerjaan = array(0=>'Pemilik(ROB)-1',1=>'Pekerja keluarga(ROB)-2',
 			2=>'Pengurusan-3.1',3=>'Juruteknik-3.2',4=>'Kerani-3.3',5=>'Pekerja Asas-3.4',
 			6=>'Pekerja Mahir-3.5.1',7=>'Pekerja XMahir-3.5.2',
@@ -715,19 +714,19 @@ class Anggaran extends Kawal
 			Data::dataPekerja($jadualStaf,$jenisPekerjaan,$prosesID);
 
 	}
-	
+
 	private function cdt_pecah_soalan($Am,$A,$B,$C,$paparID)
 	{
 		if(isset($paparID[$A][0]) ):
 			foreach( array('asas','struktur','msic','aset','staf','hasil','belanja','stok','tambahan') 
 			as $key => $myTable)
-			{// mula ulang tatasusunan
+			{# mula ulang tatasusunan
 				$jadual = substr($myTable, 0, 14);
 				$Jadual2 = 'cdt' . huruf('Besar', $jadual);
 				$this->papar->kod_produk[$jadual] = (in_array($jadual,array('asas'))) ?
 					Data::$Jadual2($paparID[$A][0],$paparID[$C][0])
 					: Data::$Jadual2($paparID[$B][0]);
-			}// tamat ulang tatasusunan
+			}# tamat ulang tatasusunan
 		endif;
 	}
 
@@ -735,25 +734,25 @@ class Anggaran extends Kawal
 	{
 		if(isset($paparID['data_icdt2012_asas'][0]) ):
 			foreach($this->senarai_jadual('icdt') as $key => $myTable)
-			{// mula ulang tatasusunan
+			{# mula ulang tatasusunan
 				$jadual = substr($myTable, 14, 14);
 				$Jadual2 = 'icdt' . huruf('Besar', $jadual);
 				if(in_array($jadual,array('asas','struktur','aset','staf','hasil','belanja','stok','cawangan'))) 
 					$this->papar->kod_produk[$jadual] = 
 						Data::$Jadual2($paparID[$myTable][0]);
-			}// tamat ulang tatasusunan
+			}# tamat ulang tatasusunan
 		endif;
 	}
 
 	private function tukarjadual($sv)
 	{
 		echo '<pre>'; $sv=800;
-		// mula cari $cariID dalam $myJadual
+		# mula cari $cariID dalam $myJadual
 		foreach ($this->senarai_jadual($sv) as $key => $myTable)
-		{// mula ulang table
+		{# mula ulang table
 			$j = substr($myTable,-12);
 			echo "\r".'RENAME TABLE `pom_dataekonomi`.`'.$j.'` TO `pom_dataekonomi`.`s'.$j.'`;';
-		}// tamat ulang table
+		}# tamat ulang table
 
 		echo ''
 		. "\r" . 'RENAME TABLE `pom_dataekonomi`.`'.$sv.'_tbldatareview_2010` TO `pom_dataekonomi`.`s'.$sv.'_tbldatareview_2010`;'

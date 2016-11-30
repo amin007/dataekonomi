@@ -2,38 +2,30 @@
 
 class Prosesan extends Kawal 
 {
-
+#****************************************************************************************
 	public function __construct() 
 	{
 		parent::__construct();
-        Kebenaran::kawalKeluar();
-		
-        $this->papar->js = array(
-            //'bootstrap.js',
-            'bootstrap-transition.js',
-            'bootstrap-alert.js',
-            'bootstrap-modal.js',
-            'bootstrap-dropdown.js',
-            'bootstrap-scrollspy.js',
-            'bootstrap-tab.js',
-            'bootstrap-tooltip.js',
-            'bootstrap-popover.js',
-            'bootstrap-button.js',
-            'bootstrap-collapse.js',
-            'bootstrap-carousel.js',
-            'bootstrap-typeahead.js',
-            'bootstrap-affix.js',
-            'bootstrap-datepicker.js',
-            'bootstrap-datepicker.ms.js',
-            'bootstrap-editable.min.js');
-        $this->papar->css = array(
-            'bootstrap-datepicker.css',
-            'bootstrap-editable.css');
+		Kebenaran::kawalKeluar();
+
+		$this->papar->js = array(//'bootstrap.js',
+			'bootstrap-transition.js','bootstrap-alert.js',
+			'bootstrap-modal.js','bootstrap-dropdown.js',
+			'bootstrap-scrollspy.js','bootstrap-tab.js',
+			'bootstrap-tooltip.js','bootstrap-popover.js',
+			'bootstrap-button.js','bootstrap-collapse.js',
+			'bootstrap-carousel.js','bootstrap-typeahead.js',
+			'bootstrap-affix.js','bootstrap-datepicker.js',
+			'bootstrap-datepicker.ms.js',
+			'bootstrap-editable.min.js');
+		$this->papar->css = array(
+			'bootstrap-datepicker.css',
+			'bootstrap-editable.css');
 
 	}
-	
+
 	public function index() 
-	{	
+	{
 		$bulanan = bulanan('prosesan','12'); # papar bulan dlm tahun semasa
 		$medan = '*'; # senarai nama medan
 		$sv='prosesmm_'; # jenis survey
@@ -44,20 +36,20 @@ class Prosesan extends Kawal
 			$this->papar->cariApa[$myTable] = 
 				$this->tanya->senaraiKes($sv, $myTable, $medan);
 		}# tamat ulang table
-		
+
 		# papar
 		$this->papar->baca('prosesan/index');
 	}
 
 	public function lihat($cariID = null) 
-	{	
-		// senaraikan tatasusunan jadual
+	{
+		# senaraikan tatasusunan jadual
 		$jadual = dpt_senarai('data_prosesan'); # papar bulan dlm tahun semasa
 		$cari['medan'] = 'NoPert';
 		$cari['id'] = $cariID;
-		
-		// substr($myTable,11);
-		// mula cari dalam $jadual
+
+		//substr($myTable,11);
+		# mula cari dalam $jadual
 		$tahun = array('','_2009','_2010');
 		foreach ($jadual as $key => $myTable)
 		{// mula ulang $jadual
@@ -83,7 +75,7 @@ class Prosesan extends Kawal
 	}
 
 	public function semua($tahun) 
-	{	
+	{
 		// tentukan bilangan mukasurat
 			$bilSemua=1000; // bilangan jumlah rekod
 		$jum = pencamSqlLimit($bilSemua);
@@ -113,15 +105,13 @@ class Prosesan extends Kawal
 	{
 		//echo '<br>Anda berada di class Imej extends Kawal:cari()<br>';
 		//echo '<pre>'; print_r($_POST) . '</pre>';
-		/*
-		$_POST[id] => Array
+		/*$_POST[id] => Array
 		(
 			[ssm] => 188561 
 			atau
 			[nama] => sharp manu
-		)
-		*/
-		
+		)*/
+
 		// senaraikan tatasusunan jadual
 		$tahunan = tahunan('tahunan','12'); # papar dlm tahun semasa
 		$this->papar->cariNama = array();
@@ -154,7 +144,7 @@ class Prosesan extends Kawal
 			$cariMedan = 'nama'; // cari dalam medan apa
 			$cariID = $id['nama'];
 			$this->papar->carian='nama';
-			
+
 			// mula cari $cariID dalam $myJadual
 			foreach ($tahunan as $key => $myTable)
 			{// mula ulang table
@@ -173,22 +163,22 @@ class Prosesan extends Kawal
 		
 		// paparkan ke fail cimej/cari.php
 		$this->papar->baca('cimej/cari');
-		
+
 	}
-	
+
 	function ubah($cari) 
 	{
 		//echo '<br>Anda berada di class Imej extends Kawal:ubah($cari)<br>';
 		// cari id berasaskan sidap
 		$id = isset($cari) ? $cari : null;
-		
+
 		if (!empty($id)) 
 		{
 			//echo '$id:' . $id . '<br>';
 			$cariMedan = 'newss'; // cari dalam medan apa
 			$cariID = $id; // benda yang dicari
 			$this->papar->carian='newss';
-			$this->papar->kesID = array();			
+			$this->papar->kesID = array();
 			
 			// senaraikan tatasusunan jadual
 			$jadual = data_prosesan(); # papar bulan dlm tahun semasa
@@ -204,14 +194,14 @@ class Prosesan extends Kawal
 		{
 			$this->papar->carian='[tiada id diisi]';
 		}
-		
+
 		$this->papar->pegawai = senarai_kakitangan();
 		$this->papar->gambar=gambar_latarbelakang('../../');
 		$this->papar->Tajuk_Muka_Surat='MM 2012 - Prosesan Ubah';
 		$this->papar->kesID2 = null;
 		// paparkan ke fail cimej/cari.php
 		$this->papar->baca('prosesan/edit');
-		
+
 	}
-#
+#****************************************************************************************
 }

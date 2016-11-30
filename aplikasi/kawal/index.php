@@ -1,22 +1,23 @@
 <?php
+
 class Index extends Kawal 
 {
-
+#****************************************************************************************
 	function __construct() 
 	{
 		//echo '<br>class Index extends Kawal';
 		parent::__construct();
-        Kebenaran::kawalMasuk();
+		Kebenaran::kawalMasuk();
 	}
-	
+
 	function index() 
 	{
-		// Set pemboleubah utama
+		# Set pemboleubah utama
 		$this->papar->Tajuk_Muka_Surat='Enjin Carian Ekonomi';
-		// pergi papar kandungan
+		# pergi papar kandungan
 		$this->papar->baca('index/index');
 	}
-	
+
 	function muar() 
 	{
 		# Set pemboleubah utama
@@ -35,43 +36,44 @@ class Index extends Kawal
 
 	function kluang() 
 	{
-		// Set pemboleubah utama
-		$this->papar->IP=dpt_ip(); // dapatkan senarai IP yang dibenarkan
-		// pergi papar kandungan
+		# Set pemboleubah utama
+		$this->papar->IP=dpt_ip(); # dapatkan senarai IP yang dibenarkan
+		# pergi papar kandungan
 		$this->papar->baca('index/daftar');
 	}
 
-	function jb() 
+	function jb()
 	{
-		// Set pemboleubah utama
-		$this->papar->IP=dpt_ip(); // dapatkan senarai IP yang dibenarkan
-		// pergi papar kandungan
+		# Set pemboleubah utama
+		$this->papar->IP=dpt_ip(); # dapatkan senarai IP yang dibenarkan
+		# pergi papar kandungan
 		$this->papar->baca('index/daftar');
 	}
 
-	function putrajaya() 
+	function putrajaya()
 	{
-		// Set pemboleubah utama
-		//$this->papar->IP=dpt_ip(); // dapatkan senarai IP yang dibenarkan
-		// pergi papar kandungan
+		# Set pemboleubah utama
+		//$this->papar->IP=dpt_ip(); # dapatkan senarai IP yang dibenarkan
+		# pergi papar kandungan
 		$this->papar->baca('index/daftar');
 	}
-	function login($user) 
+
+	function login($user)
 	{
-		// Set pemboleubah utama
-		$this->papar->nama=$user; // dapatkan nama pengguna
-		$this->papar->IP=dpt_ip(); // dapatkan senarai IP yang dibenarkan
-		// pergi papar kandungan
+		# Set pemboleubah utama
+		$this->papar->nama=$user; # dapatkan nama pengguna
+		$this->papar->IP=dpt_ip(); # dapatkan senarai IP yang dibenarkan
+		# pergi papar kandungan
 		$this->papar->baca('index/login');
 	}
 
-	function login_automatik($user) 
+	function login_automatik($user)
 	{
-		// Set pemboleubah utama
-		$this->papar->nama=$user; // dapatkan nama pengguna
-		$this->papar->IP=dpt_ip(); // dapatkan senarai IP yang dibenarkan
-		// pergi papar kandungan
+		# Set pemboleubah utama
+		$this->papar->nama=$user; # dapatkan nama pengguna
+		$this->papar->IP=dpt_ip(); # dapatkan senarai IP yang dibenarkan
+		# pergi papar kandungan
 		$this->papar->baca('index/login_automatik');
 	}
-	
+#****************************************************************************************
 }

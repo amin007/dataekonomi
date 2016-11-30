@@ -167,13 +167,12 @@ class Prosesan extends Kawal
 	{
 		//echo '<br>Anda berada di class Imej extends Kawal:ubah($cari)<br>';
 		# cari id berasaskan sidap
-		$id = isset($cari) ? $cari : null;
+		$cariID = isset($cari) ? $cari : null;
 
-		if (!empty($id)) 
+		if (!empty($cariID)) 
 		{
 			//echo '$id:' . $id . '<br>';
 			$cariMedan = 'newss'; # cari dalam medan apa
-			$cariID = $id; # benda yang dicari
 			$this->papar->carian='newss';
 			$this->papar->kesID = array();
 
@@ -193,8 +192,8 @@ class Prosesan extends Kawal
 		}
 
 		$this->papar->pegawai = senarai_kakitangan();
-		$this->papar->gambar=gambar_latarbelakang('../../');
-		$this->papar->Tajuk_Muka_Surat='MM 2012 - Prosesan Ubah';
+		$this->papar->gambar = gambar_latarbelakang('../../');
+		$this->papar->Tajuk_Muka_Surat = 'MM 2012 - Prosesan Ubah';
 		$this->papar->kesID2 = null;
 		
 		# pergi papar kandungan

@@ -18,7 +18,7 @@ class Semakan extends Kawal
 		$this->_pptBrgAm2 = array(890);
 
 	}
-	
+
 	private function semakKawalProses($sv, $kawalID, $prosesID, $cariKawal, $cariProses)
 	{
 		//echo '<pre>$kawalID='; print_r($kawalID) . '<hr>'; # data kawalan
@@ -198,7 +198,7 @@ class Semakan extends Kawal
 		endif; # tamat semak if (isset($this->papar->prosesID) && $this->papar->prosesID != null):
 //*/	
 	} //semakKawalProses($sv, $kawalID, $prosesID, $cariKawal, $cariProses)
-	
+
 	public function index($cetak = null) 
 	{	
 		# dapatkan semua data
@@ -240,7 +240,7 @@ class Semakan extends Kawal
 			'thn_mula' => $mula, # tahun mula
 			'thn_akhir' => $akhir # tahun akhir
 			);
-				
+
 		if (!empty($cariKawal['id'])&& !empty($sv)) 
 		{	
 			foreach (dpt_senarai('kawalan_tahunan') as $key => $myTable) 
@@ -268,7 +268,7 @@ class Semakan extends Kawal
 			echo '<hr>$this->papar->kod_produk='; print_r($this->papar->kod_produk); # khas untuk survey 205
 			echo '<hr>$this->papar->perangkaan='; print_r($this->papar->perangkaan); 
 			echo '<hr>$this->papar->carian: ' . $this->papar->carian . '<br>';
-			echo '</pre>';//*/		
+			echo '</pre>';//*/
 
 		# memilih antara papar dan cetak
 		$this->papar->peratus = $peratus; 
@@ -379,8 +379,7 @@ class Semakan extends Kawal
 
 			# cari perbandingan aset dulu dan kini //echo "\$jadualHarta = $jadualHarta <br>"; 
 			if (isset($cariHarta) && $jadualAset=='jadualHarta'):
-				$this->papar->kod_aset['harta'] = 
-				Borang::analisaAset($cariHarta, 
+				$this->papar->kod_aset['harta'] = Borang::analisaAset($cariHarta, 
 				array(
 					'aset_dulu' => $this->papar->kesID['semasa'][0]['aset_dulu'],
 					'aset_kini' => $this->papar->kesID['semasa'][0]['aset_kini'],
@@ -393,8 +392,7 @@ class Semakan extends Kawal
 				//echo '375:Borang Aset Am';
 				$susutDulu = $this->papar->kesID['s' . $sv . '_q03_2010'][0]['F0049'];
 				$BelanjaDulu = $this->papar->kesID['s' . $sv . '_q03_2010'][0]['F0060'];
-				$this->papar->kod_aset['harta'] = 
-				Borang::analisaAsetAm($cariHarta, 
+				$this->papar->kod_aset['harta'] = Borang::analisaAsetAm($cariHarta, 
 				array(
 					'aset_dulu' => $this->papar->kesID['semasa'][0]['aset_dulu'],
 					'aset_kini' => $this->papar->kesID['semasa'][0]['aset_kini'],
@@ -708,9 +706,9 @@ class Semakan extends Kawal
 		elseif ($sv=='206') {}
 		else {}
 	}
-	
+
 	private function semakYangAda($sv, $paparID, $cari) 
-	{//
+	{
 		$this->papar->paparID = $cari['id'];
 		//echo '<pre>'; //echo '$nilai='; print_r($paparID);
 		# senarai aset untuk 205/206
@@ -780,7 +778,7 @@ class Semakan extends Kawal
 			$this->semak_staf($jadualStaf, $this->papar->kesID);
 			# bentuk soalan 4 - aset
 			$this->semak_aset($senaraiAset = array('s'.$sv.'_q04_2010'),
-					's'.$sv.'_q04_2010', $paparID);
+				's'.$sv.'_q04_2010', $paparID);
 		}
 		else
 		{
@@ -797,9 +795,9 @@ class Semakan extends Kawal
 			//echo '<hr>'.$jadualStaf.'<pre>semak data $this->papar->kod_produk[pekerjaan]:'; 
 			//print_r($this->papar->kod_produk['pekerjaan']) . '</pre>';
 		}
-	
+
 	}
-	
+
 	private function semak_produk($cari) # khas untuk survey 205
 	{
 		$medan = '*';
@@ -852,7 +850,7 @@ class Semakan extends Kawal
 	private function cari_keterangan_medan($sv, $kesID)
 	{
 		$senarai = Borang::cariKeterangan($kesID);
-		
+
 		# cari keterangan medan yang lain
 		foreach ($senarai as $myTable => $papar)
 		{# mula ulang table

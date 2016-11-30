@@ -27,9 +27,7 @@ class Cprosesan101 extends Kawal
 	function ubah($sv=null, $id = null, $mula = null, $akhir = null, 
 	$cetak = null, $namaSyarikat = null)
 	{	//echo '<br>Anda berada di class Cprosesan extends Kawal:ubah($cari,$mula,$akhir,$cetak)<br>';
-
 		# setkan semua pembolehubah
-		$medan = '*'; # senarai nama medan
 		$cari = array (
 			'sv' => $sv, # senarai survey
 			'medan' => ($sv!='cdt' ? 'estab' : 'sidap'), # cari dalam medan apa
@@ -45,37 +43,8 @@ class Cprosesan101 extends Kawal
 		$this->papar->thn_akhir = $cari['thn_akhir'];
 
 		if (!empty($cari['id']) && !empty($sv)) 
-		{
-			# mula cari $cari dalam $this->senarai_jadual(($sv)
-			//echo '<pre>$this->senarai_jadual('.$cari['sv'].')::'; print_r($this->senarai_jadual($sv)); echo '</pre>';
-
-			foreach ($this->senarai_jadual($cari['sv']) as 
-				$key => $myTable)
-			{# mula ulang table
-				//echo "\$myTable = $myTable<br>"; # semak nama $myTable
-				$nilai[$myTable] = $this->tanya->cariEstab($myTable, $medan, $cari);
-			}# tamat ulang table
-
-			# paparkan data kesID yang ada nilai sahaja
-			//echo '<pre>$nilai='; print_r($nilai);
-			$this->semakYangAda($sv, $nilai, $cari);
-			# cari kod io
-			$this->paparIO($sv, $this->papar->kesID, $cari);
-			# paparkan nama syarikat
-			$this->papar->namaSyarikat = $namaSyarikat; //*/
-		}
-		else
-		{
-			$this->papar->carian='[id:0]';
-		}
-			/*echo '<pre>'; # proses debug
-			//echo '<hr>$this->papar->keterangan='; print_r($this->papar->keterangan);
-			//echo '<hr>$this->papar->kesID='; print_r($this->papar->kesID);
-			//echo '<hr>$this->papar->kod_produk='; print_r($this->papar->kod_produk); # khas untuk survey 205
-			//echo '<hr>$this->papar->paparID=' . $this->papar->paparID;
-			echo '<hr>$this->papar->carian: ' . $this->papar->carian . '<br>';
-			echo '<hr>$this->papar->namaSyarikat: ' . $this->papar->namaSyarikat . '<br>';
-			echo '</pre>';//*/
+			$this->cariDataProsesan($medan = '*', $cari, $sv, $namaSyarikat);
+		$this->debugPembolehubahProsesan(); 
 
 		# memilih antara papar dan cetak
 		if ($cetak == 'cetak') //echo 'cetak';
@@ -87,6 +56,35 @@ class Cprosesan101 extends Kawal
 		//*/
 	}
 
+	public function cariDataProsesan($medan = '*', $cari, $sv, $namaSyarikat)
+	{
+		foreach ($this->senarai_jadual($cari['sv']) as $key => $myTable)
+		{# mula ulang table
+			$nilai[$myTable] = $this->tanya->cariEstab($myTable, $medan, $cari);
+		}# tamat ulang table
+
+		# paparkan data kesID yang ada nilai sahaja
+		//echo '<pre>$nilai='; print_r($nilai);
+		$this->semakYangAda($sv, $nilai, $cari);
+		# cari kod io
+		$this->paparIO($sv, $this->papar->kesID, $cari);
+		# paparkan nama syarikat
+		$this->papar->namaSyarikat = $namaSyarikat; 
+		//*/		
+	}
+
+	public function debugPembolehubahProsesan()
+	{
+		/*echo '<pre>'; # proses debug
+		//echo '<hr>$this->papar->keterangan='; print_r($this->papar->keterangan);
+		//echo '<hr>$this->papar->kesID='; print_r($this->papar->kesID);
+		//echo '<hr>$this->papar->kod_produk='; print_r($this->papar->kod_produk); # khas untuk survey 205
+		//echo '<hr>$this->papar->paparID=' . $this->papar->paparID;
+		echo '<hr>$this->papar->carian: ' . $this->papar->carian . '<br>';
+		echo '<hr>$this->papar->namaSyarikat: ' . $this->papar->namaSyarikat . '<br>';
+		echo '</pre>';
+		//*/
+	}
 	public function ubahCetak($sv)
 	{
 		//echo '<pre>$_POST->', print_r($_POST, 1) . '</pre>';
@@ -247,18 +245,17 @@ class Cprosesan101 extends Kawal
 			$F1523 = isset($paparID[$stok[$no]][0]['F1523']) ? $paparID[$stok[$no]][0]['F1523'] : 0; 
 			$outputTolak =  $F2109 + $F1522 + $F1523;
 
-			# muka kiraan
+			# mula kiraan
 			$output = $outputTambah - $outputTolak;
+			
 			# isytihar pada PAPAR
 			$this->papar->output = $output;
 			$this->papar->input = $input; 
-
 		}
 		elseif ($sv=='206') {}
 		else {}
 	}
 
-	#
 	private function semakYangAda($sv, $paparID, $cari) 
 	{
 		$this->papar->paparID = $cari['id'];

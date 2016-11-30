@@ -7,7 +7,7 @@ class Sesat extends Kawal
 	{
 		parent::__construct();
 	}
-	
+
 	function index() 
 	{
 		$this->papar->mesej = 'Halaman ini tidak wujud';
@@ -51,7 +51,7 @@ class Sesat extends Kawal
 							. '| operator:' . $dataKes['operator']
 							. '<br> alamat:' . $dataKes['alamat']
 							. '<br> nota:' . $dataKes['nota']; 
-			}			
+			}
 		endif;
 		
 			# mula papar semua dalam $myTable
@@ -88,13 +88,13 @@ class Sesat extends Kawal
         # Set pemboleubah utama
 		## untuk menubar
 		$this->papar->pegawai = senarai_kakitangan();
-		
+
 		## untuk dalam class Papar
 		$this->papar->error = $paparError; //echo ' Error : ' . $paparError . '<br>';
 		$this->papar->cariTarikh = $cariTarikh;
 		$this->papar->cariID = $cariID;
 		$this->papar->carian = 'semua';
-        
+
         # pergi papar kandungan
         $this->papar->baca('sesat/jadual', 0);
     }

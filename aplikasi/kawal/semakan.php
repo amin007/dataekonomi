@@ -2,7 +2,7 @@
 
 class Semakan extends Kawal 
 {
-
+#***********************************************************************************************************
 	public function __construct() 
 	{
 		parent::__construct();
@@ -16,7 +16,6 @@ class Semakan extends Kawal
 		$this->papar->ppt['BrgAm'] = array(328,334,335,393,890);
 		$this->_pptBrgAm = array(328,334,335,393);
 		$this->_pptBrgAm2 = array(890);
-
 	}
 
 	private function semakKawalProses($sv, $kawalID, $prosesID, $cariKawal, $cariProses)
@@ -731,7 +730,7 @@ class Semakan extends Kawal
 				$this->semak_produk($cari); 
 				$jadualStaf = array('s05a','s05b','q05a_2010','q05b_2010');
 			}
-			else 
+			else
 			{
 				$this->papar->kod_produk = array();
 				$jadualStaf = array('s206_q05a_2010','s206_q05b_2010');
@@ -801,7 +800,7 @@ class Semakan extends Kawal
 	{
 		$medan = '*';
 		$kodProduk = 'kod2010_output';
-		$kodProduk2 = 'mcpa2009_tr2014'; 
+		$kodProduk2 = 'mcpa2009_tr2014';
 		# mula cari $cariID dalam $kod_produk
 		foreach ($this->kod_produk() as $key => $myTable)
 		{# mula ulang table
@@ -890,7 +889,7 @@ class Semakan extends Kawal
 	{# khas untuk soalan aset
 		//echo "<pre>880:senaraiAset:", print_r($asetIndustri, 1) . '| jadual:', print_r($aset, 1) . "<br>";
 		//echo "<pre>paparID:", print_r($paparID, 1) . "<br>";
-		
+
 		foreach ($asetIndustri as $key => $myTable):
 			//echo ($myTable!=$aset) ? null : "myTable:$myTable | aset:$aset|<br>";
 			if ($aset==$myTable && in_array($aset,$asetIndustri) )
@@ -955,5 +954,5 @@ class Semakan extends Kawal
 			}# tamat ulang tatasusunan
 		endif;
 	}
-###	
+#***********************************************************************************************************
 }

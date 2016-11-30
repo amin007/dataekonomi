@@ -52,52 +52,54 @@ class Prosesan extends Kawal
 		# mula cari dalam $jadual
 		$tahun = array('','_2009','_2010');
 		foreach ($jadual as $key => $myTable)
-		{// mula ulang $jadual
+		{# mula ulang $jadual
 			foreach ($tahun as $thn2 => $thn)
-			{// mula ulang $tahun
+			{# mula ulang $tahun
 				$this->papar->cariNama[$myTable . $thn] = 
 				$this->tanya->cariProsesan($myTable . $thn, 
 					$medan = '*', $cari);
-			}// tamat ulang $tahun
-		}// tamat ulang $jadual
+			}# tamat ulang $tahun
+		}# tamat ulang $jadual
 
         # semak pembolehubah $this->papar->cariNama
         //echo '<pre>', print_r($this->papar->cariNama, 1) . '</pre><br>';
 
-		// Set pemboleubah utama
+		# Set pemboleubah utama
 		//$this->papar->pegawai = senarai_kakitangan();
 		$this->papar->gambar=gambar_latarbelakang('../../');
 		$this->papar->carian = 'semua';
 		//$this->papar->halaman = halaman($jum);
 		$this->papar->url = dpt_url();
-		// pergi papar kandungan
+		
+		# pergi papar kandungan
 		$this->papar->baca('prosesan/lihat', 0);
 	}
 
 	public function semua($tahun) 
 	{
-		// tentukan bilangan mukasurat
-			$bilSemua=1000; // bilangan jumlah rekod
+		# tentukan bilangan mukasurat
+		$bilSemua=1000; # bilangan jumlah rekod
 		$jum = pencamSqlLimit($bilSemua);
 
-		// senaraikan tatasusunan jadual
+		# senaraikan tatasusunan jadual
 		$jadual = data_prosesan(); # papar bulan dlm tahun semasa
-		// mula cari dalam $jadual['nama']
+		# mula cari dalam $jadual['nama']
 		foreach ($jadual['nama'] as $key => $myTable)
-		{// mula ulang table
+		{# mula ulang table
 			$this->papar->cariApa[$key . '-' . $myTable] = 
 			$this->tanya->hadKes($myTable, 
 			$jadual['medan'][$key], $tahun=null, $jum);
-		}// tamat ulang table
+		}# tamat ulang table
 
-		// Set pemboleubah utama
+		# Set pemboleubah utama
 		$this->papar->pegawai = senarai_kakitangan();
 		$this->papar->Tajuk_Muka_Surat='MM 2012';
 		$this->papar->gambar=gambar_latarbelakang('../../');
 		$this->papar->carian = 'semua';
 		//$this->papar->halaman = halaman($jum);
 		$this->papar->url = dpt_url();
-		// pergi papar kandungan
+		
+		# pergi papar kandungan
 		$this->papar->baca('prosesan/index', 1);
 	}
 
@@ -106,17 +108,13 @@ class Prosesan extends Kawal
 		//echo '<br>Anda berada di class Imej extends Kawal:cari()<br>';
 		//echo '<pre>'; print_r($_POST) . '</pre>';
 		/*$_POST[id] => Array
-		(
-			[ssm] => 188561 
-			atau
-			[nama] => sharp manu
-		)*/
+		(	[ssm] => 188561 / [nama] => sharp manu )*/
 
-		// senaraikan tatasusunan jadual
+		# senaraikan tatasusunan jadual
 		$tahunan = tahunan('tahunan','12'); # papar dlm tahun semasa
 		$this->papar->cariNama = array();
 
-		// cari id berasaskan newss/ssm/sidap/nama
+		# cari id berasaskan newss/ssm/sidap/nama
 		$id['ssm'] = isset($_POST['id']['ssm']) ? $_POST['id']['ssm'] : null;
 		$id['nama'] = isset($_POST['id']['nama']) ? $_POST['id']['nama'] : null;
 			
@@ -124,19 +122,19 @@ class Prosesan extends Kawal
 		if (!empty($id['ssm'])) 
 		{
 			//echo "POST[id][ssm]:" . $_POST['id']['ssm'];
-			$cariMedan = 'sidap'; // cari dalam medan apa
-			$cariID = $id['ssm']; // benda yang dicari
+			$cariMedan = 'sidap'; # cari dalam medan apa
+			$cariID = $id['ssm']; # benda yang dicari
 			$this->papar->carian='ssm';
 			
-			// mula cari $cariID dalam $myJadual
+			# mula cari $cariID dalam $myJadual
 			foreach ($tahunan as $key => $myTable)
-			{// mula ulang table
-				// senarai nama medan
+			{# mula ulang table
+				# senarai nama medan
 				$medan = ($myTable=='sse10_kawal') ? 
 					'sidap,newss,nama' : 'sidap,nama'; 
 				$this->papar->cariNama[$myTable] = 
 				$this->tanya->cariMedan($myTable, $medan, $cariMedan, $cariID);
-			}// tamat ulang table
+			}# tamat ulang table
 		}
 		elseif (!empty($id['nama']))
 		{
@@ -145,15 +143,15 @@ class Prosesan extends Kawal
 			$cariID = $id['nama'];
 			$this->papar->carian='nama';
 
-			// mula cari $cariID dalam $myJadual
+			# mula cari $cariID dalam $myJadual
 			foreach ($tahunan as $key => $myTable)
-			{// mula ulang table
-				// senarai nama medan
+			{# mula ulang table
+				# senarai nama medan
 				$medan = ($myTable=='sse10_kawal') ? 
 					'sidap,newss,nama' : 'sidap,nama'; 
 				$this->papar->cariNama[$myTable] = 
 				$this->tanya->cariMedan($myTable, $medan, $cariMedan, $cariID);
-			}// tamat ulang table
+			}# tamat ulang table
 
 		}
 		else
@@ -161,34 +159,33 @@ class Prosesan extends Kawal
 			$this->papar->carian='[id:0]';
 		}
 		
-		// paparkan ke fail cimej/cari.php
+		# pergi papar kandungan
 		$this->papar->baca('cimej/cari');
-
 	}
 
 	function ubah($cari) 
 	{
 		//echo '<br>Anda berada di class Imej extends Kawal:ubah($cari)<br>';
-		// cari id berasaskan sidap
+		# cari id berasaskan sidap
 		$id = isset($cari) ? $cari : null;
 
 		if (!empty($id)) 
 		{
 			//echo '$id:' . $id . '<br>';
-			$cariMedan = 'newss'; // cari dalam medan apa
-			$cariID = $id; // benda yang dicari
+			$cariMedan = 'newss'; # cari dalam medan apa
+			$cariID = $id; # benda yang dicari
 			$this->papar->carian='newss';
 			$this->papar->kesID = array();
-			
-			// senaraikan tatasusunan jadual
+
+			# senaraikan tatasusunan jadual
 			$jadual = data_prosesan(); # papar bulan dlm tahun semasa
-			// mula cari $cariID dalam $jadual['nama']
+			# mula cari $cariID dalam $jadual['nama']
 			foreach ($jadual['nama'] as $key => $myTable)
-			{// mula ulang table
+			{# mula ulang table
 				$this->papar->kesID[$key . '-' . $myTable] = 
 				$this->tanya->cariProsesan($myTable, 
 				$jadual['medan'][$key], $cariMedan, $cariID);
-			}// tamat ulang table
+			}# tamat ulang table
 		}
 		else
 		{
@@ -199,7 +196,8 @@ class Prosesan extends Kawal
 		$this->papar->gambar=gambar_latarbelakang('../../');
 		$this->papar->Tajuk_Muka_Surat='MM 2012 - Prosesan Ubah';
 		$this->papar->kesID2 = null;
-		// paparkan ke fail cimej/cari.php
+		
+		# pergi papar kandungan
 		$this->papar->baca('prosesan/edit');
 
 	}

@@ -7,14 +7,14 @@ class Test extends Kawal
 	{
 		parent::__construct();
 	}
-	
+
 	function index() 
 	{
 		echo 'class Test::index() extends Kawal ';
 	}
-	
+
 	public function binasql($kpLama = null, $kpBaru = null) 
-    {    
+    {
 		# mula papar semua dalam $myTable
 		$myTable = 'kod_sv_prosesan';
 		$medan = '`kod_medan`,`kod_survey`,`2010`';
@@ -23,8 +23,8 @@ class Test extends Kawal
 		$cantumSusun[] = array_merge($jum, array('kumpul'=>null,'susun'=>'kod_medan') );
 		# sql guna limit 
 		$cariApa[$myTable] = $this->tanya->
-				//cariSql($myTable, $medan, $carian, $cantumSusun);
-				cariSemuaData($myTable, $medan, $carian, $cantumSusun);
+			//cariSql($myTable, $medan, $carian, $cantumSusun);
+			cariSemuaData($myTable, $medan, $carian, $cantumSusun);
 
 		# bentuk tatasusunan
 		$senarai = array();
@@ -42,7 +42,7 @@ class Test extends Kawal
 	}
 
 	public function binasql2($kpLama = null, $kpBaru = null) 
-    {    
+    {
 		# mula papar semua dalam $myTable
 		$myTable = 'kod_sv_prosesan';
 		$medan = '`kod_medan`,`kod_survey`,`2010`';
@@ -80,9 +80,9 @@ class Test extends Kawal
 		# semak pembolehubah $this->papar->cariApa
 		//echo '<pre>', print_r($cariApa, 1) . '</pre><br>';
 	}
-	
+
 	public function semaknewss() 
-    {    
+    {
 		# mula papar semua dalam $myTable
 		$myTable = 'alamat_newss_2013';
 		$medan = '*';
@@ -100,27 +100,27 @@ class Test extends Kawal
 		$this->papar->apa = 'kosong' ; # set pembolehubah untuk LIHAT => $this->apa
 		$this->papar->baca('ckawalan/' . $this->_t . 'cari');
 	}
-	
+
 	public function tukarmedan() 
-    {    
+    {
 		#pilih medan
 		$database = '\'rahsia\'';
 		$myTable = '\'jadual\'';
 			$this->papar->cariApa[$database] = $this->tanya->
 				pilihMedan($database,$myTable);
-			
-			echo '<pre>', print_r($this->papar->cariApa, 1) . '</pre><br>';
-		
+
+		echo '<pre>', print_r($this->papar->cariApa, 1) . '</pre><br>';
+
 		# ubahmedan
 		$myTable = 'jadual';
 		$medan['asal'] = 'kp';
 		$medan['baru'] = 'kp';
 		$medan['jenis'] = 'VARCHAR( 255 )';
 		$medan['selepas'] = 'operator';
-		
+
 		$this->papar->cariApa[$myTable] = $this->tanya->
 			ubahMedan($myTable, $medan);
-			
+
 		# paparan
 		//$this->papar->baca('test/cari');
 	}
@@ -144,7 +144,7 @@ class Test extends Kawal
 
 			$buang = count($data)-1;
 			unset($data[$buang]);
-			
+
 			$senarai = array(); 
 			$cantumMedan = null;
 			foreach ($data as $key => $papar):
@@ -196,15 +196,15 @@ class Test extends Kawal
 							. '</a>: ' . filesize($file) . ' bytes'
 							. '<br>';
 					}
-				}		 
+				}
 			}//*/
 			closedir($dh);
 		}
 		else
 			echo "The file $lokasi does not exist |";
-	
+
 	}
-	
+
 	public function paparorang()
 	{
 		$pegawai = unserialize(PEGAWAI);

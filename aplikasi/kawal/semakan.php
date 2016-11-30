@@ -572,7 +572,6 @@ class Semakan extends Kawal
 		header('location: ' . URL . 'kawalan/ubah/' . $dataID);
 	}
 
-# senarai jadual
 	private function senarai_jadual($sv)
 	{
 		# senaraikan tatasusunan jadual prosesan

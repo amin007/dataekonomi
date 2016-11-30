@@ -6,7 +6,7 @@ class Ruangtamu extends Kawal
 	function __construct() 
 	{
 		parent::__construct();
-        Kebenaran::kawalKeluar();	
+		Kebenaran::kawalKeluar();	
 		//$this->papar->js = array('ruangtamu/js/default.js');
 	}
 	

@@ -6,7 +6,7 @@ class Semakan extends Kawal
 	public function __construct() 
 	{
 		parent::__construct();
-        Kebenaran::kawalKeluar();
+		Kebenaran::kawalKeluar();
 		// lokasi fail PAPAR untuk survey
 		$this->papar->js = array('jquery-calx-1.1.8.js');
 		$this->papar->_folder = 'semakan/'; 
@@ -47,11 +47,11 @@ class Semakan extends Kawal
 						//echo (in_array($jadual, $asetIndustri)) ? $jadual . ' ada<br>' : '';
 						if (in_array($jadual, $asetIndustri)) $aset = $jadual;
 					}
-					
+
 				endforeach;
 		   endforeach;
 		endforeach;
-			
+
 		/* hasil data
 		echo '<pre>semakKawalProses()<br>'; //echo '$namaJadual='; print_r($namaJadual) . '<hr>';
 		//echo '$this->papar->kawalID='; print_r($this->papar->kawalID) . '<hr>';
@@ -82,7 +82,6 @@ class Semakan extends Kawal
 				$this->semak_staf($jadualStaf, $this->papar->prosesID, $sv);
 				# bentuk soalan s14 & s15
 				//$this->semak_produk($kawalID);
-				
 			}
 			elseif($sv=='206')
 			{
@@ -102,7 +101,7 @@ class Semakan extends Kawal
 				$this->papar->perangkaan['susut']    = $this->papar->prosesID[$kp.'04_2010'][0]['F0799'];
 				$this->papar->perangkaan['aset']     = $this->papar->prosesID[$kp.'04_2010'][0]['F0899'];
 				$this->papar->perangkaan['asetsewa'] = $this->papar->prosesID[$kp.'04_2010'][0]['F0999'];	
-					
+
 				// bentuk soalan 4 - aset
 				$this->semak_aset($asetIndustri,$aset,$prosesID);
 				// bentuk soalan staf lelaki dan perempuan
@@ -125,13 +124,13 @@ class Semakan extends Kawal
 				$this->papar->perangkaan['gaji']     = $this->papar->prosesID[$kp.'08_2010'][0]['F2145'];
 				$this->papar->perangkaan['susut']    = 0; //$this->papar->prosesID[$kp.'04_2010'][0]['F0799'];
 				$this->papar->perangkaan['aset']     = 0; //$this->papar->prosesID[$kp.'04_2010'][0]['F0899'];
-				$this->papar->perangkaan['asetsewa'] = 0; //$this->papar->prosesID[$kp.'04_2010'][0]['F0999'];	
-					
+				$this->papar->perangkaan['asetsewa'] = 0; //$this->papar->prosesID[$kp.'04_2010'][0]['F0999'];
+
 				// bentuk soalan 4 - aset
 				$this->semak_aset($asetIndustri,$aset,$prosesID);
 				// bentuk soalan staf lelaki dan perempuan
 				$this->semak_staf($jadualStaf, $this->papar->prosesID, $sv);
-			}			
+			}
 			elseif(in_array($sv,$this->_pptAsetPenuh))
 			{
 				$this->papar->kod_produk = array(); 
@@ -154,8 +153,8 @@ class Semakan extends Kawal
 				$this->papar->perangkaan['gaji']     = $this->papar->prosesID[$kp.'09_2010'][0]['F2163'];
 				$this->papar->perangkaan['susut']    = $this->papar->prosesID[$kp.'04_2010'][0]['F0799'];
 				$this->papar->perangkaan['aset']     = $this->papar->prosesID[$kp.'04_2010'][0]['F0899'];
-				$this->papar->perangkaan['asetsewa'] = $this->papar->prosesID[$kp.'04_2010'][0]['F0999'];	
-			}			
+				$this->papar->perangkaan['asetsewa'] = $this->papar->prosesID[$kp.'04_2010'][0]['F0999'];
+			}
 			else
 			{
 				$this->papar->kod_produk = array();
@@ -186,11 +185,11 @@ class Semakan extends Kawal
 				$this->papar->perangkaan['susut']    = $this->papar->prosesID[$kp.'3_2010'][0]['F0049'];
 				$this->papar->perangkaan['aset']     = $this->papar->prosesID[$kp.'4_2010'][0]['F0083'];
 				$this->papar->perangkaan['asetsewa'] = $this->papar->prosesID[$kp.'3_2010'][0]['F0057'];
-			}			
+			}
 				/*echo '<pre>';
 				echo '<hr>$this->papar->perangkaan='; print_r($this->papar->perangkaan); 
 				//echo '<hr>$this->papar->carian: ' . $this->papar->carian . '<br>';
-				echo '</pre>';//*/		
+				echo '</pre>';//*/
 
 			$this->papar->carian = $cariProses['medan'];
 			//unset($this->kod_produk['harta_301_q04_2010']);
@@ -220,7 +219,7 @@ class Semakan extends Kawal
 		if ($cetak == 'cetak') //echo 'cetak';
 		//	$this->papar->baca($this->papar->_folder . 'cetak', 0);
 		if ($cetak == 'papar') //echo 'papar';
-			$this->papar->baca($this->papar->_folder . 'index', 1);			
+			$this->papar->baca($this->papar->_folder . 'index', 1);
 		else //echo 'ubah';
 			$this->papar->baca($this->papar->_folder . 'index', 0);
 		//*/
@@ -249,12 +248,12 @@ class Semakan extends Kawal
 
 			foreach ($this->senarai_jadual($sv) as $key => $myTable)
 				$prosesID[$myTable] = $this->tanya->cariEstab($myTable, $cariProses);
-			
+
 			# paparkan data kesID yang ada nilai sahaja
 			$this->semakKawalProses($sv, $kawalID, $prosesID, $cariKawal, $cariProses);
 			//echo '<pre><hr>$kawalID='; print_r($kawalID); echo '<hr>$prosesID='; print_r($prosesID) . '</pre>';//*/
 			# cari kod io $this->paparIO($sv, $this->papar->prosesID, $cariProses);
-			
+
 			$this->papar->carian = $cariKawal['id'];
 			$this->papar->sv = $sv;
 			$this->papar->thn_mula = $cariProses['thn_mula'];
@@ -262,7 +261,7 @@ class Semakan extends Kawal
 		} 
 		else 
 			$this->papar->carian='[id:0]'; 
-			
+
 			/*# semak pembolehubah
 			echo '<pre><hr>$this->papar->kawalID='; print_r($this->papar->kawalID);
 			echo '<hr>$this->papar->prosesID='; print_r($this->papar->prosesID);
@@ -270,30 +269,29 @@ class Semakan extends Kawal
 			echo '<hr>$this->papar->perangkaan='; print_r($this->papar->perangkaan); 
 			echo '<hr>$this->papar->carian: ' . $this->papar->carian . '<br>';
 			echo '</pre>';//*/		
-			
+
 		# memilih antara papar dan cetak
 		$this->papar->peratus = $peratus; 
 		if ($cetak == 'cetak') //echo 'cetak';
 			$this->papar->baca($this->papar->_folder . 'cetak', 0);
 		elseif ($cetak == 'papar') //echo 'papar';
-			$this->papar->baca($this->papar->_folder . 'ubah', 1);			
+			$this->papar->baca($this->papar->_folder . 'ubah', 1);
 		else //echo 'ubah';
 			$this->papar->baca($this->papar->_folder . 'ubah', 0);
 		//*/
 	}// tamat function ubah($sv, $cariID = null, $mula = null, $akhir = null, $cetak = null)
-	
+
 	public function ubahCetak($sv)
 	{
 		//echo '<pre>$_POST->', print_r($_POST, 1) . '</pre>';
 		// bersihkan data $_POST
 		$dataID = 'ubah/' . bersih($sv) . '/' . bersih($_POST['cari']);
-		
+
 		// paparkan ke fail 
 		$lokasi = 'location: ' . URL . $this->papar->dataAm . $dataID . '/2010/2012';
 		header($lokasi);
-
 	}
-	
+
 	public function simpan()
     { 
 		$sv = bersih($_POST['semasa']['sv']);
@@ -316,20 +314,20 @@ class Semakan extends Kawal
 						$posmen[$myTable][$kekunci] = bersih($papar);
 				}
 			}
-					
+
 			/*echo "<pre><hr>$_POST->'; print_r($_POST);
 			//echo '<hr>$posmen->'; print_r($posmen);
 			//echo '<hr>$posLaju:'; var_dump($posmen,$posLaju);
 			echo "posLaju:", $posLaju, "\n<br>";
 			//echo "</pre>"; //*/
-			
+
 			$data = array(
 				'newss' => $posmen['semasa']['newss'],
 				'nama' => $posmen['semasa']['nama'],
 				'data' => json_encode($posmen)
 				);
 			$jadual = 'data_anggaran';
-			
+
 			$this->tanya->tambahSimpan($data, $jadual);
 			$lokasi = 'location: ' . URL . 'anggaran/semak/' . $this->_newss;
 			header($lokasi);//*/
@@ -342,7 +340,7 @@ class Semakan extends Kawal
 				'semasa');
 			//$senaraiHarta = array('harta_q04_2010','harta_s'.$this->sv.'_q04_2010');
 			$senaraiHarta = array('jadualHarta','jadualHartaAm');
-			
+
 			foreach ($_POST as $myTable => $value)
 			{		
 				if ( in_array($myTable,$kiraan) )
@@ -360,7 +358,7 @@ class Semakan extends Kawal
 				{
 					foreach ($value as $kekunci => $papar)
 						foreach ($papar as $namaMedan => $papar2)
-							$this->papar->staf[$myTable][$kekunci][$namaMedan] = bersih($papar2);				
+							$this->papar->staf[$myTable][$kekunci][$namaMedan] = bersih($papar2);
 				}
 				elseif ( in_array($myTable, array('output','input') ) )
 				{
@@ -374,11 +372,11 @@ class Semakan extends Kawal
 						$prosesData[$myTable][0][$kekunci] = bersih($papar);
 				}
 			}
-					
+
 			# cari keterangan medan
 			$this->cari_keterangan_medan($sv, $this->papar->kesID); 
 			$this->semak_prosesMedan($sv, $prosesData, 'proses'); 
-			
+
 			# cari perbandingan aset dulu dan kini //echo "\$jadualHarta = $jadualHarta <br>"; 
 			if (isset($cariHarta) && $jadualAset=='jadualHarta'):
 				$this->papar->kod_aset['harta'] = 
@@ -408,7 +406,7 @@ class Semakan extends Kawal
 			# untuk pastikan tiada orang hack
 			$this->papar->paparID = $this->papar->kesID['semasa'][0]['newss'];
 			$this->papar->carian = 'newss';
-						
+
 			/*echo '<pre>';
 			//echo '<hr>$_POST->'; print_r($_POST);
 			//echo '<hr>$staf->'; print_r($this->papar->staf);
@@ -420,22 +418,22 @@ class Semakan extends Kawal
 			//echo '<hr>$this->papar->carian: ' . $this->papar->carian;
 			//echo '<hr>$this->papar->keterangan->', print_r($this->papar->keterangan, 1);
 			echo '</pre>';//*/
-			
+
 			# pergi ke fail analisis di PAPAR
 			$this->papar->paparNilai = bersih($_POST['paparNilai']) == 'Tidak' ? '-' : '+';
 			$this->papar->baca('semakan/analisis', 1);//*/
-		
+
 		}
-		
+
     }
-	
+
 	public function ubahSimpan($sv, $dataID)
     {
 		$myJadual['proses'] = $this->senarai_jadual($sv); // senarai jadual
 		$myJadual['kawal'] = dpt_senarai('kawalan_tahunan');
         $posmen = array();
         $id = 'newss';
-		    
+
         foreach ($_POST as $key => $value)
         {
             if ( in_array($key,$bulanan) )
@@ -461,15 +459,14 @@ class Semakan extends Kawal
                 $posmen[$myTable][$id] = $dataID;
             }
         }
-        
+
 			# buat peristiharan
 			$rangka = 'mdt_rangka13'; // rangka kawalan kes
 			//echo '<br>$dataID=' . $dataID . '<br>';
 			//echo '<pre>$_POST='; print_r($_POST) . '</pre>';
 			//echo '<pre>$posmen='; print_r($posmen) . '</pre>';
-        
+
         // mula ulang $bulanan
-        
         foreach ($bulanan as $kunci => $jadual)
         {// mula ulang table
             $myTable = $sv . $jadual;
@@ -477,10 +474,9 @@ class Semakan extends Kawal
             $data = $posmen[$myTable];
             $this->tanya->ubahSimpan($data, $myTable);
         }// tamat ulang table
-        
+
         //$this->lihat->baca('kawalan/ubah/' . $dataID);
         header('location: ' . URL . 'kawalan/ubah/' . $dataID);
-        
     }
 
 	public function tambah($sv=null, $cariID = null, $mula = null, $akhir = null, $cetak = null)
@@ -506,7 +502,7 @@ class Semakan extends Kawal
 		$this->papar->thn_akhir = $cariProses['thn_akhir'];
 
 		if (!empty($cariKawal['id'])&& !empty($sv)) 
-		{	
+		{
 			// mula cari $cariID dalam $myJadual['kawal']
 			foreach ($myJadual['kawal'] as $key => $myTable)
 			{// mula ulang table
@@ -545,14 +541,14 @@ class Semakan extends Kawal
 			$this->papar->baca($this->papar->_folder . 'ubah', 0);
 		//*/
 	}
-	
+
 	public function tambahSimpan($dataID) 
-	{	
+	{
 		$myJadual['proses'] = $this->senarai_jadual($sv); // senarai jadual
 		$myJadual['kawal'] = dpt_senarai('kawalan_tahunan');
         $posmen = array();
         $id = 'newss';
-    
+
         foreach ($_POST as $key => $value)
         {
 			//echo '$key:' . $key . '<br>';
@@ -565,11 +561,11 @@ class Semakan extends Kawal
                 }
             }
         }
-        			
+
         //echo '<br>$dataID=' . $dataID . '<br>';
         //echo '<pre>$_POST='; print_r($_POST) . '</pre>';
         //echo '<pre>$posmen='; print_r($posmen) . '</pre>';
-        
+
         // mula ulang $bulanan
 		$this->tanya->ubahSimpan(
 			$data = array('kawalan'=>'sudah', 'newss'=>$dataID), 
@@ -580,8 +576,7 @@ class Semakan extends Kawal
             $data = $posmen[$myTable];
             $this->tanya->tambahSimpan($data, $myTable);
         }// tamat ulang table
-		
-		
+
 		// pergi papar kandungan
 		//echo 'location: ' . URL . 'kawalan/ubah/' . $dataID;
 		header('location: ' . URL . 'kawalan/ubah/' . $dataID);
@@ -644,22 +639,20 @@ class Semakan extends Kawal
 
 		return $myJadual;
 	}
-	
+
 	private function kod_produk() // khas untuk survey 205
 	{
-		// senaraikan tatasusunan jadual
-		// prosesan
+		// senaraikan tatasusunan jadual prosesan
 		$myJadual[]='s14';
 		$myJadual[]='s15';
 		$myJadual[]='q14_2010';
 		$myJadual[]='q15_2010';
-		
+
 		return $myJadual;
 	}
-	
-	// semak IO
+
 	private function paparIO($sv, $paparID, $cari) 
-	{
+	{// semak IO
 		if ($sv=='205') 
 		{
 			$Belanja = 'q09_2010';
@@ -712,19 +705,12 @@ class Semakan extends Kawal
 			$this->papar->input = $input; 
 
 		}
-		elseif ($sv=='206')
-		{
-	
-		}
-		else
-		{
-		
-		}
+		elseif ($sv=='206') {}
+		else {}
 	}
 	
-	//
 	private function semakYangAda($sv, $paparID, $cari) 
-	{
+	{//
 		$this->papar->paparID = $cari['id'];
 		//echo '<pre>'; //echo '$nilai='; print_r($paparID);
 		// senarai aset untuk 205/206
@@ -733,14 +719,14 @@ class Semakan extends Kawal
 			foreach ($key as $key2 => $data):
 				foreach ($data as $medan => $nilai2):
 					if ($paparID[$jadual][$key2][$medan]!='0'):
-						$this->papar->kesID[$jadual][$key2][$medan] = $nilai2;				
+						$this->papar->kesID[$jadual][$key2][$medan] = $nilai2;
 						//echo (in_array($jadual, $asetIndustri)) ? $jadual . ' ada<br>' : '';
 						if (in_array($jadual, $asetIndustri)) $aset = $jadual;
 					endif;
 				endforeach;
 		   endforeach;
 		endforeach;
-		
+
 		// semak kod produk untuk survey 205 sahaja
 		if ($sv=='205' || $sv=='206')
 		{	if ($sv=='205') 
@@ -784,8 +770,6 @@ class Semakan extends Kawal
 			// buang jadual 'data_icdt2012_aset/ data_icdt2012_staf/data_icdt2012_stok'
 			foreach (array('asas','struktur',/*'msic',*/'aset','staf',/*'hasil','belanja',*/'stok') as $buanglah)
 				unset($this->papar->kesID['data_icdt2012_' . $buanglah]); 
-
-
 		}
 		elseif (in_array($sv,$this->_pptAsetPenuh))
 		{
@@ -796,7 +780,7 @@ class Semakan extends Kawal
 			$this->semak_staf($jadualStaf, $this->papar->kesID);
 			// bentuk soalan 4 - aset
 			$this->semak_aset($senaraiAset = array('s'.$sv.'_q04_2010'),
-					's'.$sv.'_q04_2010', $paparID);		
+					's'.$sv.'_q04_2010', $paparID);
 		}
 		else
 		{
@@ -812,7 +796,6 @@ class Semakan extends Kawal
 					Data::dataPekerjaBrgAm($this->papar->kesID[$jadualStaf]);
 			//echo '<hr>'.$jadualStaf.'<pre>semak data $this->papar->kod_produk[pekerjaan]:'; 
 			//print_r($this->papar->kod_produk['pekerjaan']) . '</pre>';
-					
 		}
 	
 	}
@@ -860,17 +843,17 @@ class Semakan extends Kawal
 				$this->papar->kod_produk[$myTable] = 
 					$this->tanya->cariSemuaMedan($myTable, $medan, $cari);
 			}
-			
+
 		}# tamat ulang table
-		
+
 		//echo '<pre>$this->papar->kod_produk='; print_r($this->papar->kod_produk) . '<pre>';
 	}
-	
+
 	private function cari_keterangan_medan($sv, $kesID)
 	{
 		$senarai = Borang::cariKeterangan($kesID);
 		
-		# cari keterangan medan yang lain				
+		# cari keterangan medan yang lain
 		foreach ($senarai as $myTable => $papar)
 		{# mula ulang table
 			foreach ($papar as $namaMedan => $data)
@@ -898,14 +881,14 @@ class Semakan extends Kawal
 		//echo "line896: kira : $kira | jumlah = $jumlah | ";
 		$bilMedan = 1;
 		foreach ( $proses2[$jadual][0] as $key=>$data ) : 
-			if ($bilMedan++ <= $jumlah) $this->papar->dataAsal['asal'][0][$key] = $data;		
-			else $this->papar->dataAsal['asal2'][0][$key] = $data;		
+			if ($bilMedan++ <= $jumlah) $this->papar->dataAsal['asal'][0][$key] = $data;
+			else $this->papar->dataAsal['asal2'][0][$key] = $data;
 		endforeach;	//*/
-		
+
 		//echo "line904: bilMedan : $bilMedan <br>";
-		//echo "905:<pre>:\$proses2:", print_r($this->papar->dataAsal, 1) . "</pre>";		
+		//echo "905:<pre>:\$proses2:", print_r($this->papar->dataAsal, 1) . "</pre>";
 	}
-	
+
 	private function semak_aset($asetIndustri, $aset, $paparID) 
 	{# khas untuk soalan aset
 		//echo "<pre>880:senaraiAset:", print_r($asetIndustri, 1) . '| jadual:', print_r($aset, 1) . "<br>";
@@ -946,7 +929,7 @@ class Semakan extends Kawal
 		$this->papar->kod_produk['teamgenius'] = 
 			Borang::borangStaf($this->papar->kod_produk['pekerjaan']);
 	}
-	
+
 	private function cdt_pecah_soalan($Am,$A,$B,$C,$paparID)
 	{
 		if(isset($paparID[$A][0]) ):
@@ -961,7 +944,7 @@ class Semakan extends Kawal
 			}# tamat ulang tatasusunan
 		endif;
 	}
-	
+
 	private function icdt_pecah_soalan($paparID)
 	{
 		if(isset($paparID['data_icdt2012_asas'][0]) ):

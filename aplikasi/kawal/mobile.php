@@ -2,20 +2,20 @@
 
 class Mobile extends Kawal 
 {
-
+#****************************************************************************************
 	function __construct() 
 	{
 		parent::__construct();
-        //Kebenaran::kawalMasuk();
+		//Kebenaran::kawalMasuk();
 		$this->papar->tajuk = 'SSE 2015';
 	}
-	
+
 	function index() 
 	{//echo 'class Mobile::index() extends Kawal <br>';
 		# pergi papar kandungan
 		$this->papar->baca('mobile/mobile');
 	}
-		
+
 	function icon() 
 	{
 		# Set pemboleubah utama
@@ -25,7 +25,7 @@ class Mobile extends Kawal
 		$this->papar->hostname = gethostbyaddr($_SERVER['REMOTE_ADDR']);
 		$this->papar->server = $_SERVER['SERVER_NAME'];
 		$this->papar->tajuk = 'Login Untuk POM';
-		
+
 		# pergi papar kandungan
 		$this->papar->baca('mobile/iconjqm');
 	}
@@ -48,14 +48,14 @@ class Mobile extends Kawal
 		$cariNama = $this->semakData(bersih($_POST['cariNama']));
 		//$paparData = $this->paparData($cariNama);
 		$paparData = $this->paparMSIC($cariNama);
-		
+
 		$cari1 = (is_numeric($cariNama)) ?
 			"newss:{$cariNama}"	: "nama:{$cariNama}";
-		
+
 		$carian  = null; //$cari1; 
 		$carian .= json_encode($this->papar->kawalan);
 		echo $carian;
-		
+
 	}
 
 	function semakData($cariNama) 
@@ -65,11 +65,10 @@ class Mobile extends Kawal
 		else:
 			$carian = $cariNama;
 		endif;
-	
+
 		return $carian;
-		
 	}
-	
+
 	function paparMSIC($cariID)
 	{
 		$jadual = dpt_senarai('msicbaru');
@@ -84,14 +83,14 @@ class Mobile extends Kawal
 				'seksyen S,bahagian B,kumpulan Kpl,kelas Kls,' .
 				'msic2000,msic,keterangan,notakaki' 
 				: '*'; 
-			
+
 			$this->papar->kawalan[$myTable] = $this->tanya->
 				cariSemuaData($myTable, $medan, $cari);
 
 		}// tamat ulang table
 
 	}
-	
+
 	function paparData($cariID)
 	{
         // senaraikan tatasusunan jadual dan setkan pembolehubah
@@ -107,7 +106,7 @@ class Mobile extends Kawal
 			. ' 	concat_ws("="," staf",format(staf,0)),' . "\r"
 			. ' 	concat_ws("="," stok akhir",format(stok,0))' . "\r"
  			. ' ) as data5P,'//*/
-			//. 'fe,respon,'		
+			//. 'fe,respon,'
 			//. 'concat_ws(" ",alamat1,alamat2,poskod,bandar) as alamat,' . "\r"
 			//. 'concat_ws("-",kp,msic2008) keterangan' 
 			. '';
@@ -119,7 +118,7 @@ class Mobile extends Kawal
             $this->papar->carian='newss';
 			//$cari[] = array('fix'=>'like','atau'=>'WHERE','medan'=>'newss','apa'=>$cariID);
 			$cari[] = array('fix'=>'like','atau'=>'WHERE','medan'=>'keterangan','apa'=>$cariID);
-        
+
             // 1. mula semak dalam rangka 
             $this->papar->kawalan['kes'] = $this->tanya->
 				cariSemuaData($jadualKawalan, $medanKawalan, $cari);
@@ -155,7 +154,7 @@ class Mobile extends Kawal
 				}// tamat ulang table
 			//*/
 			endif;
-		
+
 		}
         else
         {
@@ -163,7 +162,7 @@ class Mobile extends Kawal
         }
 
 	}
-	
+
 	function cetakData()
 	{
 		foreach ($this->cariApa as $myTable => $row)
@@ -178,8 +177,8 @@ class Mobile extends Kawal
 				$printed_headers = false; // mula bina jadual
 				#-----------------------------------------------------------------
 				for ($kira=0; $kira < count($row); $kira++)
-				{	//print the headers once: 	
-					if ( !$printed_headers ) 
+				{	//print the headers once:
+					if ( !$printed_headers )
 					{
 						?><thead><tr><th>#</th><?php
 						foreach ( array_keys($row[$kira]) as $tajuk ) 
@@ -197,7 +196,7 @@ class Mobile extends Kawal
 					//print the data row 
 					?><tbody><tr><td><?php echo $kira+1 ?></td><?php
 					foreach ( $row[$kira] as $key=>$data ) 
-					{		
+					{
 						if ($key=='newss')
 						{
 							$k1 = URL . 'kawalan/ubah/' . $data;
@@ -215,4 +214,5 @@ class Mobile extends Kawal
 			}// end if
 		} // end foreach
 	}
+#****************************************************************************************
 }

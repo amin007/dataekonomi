@@ -30,7 +30,7 @@ class Semakan extends Kawal
 				endforeach;
 		   endforeach;
 		endforeach; //*/
-		
+
 		//echo '<pre>$prosesID='; print_r($prosesID) . '<hr>'; # data prosesan 
 		# senarai aset untuk 205/206
 		$asetIndustri = array('s04','q04_2010','s206_q04_2010','s'.$sv.'_q04_2010');
@@ -72,7 +72,7 @@ class Semakan extends Kawal
 				$this->papar->perangkaan['gaji']     = $this->papar->prosesID['q09_2010'][0]['F2148'];
 				$this->papar->perangkaan['susut']    = $this->papar->prosesID['q04_2010'][0]['F0799'];
 				$this->papar->perangkaan['aset']     = $this->papar->prosesID['q04_2010'][0]['F0899'];
-				$this->papar->perangkaan['asetsewa'] = $this->papar->prosesID['q04_2010'][0]['F0999'];	
+				$this->papar->perangkaan['asetsewa'] = $this->papar->prosesID['q04_2010'][0]['F0999'];
 
 				# bentuk soalan 4 - aset 
 				$this->semak_aset($asetIndustri,$aset,$prosesID);
@@ -195,9 +195,9 @@ class Semakan extends Kawal
 		else: $this->papar->prosesID = array();
 		endif; # tamat semak if (isset($this->papar->prosesID) && $this->papar->prosesID != null):
 //*/	
-	} //semakKawalProses($sv, $kawalID, $prosesID, $cariKawal, $cariProses)
+	} # semakKawalProses($sv, $kawalID, $prosesID, $cariKawal, $cariProses)
 
-	public function index($cetak = null) 
+	public function index($cetak = null)
 	{	
 		# dapatkan semua data
 			$myTable = 'data_anggaran';
@@ -212,7 +212,7 @@ class Semakan extends Kawal
 			//echo '<hr>$this->papar->kod_produk='; print_r($this->papar->kod_produk); # khas untuk survey 205
 			//echo '<hr>$this->papar->carian: ' . $this->papar->carian;
 			echo '</pre>';//*/
-		
+
 		# memilih antara papar dan cetak
 		if ($cetak == 'cetak') //echo 'cetak';
 		//	$this->papar->baca($this->papar->_folder . 'cetak', 0);
@@ -222,7 +222,7 @@ class Semakan extends Kawal
 			$this->papar->baca($this->papar->_folder . 'index', 0);
 		//*/
 	}
-	
+
 	function ubah($sv=null, $cariID = null, $mula = null, $akhir = null, $cetak = null, $peratus = 0)
 	{	//echo '<br>Anda berada di class Cprosesan extends Kawal:ubah($cari,$mula,$akhir,$cetak, $peratus)<br>';
 		# setkan semua pembolehubah
@@ -545,17 +545,13 @@ class Semakan extends Kawal
         $posmen = array();
         $id = 'newss';
 
-        foreach ($_POST as $key => $value)
+        foreach ($_POST as $myTable => $value)
         {
-			//echo '$key:' . $key . '<br>';
-            if ( in_array($key,$bulanan) )
-            {
-				$myTable = $key;
+            if ( in_array($myTable,$bulanan) )
 				foreach ($value as $kekunci => $papar)
                 {
-                    $posmen[$myTable][$kekunci] = bersih($papar);
-                }
-            }
+					$posmen[$myTable][$kekunci] = bersih($papar);	
+				}
         }
 
         //echo '<br>$dataID=' . $dataID . '<br>';
@@ -568,15 +564,12 @@ class Semakan extends Kawal
 			$myTable = 'dtsample_takatfeb13');
         foreach ($bulanan as $kunci => $jadual)
         {# mula ulang table
-            $myTable = $jadual;
-            $data = $posmen[$myTable];
-            $this->tanya->tambahSimpan($data, $myTable);
+            $this->tanya->tambahSimpan($posmen[$jadual], $jadual);
         }# tamat ulang table
 
 		# pergi papar kandungan
 		//echo 'location: ' . URL . 'kawalan/ubah/' . $dataID;
 		header('location: ' . URL . 'kawalan/ubah/' . $dataID);
-
 	}
 
 # senarai jadual

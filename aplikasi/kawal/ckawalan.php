@@ -2,11 +2,12 @@
 
 class Ckawalan extends Kawal 
 {
+#****************************************************************************************
 	public function __construct() 
 	{
 		parent::__construct();
-        Kebenaran::kawalKeluar();
-		
+		Kebenaran::kawalKeluar();
+
 		$this->papar->js = array('bootstrap-datepicker.js',
 			'bootstrap-datepicker.ms.js',
 			'bootstrap-tooltip.js',
@@ -18,56 +19,54 @@ class Ckawalan extends Kawal
 		$this->_t = 'tahun_'; # template baru
 		$this->papar->levelPegawai = Sesi::get('levelPegawai');
 	}
-	
+
 	public function index() 
-	{	
+	{
 		$this->papar->baca('ckawalan/' . $this->_t . 'index');
 	}
 
 	public function proses() 
-	{	
+	{
 		//echo '<pre>$_POST->', print_r($_POST, 1) . '</pre>';
-		/*
-		$_POST->Array
+		/*$_POST->Array
 		(
 			[sv] => 328
 			[newss] => 000002666345
 			[thnmula] => 2010
 			[thntamat] => 2012
-		)
-		*/		
+		)*/
+
 		# bersihkan data $_POST
 		$dataID = 'cprosesan/ubah/' . bersih($_POST['sv']) 
 				. '/' . bersih($_POST['newss']);
-		
+
 		# paparkan ke fail 
 		$lokasi = 'location: ' . URL . $dataID . '/2010/2012';
 		//echo $lokasi;
 		header($lokasi);
-		
+
 	}
 
-	public function kp101() 
+	public function kp101()
 	{	
 		//echo '<pre>$_POST->', print_r($_POST, 1) . '</pre>';
-		/*
-		$_POST->Array
+		/*$_POST->Array
 		(
 			[sv] => 328
 			[newss] => 000002666345
 			[thnmula] => 2010
 			[thntamat] => 2012
 		)
-		*/		
+		*/
 		# bersihkan data $_POST
 		$dataID = 'cprosesan101/ubah/' . bersih($_POST['sv']) 
 				. '/' . bersih($_POST['newss']);
-		
+
 		# paparkan ke fail 
 		$lokasi = 'location: ' . URL . $dataID . '/2010/2012';
 		//echo $lokasi;
 		header($lokasi);
-		
+
 	}
 
 	public function msic() # untuk cdt
@@ -75,7 +74,7 @@ class Ckawalan extends Kawal
 		//echo '<br>Anda berada di class Ckawalan::msic() extends Kawal <br>';
 		//echo '<pre>$_POST:'; print_r($_POST) . '</pre>';
 		/* $_POST:Array [msic2000] => 50201 | [msic2008] => 45201  */
-		
+
 		$myTable  = 'data_cdt2009_b';
 		$myTable2 = 'data_icdt2012_msic';
 		//echo '<pre>$myJadual:' . print_r($myJadual) . '</pre>';
@@ -93,11 +92,11 @@ class Ckawalan extends Kawal
 			$jum = pencamSqlLimit($bilSemua = 500, $item = 500, $ms = 1);
 			$kumpul = array('kumpul'=>'', 'susun'=>'');
 			$susun[] = array_merge($jum, $kumpul );
-		
+
 			# cari data sql
-			$msic2000 = $id['msic2000'];			
+			$msic2000 = $id['msic2000'];
 			$cari[] = array('fix'=>'z1','atau'=>'WHERE','medan'=>'c.sidap','apa'=>'b.sidap','akhir'=>NULL);
-			//$cari[] = array('fix'=>'z1','atau'=>'AND','medan'=>'b.newss','apa'=>'a.sidap','akhir'=>NULL);			
+			//$cari[] = array('fix'=>'z1','atau'=>'AND','medan'=>'b.newss','apa'=>'a.sidap','akhir'=>NULL);
 			//$cari[] = array('fix'=>'z2','atau'=>'AND','medan'=>'a.batchawal','apa'=>"'$fe'",'akhir'=>NULL);
 			$cari[] = array('fix'=>'z2','atau'=>'AND (','medan'=>'F5002','apa'=>"'$msic2000%'",'akhir'=>NULL);
 			$cari[] = array('fix'=>'z2','atau'=>'OR',   'medan'=>'F6002','apa'=>"'$msic2000%'",'akhir'=>NULL);
@@ -112,10 +111,10 @@ class Ckawalan extends Kawal
 					,$cari, $susun);
 
 			# cari data sql
-			$msic2008 = $id['msic2008'];			
+			$msic2008 = $id['msic2008'];
 			$cari2[] = array('fix'=>'z1','atau'=>'WHERE','medan'=>'c.estab','apa'=>'b.newss','akhir'=>NULL);
 			//$cari2[] = array('fix'=>'z1','atau'=>'AND','medan'=>'b.newss','apa'=>'a.newss','akhir'=>NULL);
-			//$cari2[] = array('fix'=>'z2','atau'=>'AND','medan'=>'a.batchawal','apa'=>"'$fe'",'akhir'=>NULL);			
+			//$cari2[] = array('fix'=>'z2','atau'=>'AND','medan'=>'a.batchawal','apa'=>"'$fe'",'akhir'=>NULL);
 			$cari2[] = array('fix'=>'z2','atau'=>'AND','medan'=>'c.msic2008','apa'=>"'$msic2008%'",'akhir'=>NULL);
 
 			# dapatkan data mysql
@@ -127,13 +126,13 @@ class Ckawalan extends Kawal
 					,$cari2, $susun);
 
 			# papar carian
-			$this->papar->carian='msic2008:' . $msic2008;# set pembolehubah untuk LIHAT => $this->carian
-			$this->papar->apa = 'msic2000:' . $msic2000; # set pembolehubah untuk LIHAT => $this->apa
+			$this->papar->carian='msic2008:' . $msic2008;
+			$this->papar->apa = 'msic2000:' . $msic2000;
 		}
 		else
 		{
-			$this->papar->carian='[id:0]';# set pembolehubah untuk LIHAT => $this->carian
-			$this->papar->apa = null; # set pembolehubah untuk LIHAT => $this->apa
+			$this->papar->carian='[id:0]';
+			$this->papar->apa = null; 
 		}
 		
 		# papar array dalam cariNama
@@ -156,13 +155,13 @@ WHERE c.sidap like b.sidap
 AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 //*/
 	}
-	
+
 	public function msicbe2010() 
 	{
 		//echo '<br>Anda berada di class Ckawalan::msic() extends Kawal <br>';
 		//echo '<pre>$_POST:'; print_r($_POST) . '</pre>';
 		/* $_POST:Array [msic2000] => 50201 | [msic2008] => 45201  */
-		
+
 		$myTable2  = array(
 			/*'100',*/'101',/*'103','104','105','201','202','203',*/'205','206',
 			'301',/*'302',*/'303',/*'304',*/'305','306','307','308','309',/*'310',*/
@@ -178,14 +177,14 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 		$msic2008 = isset($_POST['msic2008']) ? $_POST['msic2008'] : null;
 		//echo '<pre>$id:' . print_r($id) . '</pre>';
 
-		if (!empty($msic2008)) 
+		if (!empty($msic2008))
 		{
 			# set pembolehubah mysql asas
 			$jum = pencamSqlLimit($bilSemua = 500, $item = 500, $ms = 1);
 			$kumpul = array('kumpul'=>'', 'susun'=>'');
 			$susun[] = array_merge($jum, $kumpul );
-				
-			foreach  ($myTable2 as $key=>$jadual): // s393_tbldatareview_2010
+
+			foreach  ($myTable2 as $key=>$jadual): 
 				if (in_array($jadual, array('205'))):
 					$paparJadual = 'q01_2010';
 					$msicMedan = 'c.f0014,c.f0015';
@@ -212,22 +211,22 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 					. 'concat_ws(" ",b.alamat1a,b.alamat2a,b.poskod,b.alamat3a) alamat' . "\r"
 					,$cari2, $susun);//*/
 			endforeach;
-			
+
 			# papar cariam
-			$this->papar->carian='msic2008:' . $msic2008; # set pembolehubah untuk LIHAT => $this->carian
-			$this->papar->apa = 'bandar:' . $bandar; # set pembolehubah untuk LIHAT => $this->apa
+			$this->papar->carian='msic2008:' . $msic2008; 
+			$this->papar->apa = 'bandar:' . $bandar; 
 		}
 		else
 		{
-			$this->papar->carian='[id:0]'; # set pembolehubah untuk LIHAT => $this->carian
-			$this->papar->apa = null; # set pembolehubah untuk LIHAT => $this->apa
+			$this->papar->carian='[id:0]'; 
+			$this->papar->apa = null; 
 		}
-		
+
 		# papar array dalam cariNama
 		#echo '<pre>$this->papar->carian:' . $this->papar->carian . '<br>';
 		#echo '<pre>$this->papar->apa:' . $this->papar->apa . '<br>';
 		//echo '<pre>$this->papar->cariNama:'; print_r($this->papar->cariNama) . '</pre>';
-		
+
 		# paparkan ke fail 
 		$this->papar->baca('ckawalan/' . $this->_t . 'cari');
 	}
@@ -237,7 +236,7 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 		#echo '<br>Anda berada di class Imej extends Kawal:cari()<br>';
 		#echo '<pre>$_POST:'; print_r($_POST) . '</pre>';
 		/* $_POST: [jenisID] => Newss, [id] => 2534814 */
-		
+
 		$myJadual = dpt_senarai('kawalan_tahunan');
 		//echo '<pre>$myJadual:' . print_r($myJadual) . '</pre>';
 		$this->papar->cariNama = array();
@@ -256,9 +255,9 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 			//echo 'Anda berada di ssm:' . $id['ssm'] . '<br>';
 			$cari['medan'] = 'sidap'; # cari dalam medan apa
 			$cari['id'] = $id['ssm']; # benda yang dicari
-			$this->papar->carian = 'ssm'; # set pembolehubah untuk LIHAT => $this->carian
-			$this->papar->apa = $id['ssm']; # set pembolehubah untuk LIHAT => $this->apa
-			
+			$this->papar->carian = 'ssm'; 
+			$this->papar->apa = $id['ssm']; 
+
 			# mula cari $cariID dalam $myJadual
 			foreach ($myJadual as $key => $myTable)
 			{# mula ulang table
@@ -272,9 +271,9 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 			//echo 'Anda berada di newss:' . $id['newss'] . '<br>';
 			$cari['medan'] = 'newss'; # cari dalam medan apa
 			$cari['id'] = $id['newss'];# benda yang dicari
-			$this->papar->carian = 'newss'; # set pembolehubah untuk LIHAT => $this->carian
-			$this->papar->apa = $id['newss']; # set pembolehubah untuk LIHAT => $this->apa
-			
+			$this->papar->carian = 'newss'; 
+			$this->papar->apa = $id['newss']; 
+
 			# mula cari $cariID dalam $myJadual
 			foreach ($myJadual as $key => $myTable)
 			{# mula ulang table
@@ -290,9 +289,9 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 			//echo 'Anda berada di nama:' . $id['nama'] . '<br>';
 			$cari['medan'] = 'nama'; # cari dalam medan apa
 			$cari['id'] = $id['nama'];# benda yang dicari
-			$this->papar->carian = 'nama'; # set pembolehubah untuk LIHAT => $this->carian
-			$this->papar->apa = $id['nama']; # set pembolehubah untuk LIHAT => $this->apa
-			
+			$this->papar->carian = 'nama';
+			$this->papar->apa = $id['nama']; 
+
 			# mula cari $cariID dalam $myJadual
 			foreach ($myJadual as $key => $myTable)
 			{# mula ulang table
@@ -306,9 +305,9 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 			//echo 'Anda berada di operator:' . $id['operator'] . '<br>';
 			$cari['medan'] = 'operator'; # cari dalam medan apa
 			$cari['id'] = $id['operator'];# benda yang dicari
-			$this->papar->carian = 'operator'; # set pembolehubah untuk LIHAT => $this->carian
-			$this->papar->apa = $id['operator'];# set pembolehubah untuk LIHAT => $this->apa
-			
+			$this->papar->carian = 'operator'; 
+			$this->papar->apa = $id['operator'];
+
 			# mula cari $cariID dalam $myJadual
 			foreach ($myJadual as $key => $myTable)
 			{# mula ulang table
@@ -324,9 +323,9 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 			$carian = $id['datalama'];
 			$medan = '*, nodaftar as sidap';//'nodaftar as sidap, nama';
 			$cari[] = array('fix'=>'zlike','atau'=>'WHERE','medan'=>'concat_ws("",nodaftar,nama)','apa'=>"'%$carian%'",'akhir'=>NULL);
-			$this->papar->carian = 'datalama'; # set pembolehubah untuk LIHAT => $this->carian
-			$this->papar->apa = $id['datalama'];# set pembolehubah untuk LIHAT => $this->apa
-			
+			$this->papar->carian = 'datalama'; 
+			$this->papar->apa = $id['datalama'];
+
 			# mula cari $cariID dalam $myJadual
 			foreach ($myJadual as $key => $myTable)
 			{# mula ulang table
@@ -342,20 +341,20 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 		}
 		else
 		{
-			$this->papar->carian='[id:0]';# set pembolehubah untuk LIHAT => $this->carian
-			$this->papar->apa = null; # set pembolehubah untuk LIHAT => $this->apa
+			$this->papar->carian='[id:0]';
+			$this->papar->apa = null;
 		}
-		
+
 		# papar array dalam cariNama
 		#echo '<pre>$this->papar->carian:' . $this->papar->carian . '<br>';
 		#echo '<pre>$this->papar->apa:' . $this->papar->apa . '<br>';
 		#echo '<pre>$this->papar->cariNama:'; print_r($this->papar->cariNama) . '</pre>';
-		
-		# paparkan ke fail 
+
+		# paparkan ke fail
 		$this->papar->baca('ckawalan/' . $this->_t . 'cari');
-		
+
 	}
-	
+
 	public function data2011()
 	{
 		$myTable2  = array(
@@ -379,7 +378,7 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 			$kumpul = array('kumpul'=>'', 'susun'=>'');
 			$susun[] = array_merge($jum, $kumpul);
 			$query = null;
-				
+
 			foreach  ($myTable2 as $key=>$jadual): // s393_tbldatareview_2010
 				# tentukan nilai $paparJadual & $paparMedan
 				if (in_array($jadual, array('205'))): 
@@ -397,39 +396,39 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 				$cantumSql[] = $this->tanya->cariCantumSql($paparJadual,' "'.$jadual.'" as kp, count(*) jum '
 					,$cari, $susun); # cantum Sql
 			endforeach;
-			
+
 			# cantum sql
 			$this->papar->cariNama['hasil_bawah_' . $hasil] = 
 				$this->tanya->cariSemuaSql(implode("UNION\r",$cantumSql));
 			# papar carian
-			$this->papar->carian = 'hasil bawah ' . $hasil; # set pembolehubah untuk LIHAT => $this->carian
-			$this->papar->apa = null; //$hasil; # set pembolehubah untuk LIHAT => $this->carian
+			$this->papar->carian = 'hasil bawah ' . $hasil; 
+			$this->papar->apa = null; 
 		}
 		else
 		{
-			$this->papar->carian='[id:0]'; # set pembolehubah untuk LIHAT => $this->carian
-			$this->papar->apa = null; # set pembolehubah untuk LIHAT => $this->apa
+			$this->papar->carian='[id:0]'; 
+			$this->papar->apa = null; 
 		}
-		
+
 		# papar array dalam cariNama
 		//echo '<pre>$this->papar->carian:' . $this->papar->carian . '<br>';
 		//echo '<pre>$this->papar->apa:' . $this->papar->apa . '<br>';
 		//echo '<pre>$this->papar->cariNama:'; print_r($this->papar->cariNama) . '</pre>';
-		
+
 		# paparkan ke fail 
 		$this->papar->baca('ckawalan/' . $this->_t . 'cari2');
 	}
-	
+
 	function ubah($id) 
 	{	//echo '<br>Anda berada di class Imej extends Kawal:ubah($id)<br>';
-		
+
 		$myJadual = dpt_senarai('kawalan_tahunan');
 		$this->papar->kesID = array();
 
 		# cari id berasaskan sidap
 		$medan = '*'; # senarai nama medan
 		$cari['id'] = isset($id) ? $id : null; # benda yang dicari
-		
+
 		if (!empty($cari['id'])) 
 		{	# mula cari $cariID dalam $myJadual
 			foreach ($myJadual as $key => $myTable)
@@ -441,25 +440,25 @@ AND ( F5002 like '50201%' OR F6002 like '50201%' OR F7002 like '50201%' )
 
 				//echo '$cari[medan]:' . $cari['medan']. '|'
 				//   . '$cari[id]:' . $cari['id']. '<br>';
-				
+
 				$this->papar->kesID[$myTable] = 
 					$this->tanya->cariSidap($myTable, $medan, $cari);
-				
+
 			}# tamat ulang table
-			
+
 			$this->papar->carian = $cari['medan'];
 		}
 		else
 		{
 			$this->papar->carian='[tiada id diisi]';
 		}
-		
+
 		//echo '<hr><pre>$this->papar->kesID='; 
 		//print_r($this->papar->kesID) . '</pre>';
-		
+
 		# paparkan ke fail 
 		$this->papar->baca('ckawalan/ubah', 0);
-		
+
 	}
-#------------------------------------------------------------------------------------------------------------#
+#****************************************************************************************
 }

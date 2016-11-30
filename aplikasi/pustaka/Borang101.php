@@ -1926,7 +1926,7 @@ class Borang101
 			10=>'',11=>'',12=>'',13=>'',14=>'',
 			'15'=>'Nilai bahan lain yang digunakan ', # 9 9 9 9 8
 			'20'=>'Jumlah nilai bahan yang digunakan ',
-		);		
+		);
 		# set pembolehubah
 		$cariMedan = ( !isset($cari['medan']) ) ? '' : $cari['medan'];
 		$cariID = ( !isset($cari['id']) ) ? '' : $cari['id'];
@@ -2025,11 +2025,11 @@ class Borang101
 			29=>'kod unit',
 			39=>'kod produk'
 		);
-		
+
 		$tajukMedanKira = array(30,31,33,34,36,37,38);
 		$namaMedan = $tanaman = $tanamData = array();
 		$tanamB = array(17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33);
-		
+
 		$calc = $kira = 0; 
 		# bina tatasusunan
 		foreach ($jenisTanaman as $key => $jenis):
@@ -2099,7 +2099,6 @@ class Borang101
 		$tanaman = array();
 		foreach ($jenisTanaman as $key => $jenis)
 		{
-			//echo '<br>$key=' . $key;	
 			$tanaman[$kira]['nama'] = $jenis;
 			$tanaman[$kira]['kod'] = $key;
 			foreach ($nilaiBuku as $key2 => $modal)
@@ -2206,7 +2205,7 @@ class Borang101
 		$tajukMedanKira = array(40,41,42);
 		$tanaman = array();
 		$calc = $kira = 0; 
-		
+
 		# bina tatasusunan
 		foreach ($jenisTanaman as $key => $jenis):
 			foreach ($nilaiBuku as $key2 => $tajuk):
@@ -2223,7 +2222,7 @@ class Borang101
 			# buang data kosong
 			if (array_sum($jumlah[$calc]['F']) != 0)
 				$tanaman[$kira++] = array_merge(
-					array('nama' => $jenis, 'kod' => $key), 
+					array('nama' => $jenis, 'kod' => $key),
 					$t0);
 			else $calc++;
 		endforeach; // foreach ($jenisTanaman as $key => $jenis):

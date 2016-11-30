@@ -163,15 +163,12 @@ class Prosesan extends Kawal
 		$this->papar->baca('cimej/cari');
 	}
 
-	function ubah($cari) 
+	function ubah($cariID = null) 
 	{
-		//echo '<br>Anda berada di class Imej extends Kawal:ubah($cari)<br>';
-		# cari id berasaskan sidap
-		$cariID = isset($cari) ? $cari : null;
+		//echo '<br>Anda berada di class Imej extends Kawal:ubah($cariID)<br>';
 
 		if (!empty($cariID)) 
 		{
-			//echo '$id:' . $id . '<br>';
 			$cariMedan = 'newss'; # cari dalam medan apa
 			$this->papar->carian='newss';
 			$this->papar->kesID = array();

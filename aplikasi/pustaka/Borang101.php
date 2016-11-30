@@ -1916,6 +1916,17 @@ class Borang101
 ##////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static function binaKodInput101($kodProduk, $myTableA, $myTableB, $cari)
 	{	# $ulangJadual = array('s101_q13a_2010','s101_q13b_2010');
+		# set tatasusunan
+		$jenisTanaman = array(
+			'01'=>'Baja Urea', #	7	7 2 0 1 2 1 0 2 0 0 1 - Fertilizer Urea- Tan Metrik
+			'02'=>'Amonia sulfat', # 7	2 0 1 2 1 0 3 0 0 1 - Ammonium sulphate - Tan Metrik
+			'03'=>'Kalsium nitrat', # 7	6 2 0 1 2 1 0 5 0 0 1 - amonia nitrat - Kg
+			'04'=>'Racun (rumpai, serangga / kulat, kimia dsb)', # 4	4  2 0 2 1 0 0 6 0 0 1
+			'05'=>'','06'=>'','07'=>'','08'=>'','09'=>'',
+			10=>'',11=>'',12=>'',13=>'',14=>'',
+			'15'=>'Nilai bahan lain yang digunakan ', # 9 9 9 9 8
+			'20'=>'Jumlah nilai bahan yang digunakan ',
+		);		
 		# set pembolehubah
 		$cariMedan = ( !isset($cari['medan']) ) ? '' : $cari['medan'];
 		$cariID = ( !isset($cari['id']) ) ? '' : $cari['id'];
@@ -1924,7 +1935,7 @@ class Borang101
 		$namaProduk = 'namaProduk - 44';
 
 		# mula cari A
-		$SELECT = 'SELECT "" as `Jenis`';
+		$SELECT = 'SELECT ';
 		$WHERE = "\r FROM `$myTableA` "
 			. "WHERE $cariMedan like '$cariID%' "
 			//. "AND thn BETWEEN $thnMula and $thnAkhir"
@@ -1932,7 +1943,9 @@ class Borang101
 		for ($kira = 1;$kira < 14; $kira++)
 		{
 			$baris = kira3($kira, 2);
-			$medan[] = "\r(" . $SELECT
+			$namaTanaman = (isset($jenisTanaman[$baris])) ? $jenisTanaman[$baris] : '';
+			$PILIH = "$SELECT IF(F44$baris = 0, null , \"$namaTanaman - $baris\") as Jenis";
+			$medan[] = "\r(" . $PILIH
 				. ',F40' . $baris . ' as `Kuantiti-40`'
 				. "\r " . ',F41' . $baris . ' as `Tempatan(RM)-41`,F42' . $baris . ' as `Import(RM)-42`'
 				. "\r " . ',F43' . $baris . ' as `KodUnit-43`'
@@ -1947,8 +1960,10 @@ class Borang101
 
 		# mula cari A-Nilai bahan lain yang digunakan
 			$baris = 15;
-			$medan[] = "\r(" . $SELECT 
-				. ',"Nilai bahan lain yang digunakan" as F4001'
+			$namaTanaman = (isset($jenisTanaman[$baris])) ? $jenisTanaman[$baris] : '';
+			$PILIH = "$SELECT IF(F44$baris = 0, \"Nilai bahan lain yang digunakan\" , \"$namaTanaman - $baris\") as Jenis";
+			$medan[] = "\r(" . $PILIH
+				. ',"" as F4001'
 				. "\r " . ',F41' . $baris . ' as `Tempatan(RM)-41`,F42' . $baris . ' as `Import(RM)-42`'
 				. "\r " . ',"" as `KodUnit-43`'
 				//. "\r " . ',concat_ws("<br>99998",F44' . $baris . ',SUBSTRING(F44' . $baris . ',-10)) as F4401'
@@ -1960,9 +1975,10 @@ class Borang101
 
 		# mula cari A-Jumlah
 			$baris = 20;
-			$medan[] = "\r(" . $SELECT 
-				. ',"Jumlah" as F4001'
-				. "\r " . ',F41' . $baris . ' as `Tempatan(RM)-41`,F42' . $baris . ' as `Import(RM)-42`'
+			$namaTanaman = (isset($jenisTanaman[$baris])) ? $jenisTanaman[$baris] : '';
+			$PILIH = $SELECT . ' "Jumlah" as Jenis';
+			$medan[] = "\r(" . $PILIH 
+				. ',"" as F4001,F41' . $baris . ' as `Tempatan(RM)-41`,F42' . $baris . ' as `Import(RM)-42`'
 				//. "\r " . ',"" as `F4301`, "" as `F4401`, "" as `' . $namaProduk . '`'
 				. "\r " . ',"" as `KodUnit-43`, "" as `' . $namaProduk . '`'
 				. $WHERE . ')';
@@ -1976,7 +1992,7 @@ class Borang101
 ##////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static function bina13($cariA, $cariB, $kp)
 	{
-		# jenis harta
+		# setkan tatasusunan
 		$jenisTanaman = array(//Tanaman	
 			'01'=>'Kelapa Sawit/Oil Palm - FFB',
 			'02'=>'Getah - Susu getah / Rubber - latex',
@@ -2000,7 +2016,6 @@ class Borang101
 
 		$nilaiBuku = array(
 			30=>'Luas(hektar)',
-			//=>'Unit',
 			31=>'Kuantiti Kutipan',
 			33=>'Kuantiti Jualan',
 			34=>'Nilai Jualan',
@@ -2010,10 +2025,12 @@ class Borang101
 			29=>'kod unit',
 			39=>'kod produk'
 		);
-
-		$calc = $kira = 0; # mula cari 
+		
+		$tajukMedanKira = array(30,31,33,34,36,37,38);
 		$namaMedan = $tanaman = $tanamData = array();
 		$tanamB = array(17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33);
+		
+		$calc = $kira = 0; 
 		# bina tatasusunan
 		foreach ($jenisTanaman as $key => $jenis):
 			foreach ($nilaiBuku as $key2 => $tajuk):
@@ -2025,8 +2042,10 @@ class Borang101
 					:(isset($cariA[$baris]) ? $cariA[$baris] : '0');//*/
 				$data = !empty($data) ? $data : '0';
 
-				$t0["$tajuk - $key2"] =  !empty($data) ? $data : '-';
-				$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';
+				$t0["$tajuk - $key2"] =  !empty($data) ? $data : '';
+
+				if(in_array($lajur,$tajukMedanKira))
+					$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';
 			endforeach;
 			# buang data kosong
 			if (array_sum($jumlah[$calc]['F']) != 0)
@@ -2184,8 +2203,10 @@ class Borang101
 			44=>'kod produk'
 		);
 
-		$calc = $kira = 0; # mula cari 
+		$tajukMedanKira = array(40,41,42);
 		$tanaman = array();
+		$calc = $kira = 0; 
+		
 		# bina tatasusunan
 		foreach ($jenisTanaman as $key => $jenis):
 			foreach ($nilaiBuku as $key2 => $tajuk):
@@ -2195,7 +2216,9 @@ class Borang101
 				$data = isset($cari[$baris]) ? $cari[$baris] : '0';
 
 				$t0["$tajuk - $key2"] =  !empty($data) ? $data : '-';
-				$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';
+
+				if(in_array($lajur,$tajukMedanKira))
+					$jumlah[$calc]['F'][$lajur] = !empty($data) ? $data : '0';
 			endforeach;
 			# buang data kosong
 			if (array_sum($jumlah[$calc]['F']) != 0)

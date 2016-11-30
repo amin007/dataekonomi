@@ -37,7 +37,6 @@ class Semakan extends Kawal
 		$asetIndustri = array('s04','q04_2010','s206_q04_2010','s'.$sv.'_q04_2010');
 
 		foreach ($prosesID as $jadual => $key):
-			//if (in_array($jadual, $asetIndustri)) $aset = $jadual;
 			foreach ($key as $key2 => $data):
 				foreach ($data as $medan => $nilai):
 					
@@ -100,7 +99,7 @@ class Semakan extends Kawal
 				$this->papar->perangkaan['gaji']     = $this->papar->prosesID[$kp.'09_2010'][0]['F2145'];
 				$this->papar->perangkaan['susut']    = $this->papar->prosesID[$kp.'04_2010'][0]['F0799'];
 				$this->papar->perangkaan['aset']     = $this->papar->prosesID[$kp.'04_2010'][0]['F0899'];
-				$this->papar->perangkaan['asetsewa'] = $this->papar->prosesID[$kp.'04_2010'][0]['F0999'];	
+				$this->papar->perangkaan['asetsewa'] = $this->papar->prosesID[$kp.'04_2010'][0]['F0999'];
 
 				# bentuk soalan 4 - aset
 				$this->semak_aset($asetIndustri,$aset,$prosesID);
@@ -831,7 +830,7 @@ class Semakan extends Kawal
 					,(SELECT CONCAT("<abbr title=\"", keterangan, "\">", kod_produk, "</abbr>") 
 					FROM kodproduk_aup b WHERE b.kod_produk = F3001) as nama_produk2';
 					//concat(substring(kod_produk_lama,1,5),"",substring(kod_produk_lama,8,12)) as kod_produk,
-					//18101 01 004 23
+					# 18101 01 004 23
 				$medan = '*';
 				$this->papar->kod_produk[$myTable] = 
 					$this->tanya->cariSemuaMedan($myTable, $medan, $cari);

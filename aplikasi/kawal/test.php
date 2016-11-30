@@ -2,7 +2,7 @@
 
 class Test extends Kawal 
 {
-
+#**************************************************************************************************************
 	function __construct() 
 	{
 		parent::__construct();
@@ -68,6 +68,7 @@ class Test extends Kawal
 		$cariApa[] = array('kod_medan'=>'F2177','2010'=>'Lain-lain (belanja staf)');
 		//$cariApa[] = array('kod_medan'=>'F21','2010'=>'');
 		$senarai = array();
+		
 		foreach ($cariApa as $key => $dataS):
 			$senarai[] = "('" 
 				. $dataS['kod_medan'] . "', '" 
@@ -210,5 +211,5 @@ class Test extends Kawal
 		$pegawai = unserialize(PEGAWAI);
 		echo '<pre>', print_r($pegawai, 1) . '</pre><br>';
 	}
-################################################################################################
+#**************************************************************************************************************
 }

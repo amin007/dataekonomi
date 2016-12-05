@@ -17,7 +17,7 @@ class BorangPapar
 		elseif (is_numeric($var)) 
 			$data = number_format($var,0);
 		else $data = $var;
-			
+
 		return $data;
 	}
 #----------------------------------------------------------------------------------------------------------------------
@@ -32,7 +32,7 @@ class BorangPapar
 	}
 #----------------------------------------------------------------------------------------------------------------------
 	public static function paparDataBrgAm($sv, $myTable, $row, $dataKeterangan, $senaraiMedan)
-	{?>	<table><tr><?php // mula bina jadual
+	{?>	<table><tr><?php # mula bina jadual
 		#-----------------------------------------------------------------
 		for ($kira=0; $kira < count($row); $kira++)
 		{?>
@@ -95,7 +95,7 @@ class BorangPapar
 		$printed_headers = false;
 		#-----------------------------------------------------------------
 		for ($kira=0; $kira < count($row); $kira++)
-		{	//print the headers once: 	
+		{	# print the headers once:
 			if ( !$printed_headers ) :?>
 		<thead><tr>
 		<th>#</th><?php	foreach ( array_keys($row[$kira]) as $tajuk ) : ?>
@@ -112,65 +112,65 @@ class BorangPapar
 		<?php endforeach ?>
 		</tr></tbody>
 		<?php 
-		} // endfor $kira ?></table><?php
+		} # endfor $kira ?></table><?php
 	}
 #----------------------------------------------------------------------------------------------------------------------
 	public static function keterangan_medan($key)
 	{
 		//if ($key == 'THN') $papar = 'tahun kes terpilih';
 		switch ($key) 
-		{// mula - pilih key
-		case 'THN': case 'thn':
-			$papar = 'tahun kes terpilih';
-			break;
-		case 'Batch': case 'batch':
-			$papar = 'batch prosesan kes terpilih';
-			break;
-		case 'Estab': case 'estab':
-			$papar = 'estab - nombor sidap/newss kes terpilih';
-			break;
-		case 'Nama': case 'nama':
-			$papar = 'nama syarikat';
-			break;
-		case 'F0003': 
-			$papar = 'tahun bermula aktiviti syarikat';
-			break;
-		case 'F0004':
-			$papar = 'tempoh operasi syarikat bermula';
-			break;
-		case 'F0005': 
-			$papar = 'tempoh operasi syarikat berakhir';
-			break;
-		default: 
-			$papar=$key; 
-			break;
-		}// tamat - pilih key
-		
+		{# mula - pilih key
+			case 'THN': case 'thn':
+				$papar = 'tahun kes terpilih';
+				break;
+			case 'Batch': case 'batch':
+				$papar = 'batch prosesan kes terpilih';
+				break;
+			case 'Estab': case 'estab':
+				$papar = 'estab - nombor sidap/newss kes terpilih';
+				break;
+			case 'Nama': case 'nama':
+				$papar = 'nama syarikat';
+				break;
+			case 'F0003': 
+				$papar = 'tahun bermula aktiviti syarikat';
+				break;
+			case 'F0004':
+				$papar = 'tempoh operasi syarikat bermula';
+				break;
+			case 'F0005': 
+				$papar = 'tempoh operasi syarikat berakhir';
+				break;
+			default: 
+				$papar=$key; 
+				break;
+		}# tamat - pilih key
+
 		return 'Ini tentang ' . $papar;
 	}
 #----------------------------------------------------------------------------------------------------------------------
 	public static function pilihTajuk($tajuk, $jadual)
 	{
-			$tukarTajuk['harta'] = array(
-				'F0171'=>'Awal - 01', // 'Nilai buku pada awal tahun'
-				'F0271'=>'Baru - 02', //'Pembelian baru termasuk import',
-				'F0371'=>'Terpakai - 03', //'Pembelian aset terpakai',
-				'F0471'=>'DIY - 04', //'Membuat/membina sendiri',
-				'F0571'=>'Jual/tamat - 05', // 'Aset dijual/ditamat'
-				'F0671'=>'+/- jual - 06', // 'Untung/Rugi drpd jualan harta'
-				'F0771'=>'Susut nilai - 07',
-				'F0871'=>'Akhir - 08', // 'Nilai buku pada akhir tahun'
-				'F0971'=>'Sewa - 09','F8571'=>'Kerja dlm pelaksanaan - 85');
-			# kod output	
-			$tukarTajuk['kodOutput'] = array(
-				'F2201'=>'M22','F2301'=>'M23','F2401'=>'M24',
-				'F2501'=>'Jualan(RM)','F2601'=>'M26(RM)','F2701'=>'M27(RM)',
-				'F2501(RM)'=>'Jualan(RM)','F2601(RM)'=>'M26(RM)','F2701(RM)'=>'M27(RM)',
-				'F2801'=>'M28','F2901'=>'M29');
-			# kod input
-			$tukarTajuk['kodInput'] = array(
-				'F2201'=>'M22','F2301'=>'F23(RM)','F2401'=>'M24');
-				
+		$tukarTajuk['harta'] = array(
+			'F0171'=>'Awal - 01', # 'Nilai buku pada awal tahun'
+			'F0271'=>'Baru - 02', # 'Pembelian baru termasuk import',
+			'F0371'=>'Terpakai - 03', # 'Pembelian aset terpakai',
+			'F0471'=>'DIY - 04', # 'Membuat/membina sendiri',
+			'F0571'=>'Jual/tamat - 05', # 'Aset dijual/ditamat'
+			'F0671'=>'+/- jual - 06', # 'Untung/Rugi drpd jualan harta'
+			'F0771'=>'Susut nilai - 07',
+			'F0871'=>'Akhir - 08', # 'Nilai buku pada akhir tahun'
+			'F0971'=>'Sewa - 09','F8571'=>'Kerja dlm pelaksanaan - 85');
+		# kod output	
+		$tukarTajuk['kodOutput'] = array(
+			'F2201'=>'M22','F2301'=>'M23','F2401'=>'M24',
+			'F2501'=>'Jualan(RM)','F2601'=>'M26(RM)','F2701'=>'M27(RM)',
+			'F2501(RM)'=>'Jualan(RM)','F2601(RM)'=>'M26(RM)','F2701(RM)'=>'M27(RM)',
+			'F2801'=>'M28','F2901'=>'M29');
+		# kod input
+		$tukarTajuk['kodInput'] = array(
+			'F2201'=>'M22','F2301'=>'F23(RM)','F2401'=>'M24');
+
 		return isset($tukarTajuk[$jadual][$tajuk]) ? $tukarTajuk[$jadual][$tajuk] : $tajuk;
 	}
 #----------------------------------------------------------------------------------------------------------------------
@@ -180,34 +180,34 @@ class BorangPapar
 		$f = nombor medan
 		$row = data medan
 		$nama = nama medan
-		
+
 		senarai nama medan
 		0-nota,1-respon,2-fe,3-tel,4-fax,
 		5-responden,6-email,7-msic,8-msic08,
 		9-`id U M`,10-nama,11-sidap,12-status
 	 */// papar medan yang terlibat
-	 
+
 		$cariMedan = array(0,1,2,3,4,5,6,8);
 		$cariText = array(0); # papar jika nota ada
 		$cariMsic = array(8); # papar input text msic sahaja 
 		$namaM = $ubah .'[' . $nama . ']';
-			
+
 		# tentukan medan yang ada input
 		$input=in_array($f,$cariMedan)? 
-		(@in_array($f,$cariMsic)? // tentukan medan yang ada msic
+		(@in_array($f,$cariMsic)? # tentukan medan yang ada msic
 			'<input type="text" name="' . $namaM . '" value="' . $row[$f] . '" size=6>'
-			:(@in_array($f,$cariText)? // tentukan medan yang ada input textarea
+			:(@in_array($f,$cariText)? # tentukan medan yang ada input textarea
 				'<textarea name="' . $namaM . '" rows=2 cols=23>' . $row[$f] . '</textarea>'
-				: // tentukan medan yang bukan input textarea
+				: # tentukan medan yang bukan input textarea
 				'<input type="text" name="' . $namaM . '" value="' . $row[$f] . '" size=30>'
 			)
 		):'<label class="papan">' . $row[$f] . '</label>';
-		
+
 		return $input;
 	}
 #----------------------------------------------------------------------------------------------------------------------
 	public static function inputTextMedan($jadual, $key)
-	{    // istihar pembolehubah 
+	{	# istihar pembolehubah 
 		$name = 'name="medan[' . $jadual . '][' . $key . ']"'
 			  . ' id="' . $key . '"';
 
@@ -219,7 +219,7 @@ class BorangPapar
 	}
 #----------------------------------------------------------------------------------------------------------------------
 	public static function inputText($jadual, $key, $data)
-	{    // istihar pembolehubah 
+	{	# istihar pembolehubah 
 		$name = 'name="' . $jadual . '[' . $key . ']"'
 			  . ' id="' . $key . '"';
 		$medanApa = $jadual . '[' . $key . ']';
@@ -234,7 +234,7 @@ class BorangPapar
 	public static function inputText2($kira, $jum, $io, $jadual, $key, $data)
 	{	# istihar pembolehubah 
 		$lajur = $kira+1; //kira3($kira+1, 1);
-		// kira baris akhir dan kedua akhir
+		# kira baris akhir dan kedua akhir
 		$akhir = $jum - $lajur;
 		$buangOutput = array('F22','F23','F24','F28','F29');
 		$buangInput = array('F22','F24','F25');
@@ -271,7 +271,7 @@ class BorangPapar
 					   //. '<span class="add-on">' . $baris . '</span>' 
 					   . '<input type="text" ' . $name . ' value="' 
 					   . $data . '" class="input-mini">'
-					   . $paparKanan . '</div>';		
+					   . $paparKanan . '</div>';
 		}
 		elseif (in_array($jadual, $pilihStaf)) 
 		{
@@ -287,7 +287,7 @@ class BorangPapar
 					   //. '<span class="add-on">' . $baris . '</span>' 
 					   . '<input type="text" ' . $name . ' value="' 
 					   . $data . '" class="input-mini">'
-					   . $paparKanan . '</div>';			
+					   . $paparKanan . '</div>';
 		}
 		elseif ($key=='nama_produk')
 		{
@@ -303,20 +303,20 @@ class BorangPapar
 			}
 			$baris = 'namaProduk';
 			$name = 'name="' . $jadual . '[' . $kira . '][' . $baris . ']"'
-				  . ' id="' . $baris . '"';		
+				  . ' id="' . $baris . '"';
 			$data = ($data=='-' || $data=='_' || $data=='0' ) ? null : $data;
 			$input = '<div class="input-prepend">'
 				   //. '<span class="add-on">' . $baris . '</span>' 
 				   . '<input type="text" ' . $name . ' value="' 
 				   . $data . '" class="input-medium"></div>';
 		}
-		// jika $key adalah jumlah besar dan nilai lain2
+		# jika $key adalah jumlah besar dan nilai lain2
 		elseif ( ($akhir==1 || $akhir==0) 
 			&& $jadual == 'kodOutput')
-		{	// 42 - jumlah, 41 = lain2
+		{	# 42 - jumlah, 41 = lain2
 			$baris = $key; //($akhir==1) ? 3041 : 3042;
 			$name = 'name="' . $jadual . '[' . $baris . ']"'
-				  . ' id="' . $baris . '"';		
+				  . ' id="' . $baris . '"';
 			$data = ($data=='-' || $data=='_' || $data=='0' ) ? null : $data;
 			$input = (in_array($key,$buangOutput)) ? 
 					$data : '<div class="input-prepend">'
@@ -326,7 +326,7 @@ class BorangPapar
 		}
 		elseif ( ($akhir==1 || $akhir==0) 
 			&& $jadual == 'kodInput')
-		{// 82 - jumlah, 81 = lain2
+		{# 82 - jumlah, 81 = lain2
 			$baris = $key; //($akhir==1) ? 81 : 2582;
 			$name = 'name="' . $jadual . '[' . $baris . ']"'
 				  . ' id="' . $baris . '"';
@@ -345,7 +345,7 @@ class BorangPapar
 				  . ' id="' . $baris . '"';		
 			$data = ($data=='-' || $data=='_' || $data=='0' ) ? null : $data;
 			$input = '<div class="input-prepend">'
-				   //. '<span class="add-on">' . $baris . '</span>' 
+				   //. '<span class="add-on">' . $baris . '</span>'
 				   . '<input type="text" ' . $name . ' value="' 
 				   . $data . '" class="input-mini"></div>';
 		}
@@ -353,7 +353,7 @@ class BorangPapar
 		{
 			$baris = $key;
 			$name = 'name="' . $jadual . '[' . $baris . ']"'
-				  . ' id="' . $baris . '"';		
+				  . ' id="' . $baris . '"';
 			$data = ($data=='-' || $data=='_' || $data=='0' ) ? null : $data;
 			$input = '<div class="input-prepend">'
 				   //. '<span class="add-on">' . $baris . '</span>' 
@@ -367,9 +367,9 @@ class BorangPapar
 	}
 #----------------------------------------------------------------------------------------------------------------------
 	public static function inputTextInputOutput($kira, $jum, $io, $jadual, $key, $data)
-	{    // istihar pembolehubah 
+	{	# istihar pembolehubah 
 		$lajur = $kira+1; //kira3($kira+1, 1);
-		// kira baris akhir dan kedua akhir
+		# kira baris akhir dan kedua akhir
 		$akhir = $jum - $lajur;
 		$buangOutput = array('F22','F23','F24','F28','F29');
 		$buangInput = array('F22','F24','F25');
@@ -384,7 +384,7 @@ class BorangPapar
 			$lajur = ($akhir==0) ? 'jum':'lain2';
 			$baris = $key . '-' . $lajur;
 			$name = 'name="' . $jadual . '[' . $baris . ']"'
-				  . ' id="' . $baris . '"';		
+				  . ' id="' . $baris . '"';
 			$input = (in_array($key,$buangOutput)) ? 
 					$data : '<div class="input-prepend">'
 				   //. '<span class="add-on">' . $baris . '</span>' 
@@ -419,7 +419,7 @@ class BorangPapar
 		{
 			$baris = $key;
 			$name = 'name="' . $jadual . '[' . $baris . ']"'
-				  . ' id="' . $baris . '"';		
+				  . ' id="' . $baris . '"';
 			$input = '<div class="input-prepend">'
 				   //. '<span class="add-on">' . $baris . '</span>' 
 				   . '<input type="text" ' . $name . ' value="' 
@@ -440,7 +440,7 @@ class BorangPapar
 		$namaMedan = 'name="' . $myTable . '[' . $nama . ']" '
 				   . 'id="' . $nama . '"';
 		$papar = null;
-		
+
 		if ($nama == 'password')
 		{
 			$papar = '<input type="password" ' . $namaMedan . ' class="span3">';
@@ -449,7 +449,7 @@ class BorangPapar
 		{
 			$papar = '<select ' . $namaMedan . '>';
 			$senaraiLevel= array('baru');
-			
+
 			foreach ($senaraiLevel as $key => $value)
 			{
 				$papar .= '<option value="' . $value . '">'
@@ -463,7 +463,7 @@ class BorangPapar
 		{
 			$papar = '<select ' . $namaMedan . '>';
 			$senaraiJantina = array('lelaki','perempuan');
-			
+
 			foreach ($senaraiJantina as $key => $value)
 			{
 				$papar .= '<option value="' . $value . '">'
@@ -482,8 +482,8 @@ class BorangPapar
 #----------------------------------------------------------------------------------------------------------------------
 	public static function inputDaftar($jenis, $namaMedan, $data)
 	{
-			switch ($jenis) 
-			{// mula - pilih type
+		switch ($jenis) 
+		{# mula - pilih type
 			case 'varchar(15)':
 				$papar = '<input type="text" ' . $namaMedan . ' class="span2">';
 				break;
@@ -506,9 +506,9 @@ class BorangPapar
 			default: 
 				$papar="$namaMedan-$jenis-$data"; 
 				break;
-			}// tamat - pilih type
+		}# tamat - pilih type
 
-			return $papar;
+		return $papar;
 	}
 #----------------------------------------------------------------------------------------------------------------------
 	public static function paparMedanDaftarSesi($myTable, $nama, $jenis, $data, $sesi) 
@@ -516,7 +516,7 @@ class BorangPapar
 		$namaMedan = 'name="' . $myTable . '[' . $nama . ']" '
 				   . 'id="' . $nama . '"';
 		$papar = null;
-			
+
 		if ($nama == 'nama_penuh')
 		{
 			$papar = '<input type="text" ' . $namaMedan 
@@ -576,9 +576,8 @@ class BorangPapar
 	{
 		$namaMedan = 'name="' . $myTable . '[' . $nama . ']" '
 				   . 'id="' . $nama . '"';
-
 		//$papar = null;
-			
+
 		if ($nama == 'level')
 		{
 			/*
@@ -625,8 +624,8 @@ class BorangPapar
 #----------------------------------------------------------------------------------------------------------------------
 	public static function ubahInputDaftar($jenis, $namaMedan, $data)
 	{
-			switch ($jenis) 
-			{// mula - pilih type
+		switch ($jenis) 
+		{# mula - pilih type
 			case 'varchar(15)':
 				$papar = '<input type="text" ' . $namaMedan . ' value="' . $data . '" class="span2">';
 				break;
@@ -649,9 +648,9 @@ class BorangPapar
 			default: 
 				$papar="$namaMedan-$data"; 
 				break;
-			}// tamat - pilih type
+		}# tamat - pilih type
 
-			return $papar;
+		return $papar;
 	}
 #----------------------------------------------------------------------------------------------------------------------
 ####################################################################################################################################

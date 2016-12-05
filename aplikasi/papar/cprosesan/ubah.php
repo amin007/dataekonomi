@@ -51,7 +51,7 @@ foreach ($this->kesID as $myTable => $row)
 	{?>
 	<div class="tab-pane" id="<?php echo $myTable ?>">
 	<span class="badge badge-success">Anda berada di <?php echo $myTable ?></span>
-	<?php paparData($this->sv, $myTable, $row, $this->keterangan, $senaraiMedan)?>	
+	<?php BorangPapar::paparData($this->sv, $myTable, $row, $this->keterangan, $senaraiMedan)?>	
 	<!-- Jadual <?php echo $myTable ?> ########################################### -->		
 	</div>
 <?php
@@ -89,7 +89,7 @@ foreach ($this->kod_produk as $myTable => $row)
 	{?>	
 	<div class="tab-pane" id="<?php echo $myTable ?>">
 	<span class="badge badge-success">Anda berada di <?php echo $myTable ?></span>
-	<?php paparKodProduk($this->sv, $myTable, $row); ?>
+	<?php BorangPapar::paparKodProduk($this->sv, $myTable, $row); ?>
 	<!-- Jadual <?php echo $myTable ?> ########################################### -->		
 	</div>
 <?php

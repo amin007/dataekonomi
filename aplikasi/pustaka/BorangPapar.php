@@ -51,16 +51,37 @@ class BorangPapar
 	}
 #----------------------------------------------------------------------------------------------------------------------
 	public static function paparData($sv, $myTable, $row, $dataKeterangan, $senaraiMedan)
-	{?>	<table><tr><?php // mula bina jadual
+	{?>	<table><tr><?php # mula bina jadual
 		#-----------------------------------------------------------------
 		for ($kira=0; $kira < count($row); $kira++)
-		{?>
-			<td valign="top">
+		{?><td valign="top">
 			<table border="1" class="excel" id="example"><?php 
-			foreach ( $row[$kira] as $key=>$data ) : ?>
-			<tr><td><?php echo '<abbr title="' . BorangPapar::keterangan($key, $data, $myTable, $dataKeterangan) . '">'; // <abbr title=""> ?>
-			<?php echo "\n" . $key . '</abbr>'; ?></td>
-			<td align="right"><?php echo (in_array($key, $senaraiMedan)) ? 
+			foreach ( $row[$kira] as $key=>$data ) : 
+			echo "\n\t\t\t"; 
+			?><tr><td><?php echo "\n\t\t\t" . '<abbr title="' 
+			. BorangPapar::keterangan($key, $data, $myTable, $dataKeterangan) . '">' // <abbr title=""> 
+			. $key . '</abbr>'; ?></td><td align="right"><?php 
+			echo (in_array($key, $senaraiMedan)) ? 
+				$data : BorangPapar::semakJenis($sv, $key, $data) ?></td>
+			</tr><?php endforeach ?>
+			</table>
+			</td><?php
+		}#-----------------------------------------------------------------?>
+		</tr></table><?php
+	}
+#----------------------------------------------------------------------------------------------------------------------
+	public static function paparDataRingkas($sv, $myTable, $row, $dataKeterangan, $senaraiMedan)
+	{?>	<table><tr><?php # mula bina jadual
+		#-----------------------------------------------------------------
+		for ($kira=0; $kira < count($row); $kira++)
+		{?><td valign="top">
+			<table border="1" class="excel" id="example"><?php 
+			foreach ( $row[$kira] as $key=>$data ) : 
+			echo "\n\t\t\t"; 
+			?><tr><td><?php echo "\n\t\t\t" . '<abbr title="' 
+			. BorangPapar::keterangan($key, $data, $myTable, $dataKeterangan) . '">' // <abbr title=""> 
+			. $key . '</abbr> : ' . "\t";
+			echo (in_array($key, $senaraiMedan)) ? 
 				$data : BorangPapar::semakJenis($sv, $key, $data) ?></td>
 			</tr><?php endforeach ?>
 			</table>

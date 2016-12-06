@@ -41,6 +41,7 @@ class Cprosesan101 extends Kawal
 		$this->papar->paparID = null;
 		$this->papar->thn_mula = $cari['thn_mula'];
 		$this->papar->thn_akhir = $cari['thn_akhir'];
+		$this->papar->cetak = $cetak;
 
 		if (!empty($cari['id']) && !empty($sv)) 
 			$this->cariDataProsesan($medan = '*', $cari, $sv, $namaSyarikat);

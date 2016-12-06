@@ -144,7 +144,7 @@ class Cari extends Kawal
 				# senarai nama medan
 				$medan = ($myTable=='kodproduk_aup') ? 
 					'bil,substring(kod_produk_lama,1,5) as msic,kod_produk_lama,' .
-					'kod_produk,unit_kuantiti unit,keterangan,keterangan_bi,aup,min,max' 
+					'kod_produk,unit_kuantiti unit,keterangan,keterangan_bi,aup,min,max'
 					: '*'; 
 				$this->papar->cariNama[$myTable] = $this->tanya
 				->cariBanyakMedan($myTable, $medan, $kira, $had);
@@ -193,7 +193,7 @@ class Cari extends Kawal
 				"\r" . ' concat(`KodDP`,"-",`Daerah Pentadbiran`) as DAERAH,' .
 				"\r" . ' concat(`KodPBT`,"-",`PBT`) as PBT,' .
 				"\r" . ' `catatan`, `kawasan`,' .
-				"\r" . ' `LOKALITI UNTUK INDEKS`'; 
+				"\r" . ' `LOKALITI UNTUK INDEKS`';
 
 			# mula cari $cariID dalam $jadual
 			$jadual = dpt_senarai('johor');
@@ -214,7 +214,7 @@ class Cari extends Kawal
 		{
 			/*`KOD NEGERI`, `NEGERI`,*/ 
 			$jadual = dpt_senarai('malaysia');
-			// mula cari $cariID dalam $jadual
+			# mula cari $cariID dalam $jadual
 			foreach ($jadual as $key => $myTable)
 			{# mula ulang table
 				# senarai nama medan
@@ -244,8 +244,7 @@ class Cari extends Kawal
 			$mesej = null; $lokasi = null;
 		}
 
-		# semak output
-		/*echo '<pre>';
+		/*echo '<pre>'; # semak output
 		echo '$this->papar->cariNama:'; print_r($this->papar->cariNama);
 		//echo '$this->papar->carian : ' . $this->papar->carian . '<br>';
 		//echo '$this->papar->apa : ' . $this->papar->apa . '<br>';
@@ -266,5 +265,16 @@ class Cari extends Kawal
 		} //*/
 
 	}
+#--------------------------------------------------------------------------------------
+	public function ubahMedan($myTable)
+	{
+		$medan['asal'] = 'KOD NGDBBP 2010';
+		$medan['baru'] = 'KOD NGDBBP 2010';
+		$medan['jenis'] = 'varchar(255)';
+		$medan['selepas'] = 'versi';
+
+		$this->tanya->ubahMedan($myTable, $medan);
+	}
+#--------------------------------------------------------------------------------------
 #****************************************************************************************
 }

@@ -75,6 +75,7 @@ function dpt_senarai($namajadual)
 		$e.'mcpa2008_tr2010',
 		$e.'mcpa2009_tr2013',
 		$e.'mcpa2009_tr2014',
+		$e.'mcpa2009_tr2015',
 		$e.'mcpa2009_input',
 		/*'kodproduk_unitkuantiti'*/);
 	elseif ($namajadual=='syarikat')
@@ -368,8 +369,8 @@ function pencamSqlLimit($bilSemua, $item, $ms)
     $jum['page'] = ( !isset($ms) ) ? 1 : $ms; # mukasurat
     # berapa item dalam satu halaman
     $jum['max'] = ( !isset($item) ) ? 30 : $item; # item
-    # Tentukan had query berasaskan nombor halaman semasa.
-    $dari = (($jum['page'] * $jum['max']) - $jum['max']); 
+    # Tentukan had query berasaskan nombor halaman semasa
+    $dari = (($jum['page'] * $jum['max']) - $jum['max']);
     $jum['dari'] = ( !isset($dari) ) ? 0 : $dari; # dari
     # Tentukan bilangan halaman. 
     $jum['muka_surat'] = ceil($jum['bil_semua'] / $jum['max']);
@@ -515,7 +516,7 @@ function bersih($papar)
 	//$papar = mysql_real_escape_string($papar);
 	# buang ruang kosong (atau aksara lain) dari mula & akhir 
 	$papar = trim($papar);
-	
+
 	return $papar;
 }
 
@@ -528,6 +529,7 @@ function gambar_latarbelakang($lokasi)
 	//$tmpt = ($lokasi=='localhost') ? $tmpt1 : $tmpt2;
     $dh = opendir($tmpt1);
     $i=1;
+
     while (($file = readdir($dh)) !== false) 
     {
         if($file != "."

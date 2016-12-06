@@ -2,9 +2,9 @@
 if ($this->carian=='[id:0]')
 	echo '<h1><span class="badge">Prosesan: data kosong </span></h1>';
 else
-{ // $this->carian=='sidap' - mula
-	$cari = $this->carian; 
-	$ID = $this->paparID; 
+{ # $this->carian=='sidap' - mula
+	$cari = $this->carian;
+	$ID = $this->paparID;
 	$tahun = $this->thn_mula . ' hingga ' . $this->thn_akhir;
 	$paparKesID = $ID . '/' . $this->thn_mula . '/' . $this->thn_akhir . '/cetak';
 	$paparKesID2 = $ID . '/' . $this->thn_mula . '/' . $this->thn_akhir . '';
@@ -14,7 +14,7 @@ else
 	$mencari = URL . $this->kelas . 'ubahCetak/' . $this->sv;
 	$senaraiMedan = array('thn','Estab','F0002','F0014','F0015');
 	//echo '$cetak:' . $cetak . '|$mencari:' . $mencari;
-	//echo '<pre>205::$this->kod_produk='; print_r($this->kod_produk) . '<pre>';
+	//echo '<pre>17::$this->kod_produk='; print_r($this->kod_produk) . '<pre>';
 ?>
 <div align="center"><form method="POST" action="<?php echo $mencari ?>" autocomplete="off">
 <span class="badge"><?php echo $tajuk ?></span>
@@ -51,8 +51,13 @@ foreach ($this->kesID as $myTable => $row)
 	{?>
 	<div class="tab-pane" id="<?php echo $myTable ?>">
 	<span class="badge badge-success">Anda berada di <?php echo $myTable ?></span>
-	<?php BorangPapar::paparData($this->sv, $myTable, $row, $this->keterangan, $senaraiMedan)?>	
-	<!-- Jadual <?php echo $myTable ?> ########################################### -->		
+	<?php 
+	if ($this->cetak == 'kod'):
+		BorangPapar::paparDataRingkas($this->sv, $myTable, $row, $this->keterangan, $senaraiMedan);
+	else:
+		BorangPapar::paparData($this->sv, $myTable, $row, $this->keterangan, $senaraiMedan);
+	endif; ?>
+	<!-- Jadual <?php echo $myTable ?> ########################################### -->
 	</div>
 <?php
 	} // if ( count($row)==0 )
@@ -75,8 +80,7 @@ foreach ($this->kod_produk as $jadual => $baris)
 	<span class="badge badge-success"><?php echo $jadual ?></span></a></li>
 <?php
 	}
-}
-?>	</ul>
+}?>	</ul>
 <div class="tab-content">
 	<div class="tab-pane active" id="<?php echo $cari ?>">
 	<p>Mencari <?php echo $cari ?> ya ...</p>
@@ -90,12 +94,11 @@ foreach ($this->kod_produk as $myTable => $row)
 	<div class="tab-pane" id="<?php echo $myTable ?>">
 	<span class="badge badge-success">Anda berada di <?php echo $myTable ?></span>
 	<?php BorangPapar::paparKodProduk($this->sv, $myTable, $row); ?>
-	<!-- Jadual <?php echo $myTable ?> ########################################### -->		
+	<!-- Jadual <?php echo $myTable ?> ########################################### -->
 	</div>
 <?php
 	} // if ( count($row)==0 )
-}
-?>
+}?>
 </div>
 
 </div> <!-- /tab-content -->
@@ -116,4 +119,4 @@ if ( isset($this->output) && isset($this->input) )
 }
 ?>
 
-<?php } // $this->carian=='sidap' - tamat ?>
+<?php } # $this->carian=='sidap' - tamat ?>

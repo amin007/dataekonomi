@@ -4,9 +4,9 @@ class Borang
 {
 
 	private $_postData = array();
-	
+
 	public function __construct() {}
-	
+
 	public function post($field)
 	{
 		$this->_postData[$field] = $_POST[$field];
@@ -14,7 +14,7 @@ class Borang
 
 	public static function tambahBaru($paparMedan)
 	{
-		// dapatkan nama_medan,jenis_medan,input_medan dlm class Borang
+		# dapatkan nama_medan,jenis_medan,input_medan dlm class Borang
 		//Borang::tambahBaru($paparMedan);
 		###################################################################################
 		//echo '$paparMedan:'; print_r($paparMedan) . '';
@@ -37,7 +37,7 @@ class Borang
 				endforeach;
 			}
 		#-----------------------------------------------------------------
-		endforeach; // tamat $row
+		endforeach; # tamat $row
 
 		###################################################################################	
 		/*echo '<pre>';
@@ -49,7 +49,7 @@ class Borang
 		echo '$this->input_medan:'; print_r($input_medan) . '';
 		echo '</pre>';*/
 		###################################################################################
-		// masukkan dalam tatasusunan dan pulangkan ke class KAWAL
+		# masukkan dalam tatasusunan dan pulangkan ke class KAWAL
 		$inputBorang['jenis_medan'] = $jenis_medan;
 		$inputBorang['nama_medan'] = $nama_medan;
 		//$inputBorang['input_data'] = $input_data;
@@ -60,7 +60,7 @@ class Borang
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static function tambah($paparMedan)
 	{
-		// dapatkan nama_medan,jenis_medan,input_medan dlm class Borang
+		# dapatkan nama_medan,jenis_medan,input_medan dlm class Borang
 		//Borang::tambah($paparMedan);
 		###################################################################################
 		//echo '$paparMedan:'; print_r($paparMedan) . '';
@@ -83,7 +83,7 @@ class Borang
 				endforeach;
 			}
 		#-----------------------------------------------------------------
-		endforeach; // tamat $row
+		endforeach; # tamat $row
 
 		###################################################################################	
 		/*echo '<pre>';
@@ -95,19 +95,18 @@ class Borang
 		echo '$this->input_medan:'; print_r($input_medan) . '';
 		echo '</pre>';//*/
 		###################################################################################
-		// masukkan dalam tatasusunan dan pulangkan ke class KAWAL
+		# masukkan dalam tatasusunan dan pulangkan ke class KAWAL
 		$inputBorang['jenis_medan'] = $jenis_medan;
 		$inputBorang['nama_medan'] = $nama_medan;
 		$inputBorang['input_data'] = $input_data;
 		$inputBorang['input_medan'] = $input_medan;
 		return $inputBorang;
 		###################################################################################
-
 	}
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static function tambahSimpan($jadual)
 	{
-		// semak $_POST dalam class Borang
+		# semak $_POST dalam class Borang
 		//$data = Borang::tambahSimpan($this->_jadual);
 		$data = array();
 
@@ -129,14 +128,14 @@ class Borang
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static function ubah($noAhli, $paparMedan, $pilihMedan)
 	{
-		// dapatkan nama_medan,jenis_medan,input_medan 
-		// dlm class Borang::ubah()
-		// pembolehubah : $noAhli, $paparMedan
+		# dapatkan nama_medan,jenis_medan,input_medan 
+		# dlm class Borang::ubah()
+		# pembolehubah : $noAhli, $paparMedan
 		###################################################################################
-		// cari no Ahli
+		# cari no Ahli
 		foreach ($noAhli as $key => $data):
 			$input_data[] = $data;
-		endforeach; // tamat $row
+		endforeach; # tamat $row
 		//echo '<pre>$this->input_data:'; print_r($input_data) . '</pre>';
 		###################################################################################
 		foreach ($paparMedan as $myTable => $row):
@@ -158,7 +157,7 @@ class Borang
 				endforeach;
 			}
 		#-----------------------------------------------------------------
-		endforeach; // tamat $row
+		endforeach; # tamat $row
 
 		###################################################################################	
 		/*echo '<pre>';
@@ -168,7 +167,7 @@ class Borang
 		echo '$this->input_medan:'; print_r($input_medan) . '';
 		echo '</pre>';//*/
 		###################################################################################
-		// masukkan dalam tatasusunan dan pulangkan ke class KAWAL
+		# masukkan dalam tatasusunan dan pulangkan ke class KAWAL
 		$inputBorang['jenis_medan'] = $jenis_medan;
 		$inputBorang['nama_medan'] = $nama_medan;
 		$inputBorang['input_data'] = $input_data;
@@ -179,7 +178,7 @@ class Borang
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static function ubahSimpan($jadual)
 	{
-		// semak $_POST dalam class Borang::ubahSimpan($this->_jadual)
+		# semak $_POST dalam class Borang::ubahSimpan($this->_jadual)
 		//$data = Borang::ubahSimpan($thid->_jadual);
 		//echo '<pre>$_POST:'; print_r($_POST) . '</pre>';
 		$data = array();
@@ -201,7 +200,7 @@ class Borang
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static function cariKeterangan($kesID)
 	{
-		$senarai = array(); // setkan pembolehubah dulu
+		$senarai = array(); # setkan pembolehubah dulu
 		foreach ($kesID as $jadual => $kunci):
 			foreach ($kunci as $kunci2):
 				foreach ($kunci2 as $namaMedan => $data):
@@ -216,7 +215,7 @@ class Borang
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static function binaKodOutput($kodProduk, $myTable, $cari)
 	{
-		// set pembolehubah
+		# set pembolehubah
 		$cariMedan = ( !isset($cari['medan']) ) ? '' : $cari['medan'];
 		$cariID = ( !isset($cari['id']) ) ? '' : $cari['id'];
 		$thnMula = ( !isset($cari['thn_mula']) ) ? '' : $cari['thn_mula'];
@@ -226,7 +225,7 @@ class Borang
 			. "WHERE $cariMedan like '$cariID%' "
 			. "AND thn BETWEEN $thnMula and $thnAkhir";
 
-		// mula cari $kira:$cariID dalam kod_produk['q14_2010']
+		# mula cari $kira:$cariID dalam kod_produk['q14_2010']
 		for ($kira = 1;$kira < 19; $kira++)
 		{
 			$baris = kira3($kira, 2);
@@ -241,9 +240,9 @@ class Borang
 				. 'FROM ' . $kodProduk . ' b WHERE b.kod_produk='
 				. 'SUBSTRING(F30' . $baris . ',-10) LIMIT 1) as nama_produk'
 				. $WHERE . ')';
-		}// tamat ulang $kira:$cariID dalam kod_produk['q14_2010']
+		}# tamat ulang $kira:$cariID dalam kod_produk['q14_2010']
 
-		// item FXX41 (25/26/27/30) dalam jadual q14_2010
+		# item FXX41 (25/26/27/30) dalam jadual q14_2010
 			$medan[] = '(' . $SELECT
 				. ',"" as F2201,"" as F2301'
 				. ',"Nilai Produk Lain2" as F2401'
@@ -255,7 +254,7 @@ class Borang
 				. ',"" as produk'
 				. $WHERE . ')';
 
-		// item FXX42 (25/26/27) dalam jadual q14_2010
+		# item FXX42 (25/26/27) dalam jadual q14_2010
 			$medan[] = '(' . $SELECT
 				. ',"" as F2201,"" as F2301'
 				. ',"Jumlah" as F2401'
@@ -266,7 +265,7 @@ class Borang
 				. ',"" as F3001,"" as produk'
 				. $WHERE . ')';
 
-		// papar sql
+		# papar sql
 		$query = implode("\rUNION\r",$medan);
 		//echo '<hr><pre>$sql output='; print_r($query) . '</pre><hr>';
 		return $query;
@@ -275,7 +274,7 @@ class Borang
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static function binaKodInput($kodProduk, $myTable, $cari)
 	{
-		// set pembolehubah
+		# set pembolehubah
 		$cariMedan = ( !isset($cari['medan']) ) ? '' : $cari['medan'];
 		$cariID = ( !isset($cari['id']) ) ? '' : $cari['id'];
 		$thnMula = ( !isset($cari['thn_mula']) ) ? '' : $cari['thn_mula'];
@@ -285,7 +284,7 @@ class Borang
 			. "WHERE $cariMedan like '$cariID%' "
 			. "AND thn BETWEEN $thnMula and $thnAkhir";
 
-		// mula cari $kira:$cariID dalam kod_produk['q15_2010']
+		# mula cari $kira:$cariID dalam kod_produk['q15_2010']
 		for ($kira = 51;$kira < 68; $kira++)
 		{	$baris = kira3($kira, 2);
 			$medan[] = '(' . $SELECT
@@ -299,16 +298,16 @@ class Borang
 				. 'FROM ' . $kodProduk . ' b WHERE b.kod_produk = '
 				. 'SUBSTRING(F25' . $baris . ',-10) LIMIT 1) as nama_produk'
 				. $WHERE . ')';
-		}// tamat ulang $kira:$cariID dalam kod_produk['q15_2010']
+		}# tamat ulang $kira:$cariID dalam kod_produk['q15_2010']
 
-		// item F2281 dalam jadual q15_2010
+		# item F2281 dalam jadual q15_2010
 		$medan[] = '(' . $SELECT
 			. ',"Nilai Bahan Mentah Lain2" as F22,'
 			. 'F2381 as `F23(RM)`,"" as F24'
 			. ',F2581 as Commodity,"" as nama_produk'
 			. $WHERE . ')';
 
-		// item F2282 dalam jadual q15_2010
+		# item F2282 dalam jadual q15_2010
 		$medan[] = '(' . $SELECT
 			. ',"Jumlah" as F22,F2382 as `F23(RM)`,"" as F24'
 			. ',"" as Commodity,"" as nama_produk'
@@ -319,11 +318,11 @@ class Borang
 		//echo '<hr><pre>$sql input='; print_r($query) . '</pre>';
 		return $query;
 	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////	
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 # borang Output
 	public static function borangOutput($kodProduk, $myTable, $cari)
 	{
-		// set pembolehubah
+		# set pembolehubah
 		$cariMedan = ( !isset($cari['medan']) ) ? '' : $cari['medan'];
 		$cariID = ( !isset($cari['id']) ) ? '' : $cari['id'];
 		$thnMula = ( !isset($cari['thn_mula']) ) ? '' : $cari['thn_mula'];
@@ -333,7 +332,7 @@ class Borang
 			. "WHERE $cariMedan like '$cariID%' "
 			. "AND thn BETWEEN $thnMula and $thnAkhir";
 
-		// mula cari $kira:$cariID dalam kod_produk['q14_2010']
+		# mula cari $kira:$cariID dalam kod_produk['q14_2010']
 		for ($kira = 1;$kira < 19; $kira++)
 		{
 			$baris = kira3($kira, 2);
@@ -352,9 +351,9 @@ class Borang
 				. 'SUBSTRING(F30' . $baris . ',-10) LIMIT 1)'
 				. ',"kosong")) as nama_produk'	
 				. $WHERE . ')';
-		}// tamat ulang $kira:$cariID dalam kod_produk['q14_2010']
+		}# tamat ulang $kira:$cariID dalam kod_produk['q14_2010']
 
-		// item FXX41 (25/26/27/30) dalam jadual q14_2010
+		# item FXX41 (25/26/27/30) dalam jadual q14_2010
 			$medan[] = '(' . $SELECT
 				. '"" as F22,"" as F23'
 				. ',"Nilai Produk Lain2" as F24'
@@ -386,7 +385,7 @@ class Borang
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static function borangInput($kodProduk, $myTable, $cari)
 	{
-		// set pembolehubah
+		# set pembolehubah
 		$cariMedan = ( !isset($cari['medan']) ) ? '' : $cari['medan'];
 		$cariID = ( !isset($cari['id']) ) ? '' : $cari['id'];
 		$thnMula = ( !isset($cari['thn_mula']) ) ? '' : $cari['thn_mula'];
@@ -396,7 +395,7 @@ class Borang
 			. "WHERE $cariMedan like '$cariID%' "
 			. "AND thn BETWEEN $thnMula and $thnAkhir";
 
-		// mula cari $kira:$cariID dalam kod_produk['q15_2010']
+		# mula cari $kira:$cariID dalam kod_produk['q15_2010']
 		for ($kira = 51;$kira < 68; $kira++)
 		{	$baris = kira3($kira, 2);
 			$medan[] = '(' . $SELECT
@@ -405,15 +404,15 @@ class Borang
 				. ',F24' . $baris . ' as `kodUnit`'
 				//. ',LPAD(F25' . $baris . ', 11, "0") as Commodity'
 				. ',concat_ws("-",LPAD(F25' . $baris . ', 11, "0")'
-				. ',SUBSTRING(F25' . $baris . ',-10)) as kodProduk' 
+				. ',SUBSTRING(F25' . $baris . ',-10)) as kodProduk'
 				. ',( SELECT concat_ws("-",keterangan,kod_produk) '
 				//. ', (SELECT CONCAT("<abbr title=\"", keterangan, "\">", kod_produk, "</abbr>") '
 				. 'FROM ' . $kodProduk . ' b WHERE b.kod_produk = '
 				. 'SUBSTRING(F25' . $baris . ',-10) LIMIT 1) as nama_produk'
 				. $WHERE . ')';
-		}// tamat ulang $kira:$cariID dalam kod_produk['q15_2010']
+		}# tamat ulang $kira:$cariID dalam kod_produk['q15_2010']
 
-		// item F2281 dalam jadual q15_2010
+		# item F2281 dalam jadual q15_2010
 		$medan[] = '(' . $SELECT
 			. '"Nilai Bahan Mentah Lain2" as F22,'
 			. 'concat_ws("-",F2381,F2382) as `F23`,"" as `kodUnit`'
@@ -432,10 +431,10 @@ class Borang
 		//echo '<hr><pre>$sql input='; print_r($query) . '</pre>';
 		return $query;
 	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////	
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static function inputAset($cari)
 	{
-		// jenis harta
+		# jenis harta
 		$jenisHarta = array(71=>'Tanah',
 			72=>'Tmpt kediaman',
 			73=>'Bukan Tmpt Kediaman',
@@ -454,14 +453,14 @@ class Borang
 			86=>'Lain2 harta', 99=>'Jumlah harta', 
 			85=>'Kerja dlm pelaksanaan');
 
-		$nilaiBuku= array(1=>'Awal', // 'Nilai buku pada awal tahun'
-			2=>'Baru', //'Pembelian baru termasuk import',
-			3=>'Terpakai', //'Pembelian aset terpakai',
-			4=>'DIY', //'Membuat/membina sendiri',
-			5=>'Jual/tamat', // 'Aset dijual/ditamat'
-			6=>'+/- jual', // 'Untung/Rugi drpd jualan harta'
+		$nilaiBuku= array(1=>'Awal', # 'Nilai buku pada awal tahun'
+			2=>'Baru', # 'Pembelian baru termasuk import',
+			3=>'Terpakai', # 'Pembelian aset terpakai',
+			4=>'DIY', # 'Membuat/membina sendiri',
+			5=>'Jual/tamat', # 'Aset dijual/ditamat'
+			6=>'+/- jual', # 'Untung/Rugi drpd jualan harta'
 			7=>'Susut nilai',
-			8=>'Akhir', // 'Nilai buku pada akhir tahun'
+			8=>'Akhir', # 'Nilai buku pada akhir tahun'
 			9=>'Sewa');
 
 		# semak data
@@ -481,17 +480,16 @@ class Borang
 				if ($lajur=='08')
 				{
 					$jumlahAset = 
-						( $jum[$kira]['F01'.$key] 
+						( $jum[$kira]['F01'.$key]
 						+ $jum[$kira]['F02'.$key]
-						+ $jum[$kira]['F03'.$key] 
+						+ $jum[$kira]['F03'.$key]
 						+ $jum[$kira]['F04'.$key]
-						- $jum[$kira]['F05'.$key] 
-						+ ( $jum[$kira]['F06'.$key] 
+						- $jum[$kira]['F05'.$key]
+						+ ( $jum[$kira]['F06'.$key]
 						) - $jum[$kira]['F07'.$key] );
 
-					$akhir = (isset($cari[$baris]) ?
-						$cari[$baris] : '_');
-						
+					$akhir = (isset($cari[$baris]) ? $cari[$baris] : '_');
+
 					$aset[$kira][$baris] = 
 						($akhir != $jumlahAset) ? $jumlahAset : $akhir;
 				}
@@ -512,7 +510,7 @@ class Borang
 /////////////////////////////////////////////////////////////////////////////////////////////////////	
 	public static function inputAsetAm($cari)
 	{
-		// jenis harta
+		# jenis harta
 		$jenisHarta = array(1=>'Tanah(X71)',
 			2=>'Bangunan dan binaan lain(X72,X73,X74,X75)',
 			3=>'Kenderaan(X76,X77,X78)',
@@ -561,7 +559,7 @@ class Borang
 						isset($cari['F00'.$key]) ? $cari['F00'.$key] : 0;
 				}
 				else
-				{// mula kiraan bandingan antara 2 tahun
+				{# mula kiraan bandingan antara 2 tahun
 					$aset[$kira][$baris] = isset($cari[$baris]) ?	$cari[$baris] : 0;
 				}
 			}
@@ -739,7 +737,7 @@ class Borang
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static function binaAsetAm($cari, $jum)
 	{
-		// jenis harta
+		# jenis harta
 		$jenisHarta = array(1=>'Tanah(X71)',
 			2=>'Bangunan dan binaan lain(X72,X73,X74,X75)',
 			3=>'Kenderaan(X76,X77,X78)',
@@ -786,7 +784,7 @@ class Borang
 						isset($cari['F00'.$key]) ? $cari['F00'.$key] : 0;
 				}
 				else
-				{// mula kiraan bandingan antara 2 tahun
+				{# mula kiraan bandingan antara 2 tahun
 					$aset[$kira]["$modal"] = 
 						isset($cari[$baris]) ?	$cari[$baris] : 0;
 				}
@@ -798,7 +796,7 @@ class Borang
 		return $aset;
 
 	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////	
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static function analisaAset($cari, $jum)
 	{
 		# jenis harta
@@ -820,14 +818,14 @@ class Borang
 			86=>'Lain2 harta', 99=>'Jumlah harta',
 			85=>'Kerja dlm pelaksanaan');
 
-		$nilaiBuku= array(1=>'Awal', // 'Nilai buku pada awal tahun'
-			2=>'Baru', //'Pembelian baru termasuk import',
-			3=>'Terpakai', //'Pembelian aset terpakai',
-			4=>'DIY', //'Membuat/membina sendiri',
-			5=>'Jual/tamat', // 'Aset dijual/ditamat'
-			6=>'+/- jual', // 'Untung/Rugi drpd jualan harta'
+		$nilaiBuku= array(1=>'Awal', # 'Nilai buku pada awal tahun'
+			2=>'Baru', # 'Pembelian baru termasuk import',
+			3=>'Terpakai', # 'Pembelian aset terpakai',
+			4=>'DIY', # 'Membuat/membina sendiri',
+			5=>'Jual/tamat', # 'Aset dijual/ditamat'
+			6=>'+/- jual', # 'Untung/Rugi drpd jualan harta'
 			7=>'Susut nilai',
-			8=>'Akhir', // 'Nilai buku pada akhir tahun'
+			8=>'Akhir', # 'Nilai buku pada akhir tahun'
 			9=>'Sewa');
 
 		//$cari['F7285'] = '123456'; $cari['F9985'] = '123456';
@@ -840,7 +838,7 @@ class Borang
 		$sewa_dulu = $jum['asetsewa_dulu'];
 		$sewa_kini = $jum['asetsewa_kini'];
 
-		// mula cari 
+		# mula cari 
 		$kira = 0;
 		$kP = array(72,73,74,81,86,99);
 		$kPP = array(72=>'Tmpt kediaman',73=>'Bukan Tmpt Kediaman',74=>'Binaan lain',
@@ -870,7 +868,7 @@ class Borang
 				}
 				elseif ($lajur=='07')
 				{
-					// buat asas untuk formula kira jumlah aset
+					# buat asas untuk formula kira jumlah aset
 					$jum[$kira][$baris] = isset($cari[$baris]) ?
 							$cari[$baris] : '0';
 					$harta = (isset($cari[$baris]) ?
@@ -887,7 +885,7 @@ class Borang
 						($harta / $dulu) * $kini,0,'.',',');
 
 					$aset[$kira]["$modal - 0$key2"] =
-					($kiraHarta=='0') ? '-' : // kalau harta = 0
+					($kiraHarta=='0') ? '-' : # kalau harta = 0
 					'D:' . $kiraHarta . 
 					'<br>H:' . $peratusHarta .
 					'<br>A:' . $anggaran;
@@ -916,7 +914,7 @@ class Borang
 						($harta / $dulu) * $kini,0,'.',',');
 
 					$aset[$kira]["$modal - 0$key2"] =
-					($kiraHarta=='0') ? '-' : // kalau harta = 0
+					($kiraHarta=='0') ? '-' : # kalau harta = 0
 					'D:' . $kiraHarta .
 					'<br>H:' . $peratusHarta .
 					'<br>A:' . $anggaran;
@@ -928,7 +926,7 @@ class Borang
 					# mula kiraan bandingan antara 2 tahun
 					$harta = isset($cari[$baris]) ?	$cari[$baris] : 0;
 					//echo '<hr>' . $baris . '=' . $harta . '|' . $modal;
-					$kiraHarta = ($harta==0)? 0 : number_format($harta,0,'.',',');				
+					$kiraHarta = ($harta==0)? 0 : number_format($harta,0,'.',',');
 					$peratusHarta = ($dulu==0)? 0 : number_format(
 						(($harta / $dulu) * 100),4,'.',',') . '%';
 					$anggaran = ($dulu==0)? 0 : number_format(
@@ -947,7 +945,7 @@ class Borang
 		return $aset;
 
 	}
-/////////////////////////////////////////////////////////////////////////////////////////////////////	
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static function analisaAsetAm($cari, $jum)
 	{
 		# jenis harta
@@ -1011,7 +1009,7 @@ class Borang
 					endif;
 				}
 				else
-				{// mula kiraan bandingan antara 2 tahun
+				{# mula kiraan bandingan antara 2 tahun
 					if ($lajur==6):
 						$aset[$kira]['02:Beli_Dulu'] = 
 							isset($cari[$baris]) ?	$cari[$baris] : 0;
@@ -1166,14 +1164,14 @@ class Borang
 			$data = null; $data2 = null;
 			$pekerja[$kira]['nama'] = $kategori;
 			foreach ($bangsaStaf as $key1 => $bangsa):
-			// set pembolehubah asas
+			# set pembolehubah asas
 				$lajur = kira3($key1, 2); 
 				$kunci = pilihKeyData($key,$keyLelaki,$lelaki);
 				$pekerja[$kira]['L'] = $kunci;
 				$baris = kira3($kunci, 2); 
 				$medan  = 'F' . $lajur . $baris;
 				$data = isset($cariL[$medan]) ?	$cariL[$medan] : '_';
-			// mula masuk data
+			# mula masuk data
 				$pilihBangsa = array (/*'Melayu','Cina',*/'Gaji');
 				$pekerja[$kira][(in_array($bangsa,$pilihBangsa) ) ?
 					"$bangsa|L$lajur": "L$lajur"] =
@@ -1228,7 +1226,7 @@ class Borang
 			2=>'Pengurusan-3.1',3=>'Juruteknik-3.2',4=>'Kerani-3.3',5=>'Pekerja Asas-3.4',
 			6=>'Pekerja Mahir-3.5.1',7=>'Pekerja XMahir-3.5.2',
 			8=>'Upah Mahir-3.5.1',9=>'Upah XMahir-3.5.2',
-			10=>'Pekerja sambilan-4',11=>'Jumlah pekerja-5');		
+			10=>'Pekerja sambilan-4',11=>'Jumlah pekerja-5');
 
 /*	$lelaki:Array						|$wanita:Array
 	(

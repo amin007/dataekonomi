@@ -8,11 +8,11 @@ class BorangPapar
 	{    
 		$senaraiMedan = array('F0003','F0004','F0005');
 		if (in_array($kunci, $senaraiMedan) 
-			&& in_array($sv, array(205,206) )  )
+			&& in_array($sv, array(101,205,206) )  )
 		{
 			$data = preg_replace('/(\d{1,2})(\d{2})(\d{4})$/', 
 				'$3-$2-$1', $var).PHP_EOL;
-			$data = date('d M Y',strtotime($data));
+			$data = date('d m Y',strtotime($data));
 		}
 		elseif (is_numeric($var)) 
 			$data = number_format($var,0);
@@ -78,11 +78,11 @@ class BorangPapar
 			<table border="1" class="excel" id="example"><?php 
 			foreach ( $row[$kira] as $key=>$data ) : 
 			echo "\n\t\t\t"; 
-			?><tr><td><?php echo "\n\t\t\t" . '<abbr title="' 
-			. BorangPapar::keterangan($key, $data, $myTable, $dataKeterangan) . '">' // <abbr title=""> 
-			. $key . '</abbr> : ' . "\t";
+			?><tr><td align="right"><?php echo $key . '</td><td align="right">' . "\t";
 			echo (in_array($key, $senaraiMedan)) ? 
-				$data : BorangPapar::semakJenis($sv, $key, $data) ?></td>
+				$data : BorangPapar::semakJenis($sv, $key, $data);
+			echo '</td><td align="left">' . "\n\t\t\t" //. '<abbr title="' 
+			. BorangPapar::keterangan($key, $data, $myTable, $dataKeterangan); ?></td>
 			</tr><?php endforeach ?>
 			</table>
 			</td><?php

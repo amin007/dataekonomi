@@ -3,7 +3,7 @@
 //echo '<pre>$this->cariNama:'; print_r($this->cariNama) . '</pre>';
 //echo '<pre>$this->carian:'; print_r($this->carian) . '</pre>';
 //echo '<pre>$this->apa:'; print_r($this->apa) . '</pre>';
-	
+
 if ($this->carian=='[id:0]')
 	echo 'Maaf data yang anda cari tiada dalam maklumat kami.<br>';
 else
@@ -62,7 +62,7 @@ function pautan($paparID, $jadual, $levelPegawai)
 	$urlClass = '../cprosesan/ubah/';
 	$thnLama = '/2004/2013';
 	$sse2010 = '/' . $id . '/2010/2015';
-	$k = dataK($kawalID, $id);
+	$k = dataK($kawalID, $id, $jadual);
 	$p = dataP($urlClass, $id, $ssm, $sse2010);
 	$kawal = ( $levelPegawai == 'pegawai') ?
 		array(
@@ -87,12 +87,13 @@ function pautan($paparID, $jadual, $levelPegawai)
 	?></ul></div><?php
 }
 
-function dataK($kawalID, $id)
+function dataK($kawalID, $id, $kp)
 {
+	//$kp = '328';
 	return array(
 		'kawalan' => '../ckawalan/ubah/' . $kawalID,
-		'semakan' => '../semakan/ubah/205/' . $id . '/2010/2012',
-		'anggaran' => '../anggaran/semak/' . $id,		
+		'semakan' => '../semakan/ubah/'.$kp.'/' . $id . '/2010/2012',
+		'anggaran' => '../anggaran/semak/' . $id,
 		//'imej' => '../cimej/imej/' . $ssm,
 		//'tahun sv205' => '../cprosesan205/tahun/' . $ssm
 	);

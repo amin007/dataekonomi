@@ -179,12 +179,83 @@ class Test_Tanya extends Tanya
 		//echo '<pre>$sql->', print_r($data, 1) . '</pre>';
 
 		# set sql
-		$sql  = "CREATE TABLE `$myTable` /*" . ($kira) . "*/";
-		$sql .= "(\r" . substr($cantumMedan, 0, -1). "\r);";
-		$sql .= "\r\rINSERT INTO `$myTable` /*" . count($cantumData) . "*/ VALUES \r";
+		$sql  = "CREATE TABLE `$myTable` "; ///*" . ($kira) . "*/";
+		$sql .= "(" . substr($cantumMedan, 0, -1). "\r) COMMENT='' ENGINE='MyISAM'";
+
+		echo '$sql->()<pre>', print_r($sql);  '</pre>';
+		//$this->db->insert($sql);	header('location:' . URL . 'test/paparfail/masuk/data');
+	}
+
+	public function tambahData($myTable, $kira, $cantumMedan, $cantumData)
+	{
+		//echo '<pre>$sql->', print_r($data, 1) . '</pre>';
+
+		# set sql
+		$sql  = "INSERT INTO `$myTable` VALUES \r";
 		$sql .= implode(",\r", $cantumData);
-		echo '$sql-><pre>', print_r($sql, 1) . '</pre>';
+
+		echo '$sql->(' . count($cantumData) . ')<pre>', print_r($sql);  '</pre>';
 		//$this->db->insert($sql);	header('location:' . URL . 'test/paparfail');
+	}
+
+	public function bacaFail($lokasi)
+	{
+		$bacafail = fopen($lokasi, "r");
+		while(!feof($bacafail)) 
+		{ 
+			$data[] = explode("|", fgets($bacafail));
+		}
+		fclose($bacafail);
+
+		$buang = count($data)-1;
+		unset($data[$buang]);
+
+		return $data; # pulangkan nilai
+	}
+
+	public function cantumMedanData($data, $senarai = array(), $cantumMedan = null)
+	{
+		foreach ($data as $key => $papar):
+			foreach ($papar as $kira => $papar2):
+				if($key==0 || $key==1)
+					$cantuMedan[$key][] = bersih($papar2);
+				$senarai[] = bersih($papar2);
+			endforeach;
+				unset($senarai[count($senarai)-1]);
+				if($key!=0)
+					$cantumData[] = "('" . implode("','", $senarai) . "')";
+			$senarai = null;
+		endforeach;
+
+		return array($cantuMedan, $cantumData); # pulangkan nilai
+	}
+
+	public function cantumMedanDataLama($data, $senarai = array(), $cantumMedan = null)
+	{
+			foreach ($data as $key => $papar):
+				foreach ($papar as $key2 => $papar2):
+					$senarai[] = $paparan = bersih($papar2);
+					/*if ($key==0)
+					{
+						echo $key2 . '|';
+						//if (in_array($key2,array(0,2,3,4,5,11,16,17,18)))
+						//	$cantumMedan .= 'F' .  sprintf("%04d", $key2) . " varchar(".strlen($paparan)."),";
+						if (in_array($key2,array(0,,1,2,5,6,7))) # data be16
+							$cantumMedan .= $this->tanya->pilihMedanKhas($key2);
+						elseif (strlen($paparan) < 7)
+							$cantumMedan .= 'F' .  sprintf("%04d", $key2) . " int(10),";
+						elseif (is_numeric($papar2))
+							$cantumMedan .= 'F' .  sprintf("%04d", $key2) . " bigint(20),";
+						else
+							$cantumMedan .= 'F' .  sprintf("%04d", $key2) . " varchar(".strlen($paparan)."),"; #$paparan
+						$kira = $key2;
+					}//*/
+				endforeach;
+				$cantumData[] = "('" . implode("','", $senarai) . "')";
+				$senarai = null;
+			endforeach;
+
+		return array($cantumMedan, $cantumData); # pulangkan nilai
 	}
 
 	public function pilihMedanKhas($senaraiMedan)
@@ -197,13 +268,13 @@ class Test_Tanya extends Tanya
 				$paparan = $senaraiMedan[1][$key2];
 				//echo "\$papar2 = $papar2 | \$paparan = $paparan => strlen(".strlen($paparan).") Nom=> ".is_numeric($paparan)." <hr>";
 				if ( in_array($papar2,array('NoSiri','KodBanci','NoBatch','StatusTD','StatusValid','F0002','F0003','F0004','F0005')) )
-					$cantumMedan .=  ($papar2) . ' varchar(' . strlen($paparan) . ')'; #$paparan
+					$cantumMedan .=  '`' . ($papar2) . '` varchar(' . strlen($paparan) . ')'; #$paparan
 				elseif (strlen($paparan) < 7)
-					$cantumMedan .= ($papar2) . ' int(10)';
+					$cantumMedan .= '`' . ($papar2) . '` int(10)';
 				elseif (is_numeric($paparan))
-					$cantumMedan .= ($papar2) . ' bigint(20)';
+					$cantumMedan .= '`' . ($papar2) . '` bigint(20)';
 				else
-					$cantumMedan .= ($papar2) . ' varchar(' . strlen($paparan) . ')'; #$paparan
+					$cantumMedan .= '`' . ($papar2) . '` varchar(' . strlen($paparan) . ')'; #$paparan
 
 				$cantumMedan .= ($key2!=0 && $key2%5==0) ? ",\r" : ',';
 			endif;

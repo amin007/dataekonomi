@@ -3,12 +3,12 @@
 class Test extends Kawal 
 {
 #**************************************************************************************************************
-	function __construct() 
+	function __construct()
 	{
 		parent::__construct();
 	}
 
-	function index() 
+	function index()
 	{
 		echo 'class Test::index() extends Kawal ';
 	}
@@ -128,52 +128,17 @@ class Test extends Kawal
 
 	public function bacafail($fail = "*.txt")
 	{
-		//$URL_DATA = '';
 		$lokasi = URL_DATA2 . $fail; //echo $lokasi . '|' . $fail . '<hr>';
 		if (file_exists($lokasi)) 
 		{
 			$myTable = substr($fail, 0, -4);  # returns "abcde"
-			echo "The file $lokasi exists | ";
-			echo "\$myTable = $myTable | ";
+			echo "The file $lokasi exists | \$myTable = $myTable | ";
 			###############################################################################
-			$f = fopen($lokasi, "r");
-			while(!feof($f)) 
-			{ 
-				$data[] = explode("|", fgets($f));
-			}
-			fclose($f);
-
-			$buang = count($data)-1;
-			unset($data[$buang]);
-
+			$data = $this->tanya->bacaFail($lokasi);
 			//echo '<pre>'; print_r($data); echo '</pre>';
-
-			$senarai = array(); 
-			$cantumMedan = null;
-			foreach ($data as $key => $papar):
-				foreach ($papar as $key2 => $papar2):
-					$senarai[] = $paparan = bersih($papar2);
-					/*if ($key==0)
-					{
-						echo $key2 . '|';
-						//if (in_array($key2,array(0,2,3,4,5,11,16,17,18)))
-						//	$cantumMedan .= 'F' .  sprintf("%04d", $key2) . " varchar(".strlen($paparan)."),";
-						if (in_array($key2,array(0,,1,2,5,6,7))) # data be16
-							$cantumMedan .= $this->tanya->pilihMedanKhas($key2);
-						elseif (strlen($paparan) < 7)
-							$cantumMedan .= 'F' .  sprintf("%04d", $key2) . " int(10),";
-						elseif (is_numeric($papar2))
-							$cantumMedan .= 'F' .  sprintf("%04d", $key2) . " bigint(20),";
-						else
-							$cantumMedan .= 'F' .  sprintf("%04d", $key2) . " varchar(".strlen($paparan)."),"; #$paparan
-						$kira = $key2;
-					}//*/
-				endforeach;
-				$cantumData[] = "('" . implode("','", $senarai) . "')";
-				$senarai = null;
-			endforeach;
+			list($cantumMedan, $cantumData) = $this->tanya->cantumMedanDataLama($data);
 			##################################################################################
-			echo '<pre>'; print_r($cantumData[0]); echo '</pre>';			
+			echo '<pre>'; print_r($cantumData[0]); echo '</pre>';
 			//$this->tanya->tambahJadual($myTable, $kira, $cantumMedan, $cantumData);//*/
 		}
 		else
@@ -181,9 +146,9 @@ class Test extends Kawal
 
 	}
 
-	public function paparfail($folder = "")
+	public function paparfail($folder = "", $mesej = null)
 	{
-		$lokasi = URL_DATA2 . $folder; echo $lokasi . '<hr>';
+		$lokasi = URL_DATA2; echo $lokasi . '<hr>';
 		if (file_exists($lokasi)) 
 		{
 			$dh = opendir($lokasi); //echo '<pre>';print_r($dh);echo '</pre>';
@@ -198,8 +163,9 @@ class Test extends Kawal
 					elseif (is_dir($file)==false) 
 					{ 
 						echo "\n" . $i++ . ')<a target="_blank" href="'
-							. URL . 'test/bacafail2/'// . $folder . '/'
-							. $file . '">' . $folder . '/' . $file 
+							. URL . 'test/buatJadual/' . $file . '">' . $folder . '/' . $file 
+							. '</a>|<a target="_blank" href="'
+							. URL . 'test/buatData/' . $file . '">' . $file 
 							. '</a>: ' . @filesize($file) . ' bytes'
 							. '<br>';
 					}
@@ -212,48 +178,45 @@ class Test extends Kawal
 
 	}
 
-	public function bacafail2($fail = "*.txt")
+	public function buatJadual($fail = "*.txt")
 	{
-		//$URL_DATA = '';
 		$lokasi = URL_DATA2 . $fail; //echo $lokasi . '|' . $fail . '<hr>';
+		$senarai = explode("/", $lokasi); //echo '<pre>$senarai::'; print_r($senarai); echo '</pre>';
+		$namaDepan = $senarai[5] .'-'. $senarai[7] . '-';
 		if (file_exists($lokasi)) 
 		{
-			$myTable = 'BE16-' . substr($fail, -9, -4);  # ambil 5 aksara dari belakang
+			$myTable = $namaDepan . substr($fail, -9, -4);  # ambil 5 aksara dari belakang
 			$myTable = huruf('kecil' , $myTable); # tukar kepada huruf kecil
-			echo "The file $lokasi exists | ";
-			echo "\$myTable = $myTable <hr>";
+			//echo "The file $lokasi exists | \$myTable = $myTable <hr>";
 			###############################################################################
-			$bacafail = fopen($lokasi, "r");
-			while(!feof($bacafail)) 
-			{ 
-				$data[] = explode("|", fgets($bacafail));
-			}
-			fclose($bacafail);
-
-			$buang = count($data)-1;
-			unset($data[$buang]);
-
+			$data = $this->tanya->bacaFail($lokasi);
 			//echo '<pre>'; print_r($data); echo '</pre>';
-
-			$senarai = array(); 
-			$cantumMedan = $mengira = null;
-			foreach ($data as $key => $papar):
-				foreach ($papar as $key2 => $papar2):
-					if($key==0 || $key==1)
-						$cantuMedan[$key][] = bersih($papar2);
-					$senarai[] = bersih($papar2);
-					$kira = $key2; # mahu kira panjang medan berapa
-				endforeach;
-					if($key!=0)
-						$cantumData[] = '/*' . ++$mengira . '*/'
-							. "('" . implode("','", $senarai) . "')";
-				$senarai = null;
-			endforeach;
-			##################################################################################
-			//echo '<pre>'; print_r($cantuMedan); echo '</pre>';
+			list($cantuMedan, $cantumData) = $this->tanya->cantumMedanData($data);
+			################################################################################
 			$cantumMedan = $this->tanya->pilihMedanKhas($cantuMedan);
-			##################################################################################
 			$this->tanya->tambahJadual($myTable, $kira, $cantumMedan, $cantumData);//*/
+		}
+		else
+			echo "The file $lokasi does not exist |";//*/
+
+	}
+	public function buatData($fail = "*.txt")
+	{
+		$lokasi = URL_DATA2; // . $fail; //echo $lokasi . '|' . $fail . '<hr>';
+		$senarai = explode("/", $lokasi); //echo '<pre>$senarai::'; print_r($senarai); echo '</pre>';
+		$namaDepan = $senarai[5] .'-'. $senarai[7] . '-';
+		if (file_exists($lokasi)) 
+		{
+			$myTable = $namaDepan . substr($fail, -9, -4);  # ambil 5 aksara dari belakang
+			$myTable = huruf('kecil' , $myTable); # tukar kepada huruf kecil
+			//echo "The file $lokasi exists | \$myTable = $myTable <hr>";
+			###############################################################################
+			$data = $this->tanya->bacaFail($lokasi);
+			//echo '<pre>'; print_r($data); echo '</pre>';
+			list($cantuMedan, $cantumData) = $this->tanya->cantumMedanData($data);
+			################################################################################
+			$cantumMedan = $this->tanya->pilihMedanKhas($cantuMedan);
+			$this->tanya->tambahData($myTable, $kira, $cantumMedan, $cantumData);
 		}
 		else
 			echo "The file $lokasi does not exist |";//*/

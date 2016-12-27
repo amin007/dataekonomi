@@ -68,7 +68,7 @@ class Test extends Kawal
 		$cariApa[] = array('kod_medan'=>'F2177','2010'=>'Lain-lain (belanja staf)');
 		//$cariApa[] = array('kod_medan'=>'F21','2010'=>'');
 		$senarai = array();
-		
+
 		foreach ($cariApa as $key => $dataS):
 			$senarai[] = "('" 
 				. $dataS['kod_medan'] . "', '" 
@@ -129,7 +129,7 @@ class Test extends Kawal
 	public function bacafail($fail = "*.txt")
 	{
 		//$URL_DATA = '';
-		$lokasi = URL_DATA . $fail; echo $lokasi . '|' . $fail . '<hr>';
+		$lokasi = URL_DATA2 . $fail; //echo $lokasi . '|' . $fail . '<hr>';
 		if (file_exists($lokasi)) 
 		{
 			$myTable = substr($fail, 0, -4);  # returns "abcde"
@@ -146,6 +146,8 @@ class Test extends Kawal
 			$buang = count($data)-1;
 			unset($data[$buang]);
 
+			//echo '<pre>'; print_r($data); echo '</pre>';
+
 			$senarai = array(); 
 			$cantumMedan = null;
 			foreach ($data as $key => $papar):
@@ -153,8 +155,11 @@ class Test extends Kawal
 					$senarai[] = $paparan = bersih($papar2);
 					if ($key==0)
 					{
-						if (in_array($key2,array(0,2,3,4,5,11,16,17,18)))
-							$cantumMedan .= 'F' .  sprintf("%04d", $key2) . " varchar(".strlen($paparan)."),";
+						echo $key2 . '|';
+						//if (in_array($key2,array(0,2,3,4,5,11,16,17,18)))
+						//	$cantumMedan .= 'F' .  sprintf("%04d", $key2) . " varchar(".strlen($paparan)."),";
+						if (in_array($key2,array(0,,1,2,5,6,7))) # data be16
+							$cantumMedan .= $this->tanya->pilihMedanKhas($key2);
 						elseif (strlen($paparan) < 7)
 							$cantumMedan .= 'F' .  sprintf("%04d", $key2) . " int(10),";
 						elseif (is_numeric($papar2))
@@ -168,16 +173,16 @@ class Test extends Kawal
 				$senarai = null;
 			endforeach;
 			##################################################################################
-			$this->tanya->tambahJadual($myTable, $kira, $cantumMedan, $cantumData);//*/
+			//$this->tanya->tambahJadual($myTable, $kira, $cantumMedan, $cantumData);//*/
 		}
 		else
 			echo "The file $lokasi does not exist |";//*/
 
 	}
-	
-	public function paparfail($folder = "*.txt")
+
+	public function paparfail($folder = "")
 	{
-		$lokasi = URL_DATA . $folder; echo $lokasi . '<hr>';
+		$lokasi = URL_DATA2 . $folder; echo $lokasi . '<hr>';
 		if (file_exists($lokasi)) 
 		{
 			$dh = opendir($lokasi); //echo '<pre>';print_r($dh);echo '</pre>';
@@ -194,7 +199,7 @@ class Test extends Kawal
 						echo "\n" . $i++ . ')<a target="_blank" href="'
 							. URL . 'test/bacafail/' . $folder . '/'
 							. $file . '">' . $folder . '/' . $file 
-							. '</a>: ' . filesize($file) . ' bytes'
+							. '</a>: ' . @filesize($file) . ' bytes'
 							. '<br>';
 					}
 				}

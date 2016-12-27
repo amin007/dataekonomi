@@ -20,27 +20,27 @@
  *
  * @uses	----------------------------------------
  *
-		// A Config array should be setup from a config file with these parameters:
+		# A Config array should be setup from a config file with these parameters:
  		$config = array();
 		$config['host'] = 'localhost';
 		$config['user'] = 'root';
 		$config['pass'] = '';
 		$config['table'] = 'table';
 
-		// Then simply connect to your DB this way:
+		# Then simply connect to your DB this way:
  		$db = new DB($config);
 
-		// Run a Query:
+		# Run a Query:
  		$db->query('SELECT * FROM someplace');
 
- 		// Get an array of items:
+ 		# Get an array of items:
  		$result = $db->get();
  		print_r($result);
  		
- 		// Optional fetch modes (1 and 2)
+ 		# Optional fetch modes (1 and 2)
  		$db->setFetchMode(1);
- 		
- 		// Get a single item:
+
+ 		# Get a single item:
  		$result = $db->get('field');
  		print_r($result);
 
@@ -55,13 +55,13 @@ class DB_Mysqli
 	* @var <str> The mode to return results, defualt is MYSQLI_BOTH, use setFetchMode() to change.
 	*/
 	private $fetchMode = MYSQLI_BOTH;
-	
+
 	/**
 	* @desc		Creates the MySQLi object for usage.
 	*
 	* @param	<arr> $db Required connection params.
 	*/
-	
+
 	public function  __construct($DB_TYPE, $DB_HOST, $DB_NAME, $DB_USER, $DB_PASS) 
 	{
 		try
@@ -77,7 +77,7 @@ class DB_Mysqli
 			exit;
 		}
 	}
-	
+
 	/**
 	 * insert
 	 * @param string $table A name of table to insert into
@@ -87,7 +87,6 @@ class DB_Mysqli
 	{
 		/*
 		ksort($data);
-		
 		$fieldNames = implode('`, `', array_keys($data));
 		$fieldValues = ':' . implode(', :', array_keys($data));
 		*/
@@ -99,7 +98,6 @@ class DB_Mysqli
 
 		echo '<hr><pre>'; print_r($sql) . '</pre><hr>';
 		//return $this->query($sql );
-		
 	}
 
 	/**
@@ -113,8 +111,7 @@ class DB_Mysqli
 		return $this->query($sql, $fetchMode);
 		//return $this->dpt_data($fetchMode);
 	}
-		
-	
+
 	/**
 	 * update
 	 * @param string $sql An SQL string
@@ -122,13 +119,13 @@ class DB_Mysqli
 	 * @param constant $fetchMode A PDO Fetch mode
 	 * @return mixed
 	 */
-	 
 	public function update($sql, $array = array(), $fetchMode = 2)
 	{
 		//echo '<hr><pre>'; print_r($sql) . '</pre><hr>';
 		return $this->query($sql, $fetchMode);
 		//return $this->dpt_data($fetchMode);
 	}
+
 	/**
 	 * delete
 	 * 
@@ -151,7 +148,6 @@ class DB_Mysqli
 	 * @param constant $fetchMode A PDO Fetch mode
 	 * @return mixed
 	 */
-
 	public function rowCount($SQL, $fetchMode = 2)
 	{
 		//echo '<hr><pre>'; print_r($SQL) . '</pre><hr>';
@@ -167,7 +163,6 @@ class DB_Mysqli
 	 * @param constant $fetchMode A PDO Fetch mode
 	 * @return mixed
 	 */
-
 	public function selectAll($sql, $fetchMode = 2)
 	{
 		//echo '<hr><pre>'; print_r($sql) . '</pre><hr>';
@@ -181,13 +176,12 @@ class DB_Mysqli
 	 * @param	<str> SQL statement
 	 * @return	<bln|null>
 	 */
-	 
 	public function query($SQL)
 	{
 		//echo '<hr><pre>'; print_r($SQL) . '</pre><hr>';
 		$this->SQL = $this->mysqli->real_escape_string($SQL);
 		$this->result = $this->mysqli->query($SQL);
-				
+	
 		if ($this->result == true)
 		{
 			return $this->result;
@@ -199,7 +193,7 @@ class DB_Mysqli
 				$this->SQL);
 			exit;
 		}
-		
+
 	}
 
 	/**
@@ -227,14 +221,13 @@ class DB_Mysqli
 
 	}
 
-		/**
+	/**
 	 * select
 	 * @param string $sql An SQL string
 	 * @param array $array Paramters to bind
 	 * @param constant $fetchMode A PDO Fetch mode
 	 * @return mixed
 	 */
-
 	public function select($sql, $fetchMode = 2)
 	{
 		//echo '<hr><pre>'; print_r($sql) . '</pre><hr>';
@@ -267,7 +260,7 @@ class DB_Mysqli
 		return $data;
 
 	}
-	
+
 	/** 
 	* @desc		Optionally set the return mode.
 	*
@@ -276,20 +269,20 @@ class DB_Mysqli
 	public function setFetchMode($type)
 	{
 		switch($type)
-		{			
+		{
 			case 1:
 			$this->fetchMode = MYSQLI_NUM;
 			break;
-			
+
 			case 2:
 			$this->fetchMode = MYSQLI_ASSOC;
 			break;
-			
+
 			default:
 			$this->fetchMode = MYSQLI_BOTH;
 			break;
 		}
-		
+
 		return $this->fetchMode;
 	}
 

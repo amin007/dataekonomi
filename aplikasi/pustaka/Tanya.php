@@ -18,14 +18,13 @@ class Tanya
 	MODIFY [COLUMN] col_name column_definition
 	[FIRST | AFTER col_name]
 	*/
-	
+
 		$sql = 'ALTER TABLE `' . $myTable . '` '
 			 . 'CHANGE `' . $medan['asal'] . '` '
 			 . '`' . $medan['baru'] . '` ' . $medan['jenis'] . ' '
 			 . 'AFTER `' . $medan['selepas'] . '` ';
 
 		echo '<pre>$sql->' . htmlentities($sql) . '</pre><br>';
-		
 	}
 ##------------------------------------------------------------------------------------
 ##################################################################################################

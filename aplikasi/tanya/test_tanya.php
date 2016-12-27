@@ -179,12 +179,39 @@ class Test_Tanya extends Tanya
 		//echo '<pre>$sql->', print_r($data, 1) . '</pre>';
 
 		# set sql
-		$sql  = "CREATE TABLE `$myTable` /*".($kira)."*/(\r";
-		$sql .= substr($cantumMedan, 0, -1);
-		$sql .= "\r);\r\rINSERT INTO `$myTable` VALUES \r";
+		$sql  = "CREATE TABLE `$myTable` /*" . ($kira) . "*/";
+		$sql .= "(\r" . substr($cantumMedan, 0, -1). "\r);";
+		$sql .= "\r\rINSERT INTO `$myTable` /*" . count($cantumData) . "*/ VALUES \r";
 		$sql .= implode(",\r", $cantumData);
 		echo '$sql-><pre>', print_r($sql, 1) . '</pre>';
 		//$this->db->insert($sql);	header('location:' . URL . 'test/paparfail');
+	}
+
+	public function pilihMedanKhas($senaraiMedan)
+	{
+		//echo '<pre>$sql->'; print_r($senaraiMedan); echo '</pre>';
+		$cantumMedan = null;
+		foreach ($senaraiMedan as $key => $papar):
+		foreach ($papar as $key2 => $papar2):
+			if($key==0):
+				$paparan = $senaraiMedan[1][$key2];
+				//echo "\$papar2 = $papar2 | \$paparan = $paparan => strlen(".strlen($paparan).") Nom=> ".is_numeric($paparan)." <hr>";
+				if ( in_array($papar2,array('NoSiri','KodBanci','NoBatch','StatusTD','StatusValid','F0002','F0003','F0004','F0005')) )
+					$cantumMedan .=  ($papar2) . ' varchar(' . strlen($paparan) . ')'; #$paparan
+				elseif (strlen($paparan) < 7)
+					$cantumMedan .= ($papar2) . ' int(10)';
+				elseif (is_numeric($paparan))
+					$cantumMedan .= ($papar2) . ' bigint(20)';
+				else
+					$cantumMedan .= ($papar2) . ' varchar(' . strlen($paparan) . ')'; #$paparan
+
+				$cantumMedan .= ($key2!=0 && $key2%5==0) ? ",\r" : ',';
+			endif;
+		endforeach;endforeach;//*/
+
+		//echo '<pre>$sql->'; print_r($cantumMedan); echo '</pre>';
+
+		return substr($cantumMedan, 0, -1);
 	}
 
 #####################################################################################################

@@ -11,7 +11,7 @@ class Ckawalan_Tanya extends Tanya
 	private function cariApa($fix,$atau,$medan,$cariApa,$akhir)
 	{
 		$where = null;
-			if($cariApa==null )
+			if($cariApa==null)
 				$where .= ($fix=='x!=') ? " $atau`$medan` !='' $akhir\r"
 					: " $atau`$medan` is null $akhir\r";
 			elseif($fix=='xnull')
@@ -25,31 +25,31 @@ class Ckawalan_Tanya extends Tanya
 			elseif($fix=='like')
 				$where .= " $atau`$medan` like '$cariApa' $akhir\r";
 			elseif($fix=='xlike')
-				$where .= " $atau`$medan` not like '$cariApa' $akhir\r";	
+				$where .= " $atau`$medan` not like '$cariApa' $akhir\r";
 			elseif($fix=='%like%')
-				$where .= " $atau`$medan` like '%$cariApa%' $akhir\r";	
+				$where .= " $atau`$medan` like '%$cariApa%' $akhir\r";
 			elseif($fix=='x%like%')
-				$where .= " $atau`$medan` not like '%$cariApa%' $akhir\r";	
+				$where .= " $atau`$medan` not like '%$cariApa%' $akhir\r";
 			elseif($fix=='like%')
-				$where .= " $atau`$medan` like '$cariApa%' $akhir\r";	
+				$where .= " $atau`$medan` like '$cariApa%' $akhir\r";
 			elseif($fix=='xlike%')
-				$where .= " $atau`$medan` not like '$cariApa%' $akhir\r";	
+				$where .= " $atau`$medan` not like '$cariApa%' $akhir\r";
 			elseif($fix=='%like')
-				$where .= " $atau`$medan` like '%$cariApa' $akhir\r";	
+				$where .= " $atau`$medan` like '%$cariApa' $akhir\r";
 			elseif($fix=='x%like')
-				$where .= " $atau`$medan` not like '%$cariApa' $akhir\r";	
+				$where .= " $atau`$medan` not like '%$cariApa' $akhir\r";
 			elseif($fix=='in')
-				$where .= " $atau`$medan` in $cariApa $akhir\r";						
+				$where .= " $atau`$medan` in $cariApa $akhir\r";
 			elseif($fix=='xin')
-				$where .= " $atau`$medan` not in $cariApa $akhir\r";						
+				$where .= " $atau`$medan` not in $cariApa $akhir\r";
 			elseif($fix=='khas2')
-				$where .= " $atau`$medan` REGEXP CONCAT('(^| )','',$cariApa) $akhir\r";	
+				$where .= " $atau`$medan` REGEXP CONCAT('(^| )','',$cariApa) $akhir\r";
 			elseif($fix=='xkhas2')
-				$where .= " $atau`$medan` NOT REGEXP CONCAT('(^| )','',$cariApa) $akhir\r";	
+				$where .= " $atau`$medan` NOT REGEXP CONCAT('(^| )','',$cariApa) $akhir\r";
 			elseif($fix=='khas3')
-				$where .= " $atau`$medan` REGEXP CONCAT('[[:<:]]',$cariApa,'[[:>:]]') $akhir\r";	
+				$where .= " $atau`$medan` REGEXP CONCAT('[[:<:]]',$cariApa,'[[:>:]]') $akhir\r";
 			elseif($fix=='xkhas4')
-				$where .= " $atau`$medan` NOT REGEXP CONCAT('[[:<:]]',$cariApa,'[[:>:]]') $akhir\r";	
+				$where .= " $atau`$medan` NOT REGEXP CONCAT('[[:<:]]',$cariApa,'[[:>:]]') $akhir\r";
 			elseif($fix=='z=')
 				$where .= " $atau$medan = $cariApa $akhir\r";
 			elseif($fix=='zlike')
@@ -57,11 +57,11 @@ class Ckawalan_Tanya extends Tanya
 			elseif($fix=='zin')
 				$where .= " $atau$medan in $cariApa $akhir\r";
 			elseif($fix=='zxin')
-				$where .= " $atau$medan not in $cariApa $akhir\r";	
+				$where .= " $atau$medan not in $cariApa $akhir\r";
 
 		return $where;
 	}
-	
+
 	private function dimana($carian)
 	{
 		//' WHERE ' . $medan . ' like %:cariID% ', array(':cariID' => $cariID));
@@ -80,9 +80,8 @@ class Ckawalan_Tanya extends Tanya
 				$where .= $this->cariApa($fix,$atau,$medan,$cariApa,$akhir);
 			}
 		endif;
-	
+
 		return $where;
-	
 	}
 
 	private function dibawah($susun)
@@ -95,7 +94,7 @@ class Ckawalan_Tanya extends Tanya
 			{
 				$kumpul = isset($susun[$key]['kumpul'])? $susun[$key]['kumpul'] : null;
 				 $order = isset($susun[$key]['susun']) ? $susun[$key]['susun']  : null;
-				  $dari = isset($susun[$key]['dari'])  ? $susun[$key]['dari']   : null;			
+				  $dari = isset($susun[$key]['dari'])  ? $susun[$key]['dari']   : null;
 				   $max = isset($susun[$key]['max'])   ? $susun[$key]['max']    : null;
 			}
 				if ($kumpul!=null)$susunan .= " GROUP BY $kumpul\r";
@@ -103,8 +102,8 @@ class Ckawalan_Tanya extends Tanya
 				if ($max!=null)   $susunan .= ($dari==0) ? 
 					" LIMIT $max\r" : " LIMIT $dari,$max\r";
 		endif; 
-		
-		return $susunan;		
+
+		return $susunan;
 	}
 
 	private function bentukSQL($myTable, $medan = '*', $carian, $susun)
@@ -113,32 +112,32 @@ class Ckawalan_Tanya extends Tanya
 		$sql = 'SELECT ' . $medan . ' FROM ' . $myTable 
 			 . $this->dimana($carian)
 			 . $this->dibawah($susun);
-		
+
 		//echo '<pre>susun:'; print_r($susun) . '</pre><br>';
 		//echo htmlentities($sql) . '<br>';
-		
+
 		return $sql;
 	}
-	
+
 	public function cariRow($myTable, $medan = '*', $carian)
 	{
 		$sql = 'SELECT ' . $medan . ' FROM ' . $myTable 
 			 . $this->dimana($carian);
-		
+
 		//echo htmlentities($sql) . '<br>';
 		$result = $this->db->rowCount($sql);
-		
+
 		return $result;
 	}
 
 	public function cariSemuaData($myTable, $medan = '*', $carian, $susun)
 	{
 		$sql = $this->bentukSQL($myTable, $medan, $carian, $susun);
-		
+
 		//echo htmlentities($sql) . '<br>';
 		$result = $this->db->selectAll($sql);
 		//echo json_encode($result);
-		
+
 		return $result;
 	}
 
@@ -146,21 +145,21 @@ class Ckawalan_Tanya extends Tanya
 	{	
 		//echo htmlentities($sql) . '<br>';
 		$result = $this->db->selectAll($sql);
-		
+
 		return $result;
 	}
-	
+
 	public function cariSql($myTable, $medan = '*', $carian, $susun)
 	{
 		$sql = $this->bentukSQL($myTable, $medan, $carian, $susun);
-		
+
 		echo htmlentities($sql) . '<br>';
 	}
 
 	public function cariCantumSql($myTable, $medan = '*', $carian, $susun)
 	{
 		return $sql = $this->bentukSQL($myTable, $medan, $carian, $susun);
-		
+
 		//echo htmlentities($sql) . '<br>';
 	}
 
@@ -173,11 +172,11 @@ class Ckawalan_Tanya extends Tanya
 
 		$sql = "SELECT $medan FROM $myTable "
 			 . "WHERE $cariMedan LIKE '%$cariID%' ";
-		
+
 		//echo '<hr><pre>cariKes()=>$sql='; print_r($sql) . '</pre>';
 		$data = $this->db->selectAll($sql,2);
 		//echo '<hr><pre>$data='; print_r($data) . '</pre>';
-		
+
 		return $data;
 	}
 
@@ -188,11 +187,11 @@ class Ckawalan_Tanya extends Tanya
 
 		$sql = "SELECT $medan FROM $myTable "
 			 . "WHERE $cariMedan like '$cariID%' ";
-		
+
 		//echo '<hr><pre>cariSatuSahaja()=>$sql='; print_r($sql) . '</pre>';
 		$data = $this->db->selectAll($sql,2);
 		//echo '<hr><pre>$data='; print_r($data) . '</pre>';
-		
+
 		return $data;
 	}
 
@@ -203,11 +202,11 @@ class Ckawalan_Tanya extends Tanya
 
 		$sql = "SELECT $medan FROM $myTable "
 			 . "WHERE $cariMedan = '$cariID' ";
-		
+
 		//echo '<hr><pre>cariSatuSahaja()=>$sql='; print_r($sql) . '</pre>';
 		$data = $this->db->selectAll($sql,2);
 		//echo '<hr><pre>$data='; print_r($data) . '</pre>';
-		
+
 		return $data;
 	}
 

@@ -1,20 +1,17 @@
 <style type="text/css">
 /* Godek hero-unit <?php $font = '#800080'; ?>
 -------------------------------------------------- */
-
 .pasaran {
-  padding: 60px;
-  margin-bottom: 30px;
-  /*background-color: #f5f5f5;*/
-  color: <?php echo $font ?>;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px;
+	padding: 60px;
+	margin-bottom: 30px;
+	/*background-color: #f5f5f5;*/
+	color: <?php echo $font ?>;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
 }
-
 /* Bootstrap code examples 
 -------------------------------------------------- */
-
 /* Base class */
 .bs-docs-example {
   position: relative;
@@ -59,7 +56,12 @@ Maka satu pasukan kerja Inovasi JP Johor yang diberi nama MAHARANI ditubuhkan. M
 ke arah mewujudkan pengkalan data khusus pertubuhan ekonomi di negeri ini, dan dikenali sebagai M-ECO.</p>
 </div><!-- / class="bs-docs-example" -->
 
-<p><a class="btn btn-primary btn-large">Pergi lebih jauh <i class="fa  fa-fighter-jet fa-5x"></i></a></p>
+<p>
+	<a class="btn btn-primary btn-large">Pergi Lebih Jauh <i class="fa fa-fighter-jet fa-5x"></i></a>
+	<a class="btn btn-warna-kuning btn-large" href="http://www.yellowpages.com.my">Yellow Pages Malaysia <i class="fa fa-phone-square fa-5x"></i></a>
+	<a class="btn btn-warna-hijau btn-large" href="http://www.cidb.gov.my">CIDB<i class="fa fa-building fa-5x"></i></a>
+	<a class="btn btn-primary btn-large" href="http://www.ssm-einfo.my">SSM-EINFO<i class="fa fa-binoculars fa-5x"></i></a>
+</p>
 </div><!--pasaran-->
 </div><!--container-->
 <?php
@@ -68,7 +70,5 @@ ke arah mewujudkan pengkalan data khusus pertubuhan ekonomi di negeri ini, dan d
 <p class="lead" style="text-align:justify;">
 </p><!-- / class="lead" -->
 </div><!-- / class="bs-docs-example" -->
-
-
 //*/
 ?>

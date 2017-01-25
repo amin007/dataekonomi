@@ -10,7 +10,7 @@ class Cprosesan101 extends Kawal
 		# lokasi fail PAPAR untuk survey
 		$this->papar->dataAm = 'cprosesan/'; 
 		$this->papar->kelas = 'cprosesan/'; 
-		$this->_pptAsetPenuh = array(301,302,303,305,306,307,308,309,312,314,316,318,325,331);
+		$this->_pptAsetPenuh = array(101,105,202,301,302,303,305,306,307,308,309,312,314,316,318,325,331);
 		$this->_ppt2015 = array('fnb');
 		$this->papar->ppt['AsetPenuh'] = $this->_pptAsetPenuh;
 		$this->papar->ppt['BrgAm'] = array(328,334,335,890);
@@ -71,7 +71,7 @@ class Cprosesan101 extends Kawal
 		$this->paparIO($sv, $this->papar->kesID, $cari);
 		# paparkan nama syarikat
 		$this->papar->namaSyarikat = $namaSyarikat; 
-		//*/		
+		//*/
 	}
 
 	public function debugPembolehubahProsesan()
@@ -83,9 +83,9 @@ class Cprosesan101 extends Kawal
 		//echo '<hr>$this->papar->paparID=' . $this->papar->paparID;
 		echo '<hr>$this->papar->carian: ' . $this->papar->carian . '<br>';
 		echo '<hr>$this->papar->namaSyarikat: ' . $this->papar->namaSyarikat . '<br>';
-		echo '</pre>';
-		//*/
+		echo '</pre>';//*/
 	}
+
 	public function ubahCetak($sv)
 	{
 		//echo '<pre>$_POST->', print_r($_POST, 1) . '</pre>';
@@ -101,7 +101,7 @@ class Cprosesan101 extends Kawal
 	private function senarai_jadual($sv)
 	{	# senaraikan tatasusunan jadual prosesan
 		//echo 'senarai_jadual(' . $sv . ')<br>';
-		
+
 		if ($sv == null) $myJadual = array();
 		elseif ($sv=='cdt')
 		{
@@ -121,6 +121,16 @@ class Cprosesan101 extends Kawal
 		{	# tanaman sahaja
 			$jadual = array('q01','q01a','q02','q03','q04','q04b','q05a','q05b','q06',
 			'q07','q08','q09','q10','q11','q12','q13a','q13b','q14','q14','q15','q16',
+			'qsa','qsb','qsc','qsd','qse','qsf',
+			/*,'tblDataReviewTemp2'*/
+			'tblDataReview','tblDataReviewTemp','tblDataReviewTemp3');
+			foreach ($jadual as $key => $data)
+				$myJadual[] = 's' . $sv . '_' . $data . '_2010';
+		}
+		elseif (in_array($sv,array('105')))
+		{	# kp 105
+			$jadual = array('q01','q01a','q02','q03','q04','q04b','q04b2','q05a','q05b','q06',
+			'q07','q08','q09','q10','q11','q12','q13a','q13b','q13c','q14','q14','q15','q16',
 			'qsa','qsb','qsc','qsd','qse','qsf',
 			/*,'tblDataReviewTemp2'*/
 			'tblDataReview','tblDataReviewTemp','tblDataReviewTemp3');
@@ -248,7 +258,7 @@ class Cprosesan101 extends Kawal
 
 			# mula kiraan
 			$output = $outputTambah - $outputTolak;
-			
+
 			# isytihar pada PAPAR
 			$this->papar->output = $output;
 			$this->papar->input = $input; 
@@ -283,8 +293,7 @@ class Cprosesan101 extends Kawal
 			# bentuk soalan staf lelaki dan perempuan
 			$jadualStaf = array('s'.$sv.'_q05a_2010','s'.$sv.'_q05b_2010');
 			$this->semak_staf($jadualStaf, $this->papar->kesID,$sv);
-			# bentuk soalan 4a - aset biasa
-			# bentuk soalan 4b - aset biologi
+			# bentuk soalan 4a - aset biasa & 4b - aset biologi
 			$this->semak_aset_biologi($sv, $paparID, $cari);
 			//echo '<pre>line303 : semak_aset_biologi:'; print_r($this->papar->kod_produk); echo '</pre><hr>';
 		}
@@ -394,7 +403,7 @@ class Cprosesan101 extends Kawal
 				/* ubahsuai tatasusunan $info
 				$info = $this->tanya->cariProdukLama($myTable, $medan, $cari);
 				$this->papar->kod_produk['kodOutput'] = Data::kodOutput($info);*/
-							}
+			}
 			elseif ($myTable=='q15_2010')
 			{
 				//echo $myTable . '<br>';
@@ -722,8 +731,7 @@ class Cprosesan101 extends Kawal
 	}
 
 	private function semak_staf2015($jadualStaf, $prosesID, $kp=null)
-	{
-		//echo '<pre>jadualStaf dalam fungsi semak_staf2015 ->'; print_r($jadualStaf) . '</pre>';
+	{//echo '<pre>jadualStaf dalam fungsi semak_staf2015 ->'; print_r($jadualStaf) . '</pre>';
 
 		$jenisPekerjaan = array(0  => 'Pemilik(ROB)-1',	1  => 'Pekerja keluarga(ROB)-2',
 			2 => 'Pengurusan-3.1',	3  => 'Profesional-3.2.1',	4 => 'Penyelidik-3.2.2',

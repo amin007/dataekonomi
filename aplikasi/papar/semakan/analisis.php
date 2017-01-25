@@ -8,6 +8,8 @@ function analisis($perangkaan, $ppt, $jadual, $key, $data)
 	$hasil_kini = $perangkaan['hasil']['kini'];
 	$belanja_dulu = $perangkaan['belanja']['dulu'];
 	$belanja_kini = $perangkaan['belanja']['kini'];
+	$gaji_dulu = $perangkaan['gaji']['dulu'];
+	$gaji_kini = $perangkaan['gaji']['kini'];
 	$susut_dulu = $perangkaan['susut']['dulu'];
 	$susut_kini = $perangkaan['susut']['kini'];
 
@@ -18,7 +20,7 @@ function analisis($perangkaan, $ppt, $jadual, $key, $data)
 	}
 	elseif( in_array($key,array('F2149','F2163')) 
 		&& in_array($sv,array('301')) )
-	{// gaji
+	{# gaji
 		$value = $data;
 		$gaji = $perangkaan['gaji']['kini'];
 		$susut = $perangkaan['susut']['kini'];
@@ -27,21 +29,21 @@ function analisis($perangkaan, $ppt, $jadual, $key, $data)
 		$anggaran = '<span style="font: italic bold 12px arial, serif;">' . $anggaran . '</span>';
 	}
 	elseif ($jadual == $sv . '_q08_2010' && $sv='205')
-	{// hasil
+	{# hasil
 		$nilai_dulu = ($hasil_dulu==0 || $data==0) ? 0 :(($data / $hasil_dulu) * 100);
 		$value = number_format($nilai_dulu,4,'.',',') . '%';
 		$anggar = ($hasil_dulu==0 || $data==0) ? 0 : (($data / $hasil_dulu) * $hasil_kini);
 		$anggaran = number_format($anggar,0,'.',',');
 	}
 	elseif ($jadual == 's206_q08_2010' && $sv='206')
-	{// hasil
+	{# hasil
 		$nilai_dulu = ($hasil_dulu==0 || $data==0) ? 0 :(($data / $hasil_dulu) * 100);
 		$value = number_format($nilai_dulu,4,'.',',') . '%';
 		$anggar = ($hasil_dulu==0 || $data==0) ? 0 : (($data / $hasil_dulu) * $hasil_kini);
 		$anggaran = number_format($anggar,0,'.',',');
 	}
 	elseif ($jadual == $sv . '_q09_2010' && $sv='205')
-	{// belanja
+	{# belanja
 		$nilai_dulu = ($belanja_dulu==0 || $data==0) ? 0 :(($data / $belanja_dulu) * 100 );
 		$value = number_format($nilai_dulu,4,'.',',') . '%';
 		if ($key=='F2130' && $susut_kini!=0):
@@ -66,25 +68,27 @@ function analisis($perangkaan, $ppt, $jadual, $key, $data)
 		endif;
 	}
 	elseif ($jadual == 's206_q09_2010' && $sv='206')
-	{// belanja
+	{# belanja
 		$nilai_dulu = ($belanja_dulu==0 || $data==0) ? 0 :(($data / $belanja_dulu) * 100 );
 		$value = number_format($nilai_dulu,4,'.',',') . '%';
 		$anggar = ($belanja_dulu==0 || $data==0) ? 0 :(($data / $belanja_dulu) * $belanja_kini);
 		$anggaran = number_format($anggar,0,'.',',');
 	}
 	elseif ($jadual == 's' . $sv . '_q02_2010' && $sv != '206')
-	{// hasil
+	{# hasil
 		$nilai_dulu = ($hasil_dulu==0 || $data==0) ? 0 :(($data / $hasil_dulu) * 100);
 		$value = number_format($nilai_dulu,4,'.',',') . '%';
 		$anggar = ($hasil_dulu==0 || $data==0) ? 0 : (($data / $hasil_dulu) * $hasil_kini);
 		$anggaran = number_format($anggar,0,'.',',');
 	}
 	elseif ($jadual == 's' . $sv . '_q03_2010' && $sv != '206')
-	{// belanja
+	{# belanja
+		# $asetBrgAm $gaji_kini
 		$nilai_dulu = ($belanja_dulu==0 || $data==0) ? 0 :(($data / $belanja_dulu) * 100 );
 		$value = number_format($nilai_dulu,4,'.',',') . '%';
 		$anggar = ($belanja_dulu==0 || $data==0) ? 0 : (($data / $belanja_dulu) * $belanja_kini);
-		$anggaran = number_format($anggar,0,'.',',');
+		$anggaran = ($key=='F0043') ? number_format($gaji_kini,0,'.',',')
+			: number_format($anggar,0,'.',',');
 	}
 	elseif($jadual == 's' . $sv . '_q08_2010' && in_array($sv,$asetPenuh))
 	{# hasil
@@ -107,7 +111,7 @@ function analisis($perangkaan, $ppt, $jadual, $key, $data)
 		$anggaran = '-';
 	}
 
-	// istihar pembolehubah 
+	# istihar pembolehubah 
 	return $data = array('nilai'=>$value,'anggar'=>$anggaran,
 	'produk'=>(isset($hasilProduk) ? $hasilProduk : 0),
 	'bahan'=>(isset($kosBahan) ? $kosBahan : 0)
@@ -196,7 +200,7 @@ table.excel tbody td
 <!-- <pre><?php //print_r($this->kesID);?></pre> -->
 
 <?php
-
+//echo '<pre>$ppt=>'; print_r($this->ppt); echo '</pre><hr>';
 foreach ($this->kesID as $myTable => $row)
 {
 	if ( count($row)==0 ) echo '';
@@ -239,7 +243,7 @@ foreach ($this->kesID as $myTable => $row)
 		<?php	endforeach;	?></tr><?php 
 				$printed_headers = true; 
 			endif;
-		#-----------------------------------------------------------------	
+		#-----------------------------------------------------------------
 		foreach ( $row[$kira] as $key=>$data ) : 
 			$thn = ($key=='thn') ? $data : 2010; 
 			$keterangan = !isset($this->keterangan[$myTable][$key][$thn]) ?
@@ -429,7 +433,7 @@ function dataGaji($perangkaan, $key, $data, $row, $kiraBil)
 		$value = number_format($nisbah,2,'.',',') . '%';
 		$kini = ($gaji_dulu==0 || $data==0) ? 0 : (($data / $gaji_dulu) * $gaji_kini);
 		$nilai_kini = number_format($kini,0,'.',',') . '';
-		
+
 		$papar = ($data==0) ? '' : " $purataGaji <br>"
 				. " dulu = $data |  " . $value . '<br>'
 				. " kini = ($data / $gaji_dulu) x $gaji_kini) = " . ($nilai_kini)
@@ -437,7 +441,7 @@ function dataGaji($perangkaan, $key, $data, $row, $kiraBil)
 	}
 	else
 		$papar = $data;
-	
+
 	return '<td align="right">' . "$papar</td>";
 }
 
@@ -530,7 +534,7 @@ foreach ($this->kod_aset as $myTable => $row)
 <?php
 	}
 #-----------------------------------------------------------------?></table>
-<!-- Jadual <?php echo $myTable ?> ########################################### -->		
+<!-- Jadual <?php echo $myTable ?> ########################################### -->
 	</div>
 <?php
 	} // if ( count($row)==0 )

@@ -10,7 +10,7 @@ class Cprosesan extends Kawal
 		# lokasi fail PAPAR untuk survey
 		$this->papar->dataAm = 'cprosesan/'; 
 		$this->papar->kelas = 'cprosesan/'; 
-		$this->_pptAsetPenuh = array(101,202,301,302,303,305,306,307,308,309,312,314,316,318,325,331);
+		$this->_pptAsetPenuh = array(101,105,202,301,302,303,305,306,307,308,309,312,314,316,318,325,331);
 		$this->_ppt2015 = array('fnb');
 		$this->papar->ppt['AsetPenuh'] = $this->_pptAsetPenuh;
 		$this->papar->ppt['BrgAm'] = array(328,334,335,890);
@@ -45,7 +45,7 @@ class Cprosesan extends Kawal
 		$this->papar->thn_akhir = $cari['thn_akhir'];
 
 		if (!empty($cari['id']) && !empty($sv)) 
-		{	
+		{
 			# mula cari $cari dalam $this->senarai_jadual(($sv)
 			//echo '<pre>$this->senarai_jadual('.$cari['sv'].')::'; print_r($this->senarai_jadual($sv)) . '</pre>';
 
@@ -116,6 +116,26 @@ class Cprosesan extends Kawal
 			foreach ($jadual as $key => $data)
 				$myJadual[] = 'data_' . $sv . '2012_' . $data . '';
 		}
+		elseif (in_array($sv,array('101')))
+		{	# tanaman sahaja
+			$jadual = array('q01','q01a','q02','q03','q04','q04b','q05a','q05b','q06',
+			'q07','q08','q09','q10','q11','q12','q13a','q13b','q14','q14','q15','q16',
+			'qsa','qsb','qsc','qsd','qse','qsf',
+			/*,'tblDataReviewTemp2'*/
+			'tblDataReview','tblDataReviewTemp','tblDataReviewTemp3');
+			foreach ($jadual as $key => $data)
+				$myJadual[] = 's' . $sv . '_' . $data . '_2010';
+		}
+		elseif (in_array($sv,array('105')))
+		{	# kp 105
+			$jadual = array('q01','q01a','q02','q03','q04','q04b','q04b2','q05a','q05b','q06',
+			'q07','q08','q09','q10','q11','q12','q13a','q13b','q13c','q14','q14','q15','q16',
+			'qsa','qsb','qsc','qsd','qse','qsf',
+			/*,'tblDataReviewTemp2'*/
+			'tblDataReview','tblDataReviewTemp','tblDataReviewTemp3');
+			foreach ($jadual as $key => $data)
+				$myJadual[] = 's' . $sv . '_' . $data . '_2010';
+		}
 		elseif ($sv=='202')
 		{
 			$jadual = array('q01','q02','q03','q04','q05a','q05b','q06',
@@ -126,7 +146,7 @@ class Cprosesan extends Kawal
 				$myJadual[] = 's' . $sv . '_' . $data . '_2010';
 		}
 		elseif ($sv == '205')
-		{	
+		{
 			$myJadual = array ( # prosesan sebelum 2010
 			'q01','q02','s04','s05a','s05b','s06_s07','qlain15','qlain16','qlain20','qlain21','qlain35',
 			# prosesan selepas 2010
@@ -190,7 +210,7 @@ class Cprosesan extends Kawal
 		$myJadual[]='s15';
 		$myJadual[]='q14_2010';
 		$myJadual[]='q15_2010';
-		
+
 		return $myJadual;
 	}
 
@@ -329,7 +349,7 @@ class Cprosesan extends Kawal
 			$this->semakPekerja2016($this->papar->kesID, $sv);
 			# bentuk soalan 4 - aset
 			$this->semak_aset($senaraiAset = array('s'.$sv.'_q04_2010'),
-					's'.$sv.'_q04_2010', $paparID, $sv);		
+					's'.$sv.'_q04_2010', $paparID, $sv);
 		}
 		elseif (in_array($sv,$this->_ppt2015))
 		{
@@ -341,7 +361,7 @@ class Cprosesan extends Kawal
 			$this->semak_staf2015($this->papar->kesID[$jadualStaf]);
 			# bentuk soalan 4 - aset
 			$this->semak_aset($senaraiAset = array('s'.$sv.'_q04_2015'),
-					's'.$sv.'_q04_2015', $paparID, $sv);	//*/
+					's'.$sv.'_q04_2015', $paparID, $sv);//*/
 		}
 		else
 		{
@@ -463,10 +483,9 @@ class Cprosesan extends Kawal
 			Data::dataPekerja($jadualStaf,$jenisPekerjaan,$prosesID);
 
 	}
-	
+
 	private function semak_staf2015($jadualStaf)
-	{
-		//echo '<pre>jadualStaf dalam fungsi semak_staf2015 ->'; print_r($jadualStaf) . '</pre>';
+	{//echo '<pre>jadualStaf dalam fungsi semak_staf2015 ->'; print_r($jadualStaf) . '</pre>';
 
 		$jenisPekerjaan = array(0  => 'Pemilik(ROB)-1',	1  => 'Pekerja keluarga(ROB)-2',
 			2 => 'Pengurusan-3.1',	3  => 'Profesional-3.2.1',	4 => 'Penyelidik-3.2.2',
@@ -492,7 +511,7 @@ class Cprosesan extends Kawal
 			$cariL = 's' . $kp . '_q05a_2010';
 			$cariP = 's' . $kp . '_q05b_2010';
 		}
-		
+
 		$this->papar->kod_produk['staf2016'] = (!isset($paparID[$cariL][0])) ?
 			array() : Borang::dataPekerja2016($paparID[$cariL][0], $paparID[$cariP][0], $kp);
 	}
@@ -535,7 +554,7 @@ class Cprosesan extends Kawal
 			$j = substr($myTable,-12);
 			echo "\r".'RENAME TABLE `pom_dataekonomi`.`'.$j.'` TO `pom_dataekonomi`.`s'.$j.'`;';
 		}# tamat ulang table
-		
+
 		echo ''
 		. "\r" . 'RENAME TABLE `pom_dataekonomi`.`'.$sv.'_tbldatareview_2010` TO `pom_dataekonomi`.`s'.$sv.'_tbldatareview_2010`;'
 		. "\r" . 'RENAME TABLE `pom_dataekonomi`.`'.$sv.'_tbldatareviewtemp_2010` TO `pom_dataekonomi`.`s'.$sv.'_tbldatareviewtemp_2010`;'

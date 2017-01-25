@@ -13,7 +13,7 @@ class Semakan extends Kawal
 		$this->papar->kelas = 'semakan/'; 
 		$this->_pptAsetPenuh = array(101,301,302,303,305,306,307,308,309,312,314,316,318,325,331);
 		$this->papar->ppt['AsetPenuh'] = $this->_pptAsetPenuh;
-		$this->papar->ppt['BrgAm'] = array(328,334,335,393,890);
+		$this->papar->ppt['BrgAm'] = array(311,328,334,335,393,890);
 		$this->_pptBrgAm = array(328,334,335,393);
 		$this->_pptBrgAm2 = array(890);
 	}
@@ -194,11 +194,11 @@ class Semakan extends Kawal
 			//$this->cari_keterangan_medan($sv, $this->papar->prosesID); # cari keterangan medan
 		else: $this->papar->prosesID = array();
 		endif; # tamat semak if (isset($this->papar->prosesID) && $this->papar->prosesID != null):
-//*/	
+//*/
 	} # semakKawalProses($sv, $kawalID, $prosesID, $cariKawal, $cariProses)
 
 	public function index($cetak = null)
-	{	
+	{
 		# dapatkan semua data
 			$myTable = 'data_anggaran';
 			$prosesID[$myTable] = $this->tanya->cariData($myTable);
@@ -338,9 +338,12 @@ class Semakan extends Kawal
 				'semasa');
 			//$senaraiHarta = array('harta_q04_2010','harta_s'.$this->sv.'_q04_2010');
 			$senaraiHarta = array('jadualHarta','jadualHartaAm');
-
+			# semak borangAm
+			$this->tanya->stafngaji($sv,$this->papar->ppt['BrgAm']);
+			
+			# bentuk pembolehubah
 			foreach ($_POST as $myTable => $value)
-			{		
+			{
 				if ( in_array($myTable,$kiraan) )
 				{
 					foreach ($value as $kekunci => $papar)
@@ -407,8 +410,8 @@ class Semakan extends Kawal
 			//echo '<hr>$_POST->'; print_r($_POST);
 			//echo '<hr>$staf->'; print_r($this->papar->staf);
 			//echo '<hr>$cariHarta->'; print_r($this->papar->kod_aset);
-			//echo '<hr>$this->papar->borang->'; print_r($this->papar->borang);
-			//echo '<hr>$this->papar->kesID->'; print_r($this->papar->kesID);
+			echo '<hr>$this->papar->borang->'; print_r($this->papar->borang);
+			echo '<hr>$this->papar->kesID->'; print_r($this->papar->kesID);
 			//echo '<hr>$this->papar->kod_produk->'; print_r($this->papar->kod_produk);
 			//echo '<hr>$this->papar->paparID=' . $this->papar->paparID;
 			//echo '<hr>$this->papar->carian: ' . $this->papar->carian;
@@ -476,7 +479,7 @@ class Semakan extends Kawal
     }
 
 	public function tambah($sv=null, $cariID = null, $mula = null, $akhir = null, $cetak = null)
-	{				
+	{
         # senaraikan tatasusunan jadual dan setkan pembolehubah
 		$myJadual['kawal'] = dpt_senarai('kawalan_tahunan');
 		$myJadual['proses'] = $this->senarai_jadual($sv); 

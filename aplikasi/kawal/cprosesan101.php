@@ -393,7 +393,6 @@ class Cprosesan101 extends Kawal
 		# mula cari $cariID dalam $kod_produk
 		foreach ($this->kod_produk($kp) as $key => $myTable)
 		{# mula ulang table
-			
 			if ($myTable=='q14_2010')
 			{
 				//echo $myTable . '<br>';

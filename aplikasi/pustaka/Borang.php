@@ -319,18 +319,25 @@ class Borang
 		return $query;
 	}
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-# borang Output
-	public static function borangOutput($kodProduk, $myTable, $cari)
+	public static function pencamKodProduk($kodProduk, $myTable, $cari)
 	{
 		# set pembolehubah
+		//echo '<hr>$cari<pre>'; print_r($cari); echo '</pre><br>';
 		$cariMedan = ( !isset($cari['medan']) ) ? '' : $cari['medan'];
 		$cariID = ( !isset($cari['id']) ) ? '' : $cari['id'];
 		$thnMula = ( !isset($cari['thn_mula']) ) ? '' : $cari['thn_mula'];
 		$thnAkhir = ( !isset($cari['thn_akhir']) ) ? '' : $cari['thn_akhir'];
-		$SELECT = 'SELECT thn,';/* ' "'.$baris.'" as `#`,' Batch,Estab,*/
-		$WHERE = " FROM `$myTable` "
+
+		return "\rFROM `$myTable` "
 			. "WHERE $cariMedan like '$cariID%' "
 			. "AND thn BETWEEN $thnMula and $thnAkhir";
+	}
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+# borang Output
+	public static function borangOutput($kodProduk, $myTable, $cari)
+	{
+		$SELECT = 'SELECT thn,';/* ' "'.$baris.'" as `#`,' Batch,Estab,*/
+		$WHERE = Borang::pencamKodProduk($kodProduk, $myTable, $cari);
 
 		# mula cari $kira:$cariID dalam kod_produk['q14_2010']
 		for ($kira = 1;$kira < 19; $kira++)
@@ -342,9 +349,9 @@ class Borang
 				. ',concat_ws("-",F25' . $baris . ',F2542) as `F25`'
 				. ',concat_ws("-",F26' . $baris . ',F2642) as `F26`'
 				. ',concat_ws("-",F27' . $baris . ',F2742) as `F27`'
-				. ',F28' . $baris . ' as `%export F28`,F29' . $baris . ' as `kodUnit`'
+				. ",\r" . 'F28' . $baris . ' as `%export F28`,F29' . $baris . ' as `kodUnit`'
 				. ',concat_ws("-",F30' . $baris . ',SUBSTRING(F30' . $baris . ',-10)) as `kodProduk`' 
-				. ',(IFNULL('
+				. ",\r" . '(IFNULL('
 				. '( SELECT concat_ws("-",keterangan,kod_produk) '
 				//. ', (SELECT CONCAT("<abbr title=\"", keterangan, "\">", kod_produk, "</abbr>") '
 				. 'FROM ' . $kodProduk . ' b WHERE b.kod_produk='
@@ -385,15 +392,8 @@ class Borang
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 	public static function borangInput($kodProduk, $myTable, $cari)
 	{
-		# set pembolehubah
-		$cariMedan = ( !isset($cari['medan']) ) ? '' : $cari['medan'];
-		$cariID = ( !isset($cari['id']) ) ? '' : $cari['id'];
-		$thnMula = ( !isset($cari['thn_mula']) ) ? '' : $cari['thn_mula'];
-		$thnAkhir = ( !isset($cari['thn_akhir']) ) ? '' : $cari['thn_akhir'];
 		$SELECT = 'SELECT thn,/*Batch,Estab*/';
-		$WHERE = " FROM `$myTable` "
-			. "WHERE $cariMedan like '$cariID%' "
-			. "AND thn BETWEEN $thnMula and $thnAkhir";
+		$WHERE = Borang::pencamKodProduk($kodProduk, $myTable, $cari);
 
 		# mula cari $kira:$cariID dalam kod_produk['q15_2010']
 		for ($kira = 51;$kira < 68; $kira++)

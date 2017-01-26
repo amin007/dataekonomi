@@ -8,7 +8,7 @@ class Ckawalan_Tanya extends Tanya
 		parent::__construct();
 	}
 
-	private function cariApa($fix,$atau,$medan,$cariApa,$akhir)
+	/*private function cariApa($fix,$atau,$medan,$cariApa,$akhir)
 	{
 		$where = null;
 			if($cariApa==null)
@@ -104,7 +104,7 @@ class Ckawalan_Tanya extends Tanya
 		endif; 
 
 		return $susunan;
-	}
+	}//*/
 
 	private function bentukSQL($myTable, $medan = '*', $carian, $susun)
 	{

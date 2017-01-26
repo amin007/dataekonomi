@@ -7,11 +7,11 @@ class Ruangtamu_Tanya extends Tanya
 	{
 		parent::__construct();
 	}
-	
+
 ##################################################################################################################
 ## contoh koding yang standard untuk carian dalam mysql
 
-	private function jika($atau,$medan,$fix,$cariApa,$akhir)
+	/*private function jika($atau,$medan,$fix,$cariApa,$akhir)
 	{
 		$dimana = null;
 		if($atau==null) $dimana .= null;
@@ -66,7 +66,7 @@ class Ruangtamu_Tanya extends Tanya
 			$dimana .= " $atau$medan not in $cariApa $akhir\r";	
 		return $dimana;
 	}
-	
+
 	private function dimana($carian)
 	{
 		//' WHERE ' . $medan . ' like %:cariID% ', array(':cariID' => $cariID));
@@ -78,16 +78,15 @@ class Ruangtamu_Tanya extends Tanya
 			{
 				   $atau = isset($carian[$key]['atau'])  ? $carian[$key]['atau'] . ' ' : null;
 				  $medan = isset($carian[$key]['medan']) ? $carian[$key]['medan']      : null;
-				    $fix = isset($carian[$key]['fix'])   ? $carian[$key]['fix']        : null;			
+				    $fix = isset($carian[$key]['fix'])   ? $carian[$key]['fix']        : null;
 				$cariApa = isset($carian[$key]['apa'])   ? $carian[$key]['apa']        : null;
 				  $akhir = isset($carian[$key]['akhir']) ? $carian[$key]['akhir']      : null;
 				//echo "\r$key => ($fix) $atau $medan -> '$cariApa' |";
 				$where .= $this->jika($atau,$medan,$fix,$cariApa,$akhir);
 			}
 		endif; //echo "<hr>$where";
-	
+
 		return $where;
-	
 	}
 
 	private function dibawah($carian)
@@ -100,7 +99,7 @@ class Ruangtamu_Tanya extends Tanya
 			{
 				$kumpul = isset($carian[$key]['kumpul'])? $carian[$key]['kumpul'] : null;
 				 $order = isset($carian[$key]['susun']) ? $carian[$key]['susun']  : null;
-				  $dari = isset($carian[$key]['dari'])  ? $carian[$key]['dari']   : null;			
+				  $dari = isset($carian[$key]['dari'])  ? $carian[$key]['dari']   : null;
 				   $max = isset($carian[$key]['max'])   ? $carian[$key]['max']    : null;
 				
 				//echo "\$cari = $cari, \$key=$key <br>";
@@ -113,21 +112,20 @@ class Ruangtamu_Tanya extends Tanya
 		
 		//echo "<hr>\$kumpul:$kumpul \$order:$order \$dari:$dari \$max:$max hahaha<hr>";
 		return $susunan;
-		
-	}
+	}//*/
 	
 	public function cariSemuaData($myTable, $medan, $carian, $susun)
 	{
 		$sql = 'SELECT ' . $medan . ' FROM ' . $myTable 
 			 . $this->dimana($carian)
 			 . $this->dibawah($susun);
-		
+
 		//echo '<pre>susun:'; print_r($susun) . '</pre><br>';
 		//echo htmlentities($sql) . '<br>';
 		//echo '<pre>';print_r($sql) . '</pre><br>';
 		$result = $this->db->selectAll($sql);
 		//echo json_encode($result);
-		
+
 		return $result;
 	}
 
@@ -136,20 +134,20 @@ class Ruangtamu_Tanya extends Tanya
 	public function xhrInsert() 
 	{
 		$text = $_POST['text'];
-		
+
 		$this->db->insert('data', array('text' => $text));
-		
+
 		$data = array('text' => $text, 'id' => $this->db->lastInsertId());
 		echo json_encode($data);
 	}
-	
+
 	public function xhrGetListings()
 	{
 		$result = $this->db->select("SELECT * FROM data");
 		//echo $result;
 		echo json_encode($result);
 	}
-	
+
 	public function xhrDeleteListing()
 	{
 		$id = (int) $_POST['id'];

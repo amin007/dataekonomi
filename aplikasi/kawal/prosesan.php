@@ -21,7 +21,6 @@ class Prosesan extends Kawal
 		$this->papar->css = array(
 			'bootstrap-datepicker.css',
 			'bootstrap-editable.css');
-
 	}
 
 	public function index() 
@@ -37,8 +36,14 @@ class Prosesan extends Kawal
 				$this->tanya->senaraiKes($sv, $myTable, $medan);
 		}# tamat ulang table
 
-		# papar
+		# pergi papar kandungan
 		$this->papar->baca('prosesan/index');
+	}
+
+	public function masuk() 
+	{
+		# pergi papar kandungan
+		$this->papar->baca('prosesan/masuk', 0);
 	}
 
 	public function lihat($cariID = null) 
@@ -70,7 +75,7 @@ class Prosesan extends Kawal
 		$this->papar->carian = 'semua';
 		//$this->papar->halaman = halaman($jum);
 		$this->papar->url = dpt_url();
-		
+
 		# pergi papar kandungan
 		$this->papar->baca('prosesan/lihat', 0);
 	}
@@ -98,7 +103,7 @@ class Prosesan extends Kawal
 		$this->papar->carian = 'semua';
 		//$this->papar->halaman = halaman($jum);
 		$this->papar->url = dpt_url();
-		
+
 		# pergi papar kandungan
 		$this->papar->baca('prosesan/index', 1);
 	}
@@ -117,15 +122,14 @@ class Prosesan extends Kawal
 		# cari id berasaskan newss/ssm/sidap/nama
 		$id['ssm'] = isset($_POST['id']['ssm']) ? $_POST['id']['ssm'] : null;
 		$id['nama'] = isset($_POST['id']['nama']) ? $_POST['id']['nama'] : null;
-			
-		
+
 		if (!empty($id['ssm'])) 
 		{
 			//echo "POST[id][ssm]:" . $_POST['id']['ssm'];
 			$cariMedan = 'sidap'; # cari dalam medan apa
 			$cariID = $id['ssm']; # benda yang dicari
 			$this->papar->carian='ssm';
-			
+
 			# mula cari $cariID dalam $myJadual
 			foreach ($tahunan as $key => $myTable)
 			{# mula ulang table
@@ -158,7 +162,7 @@ class Prosesan extends Kawal
 		{
 			$this->papar->carian='[id:0]';
 		}
-		
+
 		# pergi papar kandungan
 		$this->papar->baca('cimej/cari');
 	}

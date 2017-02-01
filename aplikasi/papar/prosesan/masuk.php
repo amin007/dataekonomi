@@ -23,7 +23,7 @@ for ($bil=1; $bil < $bil_soalan; $bil++)
 		<p>Anda berada di Soalan 1.</p>
 		<p><?php include 'masuk-s01.php'; ?></p>
 		</div><?php
-	elseif (in_array($bil,array(2,3,4,5))):
+	elseif (in_array($bil,array(2,3,4,5,6))):
 		echo "\n\t\t"; 
 		?><div class="tab-pane" id="<?php echo $bil; ?>">
 		<p>Anda berada di Soalan <?php echo $bil; ?>.</p>

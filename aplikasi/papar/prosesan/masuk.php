@@ -1,10 +1,10 @@
 <!--  mula test untuk tab kiri dan kanan -->
 <div class="row">
 	<div  class="col-sm-6">
-	<h3>Left Tabs - Vertical Text</h3>
+	<h3>Borang Ekonomi 2016 - KP 205</h3>
 	<div class="col-xs-3"> <!-- required for floating -->
 		<ul class="nav nav-tabs"><?php 
-	$bil_soalan = 10;	
+	$bil_soalan = 17;
 	for ($bil=1; $bil < $bil_soalan; $bil++)
 	{
 		if ($bil==1): echo "\n\t\t"; ?><li class="active"><a href="#l" data-toggle="tab">Soalan 1</a></li><?php 
@@ -18,14 +18,16 @@
 		<div class="tab-content"><?php 
 for ($bil=1; $bil < $bil_soalan; $bil++)
 {
-	if ($bil==1):echo "\n\t\t"; 
+	if ($bil==1):echo "\n\t\t";
 		?><div class="tab-pane active" id="l">
 		<p>Anda berada di Soalan 1.</p>
+		<p><?php include 'masuk-s01.php'; ?></p>
 		</div><?php
-	elseif ($bil==4):echo "\n\t\t"; 
+	elseif (in_array($bil,array(2,3,4,5))):
+		echo "\n\t\t"; 
 		?><div class="tab-pane" id="<?php echo $bil; ?>">
 		<p>Anda berada di Soalan <?php echo $bil; ?>.</p>
-		<p><?php include 'masuk-s04.php'; ?></p>
+		<p><?php include 'masuk-s0'.$bil.'.php'; ?></p>
 		</div>
 <?php else: echo "\n\t\t"; 
 		?><div class="tab-pane" id="<?php echo $bil; ?>">

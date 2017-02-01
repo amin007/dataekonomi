@@ -35,11 +35,7 @@ if (isset($this->css))
 	}
 }
 echo "\n"; ?>
-<style type="text/css">
-/*.navbar-xs { min-height:28px; height: 28px; }
-.navbar-xs .navbar-brand{ padding: 0px 12px;font-size: 16px;line-height: 28px; }
-.navbar-xs .navbar-nav > li > a {  padding-top: 0px; padding-bottom: 0px; line-height: 28px; }*/
-</style>
+<link rel="stylesheet" href="http://dbtek.github.io/bootstrap-vertical-tabs/assets/bower_components/bootstrap-vertical-tabs/bootstrap.vertical-tabs.css" />
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>

@@ -39,7 +39,7 @@ class Kodoutputinput extends Kawal
 		foreach ($prosesID as $jadual => $key):
 			foreach ($key as $key2 => $data):
 				foreach ($data as $medan => $nilai):
-					
+
 					if ($prosesID[$jadual][$key2][$medan]!=null) 
 					{
 						$this->papar->prosesID[$jadual][$key2][$medan] = $nilai;
@@ -195,7 +195,7 @@ class Kodoutputinput extends Kawal
 			//$this->cari_keterangan_medan($sv, $this->papar->prosesID); # cari keterangan medan
 		else: $this->papar->prosesID = array();
 		endif; # tamat semak if (isset($this->papar->prosesID) && $this->papar->prosesID != null):
-//*/	
+//*/
 	} # semakKawalProses($sv, $kawalID, $prosesID, $cariKawal, $cariProses)
 
 	public function index($cetak = null)
@@ -300,7 +300,7 @@ class Kodoutputinput extends Kawal
 				's' . $sv . '_q04_2010',
 				'proses','semasa');
 			foreach ($_POST as $myTable => $value)
-			{	
+			{
 				if ( in_array($myTable,$semua) )
 				{	//echo "myTable : $myTable <br>";
 					foreach ($value as $kekunci => $papar)
@@ -402,7 +402,7 @@ class Kodoutputinput extends Kawal
     }
 
 	public function tambah($sv=null, $cariID = null, $mula = null, $akhir = null, $cetak = null)
-	{				
+	{
         # senaraikan tatasusunan jadual dan setkan pembolehubah
 		$myJadual['kawal'] = dpt_senarai('kawalan_tahunan');
 		$myJadual['proses'] = $this->senarai_jadual($sv); 
@@ -525,7 +525,7 @@ class Kodoutputinput extends Kawal
 			'tblDataReview','tblDataReviewTemp','tblDataReviewTemp3');
 			foreach ($jadual as $key => $data)
 				$myJadual[] = 's' . $sv . '_' . $data . '_2010';
-		}		
+		}
 		elseif ($sv == '205')
 		{	
 			$myJadual = array ( # prosesan sebelum 2010
@@ -805,7 +805,7 @@ class Kodoutputinput extends Kawal
 		foreach ($keterangan as $myTable => $papar):
 		foreach ($papar as $namaMedan => $data):
 			if ( count($data) <> 0)
-					$this->papar->keterangan[$myTable][$namaMedan] = $data;					
+					$this->papar->keterangan[$myTable][$namaMedan] = $data;
 		endforeach;
 		endforeach;
 
@@ -818,7 +818,7 @@ class Kodoutputinput extends Kawal
 		$this->cari_keterangan_medan($sv, $prosesData); 
 		foreach ( $prosesData[$jadual][0] as $key=>$data ) : 
 			if($data != 0):
-				$proses2[$jadual][0][$key] = $data;		
+				$proses2[$jadual][0][$key] = $data;
 			endif;
 		endforeach;	//*/
 		$kira = count($proses2[$jadual][0]);
@@ -897,7 +897,6 @@ class Kodoutputinput extends Kawal
 			$this->papar->kod_produk['pekerjaan'] = 
 				SemakKP::dataPekerja2016($cariL, $cariP, $kp, $cariSijil);
 		endif;
-			
 	}
 
 	private function cdt_pecah_soalan($Am,$A,$B,$C,$paparID)

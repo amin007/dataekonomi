@@ -44,11 +44,8 @@
 $bil_soalan = 10;	
 for ($bil=1; $bil < $bil_soalan; $bil++)
 {
-	if ($bil==1):?>	
-	<li class="active"><a href="#l" data-toggle="tab">Soalan 1</a></li>
-<?php else:?>	
-	<li><a href="#<?php echo $bil; ?>" data-toggle="tab">Soalan <?php echo $bil; ?></a></li>
-<?php
+	if ($bil==1):?><li class="active"><a href="#l" data-toggle="tab">Soalan 1</a></li><?php 
+	else:?><li><a href="#<?php echo $bil; ?>" data-toggle="tab">Soalan <?php echo $bil; ?></a></li><?php
 	endif;
 }
 ?>	</ul>

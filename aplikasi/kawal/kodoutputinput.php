@@ -82,7 +82,7 @@ class Kodoutputinput extends Kawal
 				$this->semak_staf($jadualStaf, $this->papar->prosesID, $sv);//*/
 			}
 			elseif ($sv=='205')# semak kod produk untuk survey 205 sahaja
-			{	
+			{
 				$this->semak_produk($bawaPencam); 
 				$jadualStaf = array('q05a_2010','q05b_2010');
 				# cari sv, jumlah pendapatan dan pembelanjaan
@@ -199,7 +199,7 @@ class Kodoutputinput extends Kawal
 	} # semakKawalProses($sv, $kawalID, $prosesID, $cariKawal, $cariProses)
 
 	public function index($cetak = null)
-	{	
+	{
 		# dapatkan semua data
 			$myTable = 'data_anggaran';
 			$prosesID[$myTable] = $this->tanya->cariData($myTable);
@@ -228,8 +228,8 @@ class Kodoutputinput extends Kawal
 	{//echo '<br>Anda berada di class Kodoutputinput extends Kawal:ubah('.$sv.','.$cariID.','.$mula.','.$akhir.','.$cetak.','.$peratus.')<br>';
 
 		$bawaPencam = array('sv'=>$sv, 'cariID'=>$cariID, 'mula'=>$mula, 'akhir'=>$akhir);
-		if (!empty($cariID)&& !empty($sv)) 
-		{	
+		if (!empty($cariID)&& !empty($sv))
+		{
 			foreach (dpt_senarai('kawalan_tahunan') as $key => $myTable) 
 				$kawalID[$myTable] = $this->tanya->//paparSQL 
 					cariData 
@@ -264,7 +264,7 @@ class Kodoutputinput extends Kawal
 			echo '</pre>';//*/
 
 		# memilih antara papar dan cetak
-		/*$this->papar->peratus = $peratus; 
+		/*$this->papar->peratus = $peratus;
 		if ($cetak == 'cetak') //echo 'cetak';
 			$this->papar->baca($this->papar->_folder . 'cetak', 0);
 		elseif ($cetak == 'papar') //echo 'papar';
@@ -286,7 +286,7 @@ class Kodoutputinput extends Kawal
 	}
 
 	public function simpan()
-    { 
+    {
 		$sv = bersih($_POST['semasa']['sv']);
 		$semak = bersih($_POST['Simpan']);
 		# semak untuk Kira atau Simpan
@@ -472,13 +472,9 @@ class Kodoutputinput extends Kawal
         $id = 'newss';
 
         foreach ($_POST as $myTable => $value)
-        {
             if ( in_array($myTable,$bulanan) )
 				foreach ($value as $kekunci => $papar)
-                {
-					$posmen[$myTable][$kekunci] = bersih($papar);	
-				}
-        }
+					$posmen[$myTable][$kekunci] = bersih($papar);
 
         //echo '<br>$dataID=' . $dataID . '<br>';
         //echo '<pre>$_POST='; print_r($_POST) . '</pre>';
@@ -652,18 +648,18 @@ class Kodoutputinput extends Kawal
 		endforeach;
 
 		# semak kod produk
-			if (in_array($sv,array('101')))
-			{# kod 101
-				$this->cari_keterangan_medan($sv, $this->papar->prosesID); 
-				$this->papar->kod_produk = array();
-				# bentuk soalan staf lelaki dan perempuan
-				$jadualStaf = array('s'.$sv.'_q05a_2010','s'.$sv.'_q05b_2010');
-				$this->semak_staf($jadualStaf, $this->papar->prosesID,$sv);
-				# bentuk soalan 4a - aset biasa & 4b - aset biologi
-				$this->semak_aset_biologi($sv, $paparID, $cari);
-				//echo '<pre>line68 : semak_aset_biologi:'; print_r($this->papar->kod_produk); echo '</pre><hr>';
-			}
-			elseif ($sv=='205' || $sv=='206')
+		if (in_array($sv,array('101')))
+		{# kod 101
+			$this->cari_keterangan_medan($sv, $this->papar->prosesID); 
+			$this->papar->kod_produk = array();
+			# bentuk soalan staf lelaki dan perempuan
+			$jadualStaf = array('s'.$sv.'_q05a_2010','s'.$sv.'_q05b_2010');
+			$this->semak_staf($jadualStaf, $this->papar->prosesID,$sv);
+			# bentuk soalan 4a - aset biasa & 4b - aset biologi
+			$this->semak_aset_biologi($sv, $paparID, $cari);
+			//echo '<pre>line68 : semak_aset_biologi:'; print_r($this->papar->kod_produk); echo '</pre><hr>';
+		}
+		elseif ($sv=='205' || $sv=='206')
 		{	if ($sv=='205') 
 			{
 				$this->semak_produk($cari); 
@@ -805,7 +801,7 @@ class Kodoutputinput extends Kawal
 		foreach ($keterangan as $myTable => $papar):
 		foreach ($papar as $namaMedan => $data):
 			if ( count($data) <> 0)
-					$this->papar->keterangan[$myTable][$namaMedan] = $data;
+				$this->papar->keterangan[$myTable][$namaMedan] = $data;
 		endforeach;
 		endforeach;
 

@@ -2,7 +2,7 @@
 
 class Semakan extends Kawal 
 {
-#***********************************************************************************************************
+#==========================================================================================
 	public function __construct() 
 	{
 		parent::__construct();
@@ -17,7 +17,8 @@ class Semakan extends Kawal
 		$this->_pptBrgAm = array(328,334,335,393);
 		$this->_pptBrgAm2 = array(890);
 	}
-
+#==========================================================================================
+#-------------------------------------------------------------------------------------------
 	private function semakKawalProses($sv, $kawalID, $prosesID, $cariKawal, $cariProses)
 	{
 		//echo '<pre>$kawalID='; print_r($kawalID) . '<hr>'; # data kawalan
@@ -196,7 +197,7 @@ class Semakan extends Kawal
 		endif; # tamat semak if (isset($this->papar->prosesID) && $this->papar->prosesID != null):
 //*/
 	} # semakKawalProses($sv, $kawalID, $prosesID, $cariKawal, $cariProses)
-
+#-------------------------------------------------------------------------------------------
 	public function index($cetak = null)
 	{
 		# dapatkan semua data
@@ -222,7 +223,7 @@ class Semakan extends Kawal
 			$this->papar->baca($this->papar->_folder . 'index', 0);
 		//*/
 	}
-
+#-------------------------------------------------------------------------------------------
 	function ubah($sv=null, $cariID = null, $mula = null, $akhir = null, $cetak = null, $peratus = 0)
 	{	//echo '<br>Anda berada di class Cprosesan extends Kawal:ubah($cari,$mula,$akhir,$cetak, $peratus)<br>';
 		# setkan semua pembolehubah
@@ -278,7 +279,7 @@ class Semakan extends Kawal
 			$this->papar->baca($this->papar->_folder . 'ubah', 0);
 		//*/
 	}# tamat function ubah($sv, $cariID = null, $mula = null, $akhir = null, $cetak = null)
-
+#-------------------------------------------------------------------------------------------
 	public function ubahCetak($sv)
 	{
 		//echo '<pre>$_POST->', print_r($_POST, 1) . '</pre>';
@@ -289,7 +290,7 @@ class Semakan extends Kawal
 		$lokasi = 'location: ' . URL . $this->papar->dataAm . $dataID . '/2010/2012';
 		header($lokasi);
 	}
-
+#-------------------------------------------------------------------------------------------
 	public function simpan()
     { 
 		$sv = bersih($_POST['semasa']['sv']);
@@ -421,11 +422,9 @@ class Semakan extends Kawal
 			# pergi ke fail analisis di PAPAR
 			$this->papar->paparNilai = bersih($_POST['paparNilai']) == 'Tidak' ? '-' : '+';
 			$this->papar->baca('semakan/analisis', 1);//*/
-
 		}
-
     }
-
+#-------------------------------------------------------------------------------------------
 	public function ubahSimpan($sv, $dataID)
     {
 		$myJadual['proses'] = $this->senarai_jadual($sv); # senarai jadual
@@ -477,7 +476,7 @@ class Semakan extends Kawal
         //$this->lihat->baca('kawalan/ubah/' . $dataID);
         header('location: ' . URL . 'kawalan/ubah/' . $dataID);
     }
-
+#-------------------------------------------------------------------------------------------
 	public function tambah($sv=null, $cariID = null, $mula = null, $akhir = null, $cetak = null)
 	{
         # senaraikan tatasusunan jadual dan setkan pembolehubah
@@ -540,7 +539,7 @@ class Semakan extends Kawal
 			$this->papar->baca($this->papar->_folder . 'ubah', 0);
 		//*/
 	}
-
+#-------------------------------------------------------------------------------------------
 	public function tambahSimpan($dataID) 
 	{
 		$myJadual['proses'] = $this->senarai_jadual($sv); # senarai jadual
@@ -574,7 +573,7 @@ class Semakan extends Kawal
 		//echo 'location: ' . URL . 'kawalan/ubah/' . $dataID;
 		header('location: ' . URL . 'kawalan/ubah/' . $dataID);
 	}
-
+#-------------------------------------------------------------------------------------------
 	private function senarai_jadual($sv)
 	{
 		# senaraikan tatasusunan jadual prosesan
@@ -630,7 +629,7 @@ class Semakan extends Kawal
 
 		return $myJadual;
 	}
-
+#-------------------------------------------------------------------------------------------
 	private function kod_produk() # khas untuk survey 205
 	{
 		# senaraikan tatasusunan jadual prosesan
@@ -641,7 +640,7 @@ class Semakan extends Kawal
 
 		return $myJadual;
 	}
-
+#-------------------------------------------------------------------------------------------
 	private function paparIO($sv, $paparID, $cari) 
 	{# semak IO
 		if ($sv=='205') 
@@ -699,7 +698,7 @@ class Semakan extends Kawal
 		elseif ($sv=='206') {}
 		else {}
 	}
-
+#-------------------------------------------------------------------------------------------
 	private function semakYangAda($sv, $paparID, $cari) 
 	{
 		$this->papar->paparID = $cari['id'];
@@ -790,7 +789,7 @@ class Semakan extends Kawal
 		}
 
 	}
-
+#-------------------------------------------------------------------------------------------
 	private function semak_produk($cari) # khas untuk survey 205
 	{
 		$medan = '*';
@@ -839,7 +838,7 @@ class Semakan extends Kawal
 
 		//echo '<pre>$this->papar->kod_produk='; print_r($this->papar->kod_produk) . '<pre>';
 	}
-
+#-------------------------------------------------------------------------------------------
 	private function cari_keterangan_medan($sv, $kesID)
 	{
 		$senarai = Borang::cariKeterangan($kesID);
@@ -858,7 +857,7 @@ class Semakan extends Kawal
 		}# tamat ulang table
 
 	}
-
+#-------------------------------------------------------------------------------------------
 	private function semak_prosesMedan($sv, $prosesData, $jadual)
 	{
 		$this->cari_keterangan_medan($sv, $prosesData); 
@@ -879,7 +878,7 @@ class Semakan extends Kawal
 		//echo "line904: bilMedan : $bilMedan <br>";
 		//echo "905:<pre>:\$proses2:", print_r($this->papar->dataAsal, 1) . "</pre>";
 	}
-
+#-------------------------------------------------------------------------------------------
 	private function semak_aset($asetIndustri, $aset, $paparID) 
 	{# khas untuk soalan aset
 		//echo "<pre>880:senaraiAset:", print_r($asetIndustri, 1) . '| jadual:', print_r($aset, 1) . "<br>";
@@ -906,7 +905,7 @@ class Semakan extends Kawal
 		endforeach;
 
 	}
-
+#-------------------------------------------------------------------------------------------
 	private function semak_staf($jadualStaf, $prosesID)
 	{# khas untuk soalan staf
 			$jenisPekerjaan = array(0=>'Pemilik(ROB)-1',1=>'Pekerja keluarga(ROB)-2',
@@ -920,7 +919,7 @@ class Semakan extends Kawal
 		$this->papar->kod_produk['teamgenius'] = 
 			Borang::borangStaf($this->papar->kod_produk['pekerjaan']);
 	}
-
+#-------------------------------------------------------------------------------------------
 	private function cdt_pecah_soalan($Am,$A,$B,$C,$paparID)
 	{
 		if(isset($paparID[$A][0]) ):
@@ -935,7 +934,7 @@ class Semakan extends Kawal
 			}# tamat ulang tatasusunan
 		endif;
 	}
-
+#-------------------------------------------------------------------------------------------
 	private function icdt_pecah_soalan($paparID)
 	{
 		if(isset($paparID['data_icdt2012_asas'][0]) ):
@@ -949,5 +948,6 @@ class Semakan extends Kawal
 			}# tamat ulang tatasusunan
 		endif;
 	}
-#***********************************************************************************************************
+#-------------------------------------------------------------------------------------------
+#==========================================================================================
 }
